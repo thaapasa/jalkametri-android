@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/horizontal_fill_vwrap"
+  android:gravity="center_horizontal">
+
+    <Button android:text="" android:drawableLeft="@drawable/arrow_left" style="@style/button_wrap"
+      android:layout_gravity="left|center_vertical" android:onClick="onPreviousClick" />
+
+    <Button android:text="" android:drawableLeft="@drawable/calendar" style="@style/button_wrap"
+      android:layout_gravity="center|center_vertical" android:onClick="onSelectDayClick" />
+
+    <LinearLayout style="@style/vertical_wrap" android:layout_gravity="center" android:layout_weight="1" android:layout_width="0dip">
+      <TextView android:id="@+id/browser_title" android:text="" style="@style/simple_text" android:layout_gravity="center_horizontal|center_vertical"
+        android:gravity="center" />
+      <TextView android:id="@+id/browser_subtitle" android:text="" style="@style/small_text" android:layout_gravity="center_horizontal|center_vertical"
+        android:gravity="center" />
+    </LinearLayout>
+
+    <Button android:text="" style="@style/button_wrap" android:drawableRight="@drawable/target"
+      android:layout_gravity="center|center_vertical" android:onClick="onTodayClick" />
+
+    <Button android:text="" android:drawableRight="@drawable/arrow_right" style="@style/button_wrap"
+      android:layout_gravity="right|center_vertical" android:onClick="onNextClick" />
+
+</LinearLayout>

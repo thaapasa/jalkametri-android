@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:fillViewport="true" style="@style/fill_parent">
+
+  <TableLayout style="@style/fill_parent"
+    android:stretchColumns="1">
+
+    <TableRow>
+
+      <ImageView android:id="@+id/icon" android:src="@drawable/drink_whisky" />
+
+      <LinearLayout style="@style/vertical_wrap_hfill">
+
+        <TextView android:id="@+id/name" android:text="Drink name"
+          style="@style/simple_text" />
+        <TextView android:id="@+id/strength" android:text="42.0 %"
+          style="@style/small_text" />
+
+        <TextView android:id="@+id/size_name" android:text="Drink size"
+          style="@style/simple_text" />
+        <TextView android:id="@+id/size" android:text="0.03 l"
+          style="@style/small_text" />
+
+        <TextView android:id="@+id/portions" android:text="1.3 portions"
+          style="@style/simple_text" />
+
+        <TextView android:id="@+id/date" android:text="13.7.2010 15.10"
+          style="@style/small_text" />
+
+      </LinearLayout>
+    </TableRow>
+
+    <TableRow>
+      <TextView android:id="@+id/comment" android:text="Comment"
+        style="@style/info_text" android:layout_marginTop="5dp"
+        android:layout_span="2" />
+    </TableRow>
+
+    <TableRow>
+      <Button android:id="@+id/ok" android:text="@string/ok"
+        style="@style/button_main" android:drawableLeft="@drawable/drink"
+        android:layout_span="2" android:layout_marginTop="5dp" />
+    </TableRow>
+  </TableLayout>
+
+</ScrollView>

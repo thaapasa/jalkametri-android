@@ -1,0 +1,21 @@
+-----------------------------------------------------------
+1. Test that jAlcoMeter works!
+-----------------------------------------------------------
+ - Set API level to 7, remove installLocation="auto",
+   set targetSdkVersion="7"
+ - Check that everything compiles and works
+===========================================================
+2. Set PrivateData settings: 
+-----------------------------------------------------------
+ - DEVELOPER_FUNCTIONALITY_ENABLED = false
+ - LOGGING_ENABLED = false
+ - ACRA_ERROR_REPORTING_ENABLED = false
+ - LICENSE_PRODUCT_ID = JALCOMETER_REAL_LICENSE_PRODUCT_ID
+===========================================================
+3. Check that debuggable=false in AndroidManifest
+===========================================================
+4. Set API level to 8, set installLocation="auto"
+   in AndroidManifest, set targetSdkVersion="8"
+===========================================================
+5. Publish!
+-----------------------------------------------------------

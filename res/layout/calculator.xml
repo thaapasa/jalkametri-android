@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/main_view" android:fillViewport="true" style="@style/fill_parent">
+
+  <TableLayout android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:stretchColumns="*">
+
+    <!-- Add components to the drink -->
+    <TextView android:text="@string/calc_add_component" style="@style/subtitle_text" />
+
+    <!-- Strength of the component -->
+    <TableRow>
+      <TextView android:text="@string/drink_detail_strength"
+        style="@style/table_text" />
+      <EditText android:id="@+id/strength_edit" android:text="40"
+        style="@style/table_edit" android:inputType="numberDecimal"
+        android:maxLength="6" />
+      <TextView android:text="@string/calc_str_unit" style="@style/simple_text" />
+    </TableRow>
+
+    <!-- Volume of the component -->
+    <TableRow>
+      <TextView android:text="@string/drink_detail_size" style="@style/table_text" />
+      <EditText android:id="@+id/volume_edit" android:text="0.2"
+        style="@style/table_edit" android:inputType="numberDecimal"
+        android:maxLength="6" />
+      <TextView android:text="@string/calc_vol_unit" style="@style/simple_text" />
+    </TableRow>
+
+    <!-- Add button -->
+    <Button android:text="@string/calc_add" style="@style/button_main"
+      android:onClick="onAddPressed" />
+
+    <!-- The mixture -->
+    <TextView android:text="@string/calc_mixture" style="@style/subtitle_text" />
+
+    <!-- Strength of the mixture -->
+    <TableRow>
+      <TextView android:text="@string/drink_detail_strength"
+        style="@style/table_text" />
+      <TextView android:id="@+id/strength_show" android:text="0.0"
+        style="@style/simple_text_right" />
+      <TextView android:text="@string/calc_str_unit" style="@style/simple_text" />
+    </TableRow>
+    <!-- Volume of the mixture -->
+    <TableRow>
+      <TextView android:text="@string/drink_detail_size" style="@style/table_text" />
+      <TextView android:id="@+id/volume_show" android:text="0.0"
+        style="@style/simple_text_right" android:layout_gravity="right" />
+      <TextView android:text="@string/calc_vol_unit" style="@style/simple_text" />
+    </TableRow>
+    <!-- Portions in the mixture -->
+    <TableRow>
+      <TextView android:text="@string/calc_portions" style="@style/table_text" />
+      <TextView android:id="@+id/portions_show" android:text="0.0"
+        style="@style/simple_text_right" />
+    </TableRow>
+
+    <!-- Clear and OK buttons -->
+    <LinearLayout style="@style/horizontal_fill_vwrap"
+      android:weightSum="10" android:layout_marginTop="10dp">
+      <Button android:text="@string/calc_ok" style="@style/button_wrap"
+        android:onClick="onOKPressed" android:layout_weight="5" />
+      <Button android:text="@string/calc_clear" style="@style/button_wrap"
+        android:onClick="onClearPressed" android:layout_weight="5" />
+    </LinearLayout>
+
+  </TableLayout>
+
+</ScrollView>
+  

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/main_view" style="@style/fill_parent"
+  android:fillViewport="true">
+
+  <TableLayout style="@style/fill_parent"
+    android:stretchColumns="1">
+
+    <TableRow>
+      <TextView android:text="@string/category_name" style="@style/table_text" />
+      <EditText android:id="@+id/name_edit" android:text="Spirits"
+        style="@style/table_edit" android:inputType="text"
+        android:layout_span="2" />
+    </TableRow>
+
+    <TableRow>
+      <TextView android:text="@string/category_icon" style="@style/table_text" />
+      <fi.tuska.jalkametri.gui.IconView
+        android:id="@+id/icon" style="@style/table_icon" android:src="@drawable/drink_generic"
+        android:layout_span="2" android:clickable="true"
+        android:onClick="onClickIcon" />
+    </TableRow>
+
+    <TableRow>
+      <Button android:text="@string/action_save" android:id="@+id/save_button"
+        style="@style/button_main" android:drawableLeft="@drawable/drink"
+        android:layout_span="2" android:onClick="onOKPressed" />
+    </TableRow>
+
+  </TableLayout>
+
+</ScrollView>

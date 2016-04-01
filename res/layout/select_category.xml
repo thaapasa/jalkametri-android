@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/main_view" style="@style/vertical_fill"
+  android:weightSum="10">
+
+<!--
+  <fi.tuska.jalkametri.gui.DragDropGridView
+  <GridView 
+--> 
+  <GridView 
+    android:id="@+id/list" android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:numColumns="auto_fit"
+    android:verticalSpacing="5dp" android:horizontalSpacing="5dp"
+    android:gravity="center_horizontal" android:stretchMode="columnWidth"
+    android:columnWidth="100dp" android:layout_gravity="center_horizontal"
+    android:layout_weight="7" />
+
+  <TextView android:text="@string/title_previous_drinks" style="@style/subtitle_text" />
+
+  <GridView android:id="@+id/previous_list"
+    android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:numColumns="auto_fit" android:verticalSpacing="5dp"
+    android:horizontalSpacing="5dp" android:gravity="center_horizontal"
+    android:stretchMode="columnWidth" android:columnWidth="100dp"
+    android:layout_gravity="center_horizontal" android:layout_weight="3" />
+
+</LinearLayout>

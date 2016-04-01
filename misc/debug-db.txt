@@ -1,0 +1,30 @@
+To fire up SQL debugging console:
+---------------------------------
+Host shell> adb -s emulator-5554 shell
+# sqlite3 /data/data/fi.tuska.jalkametri/databases/jalkametri.db
+sqlite> .tables
+sqlite> SELECT * FROM drinks;
+sqlite> .exit
+
+# sqlite3 /data/data/fi.tuska.jalkametri/databases/jalkametri.unit.db
+
+
+
+Some test clauses
+-----------------
+
+SELECT * FROM history;
+
+-- NOTE! These do not take date changing settings into account
+SELECT DISTINCT(time) FROM history;
+SELECT SUBSTR(time, 0, 11) FROM history;
+SELECT DISTINCT(SUBSTR(time, 0, 11)) FROM history;
+SELECT COUNT(DISTINCT(SUBSTR(time, 0, 11))) FROM history;
+
+-- These assume that the date starts at 06:00
+SELECT DATETIME(time, '-06:00') FROM history;
+SELECT SUBSTR(DATETIME(time, '-06:00'), 0, 11) FROM history;
+SELECT DISTINCT(SUBSTR(DATETIME(time, '-06:00'), 0, 11)) FROM history;
+SELECT COUNT(DISTINCT(SUBSTR(DATETIME(time, '-06:00'), 0, 11))) FROM history;
+
+SELECT TRIM(SUBSTR(DATETIME(time, '-06:00'), 0, 11)) AS thedate FROM history;

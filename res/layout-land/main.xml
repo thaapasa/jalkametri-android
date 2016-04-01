@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/main_view" style="@style/vertical_fill"
+  android:weightSum="10">
+
+  <LinearLayout style="@style/horizontal_wrap"
+    android:layout_width="fill_parent">
+
+    <!-- Alcohol meter -->
+    <!--
+    <fi.tuska.jalkametri.gui.AlcoholLevelView
+    />
+    <ImageView 
+    />
+    -->
+    <fi.tuska.jalkametri.gui.AlcoholLevelView
+      android:id="@+id/status_image" style="@style/wrap_content"
+      android:src="@drawable/alcoholmeter" android:layout_gravity="center"
+      android:onClick="toastAlcoholStatus" />
+
+    <!-- Car image and texts -->
+    <LinearLayout style="@style/vertical_wrap"
+      android:layout_gravity="center_vertical">
+      <ImageView android:id="@+id/status_car" android:src="@drawable/car_ok"
+        style="@style/wrap_content" android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop" android:onClick="showDrivingStatus" />
+        
+      <!-- To soberity -->
+      <TextView android:text="@string/main_soberity" style="@style/simple_text"
+        android:layout_gravity="center_horizontal" />
+      <TextView android:id="@+id/sober_text" android:text="@string/sober"
+        style="@style/simple_text" android:layout_gravity="center_horizontal"
+        android:gravity="center" />
+
+      <!-- Portions -->
+      <LinearLayout style="@style/horizontal_wrap">
+        <TextView android:text="@string/main_portions" style="@style/small_text" />
+        <TextView android:id="@+id/portions_text" android:text="@string/portions"
+          style="@style/small_text" android:layout_marginLeft="15dp" />
+      </LinearLayout>
+
+      <!-- Drinking day -->
+      <LinearLayout style="@style/horizontal_wrap">
+        <TextView android:text="@string/main_drinking_date"
+          style="@style/small_text" />
+        <TextView android:id="@+id/drink_date_text"
+          android:text="@string/drink_date_def" style="@style/small_text"
+          android:layout_marginLeft="15dp" />
+      </LinearLayout>
+    </LinearLayout>
+
+    <!-- Dummy view for development -->
+    <View android:layout_width="0px" android:layout_height="0px"
+      android:visibility="invisible" android:id="@+id/development_view" />
+
+    <!-- Main buttons -->
+    <LinearLayout style="@style/vertical_wrap"
+      android:layout_marginLeft="5dp" android:layout_width="fill_parent"
+      android:layout_gravity="center">
+      <Button android:text="@string/menu_drink" style="@style/button_main"
+        android:drawableLeft="@drawable/drink" android:onClick="showAddDrink" />
+      
+      <LinearLayout style="@style/horizontal_fill_vwrap">
+        <Button android:drawableLeft="@drawable/maybe"
+          android:text="" android:layout_width="wrap_content"
+          android:layout_height="wrap_content" android:layout_gravity="right|center_vertical"
+          android:onClick="showHelp" />
+        <Button android:text="@string/menu_history" style="@style/button_main"
+          android:drawableLeft="@drawable/calendar" android:onClick="showDrinkHistory" />
+      </LinearLayout>
+      <LinearLayout style="@style/horizontal_fill_vwrap">
+        <Button android:drawableLeft="@drawable/calculator"
+          android:text="" android:layout_width="wrap_content"
+          android:layout_height="wrap_content" android:layout_gravity="right|center_vertical"
+          android:onClick="showDrinkCalculator" />
+        <Button android:text="@string/menu_statistics" style="@style/button_main"
+          android:drawableLeft="@drawable/stats" android:onClick="showStatistics" />
+      </LinearLayout>
+      <!--
+      <Button android:text="@string/menu_prefs" style="@style/button_main"
+        android:drawableLeft="@drawable/prefs" android:onClick="showPreferences" />
+      -->
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <!-- Prompt to add favourites -->
+  <TextView android:id="@+id/add_favourites_prompt"
+    android:text="@string/prompt_add_favourite" style="@style/simple_text"
+    android:gravity="center" android:layout_width="fill_parent"
+    android:layout_height="wrap_content" />
+
+  <!-- The favourites list -->
+  <GridView android:id="@+id/favourites" android:layout_width="fill_parent"
+    android:layout_height="0dp" android:numColumns="auto_fit"
+    android:verticalSpacing="5dp" android:horizontalSpacing="5dp"
+    android:gravity="center_horizontal" android:stretchMode="columnWidth"
+    android:columnWidth="100dp" android:layout_gravity="center_horizontal"
+    android:layout_weight="10" />
+
+</LinearLayout>

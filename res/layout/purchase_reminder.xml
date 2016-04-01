@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/main_view" style="@style/fill_parent"
+  android:fillViewport="true">
+
+  <LinearLayout style="@style/vertical_wrap_hfill">
+
+    <!-- Logo and title -->
+    <LinearLayout style="@style/horizontal_wrap"
+      android:layout_gravity="center">
+
+      <!-- Logo -->
+      <ImageView android:src="@drawable/launcher" style="@style/wrap_content"
+        android:layout_gravity="top" />
+
+      <!-- Title -->
+      <LinearLayout style="@style/vertical_wrap"
+        android:layout_gravity="center" android:layout_marginLeft="15dp">
+        <TextView android:text="@string/title_reminder" style="@style/simple_text" />
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Reminder texts -->
+    <TextView android:text="@string/reminder_text"
+      style="@style/simple_text" android:layout_marginTop="10dip"
+      android:layout_marginBottom="10dip" />
+
+    <TextView android:text="@string/reminder_benefits"
+      style="@style/small_text" android:layout_marginTop="10dip"
+      android:layout_marginBottom="10dip" android:layout_gravity="center"/>
+    
+    <LinearLayout style="@style/horizontal_fill_vwrap"
+      android:weightSum="10">
+
+      <Button android:text="@string/reminder_buy" android:id="@+id/ok_button"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:onClick="purchaseLicense" android:layout_marginLeft="10dip"
+        android:layout_marginRight="5dip" android:layout_weight="5" />
+
+      <Button android:text="@string/reminder_discard" 
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:onClick="dontPurchase" android:layout_marginLeft="5dip"
+        android:layout_marginRight="10dip" android:layout_weight="5" />
+    </LinearLayout>
+
+    <TextView android:text="@string/reminder_repetition_info"
+      style="@style/small_text" android:layout_marginTop="10dip" 
+      android:layout_marginBottom="10dip" android:layout_gravity="center"/>
+    
+  </LinearLayout>
+
+</ScrollView>
+  

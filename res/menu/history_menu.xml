@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" android:name="Context menu">
+
+  <item android:id="@+id/action_clear_day" android:title="@string/menu_clear_day" />
+  <item android:id="@+id/action_add_drink" android:title="@string/menu_add_drink_for_day" />
+  <item android:id="@+id/action_help" android:title="@string/menu_help" />
+
+</menu>

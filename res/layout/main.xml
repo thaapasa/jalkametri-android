@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/main_view" style="@style/vertical_fill"
+  android:weightSum="10" android:baselineAligned="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical">
+
+  <LinearLayout style="@style/horizontal_wrap"
+    android:layout_width="fill_parent" android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp">
+
+    <!-- Gauge and texts -->
+    <LinearLayout style="@style/vertical_wrap"
+      android:layout_gravity="center_vertical|left">
+    
+      <!--
+      <ImageView 
+      />
+      <fi.tuska.jalkametri.gui.AlcoholLevelView 
+      />
+      -->
+      <fi.tuska.jalkametri.gui.AlcoholLevelView
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:id="@+id/status_image" android:src="@drawable/alcoholmeter"
+        android:scaleType="centerInside" android:layout_gravity="center_vertical|left"
+        android:onClick="toastAlcoholStatus" />
+
+      <LinearLayout style="@style/horizontal_wrap_center">
+        <TextView android:text="@string/main_portions" style="@style/small_text" />
+        <TextView android:id="@+id/portions_text" android:text="@string/portions"
+          style="@style/small_text" android:layout_marginLeft="15dp" />
+      </LinearLayout>
+
+      <LinearLayout style="@style/horizontal_wrap_center">
+        <TextView android:text="@string/main_drinking_date"
+          style="@style/small_text" />
+        <TextView android:id="@+id/drink_date_text"
+          android:text="@string/drink_date_def" style="@style/small_text"
+          android:layout_marginLeft="15dp" />
+      </LinearLayout>
+    </LinearLayout>
+
+    <!-- Dummy view for development -->
+    <View android:layout_width="0px" android:layout_height="0px"
+      android:visibility="invisible" android:id="@+id/development_view" />
+    
+    <!-- Car image and soberity text -->
+    <LinearLayout style="@style/vertical_wrap"
+      android:layout_gravity="center_vertical|right">
+      <ImageView android:id="@+id/status_car" android:src="@drawable/car_ok"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" android:scaleType="centerCrop"
+        android:onClick="showDrivingStatus" />
+      <TextView android:text="@string/main_soberity" style="@style/simple_text"
+        android:layout_gravity="center_horizontal" />
+      <TextView android:id="@+id/sober_text" android:text="@string/sober"
+        style="@style/simple_text" android:layout_gravity="center_horizontal"
+        android:gravity="center" />
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <!-- Main buttons -->
+  <LinearLayout style="@style/horizontal_fill_vwrap"
+    android:layout_marginTop="10dp" android:weightSum="10">
+    <Button android:drawableLeft="@drawable/maybe"
+      android:text="" android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:layout_gravity="right|center_vertical"
+      android:onClick="showHelp" />
+    <Button android:text="@string/menu_drink" style="@style/button_main"
+      android:drawableLeft="@drawable/drink" android:layout_weight="10"
+      android:onClick="showAddDrink" android:layout_gravity="left|center_vertical" />
+    <Button android:drawableLeft="@drawable/calculator"
+      android:text="" android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:layout_gravity="right|center_vertical"
+      android:onClick="showDrinkCalculator" />
+  </LinearLayout>
+  <LinearLayout style="@style/horizontal_fill_vwrap"
+    android:layout_marginTop="10dp" android:weightSum="10">
+    <Button android:text="@string/menu_history" style="@style/button_main"
+      android:drawableLeft="@drawable/calendar" android:onClick="showDrinkHistory"
+      android:layout_weight="5" />
+    <Button android:text="@string/menu_statistics" style="@style/button_main"
+      android:drawableLeft="@drawable/stats" android:onClick="showStatistics"
+      android:layout_weight="5" />
+  </LinearLayout>
+  <!--
+  <Button android:text="@string/menu_prefs" style="@style/button_main"
+    android:drawableLeft="@drawable/prefs" android:onClick="showPreferences" />
+    -->
+
+  <!-- Prompt to add favourites -->
+  <TextView android:id="@+id/add_favourites_prompt"
+    android:text="@string/prompt_add_favourite" style="@style/simple_text"
+    android:gravity="center" android:layout_width="fill_parent"
+    android:layout_height="wrap_content" />
+
+  <!-- The favourites list -->
+  <GridView android:id="@+id/favourites" android:layout_width="fill_parent"
+    android:layout_height="0dp" android:numColumns="auto_fit"
+    android:verticalSpacing="5dp" android:horizontalSpacing="5dp"
+    android:gravity="center_horizontal" android:stretchMode="columnWidth"
+    android:columnWidth="100dp" android:layout_gravity="center_horizontal"
+    android:layout_weight="10" />
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+hdpi = mdpi * 1.5
+ldpi = mdpi * 0.75
+
+Example + app icon:
+ldpi: 36x36
+mdpi: 48x48
+hdpi: 72x72
+
+Drink icons & car image: 
+ldpi: 60x60
+mdpi: 80x80
+hdpi: 120x120
+
+Tool icons:
+ldpi: 24x24
+mdpi: 32x32
+hdpi: 48x48
+
+Smaller icons:
+ldpi: 21x21
+mdpi: 28x28
+hdpi: 42x42
+
+Alcohol gauge:
+ldpi: 150x120
+mdpi: 200x160
+hdpi: 300x240
+
+Gauge meter:
+ldpi: 58x26
+mdpi: 77x35
+hdpi: 115x52

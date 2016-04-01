@@ -1,0 +1,44 @@
+1.10    2011-04-25
+------------------
+Preparation for launching on Android Market: 
+- images have been replaces with free images
+- sounds have been removed
+- drink library can be modified
+
+
+1.9     2011-04-13
+------------------
+Added a legal disclaimer and about texts.
+
+
+1.8     2011-04-12
+------------------
+Fixed a bug that caused the drinks to be shown on the wrong date 
+during the morning hours (before the defined start of day).  
+
+
+1.7    2010-10-28
+------------------
+Created index to the history table so that queries are faster
+
+
+1.6    2010-10-27
+------------------
+Added week number showing to history
+
+
+1.5    2010-09-19
+------------------
+Extended drink library
+
+
+1.4    2010-09-06
+------------------
+Added total/weekly portions counters (not yet cached)
+
+
+1.3    2010-08-08
+------------------
+Can't remember what this version was all about.
+Or the earlier versions...
+
