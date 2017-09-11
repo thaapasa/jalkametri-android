@@ -1,1 +1,7 @@
 .settings
+*.iml
+PrivateData.*
+.idea
+/gen
+/out
+/tests/gen
