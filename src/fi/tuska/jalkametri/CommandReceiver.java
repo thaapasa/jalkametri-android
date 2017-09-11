@@ -38,7 +38,7 @@ import fi.tuska.jalkametri.util.TimeUtil;
  */
 public class CommandReceiver extends BroadcastReceiver {
 
-    public static final String ACTION_DRINK = "fi.tuska.jalkametri.ACTION_DRINK";
+    private static final String ACTION_DRINK = "fi.tuska.jalkametri.ACTION_DRINK";
 
     private static final String KEY_DRINK = "drink";
 
@@ -63,7 +63,7 @@ public class CommandReceiver extends BroadcastReceiver {
      * Custom actions
      * ----------------------------------------------------------
      */
-    public void consumeDrink(Context context, DrinkEvent event) {
+    private void consumeDrink(Context context, DrinkEvent event) {
         DBAdapter adapter = new DBAdapter(context);
         History history = new HistoryDB(adapter, context);
 
@@ -84,7 +84,7 @@ public class CommandReceiver extends BroadcastReceiver {
         adapter.close();
     }
 
-    public static PendingIntent createDrinkIntent(DrinkEvent drink, Context context, int index) {
+    static PendingIntent createDrinkIntent(DrinkEvent drink, Context context, int index) {
         Intent intent = new Intent(index > 0 ? ACTION_DRINK + "_" + index : ACTION_DRINK);
         intent.putExtra(KEY_DRINK, drink);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, intent,
