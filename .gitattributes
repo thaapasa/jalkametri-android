@@ -129,3 +129,6 @@ package.json eol=lf
 *.cache binary
 *.class binary
 *.bin binary
+
+# Specific files
+proguard.cfg text
