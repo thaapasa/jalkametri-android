@@ -132,3 +132,4 @@ package.json eol=lf
 
 # Specific files
 proguard.cfg text
+gradlew binary
