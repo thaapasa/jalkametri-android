@@ -85,11 +85,13 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         type = (Type) intent.getSerializableExtra(TYPE);
 
         setContentView(R.layout.statistics_daily);
-        super.onCreate(savedInstanceState);
+        findMainView();
+        populateViews();
 
         graphView = (GraphView) findViewById(R.id.graph);
         dateTitle = (TextView) findViewById(R.id.browser_title);

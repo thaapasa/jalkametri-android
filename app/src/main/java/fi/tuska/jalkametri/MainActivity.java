@@ -108,11 +108,12 @@ public class MainActivity extends JalkametriDBActivity implements GUIActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.main);
-        super.onCreate(savedInstanceState);
-
         LogUtil.i(TAG, "Creating jAlkaMetri application");
         LogUtil.d(TAG, "Assertions are %s", (AssertionUtils.isAssertionsEnabled() ? "on" : "off"));
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        findMainView();
 
         this.history = new HistoryDB(adapter, this);
         this.meter = new AlcoholLevelMeter(history, this);
@@ -153,11 +154,11 @@ public class MainActivity extends JalkametriDBActivity implements GUIActivity {
         updateUI();
 
         if (!prefs.isDisclaimerRead()) {
-            CommonActivities.showDisclaimer(this);
+            //CommonActivities.showDisclaimer(this);
         }
 
         // Force widget update, in case widget updating thread is dead
-        JalkametriWidget.triggerRecalculate(this, adapter);
+        //JalkametriWidget.triggerRecalculate(this, adapter);
 
         if (isFirstRunAfterCreate()) {
             PurchaseReminderHandler.showReminderIfNecessary(this);

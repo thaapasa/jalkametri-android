@@ -1,18 +1,18 @@
 /**
  * Copyright 2006-2011 Tuukka Haapasalo
- * 
+ *
  * This file is part of jAlkaMetri.
- * 
+ *
  * jAlkaMetri is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
- * 
+ *
  * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,7 +41,7 @@ import fi.tuska.jalkametri.util.LogUtil;
 /**
  * Activity for showing an about screen. The screen shows information about the
  * software.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public class AboutActivity extends JalkametriActivity implements GUIActivity {
@@ -73,7 +73,9 @@ public class AboutActivity extends JalkametriActivity implements GUIActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
-		handler = new Handler();
+		findMainView();
+
+		handler = new Handler(getMainLooper());
 		billingObserver = new JalkametriPurchaseObserver(this, handler);
 		versionNumber = (TextView) findViewById(R.id.version_number);
 		versionText = (TextView) findViewById(R.id.version_info);

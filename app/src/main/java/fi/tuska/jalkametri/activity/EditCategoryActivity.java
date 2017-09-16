@@ -1,18 +1,18 @@
 /**
  * Copyright 2006-2011 Tuukka Haapasalo
- * 
+ *
  * This file is part of jAlkaMetri.
- * 
+ *
  * jAlkaMetri is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
- * 
+ *
  * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,10 +40,10 @@ import fi.tuska.jalkametri.util.ObjectCallback;
  * Selects the drink details. This activity can be used as part of the drink
  * selecting path, or it can be fired up directly with the known drink
  * details.
- * 
+ *
  * The full drink selecting path is SelectDrinkCategoryActivity -
  * SelectDrinkActivity - SelectDrinkSizeActivity - SelectDrinkDetailsActivity.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public class EditCategoryActivity extends JalkametriActivity {
@@ -93,8 +93,9 @@ public class EditCategoryActivity extends JalkametriActivity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.category_details);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.category_details);
+        findMainView();
 
         Bundle extras = getIntent().getExtras();
         selection = (CategorySelection) extras.get(KEY_SELECTED_CATEGORY);

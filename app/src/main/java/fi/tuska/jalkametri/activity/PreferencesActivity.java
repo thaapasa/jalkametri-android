@@ -1,15 +1,15 @@
 /**
  * Copyright 2006-2011 Tuukka Haapasalo
- * 
+ *
  * This file is part of jAlkaMetri.
- * 
+ *
  * jAlkaMetri is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with jAlkaMetri (LICENSE.txt). If not, see
  * <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ import fi.tuska.jalkametri.util.NumberUtil;
 
 /**
  * An activity for editing your preferences.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public class PreferencesActivity extends JalkametriDBActivity implements GUIActivity {
@@ -59,7 +59,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
 
     private boolean allowLeave = true;
     private boolean backRequested = false;
-    
+
     private static final String TAG = "PreferencesActivity";
 
     /*
@@ -82,8 +82,9 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.prefs);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.prefs);
+        findMainView();
 
         Resources res = getResources();
         languageValues = res.getStringArray(R.array.language_values);
@@ -377,7 +378,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
             recalculateHistoryPortions();
         }
     }
-    
+
     private void recalculateHistoryPortions() {
         allowLeave = false;
         // Recalculate the portions in history database
@@ -385,7 +386,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
             @Override
             public void run() {
                 allowLeave = true;
-                if (backRequested) { 
+                if (backRequested) {
                     PreferencesActivity.super.onBackPressed();
                 }
             }
