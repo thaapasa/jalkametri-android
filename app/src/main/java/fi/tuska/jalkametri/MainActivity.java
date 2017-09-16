@@ -154,11 +154,11 @@ public class MainActivity extends JalkametriDBActivity implements GUIActivity {
         updateUI();
 
         if (!prefs.isDisclaimerRead()) {
-            //CommonActivities.showDisclaimer(this);
+            CommonActivities.showDisclaimer(this);
         }
 
         // Force widget update, in case widget updating thread is dead
-        //JalkametriWidget.triggerRecalculate(this, adapter);
+        JalkametriWidget.triggerRecalculate(this, adapter);
 
         if (isFirstRunAfterCreate()) {
             PurchaseReminderHandler.showReminderIfNecessary(this);
