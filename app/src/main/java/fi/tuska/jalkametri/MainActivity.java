@@ -1,15 +1,15 @@
 /**
  * Copyright 2006-2011 Tuukka Haapasalo
- * 
+ *
  * This file is part of jAlkaMetri.
- * 
+ *
  * jAlkaMetri is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with jAlkaMetri (LICENSE.txt). If not, see
  * <http://www.gnu.org/licenses/>.
  */
@@ -57,7 +57,6 @@ import fi.tuska.jalkametri.gui.AlcoholLevelView;
 import fi.tuska.jalkametri.gui.DrinkDetailsDialog;
 import fi.tuska.jalkametri.gui.NamedIconAdapter;
 import fi.tuska.jalkametri.task.AlcoholLevelMeter;
-import fi.tuska.jalkametri.util.AdUtil;
 import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.DialogUtil;
 import fi.tuska.jalkametri.util.LocalizationUtil;
@@ -66,7 +65,7 @@ import fi.tuska.jalkametri.util.StringUtil;
 
 /**
  * Main activity class: shows status information and links to other activities.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public class MainActivity extends JalkametriDBActivity implements GUIActivity {
@@ -97,8 +96,6 @@ public class MainActivity extends JalkametriDBActivity implements GUIActivity {
     private DrinkEvent shownFavourite;
     private DateFormat wdayFormat;
     private DateFormat timeFormat;
-
-    private final AdUtil adUtil = new AdUtil();
 
     public MainActivity() {
         super(R.string.app_name, R.string.help_main);
@@ -147,16 +144,7 @@ public class MainActivity extends JalkametriDBActivity implements GUIActivity {
         });
         registerForContextMenu(favouritesList);
 
-        adUtil.showAds(this, prefs);
-
         updateFavourites();
-    }
-
-    @Override
-    public void onDestroy() {
-        // Destroy the ads
-        adUtil.destroyAd();
-        super.onDestroy();
     }
 
     @Override
@@ -200,8 +188,6 @@ public class MainActivity extends JalkametriDBActivity implements GUIActivity {
         updateDrinkDateText();
         updateSobriety(status);
         updatePortionsText(status, history);
-
-        adUtil.updateVisibility(prefs);
     }
 
     private void updatePortionsText(DrinkStatus status, History history) {
