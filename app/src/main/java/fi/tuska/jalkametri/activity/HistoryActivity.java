@@ -1,18 +1,18 @@
 /**
  * Copyright 2006-2011 Tuukka Haapasalo
- * 
+ *
  * This file is part of jAlkaMetri.
- * 
+ *
  * jAlkaMetri is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
- * 
+ *
  * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,7 +60,6 @@ import fi.tuska.jalkametri.db.DBAdapter;
 import fi.tuska.jalkametri.db.HistoryDB;
 import fi.tuska.jalkametri.gui.Confirmation;
 import fi.tuska.jalkametri.gui.DrinkDetailsDialog;
-import fi.tuska.jalkametri.gui.FinnishDatePickerDialog;
 import fi.tuska.jalkametri.gui.NamedIconAdapter;
 import fi.tuska.jalkametri.util.Converter;
 import fi.tuska.jalkametri.util.LogUtil;
@@ -69,7 +68,7 @@ import fi.tuska.jalkametri.util.TimeUtil;
 
 /**
  * An activity that shows the user's drinking history, day by day.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public class HistoryActivity extends ListActivity implements GUIActivity, DBActivity {
@@ -292,7 +291,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
             return dialog;
         case Common.DIALOG_SELECT_DATE:
             Calendar cal = timeUtil.getCalendar(day);
-            dialog = new FinnishDatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),
+            dialog = new DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
             return dialog;
         }

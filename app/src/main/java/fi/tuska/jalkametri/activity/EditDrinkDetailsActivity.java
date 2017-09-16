@@ -1,18 +1,18 @@
 /**
  * Copyright 2006-2011 Tuukka Haapasalo
- * 
+ *
  * This file is part of jAlkaMetri.
- * 
+ *
  * jAlkaMetri is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
- * 
+ *
  * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.content.Context;
@@ -50,7 +51,6 @@ import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.data.DrinkStrengthCalculator;
 import fi.tuska.jalkametri.data.IconName;
 import fi.tuska.jalkametri.gui.DrinkSizeSelector;
-import fi.tuska.jalkametri.gui.FinnishDatePickerDialog;
 import fi.tuska.jalkametri.gui.IconPickerDialog;
 import fi.tuska.jalkametri.gui.IconView;
 import fi.tuska.jalkametri.util.LogUtil;
@@ -62,12 +62,12 @@ import fi.tuska.jalkametri.util.TimeUtil;
  * Selects the drink details. This activity can be used as part of the drink
  * selecting path, or it can be fired up directly with the known drink
  * details.
- * 
+ *
  * <p>
  * The full drink selecting path is SelectDrinkCategoryActivity -
  * SelectDrinkTypeActivity - SelectDrinkSizeActivity -
  * EditDrinkDetailsActivity.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public class EditDrinkDetailsActivity extends JalkametriDBActivity {
@@ -451,7 +451,7 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
         @Override
         public void onClick(View v) {
             Calendar cal = timeUtil.getCalendar(selectedDate);
-            FinnishDatePickerDialog fdp = new FinnishDatePickerDialog(
+            DatePickerDialog fdp = new DatePickerDialog(
                 EditDrinkDetailsActivity.this, new OnDateSetListener() {
 
                     @Override

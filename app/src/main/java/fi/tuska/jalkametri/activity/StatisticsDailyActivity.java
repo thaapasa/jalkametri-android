@@ -1,18 +1,18 @@
 /**
  * Copyright 2006-2011 Tuukka Haapasalo
- * 
+ *
  * This file is part of jAlkaMetri.
- * 
+ *
  * jAlkaMetri is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
- * 
+ *
  * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +35,6 @@ import android.widget.TextView;
 import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.dao.DailyDrinkStatistics;
 import fi.tuska.jalkametri.data.DailyStatisticsGraph;
-import fi.tuska.jalkametri.gui.FinnishDatePickerDialog;
 import fi.tuska.jalkametri.gui.GraphView;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.StringUtil;
@@ -43,7 +43,7 @@ import fi.tuska.jalkametri.util.TimeUtil;
 /**
  * Shows statistics about your drinking habits. The truth is often harsh;
  * ignorance bliss.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public class StatisticsDailyActivity extends AbstractStatisticsActivity {
@@ -189,7 +189,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
         LogUtil.d(TAG, "Showing date selection dialog");
         Calendar cal = timeUtil.getCalendar(day);
         // Show a date picker dialog
-        new FinnishDatePickerDialog(this, new OnDateSetListener() {
+        new DatePickerDialog(this, new OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 loadDay(timeUtil.getCalendarFromDatePicker(year, monthOfYear, dayOfMonth)
