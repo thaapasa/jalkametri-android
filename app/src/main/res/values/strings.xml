@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">jAlcoMeter</string>
+    <string name="app_description">jAlcoMeter is a tool for monitoring your drinking habits. If you drink, use
+        jAlcoMeter!
+    </string>
+
+    <string name="menu_drink">Drink!</string>
+    <string name="menu_prefs">Settings</string>
+    <string name="menu_history">History</string>
+    <string name="menu_statistics">Statistics</string>
+    <string name="menu_delete">Remove</string>
+    <string name="menu_modify">Modify</string>
+    <string name="menu_show_info">Show info</string>
+    <string name="menu_drink_modify">Drink</string>
+    <string name="menu_default_drinks">Restore default drinks</string>
+    <string name="menu_add_drink">Add a drink</string>
+    <string name="menu_add_size">Add a size</string>
+    <string name="menu_add_favourite">Add a favorite</string>
+    <string name="menu_clear_day">Remove all drinks from this day</string>
+    <string name="menu_add_drink_for_day">Add a drink to this day</string>
+    <string name="menu_disclaimer">Disclaimer</string>
+    <string name="menu_about">About</string>
+    <string name="menu_add_category">Add a category</string>
+    <string name="menu_show_sizes">Show the sizes</string>
+    <string name="menu_quit">Quit</string>
+    <string name="menu_help">Help!</string>
+
+    <string name="main_soberity">To sobriety:</string>
+    <string name="main_portions">Portions:</string>
+    <string name="main_drinking_date">Drinking day:</string>
+    <string name="portions">0.0 / 0.0 / 0.0</string>
+    <string name="sober">You\'re sober</string>
+    <string name="drink_date_def">Mon 1.1.</string>
+
+    <string name="title_disclaimer">Legal disclaimer</string>
+    <string name="disclaimer_text"><![CDATA[This application is meant for your amusement, and I do not guarantee that the alcohol levels shown in the application have anything to do with the actual reality. I shall in no event be liable for any direct, indirect, incidental, consequential, or exemplary damages caused by the use of this application or by the consumption of alcohol accompanying the use of this application. This application must not be used in a competitory fashion, especially when you have consumed said alcohol.
+    \n\nI am not responsible for the possible intoxication of the users of this application, nor from the consequental hangover. Neither am I responsible for the possible accidents occurring before, during, or after the use of this application. I do not make any guarantees for the preservation of the data collected by jAlcoMeter; after all, software bugs have been known to occur.
+    \n\nI do guarantee, however, that all the data collected by jAlcoMeter stays in your phone - it is never transmitted anywhere. The permissions required by the application are only used for showing the ads, and for purchasing the license.
+    \n\nPlease remember that the blood alcohol level shown by this application is based on calculated approximations that in turn are based on the values given by you, the user; and therefore may or may not be close to the actual reality. I in no event guarantee that you are capable of driving a car, even if the application says that this might be the case.]]></string>
+    <string name="disclaimer_ok">I understand</string>
+    <string name="disclaimer_what">I do not understand</string>
+    <string name="disclaimer_readagain">Then read the text again until you do…</string>
+    <string name="disclaimer_readtext">Please read the text and state your understanding of it!</string>
+
+    <string name="title_about">About</string>
+    <string name="about_copyright">Copyright © 2006–2011\nTuukka Haapasalo</string>
+    <string name="about_version_free">
+        <![CDATA[This is the free version of jAlcoMeter. Purchase jAlkaMetri to show your support (and to get rid of the ads)! After you have bought the license, please wait a while until the purchase is confirmed. If you have already bought the license, click \"Check license\".]]></string>
+    <string name="about_version_licensed">
+        <![CDATA[This is the licensed full version of jAlcoMeter. Thank you for your support!]]></string>
+    <string name="about_stuff">
+        <![CDATA[The icons used in jAlcoMeter have been taken from the Open Clip Art library (http://openclipart.org/) and Open Icon Library (http://openiconlibrary.sourceforge.net/), and the alcohol meter image was made by Anu Haapasalo. Many thanks to the authors!]]></string>
+    <string name="about_sourcecode"><![CDATA[jAlcoMeter is hosted in SourceForge and the source codes can be freely downloaded from there. The project is licensed under a GPL license under its Finnish name, jalkametri.
+    \n\nBy installing jAlcoMeter from the Android Market you can get it to your phone more conveniently and by purchasing the license (from this page) you also support its development. If you wish to develop a similar application, feel free to use the sources (with the limitations of GPL).]]></string>
+    <string name="about_ok">OK!</string>
+    <string name="about_check_license">Check license</string>
+    <string name="about_buy_license">Buy license</string>
+    <string name="billing_service_unavailable">In-app billing does not work for your phone, so you cannot buy the
+        license. Sorry!
+    </string>
+
+    <string name="version_free">Free version</string>
+    <string name="version_licensed">Licensed</string>
+
+    <string name="crash_toast_text">jAlcoMeter has crashed!</string>
+
+    <string name="action_drink">Drink!</string>
+    <string name="action_save">Save</string>
+    <string name="action_ok">OK</string>
+
+    <string name="category_name">Category</string>
+    <string name="category_icon">Icon</string>
+
+    <string name="title_select_drink_category">Select category</string>
+    <string name="title_select_drink_type">Select drink</string>
+    <string name="title_select_drink_size">Select size</string>
+    <string name="title_edit_drink_details">Drink details</string>
+    <string name="title_preferences">Preferences</string>
+    <string name="title_history">History</string>
+    <string name="title_confirm">Confirmation</string>
+    <string name="title_previous_drinks">Latest drinks</string>
+    <string name="title_edit_category">Edit category</string>
+    <string name="title_select_size_for_drink">Add drink size</string>
+    <string name="title_edit_drink_size">Edit drink size</string>
+    <string name="title_wait">Please wait…</string>
+    <string name="title_statistics">Statistics</string>
+
+    <string name="confirm_default_drinks">Are you sure you want to reset the drink library to the defaults?</string>
+    <string name="confirm_clear_day">Are you sure you want to delete all drinks from this day?</string>
+    <string name="confirm_delete_category">Are you sure you want to delete this drink category (including all its
+        drinks)?
+    </string>
+    <string name="confirm_delete_drink">Are you sure you wish to delete this drink, alongside with all its sizes?
+    </string>
+
+    <string name="unit_percent">%</string>
+    <string name="unit_liter">l</string>
+    <string name="unit_deciliter">dl</string>
+    <string name="unit_centiliter">cl</string>
+    <string name="unit_portions">portions</string>
+
+    <string name="drink_library_reset">Drink library reset…</string>
+
+    <string name="title_drive_status">Your driving condition</string>
+    <string name="drive_status_ok">You are probably able to drive.</string>
+    <string name="drive_status_maybe">You may be able to drive. You may be sober after %1$s (at %2$s).</string>
+    <string name="drive_status_no">You are definitely not in any condition to drive a car! You may be able to drive
+        after %1$s (at %2$s), and you may be sober after %3$s (at %4$s).
+    </string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="done">Completed!</string>
+    <string name="minute">min</string>
+    <string name="hour">h</string>
+    <string name="min_pat">%1$02d min</string>
+    <string name="hourmin_pat">%1$d h %2$02d min</string>
+
+    <string name="about">About</string>
+
+    <string name="prompt_add_favourite">Add some favorites here from the application menu.</string>
+
+    <string name="msg_initialize_drink_library">Creating default drink library…</string>
+    <string name="msg_drink_not_set">Error: the drink has not been set</string>
+    <string name="msg_drink_size_not_set">Error: the drink size has not been set</string>
+
+    <string name="title_error">Error</string>
+    <string name="msg_billing_not_supported">In-app billing is not supported, so you cannot purchase the jAlcoMeter
+        license.
+    </string>
+    <string name="msg_cannot_connect_billing">Cannot connect to billing service; please try again later.</string>
+    <string name="msg_purchase_failed">Purchase failed; please try again later. Android Market will not allow you to buy
+        more than one license.
+    </string>
+    <string name="msg_purchase_canceled">You canceled the license purchase.</string>
+    <string name="title_success">Success</string>
+    <string name="msg_purchase_successful">jAlcoMeter has been successfully licensed. Thank you!</string>
+    <string name="msg_wait_for_market">Please wait… awaiting purchase response from Market.</string>
+    <string name="msg_checking_license">Checking license from Android Market. If you have a license, it will be applied
+        shortly.
+    </string>
+
+    <string name="drink_detail_name">Drink</string>
+    <string name="drink_detail_strength">Strength</string>
+    <string name="drink_detail_size">Size</string>
+    <string name="drink_detail_modify_size">Modify:</string>
+    <string name="drink_detail_size_name">Size name</string>
+    <string name="drink_detail_size_icon">Size icon</string>
+    <string name="drink_detail_time">Drinking time</string>
+    <string name="drink_detail_date">Date</string>
+    <string name="drink_detail_date_hidden">Date (click to change)</string>
+    <string name="drink_detail_icon">Icon</string>
+    <string name="drink_detail_comment">Comment</string>
+    <string name="drink_detail_comment_hint">Comment</string>
+
+    <string name="prefs_part_general">General preferences</string>
+    <string name="prefs_language">Language</string>
+    <string name="prefs_language_info">The selected language. Restart jAlcoMeter to update all shown strings.</string>
+    <string name="prefs_weight">Weight</string>
+    <string name="prefs_weight_info">Your weight (in kilograms). The blood alcohol level is calculated based on this.
+    </string>
+    <string name="prefs_week_start">Start of week</string>
+    <string name="prefs_week_start_info">On which day does your week start?</string>
+    <string name="prefs_gender">Gender</string>
+    <string name="prefs_gender_info">Your gender affects the alcohol burning speed.</string>
+    <string name="prefs_driving_alcohol_limit">Driving limit</string>
+    <string name="prefs_driving_alcohol_limit_info">The blood alcohol level limit for driving a car, per mille. This on
+        0.5 in Finland.
+    </string>
+    <string name="prefs_max_alcohol_level">Max.prom.</string>
+    <string name="prefs_max_alcohol_level_info">The maximum per mille count shown by the alcohol meter gauge.</string>
+    <string name="prefs_day_change_time">Date changes</string>
+    <string name="prefs_day_change_time_info">Drinks drunk before this time (usually in the morning) are registered for
+        the previous day, so that you can continue drinking past midnight.
+    </string>
+    <string name="prefs_debug_mode">Debug-mode</string>
+    <string name="prefs_debug_mode_info">Shows debugging information on screen.</string>
+    <string name="prefs_sounds">Sounds</string>
+    <string name="prefs_sounds_info">Sound effects for drinking.</string>
+    <string name="prefs_on">On</string>
+
+    <string name="prefs_part_alc_weight">Drink units</string>
+    <string name="prefs_standard_drink">Standard drink</string>
+    <string name="prefs_standard_drink_info">How much alcohol is there in a standard drink (in grams)? Listed are common
+        values used in several countries. One standard drink is regarded as one portion in jAlcoMeter.
+    </string>
+    <string name="prefs_recalculating_portions">Recalculating portions in the history database, please wait…</string>
+
+    <string name="prefs_part_ads">Ads</string>
+    <string name="prefs_ads">Show ads</string>
+    <string name="prefs_ads_info_free">You can disable ads once you have purchased the jAlcoMeter license. The license
+        price is 1.43 €.
+    </string>
+    <string name="prefs_ads_info_licensed">You can select whether to show ads from here.</string>
+    <string name="prefs_buy_license">Buy the license</string>
+
+    <string name="prefs_part_backup_data">Data backup</string>
+    <string name="prefs_backup_info">You can backup jAlcoMeter data, and restore them later on. You can, for example,
+        move your drinking history to another phone via this functionality
+    </string>
+    <string name="prefs_backup_data">Create backup</string>
+    <string name="prefs_restore_data">Restore data</string>
+
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+
+    <string name="day_Monday">Monday</string>
+    <string name="day_Sunday">Sunday</string>
+
+    <string name="day_showday_format">EE M/d</string>
+    <string name="day_full_format">EE M/d/y HH:mm</string>
+    <string name="time_format">HH:mm</string>
+    <string name="date_format">EE M/d/y</string>
+
+    <string name="month_january">Jan</string>
+    <string name="month_february">Feb</string>
+    <string name="month_march">Mar</string>
+    <string name="month_april">Apr</string>
+    <string name="month_may">May</string>
+    <string name="month_june">Jun</string>
+    <string name="month_july">Jul</string>
+    <string name="month_august">Aug</string>
+    <string name="month_september">Sep</string>
+    <string name="month_october">Oct</string>
+    <string name="month_november">Nov</string>
+    <string name="month_december">Dec</string>
+
+    <string name="history_portions_title">Portions:</string>
+    <string name="history_next_day">&gt;&gt;</string>
+    <string name="history_prev_day">&lt;&lt;</string>
+    <string name="history_list_units">portions</string>
+    <string name="history_today">Today</string>
+    <string name="history_select_day">Sel.</string>
+    <string name="history_week_prefix">Week</string>
+
+    <!-- Data backup -->
+    <string name="backup_service_not_available">Backup service is not available. The service requires an SD card, and
+        the card must be mounted to the phone (not mounted as an USB drive to a computer).
+    </string>
+    <string name="backup_backing_up_data">Creating a backup of the database…</string>
+    <string name="backup_restoring_data">Restoring database backup…</string>
+    <string name="backup_confirm_restore">Are you sure you wish to restore this backup? Restoring the backup will
+        overwrite your current data!
+    </string>
+    <string name="backup_confirm_backup">Data backup copies the application\'s database file into the SD card under a
+        new name, and restoration copies the database file back. All backups are retained. If the application version
+        has changed in between backup and restore, this may cause problems! To be safe, create a new backup before
+        restoring old backup data.
+    </string>
+    <string name="backup_backup_understood">OK, continue</string>
+    <string name="backup_backup_cancel">Cancel</string>
+    <string name="backup_restore_success">Data restored successfully</string>
+    <string name="backup_backup_success">Data backed up successfully</string>
+    <string name="backup_restore_failed">Data restore failed!</string>
+    <string name="backup_backup_failed">Data backup failed!</string>
+    <string name="backup_select_backup">Select the backup to restore</string>
+    <string name="backup_no_backups">There are no data backups available</string>
+
+    <!-- Help pages -->
+    <string name="title_help">Help!</string>
+    <string name="help_main">This is the help page for jAlcoMeter. You can access help pages from the question mark icon
+        and/or from the options menu.
+        \n\nUse the main menu to mark when you consume a drink, to browse your drinking history and to see some
+        statistics. Remember to check the settings (accessed via the options menu) to set your language, gender and
+        weight.
+        \n\nClick the car image to check your driving condition, and to obtain an estimate on how long it will take for
+        the alcohol to leave your body.
+        \n\nYou can also add favorites that can be quickly accessed from the main screen via the options menu.
+        \n\nThere is also a jAlcoMeter widget that you can add to your home screen. The widget shows your current BAC
+        and the first three of your favorite drinks for instant access from the home screen.
+        \n\nIf you like the application, consider buying the license from the about page (accessed via the options
+        menu)!
+    </string>
+    <string name="help_about">This page shows information about the jAlcoMeter software. You can also purchase the
+        jAlcoMeter license from this page.
+        \n\nIf you have already purchased the license, but jAlcoMeter seems to be unlicensed (for example, because you
+        cleared the application data), just click the fetch license button. You can only buy the license once, so you do
+        not need to worry about that.
+    </string>
+    <string name="help_calculator">This is a drink strength calculator, perfect for checking how strong your own
+        concoctions (such as punches) are.
+        \n\nTo use the calculator, just enter the ingredients one by one; the calculator will show the strength and
+        volume of the resulting mixture.
+        \n\nYou can use this also to calculate the strength of a drink that you are customizing; this will only set the
+        strength of the drink, though, so remember to also check the volume of the drink and add a corresponding size to
+        the drink you are creating.
+    </string>
+    <string name="help_prefs">Here you can set your preferences. Your gender and weight are used to calculate your blood
+        alcohol content (BAC) and the time it takes for you to become sober again.
+        \n\nYou can also change the interface language from this page. If you change the language, completely exit
+        jAlcoMeter to apply the changes to the main screen also. Please note that if you have created drinks (or if you
+        have initialized the drink library), the drink names and sizes will remain as they are. You can manually
+        re-initialize the drink library from the drink category selection screen; this will create drinks based on the
+        currently selected language.
+        \n\nNote on the day changing time: drinks that are consumed before this time (in the morning) will appear on the
+        previous day\'s drink history. This is so that drinks consumed after midnight are shown together with the drinks
+        consumed during the evening. The default value should be reasonable, but feel free to change it as you like.
+        This setting only affects how the drinks are shown to you; all the drinks are stored using their actual
+        consumption times.
+    </string>
+    <string name="help_edit_drink">You can customize the drink details from here. To customize the drink size, click on
+        the check box to be able to enter values manually.
+        \n\nYou can use the drink calculator to calculate the drink strength (see the calculator icon next to the
+        strength edit box). This only sets the drink\'s strength, you must still set the drink\'s size manually.
+    </string>
+    <string name="help_drink_category">Here you can select the drink category. Below the categories are shown the five
+        latest drinks you have drunk for quick access.
+        \n\nClick on the options menu to add new drink categories, and to (re-)initialize the drink library. Note: if
+        you have changed the interface language, the drink names will remain as they are. Use the drink library
+        re-initialization to obtain new names with correct language. Second note: this will also remove all the drinks
+        you have created yourself!
+        \n\nYou can long click on the category names to modify the category information. In general, the entire drink
+        library is customizable, so just long click on the icons or use the menu button to customize the drink library.
+    </string>
+    <string name="help_statistics">This page shows statistics on your entire recorded drinking history. On the first tab
+        you can see a summary of the entire recorded drinking history, and on the other tabs you can browse your yearly,
+        monthly, and weekly drinking habits.
+    </string>
+    <string name="help_history">Here you can browse all the drinks you have ever recorded to jAlcoMeter. You can also
+        add new drinks to past dates if you have forgotten something, and you can edit the history if you have made
+        mistakes when marking drinks.
+    </string>
+
+    <!-- Calculator -->
+    <string name="title_calculator">Calculate mixture strength</string>
+    <string name="calc_add_component">Add a component</string>
+    <string name="calc_mixture">The mixture</string>
+    <string name="calc_str_unit">%</string>
+    <string name="calc_vol_unit">l</string>
+    <string name="calc_portions">Portions</string>
+    <string name="calc_add">Add</string>
+    <string name="calc_ok">OK</string>
+    <string name="calc_clear">Clear</string>
+
+    <!-- Reminder pages -->
+    <string name="title_reminder">jAlcoMeter is free!</string>
+    <string name="reminder_text">… but if wish to support its development, consider purchasing a license for only 1.43
+        €. You can do so in the About page.
+        \n\nBenefits of purchasing the license include, but are not limited to:
+    </string>
+    <string name="reminder_benefits">- Getting rid of naggy messages like this
+        \n- Getting rid of ads
+        \n- A feeling of euphoria
+        \n (limited availability)
+        \n- The right to brag to your friends
+        \n- And much more
+    </string>
+    <string name="reminder_buy">Buy it!</string>
+    <string name="reminder_discard">Not now</string>
+    <string name="reminder_repetition_info">You may safely disregard this message. However, unless you buy the license,
+        jAlcoMeter may show this message to you again, sometime in the future, when you least expect it. We apologize
+        for the inconvenience.
+    </string>
+
+    <!-- Statistics -->
+    <string name="stats_tab_summary">Summary</string>
+    <string name="stats_tab_yearly">Yearly</string>
+    <string name="stats_tab_monthly">Monthly</string>
+    <string name="stats_tab_weekly">Weekly</string>
+
+    <string name="stats_title_drinks">Drinks quaffed</string>
+    <string name="stats_total_drinks">Total drinks</string>
+    <string name="stats_total_portions">Total portions</string>
+    <string name="stats_total_alcohol">Pure alcohol</string>
+    <string name="stats_total_alcohol_format">%s l</string>
+
+    <string name="stats_title_days">Date statistics</string>
+    <string name="stats_first_day">First drink recorded</string>
+    <string name="stats_all_days">Days since first drink</string>
+    <string name="stats_days_in_period">Recorded days</string>
+    <string name="stats_sober_days">Sober days</string>
+    <string name="stats_drunk_days">Days when drunk</string>
+    <string name="stats_no_days">Nothing drunk yet!</string>
+
+    <string name="stats_title_avg_portions">Average daily portions</string>
+    <string name="stats_avg_portions_all_days">All days</string>
+    <string name="stats_avg_portions_drunk_days">Days when drunk</string>
+    <string name="stats_title_avg_weekly_portions">Average weekly portions</string>
+    <string name="stats_avg_portions_all_weeks">All weeks</string>
+
+    <string name="stats_yearly_title_pattern">\'Year\' yyyy</string>
+    <string name="stats_monthly_title_pattern">MMMM yyyy</string>
+    <string name="stats_weekly_title_pattern">\'Week\' w/yyyy</string>
+
+    <!-- Standard drink alcohol weights in different countries -->
+    <string name="alc_weight_au">Australia (10 g)</string>
+    <string name="alc_weight_at">Austria (6 g)</string>
+    <string name="alc_weight_ca">Canada (13.5 g)</string>
+    <string name="alc_weight_dk">Denmark (12 g)</string>
+    <string name="alc_weight_fi">Finland (12 g)</string>
+    <string name="alc_weight_fr">France (12 g)</string>
+    <string name="alc_weight_hu">Hungary (17 g)</string>
+    <string name="alc_weight_is">Iceland (8 g)</string>
+    <string name="alc_weight_ie">Ireland (10 g)</string>
+    <string name="alc_weight_it">Italy (10 g)</string>
+    <string name="alc_weight_jp">Japan (19.75 g)</string>
+    <string name="alc_weight_nl">Netherlands (9.9 g)</string>
+    <string name="alc_weight_nz">New Zealand (10 g)</string>
+    <string name="alc_weight_pl">Poland (10 g)</string>
+    <string name="alc_weight_pt">Portugal (14 g)</string>
+    <string name="alc_weight_es">Spain (10 g)</string>
+    <string name="alc_weight_gb">UK (7.9 g)</string>
+    <string name="alc_weight_us">USA (14 g)</string>
+
+    <!-- Month names -->
+    <string name="month_short_1">Jan</string>
+    <string name="month_short_2">Feb</string>
+    <string name="month_short_3">Mar</string>
+    <string name="month_short_4">Apr</string>
+    <string name="month_short_5">May</string>
+    <string name="month_short_6">Jun</string>
+    <string name="month_short_7">Jul</string>
+    <string name="month_short_8">Aug</string>
+    <string name="month_short_9">Sep</string>
+    <string name="month_short_10">Oct</string>
+    <string name="month_short_11">Nov</string>
+    <string name="month_short_12">Dec</string>
+
+    <!-- Toasts -->
+    <string name="toast_empty">Time for a pint?</string>
+    <string name="toast_sober">Ahh… Bottoms up!</string>
+
+    <string name="toast_small_1">Cheers!</string>
+    <string name="toast_small_2">Salut!</string>
+    <string name="toast_small_3">Kippis!</string>
+    <string name="toast_small_4">Salute!</string>
+    <string name="toast_small_5">Prost!</string>
+    <string name="toast_small_6">Yasas!</string>
+    <string name="toast_small_7">Şerefe</string>
+
+    <string name="toast_medium_1">Proost!</string>
+    <string name="toast_medium_2">Mazel tov!</string>
+    <string name="toast_medium_3">Mogba!</string>
+    <string name="toast_medium_4">A votre sante!</string>
+    <string name="toast_medium_5">Kanpai!</string>
+    <string name="toast_medium_6">Slainte!</string>
+    <string name="toast_medium_7">Tulleeho!</string>
+    <string name="toast_medium_8">Şerefe</string>
+    <string name="toast_medium_9">Zolp</string>
+    <string name="toast_medium_10">Наздраве</string>
+    <string name="toast_medium_11">Gaumarjos</string>
+
+    <string name="toast_tumu_1">Na zdraví!</string>
+    <string name="toast_tumu_2">Zdravljica!</string>
+    <string name="toast_tumu_3">Egészségére!</string>
+    <string name="toast_tumu_4">Ege\'sze\'ge\'re</string>
+    <string name="toast_tumu_5">Stin ijiasas!</string>
+    <string name="toast_tumu_6">Ooogy Wawa!</string>
+    <string name="toast_tumu_7">L\'Chayim</string>
+    <string name="toast_tumu_8">بصحتك</string>
+
+    <!-- Non-localized resources -->
+    <string name="language_en">English</string>
+    <string name="language_fi">Suomi</string>
+
+</resources>

@@ -5,3 +5,7 @@ PrivateData.*
 /gen
 /out
 /tests/gen
+/app/build
+.gradle
+/build
+/gradle

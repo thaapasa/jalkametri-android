@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="simple_text" parent="@android:style/TextAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18dip</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+    </style>
+
+    <style name="title_text" parent="simple_text">
+        <item name="android:textSize">16dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_marginTop">5dip</item>
+        <item name="android:layout_marginBottom">3dip</item>
+        <item name="android:paddingLeft">5dip</item>
+    </style>
+
+    <style name="subtitle_text" parent="simple_text">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_marginTop">5dip</item>
+        <item name="android:layout_marginBottom">3dip</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:background">@color/subtitle_bg_color</item>
+        <item name="android:textColor">@color/subtitle_text_color</item>
+    </style>
+
+    <style name="centered_text" parent="simple_text">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+    </style>
+
+    <style name="spinner_text" parent="simple_text">
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:textColor">@color/spinner_text</item>
+    </style>
+
+    <style name="info_text" parent="@android:style/TextAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textSize">13dip</item>
+        <item name="android:textColor">#FFCCCCCC</item>
+        <item name="android:layout_gravity">left|top</item>
+        <item name="android:layout_marginBottom">7dip</item>
+    </style>
+
+    <style name="disclaimer_text" parent="simple_text">
+        <item name="android:textSize">16dip</item>
+    </style>
+
+    <style name="alcohol_level_text" parent="centered_text">
+        <item name="android:textSize">30dip</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="small_text" parent="simple_text">
+        <item name="android:textSize">12dip</item>
+    </style>
+
+    <style name="unit_text" parent="simple_text">
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:paddingLeft">5dip</item>
+    </style>
+
+    <style name="table_text" parent="simple_text">
+        <item name="android:textSize">18dip</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:paddingRight">15dip</item>
+    </style>
+
+    <style name="table_text_tight" parent="simple_text">
+        <item name="android:textSize">18dip</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+    </style>
+
+    <style name="simple_text_right" parent="simple_text">
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:gravity">right|center_vertical</item>
+    </style>
+
+    <style name="table_edit" parent="@android:style/Widget.EditText">
+        <item name="android:inputType">text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">170dip</item>
+        <item name="android:textSize">20dip</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="edit_small" parent="@android:style/Widget.EditText">
+        <item name="android:inputType">text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20dip</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="table_edit_small" parent="table_edit">
+        <item name="android:minWidth">120dip</item>
+    </style>
+
+    <style name="table_spinner" parent="@android:style/Widget.Spinner">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20dip</item>
+        <item name="android:minWidth">170dip</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:drawSelectorOnTop">true</item>
+    </style>
+
+    <style name="table_widespinner" parent="table_spinner">
+        <item name="android:minWidth">200dip</item>
+    </style>
+
+    <style name="table_time_picker">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:minWidth">150dip</item>
+        <item name="android:textSize">20dip</item>
+    </style>
+
+    <style name="table_icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+    </style>
+
+    <style name="button_main" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="button_wrap" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="fill_parent">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+
+    <style name="wrap_content">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="linearlayout_vertical" parent="fill_parent">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="horizontal_wrap" parent="wrap_content">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="horizontal_fill" parent="fill_parent">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="horizontal_fill_vwrap" parent="horizontal_fill">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="horizontal_wrap_center" parent="horizontal_wrap">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="vertical_fill" parent="fill_parent">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="vertical_wrap" parent="wrap_content">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="vertical_wrap_hfill" parent="wrap_content">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+
+    <style name="scrollview_vertical" parent="fill_parent">
+        <item name="android:fillViewport">true</item>
+    </style>
+
+</resources>

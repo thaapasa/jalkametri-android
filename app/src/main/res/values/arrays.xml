@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Language names (localized in strings.xml) -->
+    <string-array name="language_options">
+        <item>@string/language_en</item>
+        <item>@string/language_fi</item>
+    </string-array>
+
+    <!-- Textual values used internally in the database. -->
+    <string-array name="language_values">
+        <item>en</item>
+        <item>fi</item>
+    </string-array>
+
+    <!-- Gender names (localized in strings.xml) -->
+    <string-array name="gender_options">
+        <item>@string/gender_male</item>
+        <item>@string/gender_female</item>
+    </string-array>
+
+    <!-- Textual values used internally in the database. Must match the enumeration type names. -->
+    <string-array name="gender_values">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <!-- Week start days (localized in strings.xml) -->
+    <string-array name="week_start_options">
+        <item>@string/day_Monday</item>
+        <item>@string/day_Sunday</item>
+    </string-array>
+
+    <!-- Textual values used internally in the database. Must match the enumeration type names. -->
+    <string-array name="week_start_values">
+        <item>Monday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <!-- List of all database tables -->
+    <string-array name="database_tables">
+        <item>categories</item>
+        <item>drinks</item>
+        <item>sizes</item>
+        <item>drinks_sizes</item>
+        <item>history</item>
+        <item>favourites</item>
+    </string-array>
+
+    <!-- Standard drink alcohol weight texts -->
+    <string-array name="std_drink_weight_options">
+        <item>@string/alc_weight_au</item>
+        <item>@string/alc_weight_at</item>
+        <item>@string/alc_weight_ca</item>
+        <item>@string/alc_weight_dk</item>
+        <item>@string/alc_weight_fi</item>
+        <item>@string/alc_weight_fr</item>
+        <item>@string/alc_weight_hu</item>
+        <item>@string/alc_weight_is</item>
+        <item>@string/alc_weight_ie</item>
+        <item>@string/alc_weight_it</item>
+        <item>@string/alc_weight_jp</item>
+        <item>@string/alc_weight_nl</item>
+        <item>@string/alc_weight_nz</item>
+        <item>@string/alc_weight_pl</item>
+        <item>@string/alc_weight_pt</item>
+        <item>@string/alc_weight_es</item>
+        <item>@string/alc_weight_gb</item>
+        <item>@string/alc_weight_us</item>
+    </string-array>
+
+    <!-- Standard drink alcohol weight values -->
+    <string-array name="std_drink_weight_values">
+        <item>au</item>
+        <item>at</item>
+        <item>ca</item>
+        <item>dk</item>
+        <item>fi</item>
+        <item>fr</item>
+        <item>hu</item>
+        <item>is</item>
+        <item>ie</item>
+        <item>it</item>
+        <item>jp</item>
+        <item>nl</item>
+        <item>nz</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>es</item>
+        <item>gb</item>
+        <item>us</item>
+    </string-array>
+
+</resources>

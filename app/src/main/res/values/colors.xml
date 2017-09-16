@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="alcohol_level_none">#FF0099FF</color>
+    <color name="alcohol_level_low">#FF40FF70</color>
+    <color name="alcohol_level_med">#FFF2F26F</color>
+    <color name="alcohol_level_high">#FFE6874C</color>
+    <color name="alcohol_level_ultra">#FFFF0000</color>
+    <color name="alcohol_gauge_border">#FFFFFFFF</color>
+    <color name="alcohol_gauge_color">#FFCB0723</color>
+    <color name="alcohol_gauge_shadow_color">#FF930519</color>
+    <color name="alcohol_text_shadow">#FF000000</color>
+    <color name="alcohol_text_color">#FF636363</color>
+
+    <color name="error_text_color">#FFFF9999</color>
+
+    <color name="header_color">#FFFFFFFF</color>
+
+    <color name="spinner_text">#FF000000</color>
+
+    <color name="subtitle_text_color">#FFF5F5FF</color>
+    <color name="subtitle_bg_color">#FF666666</color>
+
+    <color name="graph_bg_color">#FF000000</color>
+    <color name="graph_grid_color">#66FFFFFF</color>
+    <color name="graph_border_color">#AAFFFFFF</color>
+    <color name="graph_label_color">#FFFFFFFF</color>
+    <color name="graph_line_color">#99AAAAFF</color>
+
+    <color name="bar_zero">#FFAAAAFF</color>
+    <color name="bar_ok">#FFAAFFAA</color>
+    <color name="bar_warn">#FFFFFFAA</color>
+    <color name="bar_critical">#FFFFAAAA</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+</resources>
