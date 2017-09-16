@@ -1,18 +1,18 @@
 /**
  * Copyright 2006-2011 Tuukka Haapasalo
- * 
+ *
  * This file is part of jAlkaMetri.
- * 
+ *
  * jAlkaMetri is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option)
  * any later version.
- * 
+ *
  * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,7 +21,7 @@ package fi.tuska.jalkametri;
 /**
  * Private data. Change the name of this class to PrivateData, and configure
  * the constants to your liking.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public interface PrivateDataTemplate {
@@ -29,23 +29,17 @@ public interface PrivateDataTemplate {
     /**
      * Enables developer functionality.
      */
-    final boolean DEVELOPER_FUNCTIONALITY_ENABLED = false;
+    boolean DEVELOPER_FUNCTIONALITY_ENABLED = false;
 
     /**
      * Android Market publishing guide at
      * http://developer.android.com/guide/publishing/preparing.html says that
      * logging should be "deactivated" for applications that are published to
      * the App Market.
-     * 
+     *
      * jAlkaMetri checks whether to do logging by checking this variable.
      */
     boolean LOGGING_ENABLED = false;
-
-    /**
-     * Set to true to enable ACRA error reporting (which sends stack traces to
-     * Google Docs).
-     */
-    final boolean ACRA_ERROR_REPORTING_ENABLED = false;
 
     /** AdMob publisher ID */
     String ADMOB_PUBLISHER_ID = "my-admob-publisher-id";
