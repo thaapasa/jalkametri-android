@@ -84,7 +84,6 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prefs);
-        findMainView();
 
         Resources res = getResources();
         languageValues = res.getStringArray(R.array.language_values);

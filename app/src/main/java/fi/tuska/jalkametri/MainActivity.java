@@ -113,7 +113,6 @@ public class MainActivity extends JalkametriDBActivity implements GUIActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        findMainView();
 
         this.history = new HistoryDB(adapter, this);
         this.meter = new AlcoholLevelMeter(history, this);

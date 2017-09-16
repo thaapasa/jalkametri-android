@@ -98,7 +98,6 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_icon);
-        findMainView();
 
         Bundle extras = getIntent().getExtras();
         catID = (Long) extras.get(KEY_SELECTED_CATEGORY_ID);

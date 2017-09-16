@@ -76,7 +76,6 @@ public class GraphActivity extends JalkametriDBActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph);
-        findMainView();
 
         Intent intent = getIntent();
         // Grab the intent data

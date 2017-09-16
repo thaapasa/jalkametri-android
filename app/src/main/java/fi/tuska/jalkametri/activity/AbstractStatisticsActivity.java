@@ -23,6 +23,7 @@ import java.util.Date;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.dao.GeneralStatistics;
@@ -78,7 +79,19 @@ public abstract class AbstractStatisticsActivity extends JalkametriDBActivity {
         this.dateFormat = timeUtil.getDateFormatFull();
     }
 
-    protected void populateViews() {
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        populateViews();
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        populateViews();
+    }
+
+    private void populateViews() {
         totalDrinks = (TextView) findViewById(R.id.total_drinks);
         totalPortions = (TextView) findViewById(R.id.total_portions);
         totalAlcohol = (TextView) findViewById(R.id.total_alcohol);

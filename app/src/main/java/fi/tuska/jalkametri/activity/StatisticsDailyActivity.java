@@ -90,8 +90,6 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
         type = (Type) intent.getSerializableExtra(TYPE);
 
         setContentView(R.layout.statistics_daily);
-        findMainView();
-        populateViews();
 
         graphView = (GraphView) findViewById(R.id.graph);
         dateTitle = (TextView) findViewById(R.id.browser_title);

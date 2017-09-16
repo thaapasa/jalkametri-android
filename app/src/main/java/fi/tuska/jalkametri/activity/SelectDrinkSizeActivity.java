@@ -98,7 +98,6 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_icon);
-        findMainView();
 
         Bundle extras = getIntent().getExtras();
         this.selectedDrink = (Drink) extras.get(KEY_SELECTED_DRINK);

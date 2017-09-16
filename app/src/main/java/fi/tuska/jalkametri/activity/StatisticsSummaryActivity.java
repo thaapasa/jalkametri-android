@@ -48,8 +48,6 @@ public class StatisticsSummaryActivity extends AbstractStatisticsActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.statistics_summary);
-        findMainView();
-        populateViews();
 
         setStatistics(statistics.getGeneralStatistics());
     }

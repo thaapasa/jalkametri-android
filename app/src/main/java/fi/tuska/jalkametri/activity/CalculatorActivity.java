@@ -92,7 +92,6 @@ public class CalculatorActivity extends JalkametriActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator);
-        findMainView();
 
         this.calc = new DrinkStrengthCalculator();
 

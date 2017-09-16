@@ -73,7 +73,6 @@ public class AboutActivity extends JalkametriActivity implements GUIActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
-		findMainView();
 
 		handler = new Handler(getMainLooper());
 		billingObserver = new JalkametriPurchaseObserver(this, handler);

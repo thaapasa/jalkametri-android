@@ -82,14 +82,22 @@ public abstract class JalkametriActivity extends Activity implements GUIActivity
         this.firstRun = true;
     }
 
-    protected void findMainView() {
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        this.mainView = findViewById(R.id.main_view);
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
         this.mainView = findViewById(R.id.main_view);
     }
 
     /*
-     * Custom actions
-     * ----------------------------------------------------------
-     */
+         * Custom actions
+         * ----------------------------------------------------------
+         */
     protected final void invalidateView() {
         if (mainView != null)
             mainView.invalidate();
