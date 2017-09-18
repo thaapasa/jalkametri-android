@@ -42,7 +42,7 @@
   <string name="disclaimer_readtext">Lue teksti ja kuittaa se tekstin alla olevalla nappulalla!</string>
 
   <string name="title_about">Tietoja</string>
-  <string name="about_copyright">Copyright © 2006–2011\nTuukka Haapasalo</string>
+  <string name="about_copyright">Copyright © 2006–2017\nTuukka Haapasalo</string>
   <string name="about_version_free"><![CDATA[Tämä on jAlkaMetrin ilmaisversio. Osta jAlkaMetrin täysversio jos pidät sovelluksesta (ja haluat eroon mainoksista)! Ostettuasi lisenssin odota hetki että jAlkaMetri saa tiedon oston onnistumisesta. Jos olet ostanut lisenssin aiemmin, hae lisenssi tiedot \"Hae lisenssi\" -nappulalla.]]></string>
   <string name="about_version_licensed"><![CDATA[Tämä on jAlkaMetrin täysversio. Kiitos tuestasi!]]></string>
   <string name="about_stuff"><![CDATA[jAlkaMetrissä käytetyt kuvakkeet on haettu Open Clip Art (http://openclipart.org/) sekä Open Icon Library (http://openiconlibrary.sourceforge.net/) -kirjastoista, ja alkoholimittarin piirsi Anu Haapasalo. Suuret kiitokset kuvien piirtäjille!]]></string>

@@ -44,7 +44,7 @@
     <string name="disclaimer_readtext">Please read the text and state your understanding of it!</string>
 
     <string name="title_about">About</string>
-    <string name="about_copyright">Copyright © 2006–2011\nTuukka Haapasalo</string>
+    <string name="about_copyright">Copyright © 2006–2017\nTuukka Haapasalo</string>
     <string name="about_version_free">
         <![CDATA[This is the free version of jAlcoMeter. Purchase jAlkaMetri to show your support (and to get rid of the ads)! After you have bought the license, please wait a while until the purchase is confirmed. If you have already bought the license, click \"Check license\".]]></string>
     <string name="about_version_licensed">
