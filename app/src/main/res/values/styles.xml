@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,12 +11,12 @@
     <style name="simple_text" parent="@android:style/TextAppearance">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">18dip</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:layout_gravity">left|center_vertical</item>
     </style>
 
     <style name="title_text" parent="simple_text">
-        <item name="android:textSize">16dip</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_marginTop">5dip</item>
@@ -48,23 +48,23 @@
     <style name="info_text" parent="@android:style/TextAppearance">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:textSize">13dip</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textColor">#FFCCCCCC</item>
         <item name="android:layout_gravity">left|top</item>
         <item name="android:layout_marginBottom">7dip</item>
     </style>
 
     <style name="disclaimer_text" parent="simple_text">
-        <item name="android:textSize">16dip</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="alcohol_level_text" parent="centered_text">
-        <item name="android:textSize">30dip</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
     <style name="small_text" parent="simple_text">
-        <item name="android:textSize">12dip</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="unit_text" parent="simple_text">
@@ -73,13 +73,13 @@
     </style>
 
     <style name="table_text" parent="simple_text">
-        <item name="android:textSize">18dip</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:layout_gravity">left|center_vertical</item>
         <item name="android:paddingRight">15dip</item>
     </style>
 
     <style name="table_text_tight" parent="simple_text">
-        <item name="android:textSize">18dip</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:layout_gravity">left|center_vertical</item>
     </style>
 
@@ -93,7 +93,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minWidth">170dip</item>
-        <item name="android:textSize">20dip</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:layout_gravity">right|center_vertical</item>
         <item name="android:gravity">right|center_vertical</item>
         <item name="android:singleLine">true</item>
@@ -103,7 +103,7 @@
         <item name="android:inputType">text</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">20dip</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:layout_gravity">right|center_vertical</item>
         <item name="android:gravity">right|center_vertical</item>
         <item name="android:singleLine">true</item>
@@ -116,7 +116,7 @@
     <style name="table_spinner" parent="@android:style/Widget.Spinner">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">20dip</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:minWidth">170dip</item>
         <item name="android:layout_gravity">right|center_vertical</item>
         <item name="android:gravity">right|center_vertical</item>
@@ -132,7 +132,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">right|center_vertical</item>
         <item name="android:minWidth">150dip</item>
-        <item name="android:textSize">20dip</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="table_icon">
