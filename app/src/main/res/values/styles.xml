@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    <style name="AppTheme" parent="@android:style/Theme.Material">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--
         <item name="colorAccent">@color/colorAccent</item>
+        -->
     </style>
 
-    <style name="simple_text" parent="@android:style/TextAppearance">
+    <style name="simple_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
@@ -45,7 +47,7 @@
         <item name="android:textColor">@color/spinner_text</item>
     </style>
 
-    <style name="info_text" parent="@android:style/TextAppearance">
+    <style name="info_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:textSize">13sp</item>
@@ -88,7 +90,7 @@
         <item name="android:gravity">right|center_vertical</item>
     </style>
 
-    <style name="table_edit" parent="@android:style/Widget.EditText">
+    <style name="table_edit">
         <item name="android:inputType">text</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -99,7 +101,7 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="edit_small" parent="@android:style/Widget.EditText">
+    <style name="edit_small">
         <item name="android:inputType">text</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -113,7 +115,7 @@
         <item name="android:minWidth">120dip</item>
     </style>
 
-    <style name="table_spinner" parent="@android:style/Widget.Spinner">
+    <style name="table_spinner">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
@@ -141,12 +143,12 @@
         <item name="android:layout_gravity">right|center_vertical</item>
     </style>
 
-    <style name="button_main" parent="@android:style/Widget.Button">
+    <style name="button_main">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="button_wrap" parent="@android:style/Widget.Button">
+    <style name="button_wrap">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
