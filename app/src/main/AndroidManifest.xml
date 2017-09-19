@@ -47,10 +47,6 @@
         <activity android:name=".activity.DisclaimerActivity" android:label="@string/title_disclaimer" />
         <activity android:name=".activity.AboutActivity" android:label="@string/title_about" />
 
-        <!-- Activity for the AdMob ads -->
-        <activity android:name="com.google.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
-
         <!-- Receiver for drinking the favorites (the widget sends these commands) -->
         <receiver android:name=".CommandReceiver" android:label="@string/app_name">
             <intent-filter>
