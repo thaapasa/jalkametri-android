@@ -19,6 +19,8 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.ColorInt
+import android.support.annotation.DrawableRes
 import android.view.ContextMenu
 import android.view.ContextMenu.ContextMenuInfo
 import android.view.Menu
@@ -404,10 +406,14 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         }
 
         private fun setCarImage(state: DrinkStatus.DrivingState) {
+            fun set(@DrawableRes img: Int, @ColorInt tint: Int) {
+                carStatusView.setImageResource(img)
+                carStatusView.drawable.setTint(activity.resources.getColor(tint))
+            }
             when (state) {
-                DrivingOK -> carStatusView.setImageResource(R.drawable.car_ok)
-                DrivingMaybe -> carStatusView.setImageResource(R.drawable.car_maybe)
-                DrivingNo -> carStatusView.setImageResource(R.drawable.car_no)
+                DrivingOK -> set(R.drawable.ic_check_black_24dp, R.color.status_ok)
+                DrivingMaybe -> set(R.drawable.ic_warning_black_24dp, R.color.status_maybe)
+                DrivingNo -> set(R.drawable.ic_not_interested_black_24dp, R.color.status_no)
             }
         }
 
@@ -435,7 +441,8 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
                     val message = String.format(messagePat, toDriveTime, driveTime, toSoberTime, soberTime)
                     DialogUtil.showMessage(activity, message, R.string.title_drive_status)
                 }
-                null -> {}
+                null -> {
+                }
             }
         }
 

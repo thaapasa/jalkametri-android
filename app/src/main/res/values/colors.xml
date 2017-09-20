@@ -31,6 +31,11 @@
     <color name="bar_warn">#FFFFFFAA</color>
     <color name="bar_critical">#FFFFAAAA</color>
 
+    <color name="status_car">#ca72db</color>
+    <color name="status_ok">#78b978</color>
+    <color name="status_maybe">#cfca67</color>
+    <color name="status_no">#b45049</color>
+
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
