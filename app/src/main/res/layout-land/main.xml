@@ -31,7 +31,6 @@
             android:layout_gravity="center">
 
             <Button
-                android:id="@+id/button2"
                 style="@style/button_main"
                 android:layout_width="match_parent"
                 android:width="0dp"
@@ -70,7 +69,6 @@
 
                 <ImageButton
                     style="@style/button_main"
-                    android:id="@+id/button"
                     android:layout_gravity="end|center_vertical"
                     android:contentDescription="@string/title_calculator"
                     android:onClick="showDrinkCalculator"
@@ -80,7 +78,6 @@
 
                 <Button
                     style="@style/button_main"
-                    android:id="@+id/button3"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/ic_assessment_black_24dp"
