@@ -115,10 +115,10 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         state?.let { outState.putSerializable(KEY_SHOWN_FAVOURITE, it.shownFavourite) }
     }
 
-    override fun onRestoreInstanceState(savedState: Bundle) {
+    override fun onRestoreInstanceState(savedState: Bundle?) {
         super.onRestoreInstanceState(savedState)
         state?.apply {
-            shownFavourite = savedState.get(KEY_SHOWN_FAVOURITE) as DrinkEvent
+            shownFavourite = savedState?.get(KEY_SHOWN_FAVOURITE) as DrinkEvent?
         }
     }
 
