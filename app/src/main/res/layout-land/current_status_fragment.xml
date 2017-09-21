@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    style="@style/horizontal_wrap"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <fi.tuska.jalkametri.gui.AlcoholLevelView
+        android:id="@+id/status_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:onClick="toastAlcoholStatus"
+        android:scaleType="centerInside"
+        android:src="@drawable/alcoholmeter"/>
+
+    <LinearLayout
+        style="@style/vertical_wrap"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_vertical">
+
+        <include layout="@layout/driving_state"/>
+
+        <TextView
+            android:text="@string/main_soberity"
+            style="@style/simple_text"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/sober_text"
+            android:text="@string/sober"
+            style="@style/simple_text"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"/>
+
+        <!-- Portions -->
+        <LinearLayout style="@style/horizontal_wrap">
+
+            <TextView
+                android:text="@string/main_portions"
+                style="@style/small_text"/>
+
+            <TextView
+                android:id="@+id/portions_text"
+                android:text="@string/portions"
+                style="@style/small_text"
+                android:layout_marginStart="15dp"/>
+        </LinearLayout>
+
+        <!-- Drinking day -->
+        <LinearLayout style="@style/horizontal_wrap">
+
+            <TextView
+                android:text="@string/main_drinking_date"
+                style="@style/small_text"/>
+
+            <TextView
+                android:id="@+id/drink_date_text"
+                android:text="@string/drink_date_def"
+                style="@style/small_text"
+                android:layout_marginStart="15dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Dummy view for development -->
+    <View
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:visibility="invisible"
+        android:id="@+id/development_view"/>
+
+</LinearLayout>

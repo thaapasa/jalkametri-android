@@ -34,7 +34,7 @@ import android.widget.TextView
 import fi.tuska.jalkametri.Common.*
 import fi.tuska.jalkametri.activity.GUIActivity
 import fi.tuska.jalkametri.activity.JalkametriDBActivity
-import fi.tuska.jalkametri.activity.fragment.DrivingStateFragment
+import fi.tuska.jalkametri.activity.fragment.CurrentStatusFragment
 import fi.tuska.jalkametri.dao.DrinkStatus
 import fi.tuska.jalkametri.dao.DrinkStatus.DrivingState.*
 import fi.tuska.jalkametri.dao.Favourites
@@ -46,12 +46,10 @@ import fi.tuska.jalkametri.data.DrinkStatusCalc
 import fi.tuska.jalkametri.data.PurchaseReminderHandler
 import fi.tuska.jalkametri.db.FavouritesDB
 import fi.tuska.jalkametri.db.HistoryDB
-import fi.tuska.jalkametri.gui.AlcoholLevelView
 import fi.tuska.jalkametri.gui.DrinkDetailsDialog
 import fi.tuska.jalkametri.gui.NamedIconAdapter
 import fi.tuska.jalkametri.task.AlcoholLevelMeter
 import fi.tuska.jalkametri.util.*
-import java.text.DateFormat
 
 /**
  * Main activity class: shows status information and links to other activities.
@@ -62,14 +60,13 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
     private var state: State? = null
 
+    fun toastAlcoholStatus(v: View) {
+        state?.let {
+            DrinkActivities.makeDrinkToast(this, it.currentStatus.level, false)
+        }
+    }
     fun showAddDrink(v: View) {
         CommonActivities.showAddDrink(this)
-    }
-
-    fun toastAlcoholStatus(v: View) {
-        state?.apply {
-            DrinkActivities.makeDrinkToast(activity, alcoholLevel.level, false)
-        }
     }
 
     fun showDrivingStatus(v: View): Unit {
@@ -316,13 +313,8 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         val meter: AlcoholLevelMeter = AlcoholLevelMeter(history, activity)
         val favourites: Favourites = FavouritesDB(activity.adapter, activity)
 
-        val alcoholLevel: AlcoholLevelView = activity.findViewById(R.id.status_image) as AlcoholLevelView
-
-        val sobrietyText: TextView = activity.findViewById(R.id.sober_text) as TextView
-        val portionsText: TextView = activity.findViewById(R.id.portions_text) as TextView
-        val drinkDateText: TextView = activity.findViewById(R.id.drink_date_text) as TextView
-        val addFavouritesPrompt: TextView = activity.findViewById(R.id.add_favourites_prompt) as TextView
-        val carStatus: DrivingStateFragment = activity.fragmentManager.findFragmentById(R.id.driving_state) as DrivingStateFragment
+        val addFavouritesPrompt = activity.findViewById(R.id.add_favourites_prompt) as TextView
+        val currentStatus = activity.fragmentManager.findFragmentById(R.id.current_status) as CurrentStatusFragment
 
         val gaugeAnimation = AlcoholLevelAnimation()
 
@@ -330,14 +322,10 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         val developmentView: View = activity.findViewById(R.id.development_view)
         var favouritesAdapter: NamedIconAdapter<DrinkEvent>? = null
 
-        val wdayFormat: DateFormat = timeUtil.dateFormatWDay
-        val timeFormat: DateFormat = timeUtil.timeFormat
-
         var shownFavourite: DrinkEvent? = null
 
-
         init {
-            alcoholLevel.setLevel(0.6, DrivingMaybe)
+            currentStatus.setAlcoholLevel(0.6, DrivingMaybe)
             activity.registerForContextMenu(developmentView)
             favouritesList.onItemClickListener = OnItemClickListener { _, _, position, _ ->
                 favouritesAdapter?.getItem(position)?.let { favorite ->
@@ -364,10 +352,9 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         fun updateUI() {
             val status = meter.drinkStatus
             val drivingState = status.getDrivingState(activity.prefs)
-            alcoholLevel.setLevel(status.alcoholLevel, drivingState)
-            carStatus.setDrivingState(drivingState)
+            currentStatus.setAlcoholLevel(status.alcoholLevel, drivingState)
             updateDrinkDateText()
-            updateSobriety(status)
+            currentStatus.updateSobriety(status)
             updatePortionsText(status)
         }
 
@@ -376,31 +363,12 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
             val todayPortions = HistoryHelper.countDayPortions(history, shownDay, activity)
             val weekPortions = HistoryHelper.countWeekPortions(history, shownDay, activity)
             val totalPortions = history.countTotalPortions()
-            portionsText.text = String.format(PORTIONS_FORMAT, todayPortions, weekPortions, totalPortions)
+            currentStatus.showPortions(String.format(PORTIONS_FORMAT, todayPortions, weekPortions, totalPortions))
         }
 
         private fun updateDrinkDateText() {
             val today = timeUtil.getCurrentDrinkingDate(activity.prefs)
-            drinkDateText.text = StringUtil.uppercaseFirstLetter(wdayFormat.format(today))
-        }
-
-        private fun updateSobriety(status: DrinkStatus) {
-            val res = activity.resources
-            val level = status.alcoholLevel
-            if (level <= 0) {
-                sobrietyText.text = res.getString(R.string.sober)
-            } else {
-                val hours = status.hoursToSober
-                val minutes = (hours - hours.toInt()) * 60
-                val soberity = timeUtil.getTimeAfterHours(hours)
-                if (hours > 1) {
-                    sobrietyText.text = String.format("%d%s %d%s (%s)", hours.toInt(), res.getString(R.string.hour),
-                            minutes.toInt(), res.getString(R.string.minute), timeFormat.format(soberity))
-                } else {
-                    sobrietyText.text = String.format("%d %s (%s)", minutes.toInt(), res.getString(R.string.minute),
-                            timeFormat.format(soberity))
-                }
-            }
+            currentStatus.showDrinkDate(StringUtil.uppercaseFirstLetter(timeUtil.dateFormatWDay.format(today)))
         }
 
         fun showDrivingStatus(v: View) {
@@ -448,18 +416,17 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
         fun consumeDrink(selection: DrinkSelection?) {
             // Get original alcohol level
-            val orgLevel = alcoholLevel.level
-            val orgState = alcoholLevel.drivingState
+            val orgLevel = currentStatus.level
+            val orgState = currentStatus.drivingState
             // Add drink
             history.createDrink(selection)
             JalkametriWidget.triggerRecalculate(activity, adapter)
             // Make toast
             DrinkActivities.makeDrinkToast(activity, orgLevel, true)
             updateUI()
-            val newLevel = alcoholLevel.level
+            val newLevel = currentStatus.level
             // Fall back to old values
-            alcoholLevel.setLevel(orgLevel, orgState)
-            carStatus.setDrivingState(orgState)
+            currentStatus.setAlcoholLevel(orgLevel, orgState)
             // Start animation
             gaugeAnimation.showAnimation(orgLevel, newLevel, 0.8)
         }
@@ -475,7 +442,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
                 setDuration((duration * 1000L).toLong())
                 startTime = AnimationUtils.currentAnimationTimeMillis()
                 repeatCount = 0
-                alcoholLevel.startAnimation(this)
+                currentStatus.startAnimation(this)
             }
 
             override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
@@ -483,8 +450,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
                 val showLevel = (endAlcoholLevel - startAlcoholLevel) * interpolatedTime + startAlcoholLevel
                 val showState = DrinkStatusCalc.getDrivingState(activity.prefs, showLevel)
                 LogUtil.i(TAG, "Animating at time %.2f: level %.2f", interpolatedTime, showLevel)
-                alcoholLevel.setLevel(showLevel, showState)
-                carStatus.setDrivingState(showState)
+                currentStatus.setAlcoholLevel(showLevel, showState)
             }
 
         }
