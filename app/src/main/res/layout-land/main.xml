@@ -1,66 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/main_view" style="@style/vertical_fill"
+              android:id="@+id/main_view"
+              style="@style/vertical_fill"
               android:weightSum="10">
 
-  <LinearLayout style="@style/horizontal_wrap"
-    android:layout_width="match_parent">
+    <LinearLayout
+        style="@style/horizontal_wrap"
+        android:layout_width="match_parent">
 
-    <fragment
-        android:id="@+id/current_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="fi.tuska.jalkametri.activity.fragment.CurrentStatusFragment"
-        tools:layout="@layout/current_status_fragment"/>
+        <fragment
+            android:id="@+id/current_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="fi.tuska.jalkametri.activity.fragment.CurrentStatusFragment"
+            tools:layout="@layout/current_status_fragment"/>
 
-    <!-- Dummy view for development -->
-    <View android:layout_width="0px" android:layout_height="0px"
-      android:visibility="invisible" android:id="@+id/development_view" />
+        <!-- Dummy view for development -->
+        <View
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:visibility="invisible"
+            android:id="@+id/development_view"/>
 
-    <!-- Main buttons -->
-    <LinearLayout style="@style/vertical_wrap"
-      android:layout_marginLeft="5dp" android:layout_width="fill_parent"
-      android:layout_gravity="center">
-      <Button android:text="@string/menu_drink" style="@style/button_main"
-        android:drawableLeft="@drawable/drink" android:onClick="showAddDrink" />
-      
-      <LinearLayout style="@style/horizontal_fill_vwrap">
-        <Button android:drawableLeft="@drawable/maybe"
-          android:text="" android:layout_width="wrap_content"
-          android:layout_height="wrap_content" android:layout_gravity="right|center_vertical"
-          android:onClick="showHelp" />
-        <Button android:text="@string/menu_history" style="@style/button_main"
-          android:drawableLeft="@drawable/calendar" android:onClick="showDrinkHistory" />
-      </LinearLayout>
-      <LinearLayout style="@style/horizontal_fill_vwrap">
-        <Button android:drawableLeft="@drawable/calculator"
-          android:text="" android:layout_width="wrap_content"
-          android:layout_height="wrap_content" android:layout_gravity="right|center_vertical"
-          android:onClick="showDrinkCalculator" />
-        <Button android:text="@string/menu_statistics" style="@style/button_main"
-          android:drawableLeft="@drawable/stats" android:onClick="showStatistics" />
-      </LinearLayout>
-      <!--
-      <Button android:text="@string/menu_prefs" style="@style/button_main"
-        android:drawableLeft="@drawable/prefs" android:onClick="showPreferences" />
-      -->
+        <!-- Main buttons -->
+        <LinearLayout
+            style="@style/vertical_wrap"
+            android:layout_marginStart="5dp"
+            android:layout_width="match_parent"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/button2"
+                style="@style/button_main"
+                android:layout_width="match_parent"
+                android:width="0dp"
+                android:height="45dp"
+                android:drawableStart="@drawable/ic_local_drink_black_24dp"
+                android:drawableTint="@color/icon_color"
+                android:onClick="showAddDrink"
+                android:text="@string/menu_drink"/>
+
+            <LinearLayout
+                style="@style/horizontal_fill_vwrap"
+                android:weightSum="1">
+
+                <ImageButton
+                    style="@style/button_main"
+                    android:id="@+id/imageButton"
+                    android:layout_gravity="end|center_vertical"
+                    android:contentDescription="@string/title_about"
+                    android:onClick="showHelp"
+                    android:text=""
+                    android:tint="@color/icon_color"
+                    android:src="@drawable/ic_help_outline_black_24dp"/>
+
+                <Button
+                    style="@style/button_main"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_date_range_black_24dp"
+                    android:drawableTint="@color/icon_color"
+                    android:onClick="showDrinkHistory"
+                    android:text="@string/menu_history"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/horizontal_fill_vwrap"
+                android:weightSum="1">
+
+                <ImageButton
+                    style="@style/button_main"
+                    android:id="@+id/button"
+                    android:layout_gravity="end|center_vertical"
+                    android:contentDescription="@string/title_calculator"
+                    android:onClick="showDrinkCalculator"
+                    android:tint="@color/icon_color"
+                    android:text=""
+                    android:src="@drawable/ic_note_add_black_24dp"/>
+
+                <Button
+                    style="@style/button_main"
+                    android:id="@+id/button3"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_assessment_black_24dp"
+                    android:drawableTint="@color/icon_color"
+                    android:onClick="showStatistics"
+                    android:text="@string/menu_statistics"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
-  </LinearLayout>
+    <!-- Prompt to add favourites -->
+    <TextView
+        android:id="@+id/add_favourites_prompt"
+        android:text="@string/prompt_add_favourite"
+        style="@style/simple_text"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
 
-  <!-- Prompt to add favourites -->
-  <TextView android:id="@+id/add_favourites_prompt"
-    android:text="@string/prompt_add_favourite" style="@style/simple_text"
-    android:gravity="center" android:layout_width="fill_parent"
-    android:layout_height="wrap_content" />
-
-  <!-- The favourites list -->
-  <GridView android:id="@+id/favourites" android:layout_width="fill_parent"
-    android:layout_height="0dp" android:numColumns="auto_fit"
-    android:verticalSpacing="5dp" android:horizontalSpacing="5dp"
-    android:gravity="center_horizontal" android:stretchMode="columnWidth"
-    android:columnWidth="100dp" android:layout_gravity="center_horizontal"
-    android:layout_weight="10" />
+    <!-- The favourites list -->
+    <GridView
+        android:id="@+id/favourites"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp"
+        android:gravity="center_horizontal"
+        android:stretchMode="columnWidth"
+        android:columnWidth="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="10"/>
 
 </LinearLayout>
