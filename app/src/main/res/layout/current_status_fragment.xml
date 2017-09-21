@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
@@ -20,30 +19,32 @@
             android:layout_gravity="center_vertical|start"
             android:onClick="toastAlcoholStatus"
             android:scaleType="centerInside"
-            android:src="@drawable/alcoholmeter"/>
+            android:src="@drawable/alcoholmeter" />
 
         <LinearLayout style="@style/horizontal_wrap_center">
+
             <TextView
                 style="@style/small_text"
-                android:text="@string/main_portions"/>
+                android:text="@string/main_portions" />
+
             <TextView
                 android:id="@+id/portions_text"
                 style="@style/small_text"
                 android:layout_marginStart="15dp"
-                android:text="@string/portions"/>
+                android:text="@string/portions" />
         </LinearLayout>
 
         <LinearLayout style="@style/horizontal_wrap_center">
 
             <TextView
                 style="@style/small_text"
-                android:text="@string/main_drinking_date"/>
+                android:text="@string/main_drinking_date" />
 
             <TextView
                 android:id="@+id/drink_date_text"
                 style="@style/small_text"
                 android:layout_marginStart="15dp"
-                android:text="@string/drink_date_def"/>
+                android:text="@string/drink_date_def" />
         </LinearLayout>
     </LinearLayout>
 
@@ -58,7 +59,7 @@
             android:id="@+id/development_view"
             android:layout_width="0px"
             android:layout_height="0px"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <!-- Car image and soberity text -->
         <LinearLayout
@@ -67,19 +68,19 @@
             android:gravity="center_vertical|center_horizontal"
             android:layout_marginStart="@dimen/padding">
 
-            <include layout="@layout/driving_state"/>
+            <include layout="@layout/driving_state" />
 
             <TextView
                 style="@style/simple_text"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/main_soberity"/>
+                android:text="@string/main_soberity" />
 
             <TextView
                 android:id="@+id/sober_text"
                 style="@style/simple_text"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="@string/sober"/>
+                android:text="@string/sober" />
         </LinearLayout>
 
     </LinearLayout>

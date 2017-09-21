@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              style="@style/vertical_fill"
-              android:id="@+id/main_view"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:orientation="vertical"
-              android:weightSum="10">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/vertical_fill"
+    android:id="@+id/main_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:weightSum="10">
 
     <fragment
         android:id="@+id/current_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="fi.tuska.jalkametri.activity.fragment.CurrentStatusFragment"
-        tools:layout="@layout/current_status_fragment"/>
+        tools:layout="@layout/current_status_fragment" />
 
     <!-- Main buttons -->
     <LinearLayout
@@ -31,7 +31,7 @@
             android:onClick="showHelp"
             android:text=""
             android:tint="@color/icon_color"
-            android:src="@drawable/ic_help_outline_black_24dp"/>
+            android:src="@drawable/ic_help_outline_black_24dp" />
 
         <Button
             style="@style/button_main"
@@ -42,7 +42,7 @@
             android:drawableStart="@drawable/ic_local_drink_black_24dp"
             android:drawableTint="@color/icon_color"
             android:onClick="showAddDrink"
-            android:text="@string/menu_drink"/>
+            android:text="@string/menu_drink" />
 
         <ImageButton
             style="@style/button_main"
@@ -51,7 +51,7 @@
             android:onClick="showDrinkCalculator"
             android:tint="@color/icon_color"
             android:text=""
-            android:src="@drawable/ic_note_add_black_24dp"/>
+            android:src="@drawable/ic_note_add_black_24dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +67,7 @@
             android:drawableStart="@drawable/ic_date_range_black_24dp"
             android:drawableTint="@color/icon_color"
             android:onClick="showDrinkHistory"
-            android:text="@string/menu_history"/>
+            android:text="@string/menu_history" />
 
         <Button
             style="@style/button_main"
@@ -76,7 +76,7 @@
             android:drawableEnd="@drawable/ic_assessment_black_24dp"
             android:drawableTint="@color/icon_color"
             android:onClick="showStatistics"
-            android:text="@string/menu_statistics"/>
+            android:text="@string/menu_statistics" />
     </LinearLayout>
 
     <!-- Prompt to add favourites -->
@@ -87,7 +87,7 @@
         android:gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"/>
+        android:layout_weight="0" />
 
     <!-- The favourites list -->
     <GridView
@@ -101,6 +101,6 @@
         android:stretchMode="columnWidth"
         android:columnWidth="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="10"/>
+        android:layout_weight="10" />
 
 </LinearLayout>

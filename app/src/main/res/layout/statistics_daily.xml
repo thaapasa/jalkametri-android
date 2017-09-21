@@ -1,107 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  style="@style/linearlayout_vertical">
+    style="@style/linearlayout_vertical">
 
-  <include layout="@layout/date_browser" />
+    <include layout="@layout/date_browser" />
 
-  <ScrollView android:id="@+id/main_view"
-    android:fillViewport="true" style="@style/fill_parent"
-    android:scrollbarStyle="insideInset">
+    <ScrollView
+        android:id="@+id/main_view"
+        android:fillViewport="true"
+        style="@style/fill_parent"
+        android:scrollbarStyle="insideInset">
 
-    <TableLayout android:layout_width="fill_parent"
-      android:layout_height="wrap_content" android:stretchColumns="*">
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
 
-    <!-- Drink amount stats -->
-      <TextView android:text="@string/stats_title_drinks"
-        style="@style/subtitle_text" />
+            <!-- Drink amount stats -->
+            <TextView
+                android:text="@string/stats_title_drinks"
+                style="@style/subtitle_text" />
 
-    <!-- Total drinks: total_drinks -->
-      <TableRow>
-        <TextView android:text="@string/stats_total_drinks"
-          style="@style/table_text_tight" />
-        <TextView android:id="@+id/total_drinks" style="@style/simple_text_right"
-          android:text="1520" />
-      </TableRow>
-    <!-- Total portions: total_portions -->
-      <TableRow>
-        <TextView android:text="@string/stats_total_portions"
-          style="@style/table_text_tight" />
-        <TextView android:id="@+id/total_portions" style="@style/simple_text_right"
-          android:text="1893,44" />
-      </TableRow>
-    <!-- Total portions: total_alcohol -->
-      <TableRow>
-        <TextView android:text="@string/stats_total_alcohol"
-          style="@style/table_text_tight" />
-        <TextView android:id="@+id/total_alcohol" style="@style/simple_text_right"
-          android:text="63,44 l" />
-      </TableRow>
+            <!-- Total drinks: total_drinks -->
+            <TableRow>
 
-    <!-- Statistics image -->
-      <fi.tuska.jalkametri.gui.GraphView
-        android:id="@+id/graph" android:layout_width="fill_parent"
-        android:layout_height="130dip" android:onClick="showGraph" />
+                <TextView
+                    android:text="@string/stats_total_drinks"
+                    style="@style/table_text_tight" />
 
+                <TextView
+                    android:id="@+id/total_drinks"
+                    style="@style/simple_text_right"
+                    android:text="1520" />
+            </TableRow>
+            <!-- Total portions: total_portions -->
+            <TableRow>
 
-    <!-- Average portions per week -->
-      <TextView android:text="@string/stats_title_avg_weekly_portions"
-        style="@style/subtitle_text" />
-    <!-- Portions per week -->
-      <TableRow>
-        <TextView android:text="@string/stats_avg_portions_all_weeks"
-          style="@style/table_text_tight" />
-        <TextView android:id="@+id/avg_weekly_portions" style="@style/simple_text_right"
-          android:text="15.6" />
-      </TableRow>
+                <TextView
+                    android:text="@string/stats_total_portions"
+                    style="@style/table_text_tight" />
 
-    <!-- Average portions per days -->
-      <TextView android:text="@string/stats_title_avg_portions"
-        style="@style/subtitle_text" />
+                <TextView
+                    android:id="@+id/total_portions"
+                    style="@style/simple_text_right"
+                    android:text="1893,44" />
+            </TableRow>
+            <!-- Total portions: total_alcohol -->
+            <TableRow>
 
-    <!-- Portions per all days: avg_portions_all_days -->
-      <TableRow>
-        <TextView android:text="@string/stats_avg_portions_all_days"
-          style="@style/table_text_tight" />
-        <TextView android:id="@+id/avg_portions_all_days"
-          style="@style/simple_text_right" android:text="0.7" />
-      </TableRow>
-    <!-- Portions per days when drunk: avg_portions_drunk_days -->
-      <TableRow>
-        <TextView android:text="@string/stats_avg_portions_drunk_days"
-          style="@style/table_text_tight" />
-        <TextView android:id="@+id/avg_portions_drunk_days"
-          style="@style/simple_text_right" android:text="3.4" />
-      </TableRow>
+                <TextView
+                    android:text="@string/stats_total_alcohol"
+                    style="@style/table_text_tight" />
+
+                <TextView
+                    android:id="@+id/total_alcohol"
+                    style="@style/simple_text_right"
+                    android:text="63,44 l" />
+            </TableRow>
+
+            <!-- Statistics image -->
+            <fi.tuska.jalkametri.gui.GraphView
+                android:id="@+id/graph"
+                android:layout_width="fill_parent"
+                android:layout_height="130dip"
+                android:onClick="showGraph" />
 
 
+            <!-- Average portions per week -->
+            <TextView
+                android:text="@string/stats_title_avg_weekly_portions"
+                style="@style/subtitle_text" />
+            <!-- Portions per week -->
+            <TableRow>
 
-    <!-- Date stats -->
-      <TextView android:text="@string/stats_title_days" style="@style/subtitle_text" />
+                <TextView
+                    android:text="@string/stats_avg_portions_all_weeks"
+                    style="@style/table_text_tight" />
 
-    <!-- Days since first drink: all_days -->
-      <TableRow>
-        <TextView android:text="@string/stats_days_in_period"
-          style="@style/table_text_tight" />
-        <TextView android:id="@+id/all_days" style="@style/simple_text_right"
-          android:text="1452" />
-      </TableRow>
-    <!-- Sober days: sober_days -->
-      <TableRow>
-        <TextView android:text="@string/stats_sober_days"
-          style="@style/table_text_tight" />
-        <TextView android:id="@+id/sober_days" style="@style/simple_text_right"
-          android:text="842 (60,42 %)" />
-      </TableRow>
-    <!-- Drunk days: drunk_days -->
-      <TableRow>
-        <TextView android:text="@string/stats_drunk_days"
-          style="@style/table_text_tight" />
-        <TextView android:id="@+id/drunk_days" style="@style/simple_text_right"
-          android:text="530 (35,23 %)" />
-      </TableRow>
+                <TextView
+                    android:id="@+id/avg_weekly_portions"
+                    style="@style/simple_text_right"
+                    android:text="15.6" />
+            </TableRow>
 
-    </TableLayout>
+            <!-- Average portions per days -->
+            <TextView
+                android:text="@string/stats_title_avg_portions"
+                style="@style/subtitle_text" />
 
-  </ScrollView>
+            <!-- Portions per all days: avg_portions_all_days -->
+            <TableRow>
+
+                <TextView
+                    android:text="@string/stats_avg_portions_all_days"
+                    style="@style/table_text_tight" />
+
+                <TextView
+                    android:id="@+id/avg_portions_all_days"
+                    style="@style/simple_text_right"
+                    android:text="0.7" />
+            </TableRow>
+            <!-- Portions per days when drunk: avg_portions_drunk_days -->
+            <TableRow>
+
+                <TextView
+                    android:text="@string/stats_avg_portions_drunk_days"
+                    style="@style/table_text_tight" />
+
+                <TextView
+                    android:id="@+id/avg_portions_drunk_days"
+                    style="@style/simple_text_right"
+                    android:text="3.4" />
+            </TableRow>
+
+
+            <!-- Date stats -->
+            <TextView
+                android:text="@string/stats_title_days"
+                style="@style/subtitle_text" />
+
+            <!-- Days since first drink: all_days -->
+            <TableRow>
+
+                <TextView
+                    android:text="@string/stats_days_in_period"
+                    style="@style/table_text_tight" />
+
+                <TextView
+                    android:id="@+id/all_days"
+                    style="@style/simple_text_right"
+                    android:text="1452" />
+            </TableRow>
+            <!-- Sober days: sober_days -->
+            <TableRow>
+
+                <TextView
+                    android:text="@string/stats_sober_days"
+                    style="@style/table_text_tight" />
+
+                <TextView
+                    android:id="@+id/sober_days"
+                    style="@style/simple_text_right"
+                    android:text="842 (60,42 %)" />
+            </TableRow>
+            <!-- Drunk days: drunk_days -->
+            <TableRow>
+
+                <TextView
+                    android:text="@string/stats_drunk_days"
+                    style="@style/table_text_tight" />
+
+                <TextView
+                    android:id="@+id/drunk_days"
+                    style="@style/simple_text_right"
+                    android:text="530 (35,23 %)" />
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
 
 </LinearLayout>

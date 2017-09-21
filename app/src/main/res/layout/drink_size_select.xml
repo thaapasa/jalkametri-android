@@ -1,48 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/main_view" style="@style/scrollview_vertical">
+    android:id="@+id/main_view"
+    style="@style/scrollview_vertical">
 
-  <TableLayout style="@style/fill_parent"
-    android:stretchColumns="1">
+    <TableLayout
+        style="@style/fill_parent"
+        android:stretchColumns="1">
 
-    <!-- Size selection -->
-    <TableRow>
-      <TextView android:text="@string/drink_detail_size" style="@style/table_text" />
-      <Spinner android:id="@+id/size_selector" style="@style/table_widespinner"
-        android:layout_span="2" />
-    </TableRow>
-    <TableRow>
-      <CheckBox android:id="@+id/modify_size" android:text="@string/drink_detail_modify_size"
-        android:layout_gravity="left|center_vertical" />
-      <EditText android:id="@+id/size_edit" android:text=""
-        style="@style/table_edit_small" android:inputType="numberDecimal"
-        android:maxLength="6" android:enabled="false" />
-      <TextView android:text="@string/unit_liter" style="@style/unit_text" />
-    </TableRow>
-    <TableRow>
-      <TextView android:text="" style="@style/table_text" />
-      <EditText android:id="@+id/size_name_edit" android:text="" android:inputType="text"
-        style="@style/table_edit" android:layout_span="2"
-        android:enabled="false" />
-    </TableRow>
-    <TableRow android:id="@+id/size_icon_area"
-      android:visibility="gone">
-      <TextView android:text="@string/drink_detail_size_icon"
-        style="@style/table_text" />
-      <fi.tuska.jalkametri.gui.IconView
-        style="@style/table_icon" android:src="@drawable/drink_generic"
-        android:id="@+id/size_icon" android:layout_width="50dp"
-        android:layout_height="50dp" android:layout_gravity="right"
-        android:gravity="right" android:scaleType="fitXY"
-        android:adjustViewBounds="true" />
-    </TableRow>
+        <!-- Size selection -->
+        <TableRow>
 
-    <!-- OK button -->
-    <TableRow>
-      <Button style="@style/button_main" android:text="@string/action_ok"
-        android:layout_span="3" android:onClick="onOKPressed" />
-    </TableRow>
+            <TextView
+                android:text="@string/drink_detail_size"
+                style="@style/table_text" />
 
-  </TableLayout>
+            <Spinner
+                android:id="@+id/size_selector"
+                style="@style/table_widespinner"
+                android:layout_span="2" />
+        </TableRow>
+
+        <TableRow>
+
+            <CheckBox
+                android:id="@+id/modify_size"
+                android:text="@string/drink_detail_modify_size"
+                android:layout_gravity="left|center_vertical" />
+
+            <EditText
+                android:id="@+id/size_edit"
+                android:text=""
+                style="@style/table_edit_small"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
+                android:enabled="false" />
+
+            <TextView
+                android:text="@string/unit_liter"
+                style="@style/unit_text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text=""
+                style="@style/table_text" />
+
+            <EditText
+                android:id="@+id/size_name_edit"
+                android:text=""
+                android:inputType="text"
+                style="@style/table_edit"
+                android:layout_span="2"
+                android:enabled="false" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/size_icon_area"
+            android:visibility="gone">
+
+            <TextView
+                android:text="@string/drink_detail_size_icon"
+                style="@style/table_text" />
+
+            <fi.tuska.jalkametri.gui.IconView
+                style="@style/table_icon"
+                android:src="@drawable/drink_generic"
+                android:id="@+id/size_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true" />
+        </TableRow>
+
+        <!-- OK button -->
+        <TableRow>
+
+            <Button
+                style="@style/button_main"
+                android:text="@string/action_ok"
+                android:layout_span="3"
+                android:onClick="onOKPressed" />
+        </TableRow>
+
+    </TableLayout>
 
 </ScrollView>

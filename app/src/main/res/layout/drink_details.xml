@@ -1,84 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/main_view"
-  style="@style/scrollview_vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_view"
+    style="@style/scrollview_vertical">
 
-  <TableLayout style="@style/fill_parent" android:stretchColumns="1">
+    <TableLayout
+        style="@style/fill_parent"
+        android:stretchColumns="1">
 
-    <!-- OK button -->
-    <TableRow>
-      <Button style="@style/button_main" android:id="@+id/drink_button" android:text="@string/action_drink"
-        android:drawableLeft="@drawable/drink" android:layout_span="3" android:onClick="onOKPressed" />
-    </TableRow>
+        <!-- OK button -->
+        <TableRow>
 
-      <!-- Drink type selection -->
-    <TableRow>
-      <TextView android:text="@string/drink_detail_name" style="@style/table_text" />
-      <EditText android:id="@+id/name_edit" android:text="" style="@style/table_edit"
-        android:layout_span="2" android:inputType="text"/>
-    </TableRow>
+            <Button
+                style="@style/button_main"
+                android:id="@+id/drink_button"
+                android:text="@string/action_drink"
+                android:drawableLeft="@drawable/drink"
+                android:layout_span="3"
+                android:onClick="onOKPressed" />
+        </TableRow>
 
-    <!-- Strength selection -->
-    <TableRow>
-      <TextView android:text="@string/drink_detail_strength" style="@style/table_text" />
-      <LinearLayout style="@style/horizontal_wrap" android:layout_gravity="right">
-        <Button android:drawableRight="@drawable/calculator" android:text="" android:layout_width="wrap_content"
-          android:layout_height="wrap_content" android:onClick="showDrinkCalculator" />
-        <EditText android:id="@+id/strength_edit" android:text="" style="@style/table_edit_small"
-          android:inputType="numberDecimal" android:maxLength="6" />
-      </LinearLayout>
-      <TextView android:text="@string/unit_percent" style="@style/unit_text" />
-    </TableRow>
+        <!-- Drink type selection -->
+        <TableRow>
 
-    <!-- Size selection -->
-    <TableLayout android:id="@+id/size_selection_area" style="@style/fill_parent" android:stretchColumns="1">
-      <TableRow>
-        <TextView android:text="@string/drink_detail_size" style="@style/table_text" />
-        <Spinner android:id="@+id/size_selector" style="@style/table_widespinner" android:layout_span="2" />
-      </TableRow>
-      <TableRow>
-        <CheckBox android:id="@+id/modify_size" android:text="@string/drink_detail_modify_size"
-          android:layout_gravity="left|center_vertical" />
-        <EditText android:id="@+id/size_edit" android:text="" style="@style/table_edit_small"
-          android:inputType="numberDecimal" android:maxLength="6" android:enabled="false" />
-        <TextView android:text="@string/unit_liter" style="@style/unit_text" />
-      </TableRow>
-      <TableRow>
-        <TextView android:text="" style="@style/table_text" />
-        <EditText android:id="@+id/size_name_edit" android:text="" style="@style/table_edit" android:inputType="text"
-          android:layout_span="2" android:enabled="false" />
-      </TableRow>
-      <TableRow android:id="@+id/size_icon_area" android:visibility="gone">
-        <TextView android:text="@string/drink_detail_size_icon" style="@style/table_text" />
-        <fi.tuska.jalkametri.gui.IconView style="@style/table_icon" android:src="@drawable/drink_generic"
-          android:id="@+id/size_icon" android:layout_width="50dp" android:layout_height="50dp" android:layout_gravity="right"
-          android:gravity="right" android:scaleType="fitXY" android:adjustViewBounds="true" />
-      </TableRow>
-    </TableLayout>
+            <TextView
+                android:text="@string/drink_detail_name"
+                style="@style/table_text" />
 
-    <!-- Drinking time -->
-    <TableRow android:id="@+id/time_edit_area">
-      <TextView android:text="@string/drink_detail_time" style="@style/table_text" />
-      <fi.tuska.jalkametri.gui.TimePicker24 android:id="@+id/time_edit" style="@style/table_time_picker"
-        android:layout_span="2" />
-    </TableRow>
+            <EditText
+                android:id="@+id/name_edit"
+                android:text=""
+                style="@style/table_edit"
+                android:layout_span="2"
+                android:inputType="text" />
+        </TableRow>
 
-    <!-- Drinking date -->
-    <TableRow android:id="@+id/date_edit_area">
-      <TextView android:id="@+id/date_edit_text" android:text="@string/drink_detail_date" style="@style/table_text" />
-      <EditText android:id="@+id/date_edit" style="@style/table_edit" android:editable="false"
-        android:inputType="none" android:focusable="false" android:clickable="true" android:layout_span="2" />
-    </TableRow>
-    <TableRow>
-      <TextView android:text="@string/drink_detail_comment" style="@style/table_text" />
-      <EditText android:id="@+id/comment_edit" android:hint="@string/drink_detail_comment_hint" style="@style/table_edit"
-        android:layout_span="2" />
-    </TableRow>
-    <TableRow>
-      <TextView android:text="@string/drink_detail_icon" style="@style/table_text" />
-      <fi.tuska.jalkametri.gui.IconView android:id="@+id/icon" style="@style/table_icon"
-        android:src="@drawable/drink_generic" android:layout_span="2" android:clickable="true" android:onClick="onClickIcon" />
-    </TableRow>
-        
+        <!-- Strength selection -->
+        <TableRow>
+
+            <TextView
+                android:text="@string/drink_detail_strength"
+                style="@style/table_text" />
+
+            <LinearLayout
+                style="@style/horizontal_wrap"
+                android:layout_gravity="right">
+
+                <Button
+                    android:drawableRight="@drawable/calculator"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="showDrinkCalculator" />
+
+                <EditText
+                    android:id="@+id/strength_edit"
+                    android:text=""
+                    style="@style/table_edit_small"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6" />
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/unit_percent"
+                style="@style/unit_text" />
+        </TableRow>
+
+        <!-- Size selection -->
+        <TableLayout
+            android:id="@+id/size_selection_area"
+            style="@style/fill_parent"
+            android:stretchColumns="1">
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/drink_detail_size"
+                    style="@style/table_text" />
+
+                <Spinner
+                    android:id="@+id/size_selector"
+                    style="@style/table_widespinner"
+                    android:layout_span="2" />
+            </TableRow>
+
+            <TableRow>
+
+                <CheckBox
+                    android:id="@+id/modify_size"
+                    android:text="@string/drink_detail_modify_size"
+                    android:layout_gravity="left|center_vertical" />
+
+                <EditText
+                    android:id="@+id/size_edit"
+                    android:text=""
+                    style="@style/table_edit_small"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:enabled="false" />
+
+                <TextView
+                    android:text="@string/unit_liter"
+                    style="@style/unit_text" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text=""
+                    style="@style/table_text" />
+
+                <EditText
+                    android:id="@+id/size_name_edit"
+                    android:text=""
+                    style="@style/table_edit"
+                    android:inputType="text"
+                    android:layout_span="2"
+                    android:enabled="false" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/size_icon_area"
+                android:visibility="gone">
+
+                <TextView
+                    android:text="@string/drink_detail_size_icon"
+                    style="@style/table_text" />
+
+                <fi.tuska.jalkametri.gui.IconView
+                    style="@style/table_icon"
+                    android:src="@drawable/drink_generic"
+                    android:id="@+id/size_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true" />
+            </TableRow>
+        </TableLayout>
+
+        <!-- Drinking time -->
+        <TableRow android:id="@+id/time_edit_area">
+
+            <TextView
+                android:text="@string/drink_detail_time"
+                style="@style/table_text" />
+
+            <fi.tuska.jalkametri.gui.TimePicker24
+                android:id="@+id/time_edit"
+                style="@style/table_time_picker"
+                android:layout_span="2" />
+        </TableRow>
+
+        <!-- Drinking date -->
+        <TableRow android:id="@+id/date_edit_area">
+
+            <TextView
+                android:id="@+id/date_edit_text"
+                android:text="@string/drink_detail_date"
+                style="@style/table_text" />
+
+            <EditText
+                android:id="@+id/date_edit"
+                style="@style/table_edit"
+                android:editable="false"
+                android:inputType="none"
+                android:focusable="false"
+                android:clickable="true"
+                android:layout_span="2" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="@string/drink_detail_comment"
+                style="@style/table_text" />
+
+            <EditText
+                android:id="@+id/comment_edit"
+                android:hint="@string/drink_detail_comment_hint"
+                style="@style/table_edit"
+                android:layout_span="2" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="@string/drink_detail_icon"
+                style="@style/table_text" />
+
+            <fi.tuska.jalkametri.gui.IconView
+                android:id="@+id/icon"
+                style="@style/table_icon"
+                android:src="@drawable/drink_generic"
+                android:layout_span="2"
+                android:clickable="true"
+                android:onClick="onClickIcon" />
+        </TableRow>
+
         <!--
         <TableRow android:layout_marginTop="30dp">
           <Button android:text="@string/action_drink" android:id="@+id/drink_button"
@@ -88,6 +207,6 @@
         </TableRow>
         -->
 
-  </TableLayout>
+    </TableLayout>
 
 </ScrollView>
