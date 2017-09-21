@@ -19,8 +19,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
 import android.view.ContextMenu
 import android.view.ContextMenu.ContextMenuInfo
 import android.view.Menu
@@ -32,11 +30,11 @@ import android.view.animation.Transformation
 import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
-import android.widget.ImageView
 import android.widget.TextView
 import fi.tuska.jalkametri.Common.*
 import fi.tuska.jalkametri.activity.GUIActivity
 import fi.tuska.jalkametri.activity.JalkametriDBActivity
+import fi.tuska.jalkametri.activity.fragment.DrivingStateFragment
 import fi.tuska.jalkametri.dao.DrinkStatus
 import fi.tuska.jalkametri.dao.DrinkStatus.DrivingState.*
 import fi.tuska.jalkametri.dao.Favourites
@@ -324,7 +322,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         val portionsText: TextView = activity.findViewById(R.id.portions_text) as TextView
         val drinkDateText: TextView = activity.findViewById(R.id.drink_date_text) as TextView
         val addFavouritesPrompt: TextView = activity.findViewById(R.id.add_favourites_prompt) as TextView
-        val carStatusView: ImageView = activity.findViewById(R.id.status_car) as ImageView
+        val carStatus: DrivingStateFragment = activity.fragmentManager.findFragmentById(R.id.driving_state) as DrivingStateFragment
 
         val gaugeAnimation = AlcoholLevelAnimation()
 
@@ -367,7 +365,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
             val status = meter.drinkStatus
             val drivingState = status.getDrivingState(activity.prefs)
             alcoholLevel.setLevel(status.alcoholLevel, drivingState)
-            setCarImage(drivingState)
+            carStatus.setDrivingState(drivingState)
             updateDrinkDateText()
             updateSobriety(status)
             updatePortionsText(status)
@@ -402,18 +400,6 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
                     sobrietyText.text = String.format("%d %s (%s)", minutes.toInt(), res.getString(R.string.minute),
                             timeFormat.format(soberity))
                 }
-            }
-        }
-
-        private fun setCarImage(state: DrinkStatus.DrivingState) {
-            fun set(@DrawableRes img: Int, @ColorInt tint: Int) {
-                carStatusView.setImageResource(img)
-                carStatusView.drawable.setTint(activity.resources.getColor(tint))
-            }
-            when (state) {
-                DrivingOK -> set(R.drawable.ic_check_black_24dp, R.color.status_ok)
-                DrivingMaybe -> set(R.drawable.ic_warning_black_24dp, R.color.status_maybe)
-                DrivingNo -> set(R.drawable.ic_not_interested_black_24dp, R.color.status_no)
             }
         }
 
@@ -473,7 +459,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
             val newLevel = alcoholLevel.level
             // Fall back to old values
             alcoholLevel.setLevel(orgLevel, orgState)
-            setCarImage(orgState)
+            carStatus.setDrivingState(orgState)
             // Start animation
             gaugeAnimation.showAnimation(orgLevel, newLevel, 0.8)
         }
@@ -498,7 +484,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
                 val showState = DrinkStatusCalc.getDrivingState(activity.prefs, showLevel)
                 LogUtil.i(TAG, "Animating at time %.2f: level %.2f", interpolatedTime, showLevel)
                 alcoholLevel.setLevel(showLevel, showState)
-                setCarImage(showState)
+                carStatus.setDrivingState(showState)
             }
 
         }
