@@ -32,10 +32,18 @@
   <string name="drink_date_def">Ma 1.1.</string>
 
   <string name="title_disclaimer">Erottamislausuma (sic)</string>
-  <string name="disclaimer_text"><![CDATA[Tämä sovellus on tarkoitettu vain hupikäyttöön, enkä takaa että sen näyttämät alkoholimäärät ovat missään tekemisissä todellisuuden kanssa. Käytät sovellusta kokonaan omalla vastuullasi. Sovellusta ei myöskään tule käyttää kilpailumielessä, eikä varsinkaan tule kannustaa kavereita juomaan, kun itse on jo juonut.
-    \n\nEn ota vastuuta käyttäjien mahdollisesta humaltumisesta, enkä varsinkaan käyttöä seuraavasta krapulasta, saati sitten ylipäätään mistään sovelluksen käytön yhteydessä sattuneista tapaturmista tai kommervenkeistä. En ole myöskään vastuussa tilastoitavan tiedon säilymisestä, sillä ohjelmistovirheitä voi sattua. 
-    \n\njAlkaMetri ei lähetä mitään kerättyä dataa minnekään; kaikki sovelluksessa näkyvät tiedot pysyvät vain puhelimessasi. Sovellus käyttää nettiyhteyttä vain mainosten latausta ja lisenssin ostoa varten.
-    \n\nMuistattehan nyt varmasti että sovelluksen näyttämät veren alkoholipitoisuudet perustuvat laskennallisiin arvioihin joiden syötteenä on käyttäjien itsensä syöttämät tiedot, eli en missään nimessä takaa että olisitte ajokunnossa vaikka tämä sovellus niin arvelisisikin.]]></string>
+  <string name="disclaimer_text"><![CDATA[Tämä sovellus on tarkoitettu vain hupikäyttöön, enkä takaa että sen
+  näyttämät alkoholimäärät ovat missään tekemisissä todellisuuden kanssa. Käytät sovellusta kokonaan omalla
+  vastuullasi. Sovellusta ei myöskään tule käyttää kilpailumielessä, eikä varsinkaan tule kannustaa kavereita
+  juomaan, kun itse on jo juonut.
+    \n\nEn ota vastuuta käyttäjien mahdollisesta humaltumisesta, enkä varsinkaan käyttöä seuraavasta krapulasta,
+    saati sitten ylipäätään mistään sovelluksen käytön yhteydessä sattuneista tapaturmista tai kommervenkeistä.
+    En ole myöskään vastuussa tilastoitavan tiedon säilymisestä, sillä ohjelmistovirheitä voi sattua.
+    \n\njAlkaMetri ei lähetä mitään kerättyä dataa minnekään; kaikki sovelluksessa näkyvät tiedot pysyvät vain
+    puhelimessasi. Sovellus käyttää nettiyhteyttä vain mainosten latausta ja lisenssin ostoa varten.
+    \n\nMuistattehan nyt varmasti että sovelluksen näyttämät veren alkoholipitoisuudet perustuvat laskennallisiin
+    arvioihin joiden syötteenä on käyttäjien itsensä syöttämät tiedot, eli en missään nimessä takaa että olisitte
+    ajokunnossa vaikka tämä sovellus niin arvelisisikin.]]></string>
   <string name="disclaimer_ok">Ymmärrän</string>
   <string name="disclaimer_what">En ymmärrä</string>
   <string name="disclaimer_readagain">Luepa teksti sitten uudestaan…</string>
@@ -43,15 +51,24 @@
 
   <string name="title_about">Tietoja</string>
   <string name="about_copyright">Copyright © 2006–2017\nTuukka Haapasalo</string>
-  <string name="about_version_free"><![CDATA[Tämä on jAlkaMetrin ilmaisversio. Osta jAlkaMetrin täysversio jos pidät sovelluksesta (ja haluat eroon mainoksista)! Ostettuasi lisenssin odota hetki että jAlkaMetri saa tiedon oston onnistumisesta. Jos olet ostanut lisenssin aiemmin, hae lisenssi tiedot \"Hae lisenssi\" -nappulalla.]]></string>
+  <string name="about_version_free"><![CDATA[Tämä on jAlkaMetrin ilmaisversio. Osta jAlkaMetrin täysversio jos
+  pidät sovelluksesta (ja haluat eroon mainoksista)! Ostettuasi lisenssin odota hetki että jAlkaMetri saa
+  tiedon oston onnistumisesta. Jos olet ostanut lisenssin aiemmin, hae lisenssi
+  tiedot \"Hae lisenssi\" -nappulalla.]]></string>
   <string name="about_version_licensed"><![CDATA[Tämä on jAlkaMetrin täysversio. Kiitos tuestasi!]]></string>
-  <string name="about_stuff"><![CDATA[jAlkaMetrissä käytetyt kuvakkeet on haettu Open Clip Art (http://openclipart.org/) sekä Open Icon Library (http://openiconlibrary.sourceforge.net/) -kirjastoista, ja alkoholimittarin piirsi Anu Haapasalo. Suuret kiitokset kuvien piirtäjille!]]></string>
-  <string name="about_sourcecode"><![CDATA[jAlkaMetrin lähdekoodit ovat jaossa GPL-lisenssillä SourceForgessa; etsi projektia nimeltä jalkametri. 
-    \n\nAsentamalla jAlkaMetrin Android Marketista saat sen kätevämmin käyttöösi ja ostamalla siihen lisenssin (tältä sivulta) tuet kehitystyötä. Jos haluat kehittää samantyyppistä softaa itse, jAlkaMetrin koodit ovat käytettävissäsi (GPL:n rajoituksilla!)]]></string>
+  <string name="about_stuff"><![CDATA[jAlkaMetrissä käytetyt kuvakkeet on haettu Open Clip Art
+  (http://openclipart.org/) sekä Open Icon Library (http://openiconlibrary.sourceforge.net/) -kirjastoista, ja
+  alkoholimittarin piirsi Anu Haapasalo. Suuret kiitokset kuvien piirtäjille!]]></string>
+  <string name="about_sourcecode"><![CDATA[jAlkaMetrin lähdekoodit ovat jaossa MIT-lisenssillä GitHubissa osoitteessa
+  https://github.com/thaapasa/jalkametri-android.
+    \n\nAsentamalla jAlkaMetrin Android Marketista saat sen kätevämmin käyttöösi ja ostamalla siihen
+    lisenssin (tältä sivulta) tuet kehitystyötä. Jos haluat kehittää samantyyppistä softaa itse, jAlkaMetrin
+    koodit ovat käytettävissäsi.]]></string>
   <string name="about_ok">OK!</string>
   <string name="about_check_license">Hae lisenssi</string>
   <string name="about_buy_license">Osta lisenssi</string>
-  <string name="billing_service_unavailable">Sovellustensisäiset ostokset eivät toimi puhelimessasi, joten et voi ostaa lisenssiä. Valitan!</string>
+  <string name="billing_service_unavailable">Sovellustensisäiset ostokset eivät toimi puhelimessasi, joten et voi
+    ostaa lisenssiä. Valitan!</string>
 
   <string name="version_free">Ilmaisversio</string>
   <string name="version_licensed">Lisensoitu</string>

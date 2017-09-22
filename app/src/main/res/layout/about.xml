@@ -4,7 +4,8 @@
     style="@style/fill_parent"
     android:fillViewport="true">
 
-    <LinearLayout style="@style/vertical_wrap_hfill">
+    <LinearLayout style="@style/vertical_wrap_hfill"
+        android:padding="@dimen/padding">
 
         <!-- Logo and version texts -->
         <LinearLayout
@@ -20,7 +21,7 @@
             <LinearLayout
                 style="@style/vertical_wrap"
                 android:layout_gravity="center"
-                android:layout_marginLeft="15dp">
+                android:layout_marginStart="15dp">
                 <!-- Version texts -->
                 <TextView
                     android:text="@string/app_name"
