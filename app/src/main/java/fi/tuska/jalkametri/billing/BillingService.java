@@ -403,8 +403,10 @@ public class BillingService extends Service implements ServiceConnection {
     private boolean bindToMarketBillingService() {
         try {
             LogUtil.i(TAG, "Binding to Market billing service");
+            Intent billingIntent = new Intent(BILLING_SERVICE_BIND_ADDRESS);
+            billingIntent.setPackage("com.android.vending");
             boolean bindResult = getBaseContext().bindService(
-                new Intent(BILLING_SERVICE_BIND_ADDRESS), this, Context.BIND_AUTO_CREATE);
+                billingIntent, this, Context.BIND_AUTO_CREATE);
 
             if (bindResult) {
                 return true;
