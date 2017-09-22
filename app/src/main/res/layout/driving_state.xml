@@ -7,7 +7,7 @@
     android:minWidth="70dp"
     android:minHeight="70dp"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/ic_directions_car_black_24dp"
+    android:background="@drawable/ic_car"
     android:backgroundTint="@color/status_car">
 
     <ImageView
@@ -16,7 +16,7 @@
         android:layout_height="50dp"
         android:onClick="showDrivingStatus"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_check_black_24dp"
+        android:src="@drawable/ic_check_mark"
         android:tint="@color/status_ok" />
 
 </LinearLayout>

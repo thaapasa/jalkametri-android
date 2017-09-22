@@ -42,9 +42,9 @@ class CurrentStatusFragment : Fragment() {
             drawable.setTint(resources.getColor(tint))
         }
         when (state) {
-            DrinkStatus.DrivingState.DrivingOK -> set(R.drawable.ic_check_black_24dp, R.color.status_ok)
-            DrinkStatus.DrivingState.DrivingMaybe -> set(R.drawable.ic_warning_black_24dp, R.color.status_maybe)
-            DrinkStatus.DrivingState.DrivingNo -> set(R.drawable.ic_not_interested_black_24dp, R.color.status_no)
+            DrinkStatus.DrivingState.DrivingOK -> set(R.drawable.ic_check_mark, R.color.status_ok)
+            DrinkStatus.DrivingState.DrivingMaybe -> set(R.drawable.ic_warning, R.color.status_maybe)
+            DrinkStatus.DrivingState.DrivingNo -> set(R.drawable.ic_denied, R.color.status_no)
         }
     }
 

@@ -434,7 +434,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
                 super.applyTransformation(interpolatedTime, t)
                 val showLevel = (endAlcoholLevel - startAlcoholLevel) * interpolatedTime + startAlcoholLevel
                 val showState = DrinkStatusCalc.getDrivingState(activity.prefs, showLevel)
-                LogUtil.i(TAG, "Animating at time %.2f: level %.2f", interpolatedTime, showLevel)
+                LogUtil.d(TAG, "Animating at time %.2f: level %.2f", interpolatedTime, showLevel)
                 currentStatus.setAlcoholLevel(showLevel, showState)
             }
 

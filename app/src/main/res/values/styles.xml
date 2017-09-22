@@ -24,34 +24,34 @@
     <style name="btn_help" parent="btn_material_design">
         <item name="android:layout_gravity">end|center_vertical</item>
         <item name="android:contentDescription">@string/title_about</item>
-        <item name="android:src">@drawable/ic_help_outline_black_24dp</item>
+        <item name="android:src">@drawable/ic_help_outline</item>
     </style>
 
     <style name="btn_calculator" parent="btn_material_design">
         <item name="android:layout_gravity">end|center_vertical</item>
         <item name="android:contentDescription">@string/title_calculator</item>
-        <item name="android:src">@drawable/ic_note_add_black_24dp</item>
+        <item name="android:src">@drawable/ic_note_plus</item>
     </style>
 
     <style name="btn_drink" parent="btn_material_design">
         <item name="android:layout_gravity">start|center_vertical</item>
         <item name="android:contentDescription">@string/menu_drink</item>
         <item name="android:text">@string/menu_drink</item>
-        <item name="android:drawableStart">@drawable/ic_local_drink_black_24dp</item>
+        <item name="android:drawableStart">@drawable/ic_drink</item>
     </style>
 
     <style name="btn_drink_history" parent="btn_material_design">
         <item name="android:layout_gravity">start|center_vertical</item>
         <item name="android:contentDescription">@string/menu_history</item>
         <item name="android:text">@string/menu_history</item>
-        <item name="android:drawableStart">@drawable/ic_date_range_black_24dp</item>
+        <item name="android:drawableStart">@drawable/ic_calendar</item>
     </style>
 
     <style name="btn_statistics" parent="btn_material_design">
         <item name="android:layout_gravity">start|center_vertical</item>
         <item name="android:contentDescription">@string/menu_statistics</item>
         <item name="android:text">@string/menu_statistics</item>
-        <item name="android:drawableStart">@drawable/ic_assessment_black_24dp</item>
+        <item name="android:drawableStart">@drawable/ic_statistics</item>
     </style>
 
     <style name="view_development">
