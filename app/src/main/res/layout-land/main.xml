@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_view"
     style="@style/vertical_fill"
-    android:weightSum="10">
+    android:weightSum="1">
 
     <LinearLayout
         style="@style/horizontal_wrap"
@@ -15,13 +15,6 @@
             android:layout_height="wrap_content"
             android:name="fi.tuska.jalkametri.activity.fragment.CurrentStatusFragment"
             tools:layout="@layout/current_status_fragment" />
-
-        <!-- Dummy view for development -->
-        <View
-            android:layout_width="0px"
-            android:layout_height="0px"
-            android:visibility="invisible"
-            android:id="@+id/development_view" />
 
         <!-- Main buttons -->
         <LinearLayout
@@ -71,25 +64,13 @@
 
     <!-- Prompt to add favourites -->
     <TextView
-        android:id="@+id/add_favourites_prompt"
-        android:text="@string/prompt_add_favourite"
-        style="@style/simple_text"
-        android:gravity="center"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        style="@style/add_favourites_text"
+        android:id="@+id/add_favourites_prompt" />
 
     <!-- The favourites list -->
     <GridView
+        style="@style/view_favourites_list"
         android:id="@+id/favourites"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="5dp"
-        android:horizontalSpacing="5dp"
-        android:gravity="center_horizontal"
-        android:stretchMode="columnWidth"
-        android:columnWidth="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="10" />
+        android:layout_weight="1" />
 
 </LinearLayout>

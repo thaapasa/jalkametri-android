@@ -54,6 +54,32 @@
         <item name="android:drawableStart">@drawable/ic_assessment_black_24dp</item>
     </style>
 
+    <style name="view_development">
+        <item name="android:layout_width">0px</item>
+        <item name="android:layout_height">0px</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="view_alcoholmeter">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@drawable/alcoholmeter</item>
+    </style>
+
+    <style name="view_favourites_list">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:numColumns">auto_fit</item>
+        <item name="android:verticalSpacing">5dp</item>
+        <item name="android:horizontalSpacing">5dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:columnWidth">100dp</item>
+    </style>
+
     <style name="simple_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -98,6 +124,13 @@
         <item name="android:textColor">#FFCCCCCC</item>
         <item name="android:layout_gravity">left|top</item>
         <item name="android:layout_marginBottom">7dip</item>
+    </style>
+
+    <style name="add_favourites_text" parent="simple_text">
+        <item name="android:text">@string/prompt_add_favourite</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="disclaimer_text" parent="simple_text">

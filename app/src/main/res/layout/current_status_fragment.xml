@@ -13,13 +13,9 @@
         android:layout_gravity="center_vertical|start">
 
         <fi.tuska.jalkametri.gui.AlcoholLevelView
+            style="@style/view_alcoholmeter"
             android:id="@+id/status_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|start"
-            android:onClick="toastAlcoholStatus"
-            android:scaleType="centerInside"
-            android:src="@drawable/alcoholmeter" />
+            android:onClick="toastAlcoholStatus" />
 
         <LinearLayout style="@style/horizontal_wrap_center">
 
@@ -56,10 +52,8 @@
 
         <!-- Dummy view for development -->
         <View
-            android:id="@+id/development_view"
-            android:layout_width="0px"
-            android:layout_height="0px"
-            android:visibility="invisible" />
+            style="@style/view_development"
+            android:id="@+id/development_view" />
 
         <!-- Car image and soberity text -->
         <LinearLayout

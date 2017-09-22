@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="1">
 
     <fragment
         android:id="@+id/current_status"
@@ -58,26 +58,13 @@
 
     <!-- Prompt to add favourites -->
     <TextView
-        android:id="@+id/add_favourites_prompt"
-        android:text="@string/prompt_add_favourite"
-        style="@style/simple_text"
-        android:gravity="center"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0" />
+        style="@style/add_favourites_text"
+        android:id="@+id/add_favourites_prompt" />
 
     <!-- The favourites list -->
     <GridView
+        style="@style/view_favourites_list"
         android:id="@+id/favourites"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="5dp"
-        android:horizontalSpacing="5dp"
-        android:gravity="center_horizontal"
-        android:stretchMode="columnWidth"
-        android:columnWidth="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="10" />
+        android:layout_weight="1" />
 
 </LinearLayout>
