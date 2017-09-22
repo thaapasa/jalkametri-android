@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_view"
     style="@style/fill_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:padding="@dimen/padding">
 
     <TableLayout
         style="@style/fill_parent"
@@ -42,8 +43,9 @@
             <Button
                 android:text="@string/action_save"
                 android:id="@+id/save_button"
+                android:drawableTint="@color/icon_color"
                 style="@style/button_main"
-                android:drawableLeft="@drawable/drink"
+                android:drawableLeft="@drawable/ic_drink"
                 android:layout_span="2"
                 android:onClick="onOKPressed" />
         </TableRow>
