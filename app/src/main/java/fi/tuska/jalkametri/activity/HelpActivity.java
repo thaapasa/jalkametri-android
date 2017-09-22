@@ -39,7 +39,7 @@ public class HelpActivity extends JalkametriActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.help);
+        setContentView(R.layout.activity_help);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

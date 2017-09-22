@@ -63,7 +63,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         LogUtil.d(TAG, "Assertions are %s", if (AssertionUtils.isAssertionsEnabled()) "on" else "off")
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main)
+        setContentView(R.layout.activity_main)
 
         state = State(this).apply {
             updateFavourites()

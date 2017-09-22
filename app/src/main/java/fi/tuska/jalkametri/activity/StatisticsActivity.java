@@ -20,7 +20,7 @@ public class StatisticsActivity extends TabActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.statistics);
+        setContentView(R.layout.activity_statistics);
 
         TabHost tabHost = getTabHost(); // The activity TabHost
 

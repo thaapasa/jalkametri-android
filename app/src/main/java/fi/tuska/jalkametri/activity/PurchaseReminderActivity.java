@@ -20,7 +20,7 @@ public class PurchaseReminderActivity extends JalkametriActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.purchase_reminder);
+        setContentView(R.layout.activity_purchase_reminder);
     }
 
     @Override

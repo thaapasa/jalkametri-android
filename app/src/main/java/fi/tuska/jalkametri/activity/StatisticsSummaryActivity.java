@@ -29,7 +29,7 @@ public class StatisticsSummaryActivity extends AbstractStatisticsActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.statistics_summary);
+        setContentView(R.layout.activity_statistics_summary);
 
         setStatistics(statistics.getGeneralStatistics());
     }

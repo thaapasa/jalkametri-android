@@ -25,7 +25,7 @@ public class DisclaimerActivity extends JalkametriActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.disclaimer);
+        setContentView(R.layout.activity_disclaimer);
     }
 
     @Override

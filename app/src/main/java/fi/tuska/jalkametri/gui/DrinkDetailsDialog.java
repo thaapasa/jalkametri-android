@@ -23,7 +23,7 @@ public class DrinkDetailsDialog extends Dialog {
     public DrinkDetailsDialog(Context context) {
         super(context);
         dateFormat = new TimeUtil(context).getDateFormatFull();
-        setContentView(R.layout.show_event);
+        setContentView(R.layout.activity_show_event);
 
         Button okButton = (Button) findViewById(R.id.ok);
         okButton.setOnClickListener(new View.OnClickListener() {

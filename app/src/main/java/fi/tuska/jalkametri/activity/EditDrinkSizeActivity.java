@@ -50,7 +50,7 @@ public class EditDrinkSizeActivity extends JalkametriDBActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drink_size_modify);
+        setContentView(R.layout.activity_drink_size_modify);
 
         // Load the preparation data from intents
         Bundle extras = getIntent().getExtras();

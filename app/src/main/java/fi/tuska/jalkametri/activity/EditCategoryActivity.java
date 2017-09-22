@@ -76,7 +76,7 @@ public class EditCategoryActivity extends JalkametriActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.category_details);
+        setContentView(R.layout.activity_category_details);
 
         Bundle extras = getIntent().getExtras();
         selection = (CategorySelection) extras.get(KEY_SELECTED_CATEGORY);

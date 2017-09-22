@@ -77,7 +77,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.select_category);
+        setContentView(R.layout.activity_select_category);
 
         this.library = new DrinkLibraryDB(adapter);
         this.history = new HistoryDB(adapter, this);

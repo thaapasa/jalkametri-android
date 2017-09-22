@@ -118,7 +118,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history);
+        setContentView(R.layout.activity_history);
 
         this.timeUtil = new TimeUtil(getContext());
 

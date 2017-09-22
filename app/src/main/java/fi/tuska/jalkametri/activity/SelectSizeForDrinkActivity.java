@@ -34,7 +34,7 @@ public class SelectSizeForDrinkActivity extends JalkametriDBActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drink_size_select);
+        setContentView(R.layout.activity_drink_size_select);
 
         initializeComponents();
 

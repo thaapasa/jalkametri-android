@@ -164,7 +164,7 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drink_details);
+        setContentView(R.layout.activity_drink_details);
 
         dateEditFormatter = new SimpleDateFormat(getResources().getString(R.string.date_format));
         selectedDate = timeUtil.getCurrentTime();
