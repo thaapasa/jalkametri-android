@@ -1,21 +1,3 @@
-/**
- * Copyright 2010 Google Inc. All Rights Reserved.
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
 package fi.tuska.jalkametri.billing;
 
 import java.util.ArrayList;
@@ -47,7 +29,7 @@ import fi.tuska.jalkametri.util.LogUtil;
  * connecting (binding) to the MarketBillingService. The application creates
  * an instance of this class and invokes billing requests through this
  * service.
- * 
+ *
  * The {@link BillingReceiver} class starts this service to process commands
  * that it receives from Android Market.
  */
@@ -95,7 +77,7 @@ public class BillingService extends Service implements ServiceConnection {
 
         /**
          * Run the request, starting the connection if necessary.
-         * 
+         *
          * @return true if the request was executed or queued; false if there
          * was an error starting the connection
          */
@@ -115,7 +97,7 @@ public class BillingService extends Service implements ServiceConnection {
         /**
          * Try running the request directly if the service is already
          * connected.
-         * 
+         *
          * @return true if the request ran successfully; false if the service
          * is not connected or there was an error when trying to use it
          */
@@ -140,7 +122,7 @@ public class BillingService extends Service implements ServiceConnection {
          * Called when a remote exception occurs while trying to execute the
          * {@link #run()} method. The derived class can override this to
          * execute exception-handling code.
-         * 
+         *
          * @param e the exception
          */
         protected void onRemoteException(RemoteException e) {
@@ -150,7 +132,7 @@ public class BillingService extends Service implements ServiceConnection {
 
         /**
          * The derived class must implement this method.
-         * 
+         *
          * @throws RemoteException
          */
         abstract protected long run() throws RemoteException;
@@ -158,7 +140,7 @@ public class BillingService extends Service implements ServiceConnection {
         /**
          * This is called when Android Market sends a response code for this
          * request.
-         * 
+         *
          * @param responseCode the response code
          */
         protected abstract void responseCodeReceived(ResponseCode responseCode);
@@ -380,7 +362,7 @@ public class BillingService extends Service implements ServiceConnection {
      * The {@link BillingReceiver} sends messages to this service using
      * intents. Each intent has an action and some extra arguments specific to
      * that action.
-     * 
+     *
      * @param intent the intent containing one of the supported actions
      * @param startId an identifier for the invocation instance of this
      * service
@@ -415,7 +397,7 @@ public class BillingService extends Service implements ServiceConnection {
     /**
      * Binds to the MarketBillingService and returns true if the bind
      * succeeded.
-     * 
+     *
      * @return true if the bind succeeded; false otherwise
      */
     private boolean bindToMarketBillingService() {
@@ -437,7 +419,7 @@ public class BillingService extends Service implements ServiceConnection {
 
     /**
      * Checks if in-app billing is supported.
-     * 
+     *
      * @return true if supported; false otherwise
      */
     public boolean checkBillingSupported() {
@@ -461,7 +443,7 @@ public class BillingService extends Service implements ServiceConnection {
      * Requests transaction information for all managed items. Call this only
      * when the application is first installed or after a database wipe. Do
      * NOT call this every time the application starts up.
-     * 
+     *
      * @return false if there was an error connecting to Android Market
      */
     public boolean restoreTransactions() {
@@ -474,7 +456,7 @@ public class BillingService extends Service implements ServiceConnection {
      * identifiers back to the MarketBillingService, which ACKs them to the
      * server. Returns false if there was an error trying to connect to the
      * MarketBillingService.
-     * 
+     *
      * @param startId an identifier for the invocation instance of this
      * service
      * @param notifyIds a list of opaque identifiers associated with purchase
@@ -493,7 +475,7 @@ public class BillingService extends Service implements ServiceConnection {
      * intent with the action {@link Consts#ACTION_PURCHASE_STATE_CHANGED}.
      * Returns false if there was an error trying to connect to the
      * MarketBillingService.
-     * 
+     *
      * @param startId an identifier for the invocation instance of this
      * service
      * @param notifyIds a list of opaque identifiers associated with purchase
@@ -508,7 +490,7 @@ public class BillingService extends Service implements ServiceConnection {
      * Verifies that the data was signed with the given signature, and calls
      * {@link ResponseHandler#purchaseResponse(Context, PurchaseState, String, String, long)}
      * for each verified purchase.
-     * 
+     *
      * @param startId an identifier for the invocation instance of this
      * service
      * @param signedData the signed JSON string (signed, not encrypted)
@@ -547,7 +529,7 @@ public class BillingService extends Service implements ServiceConnection {
      * received in the {@link BillingReceiver} and passed to this service,
      * where they are handled in
      * {@link #purchaseStateChanged(int, String, String)}.
-     * 
+     *
      * @param requestId a number that identifies a request, assigned at the
      * time the request was made to Android Market
      * @param responseCode a response code from Android Market to indicate the

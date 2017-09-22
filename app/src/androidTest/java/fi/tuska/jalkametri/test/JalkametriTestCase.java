@@ -1,21 +1,3 @@
-/**
- * Copyright 2006-2011 Tuukka Haapasalo
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
 package fi.tuska.jalkametri.test;
 
 import java.util.Date;
@@ -34,7 +16,7 @@ public abstract class JalkametriTestCase extends AndroidTestCase {
     protected Preferences prefs;
 
     protected TimeUtil timeUtil;
-    
+
     protected JalkametriTestCase() {
         tag = this.getClass().getSimpleName();
     }
@@ -63,14 +45,14 @@ public abstract class JalkametriTestCase extends AndroidTestCase {
     protected void assertCloseEnough(double expected, double actual) {
         assertCloseEnough(expected, actual, 0.0001d);
     }
-    
+
     protected void assertCloseEnough(double expected, double actual, double tolerance) {
         double diff = Math.abs(actual - expected);
         if (diff > tolerance) {
             fail("Not close enough; expected " + expected + "; actual " + actual);
         }
     }
-    
+
     protected void setDayChangeTime(int hour, int min) {
         Editor editor = prefs.edit();
         prefs.setDayChangeHour(editor, hour);

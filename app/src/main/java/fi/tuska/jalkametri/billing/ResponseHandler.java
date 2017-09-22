@@ -1,21 +1,3 @@
-/**
- * Copyright 2010 Google Inc. All Rights Reserved.
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
 package fi.tuska.jalkametri.billing;
 
 import java.security.Security;
@@ -41,7 +23,7 @@ import fi.tuska.jalkametri.util.LogUtil;
  * update the UI. An application might also want to forward some responses on
  * to its own server, and that could be done here (in a background thread) but
  * this example does not do that.
- * 
+ *
  * You should modify and obfuscate this code before using it.
  */
 public class ResponseHandler {
@@ -57,7 +39,7 @@ public class ResponseHandler {
 
     /**
      * Registers an observer that updates the UI.
-     * 
+     *
      * @param observer the observer to register
      */
     public static synchronized void register(PurchaseObserver observer) {
@@ -66,7 +48,7 @@ public class ResponseHandler {
 
     /**
      * Unregisters a previously registered observer.
-     * 
+     *
      * @param observer the previously registered observer.
      */
     public static synchronized void unregister(PurchaseObserver observer) {
@@ -77,7 +59,7 @@ public class ResponseHandler {
      * Notifies the application of the availability of the
      * MarketBillingService. This method is called in response to the
      * application calling {@link BillingService#checkBillingSupported()}.
-     * 
+     *
      * @param supported true if in-app billing is supported.
      */
     public static void checkBillingSupportedResponse(boolean supported) {
@@ -90,7 +72,7 @@ public class ResponseHandler {
      * Starts a new activity for the user to buy an item for sale. This method
      * forwards the intent on to the PurchaseObserver (if it exists) because
      * we need to start the activity on the activity stack of the application.
-     * 
+     *
      * @param pendingIntent a PendingIntent that we received from Android
      * Market that will create the new buy page activity
      * @param intent an intent containing a request id in an extra field that
@@ -114,7 +96,7 @@ public class ResponseHandler {
      * user has purchased an item, in which case the BillingService will also
      * call this method. Finally, this method can be called if the item was
      * refunded.
-     * 
+     *
      * @param purchaseState the state of the purchase request (PURCHASED,
      * CANCELED, or REFUNDED)
      * @param productId a string identifying a product for sale
@@ -165,7 +147,7 @@ public class ResponseHandler {
      * changes. All purchase state changes are received in the
      * {@link BillingReceiver} and are handled in
      * {@link Security#verifyPurchase(String, String)}.
-     * 
+     *
      * @param context the context
      * @param request the RequestPurchase request for which we received a
      * response code
@@ -182,7 +164,7 @@ public class ResponseHandler {
     /**
      * This is called when we receive a response code from Android Market for
      * a RestoreTransactions request.
-     * 
+     *
      * @param context the context
      * @param request the RestoreTransactions request for which we received a
      * response code

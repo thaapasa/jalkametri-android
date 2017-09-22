@@ -1,21 +1,3 @@
-/**
- * Copyright 2006-2011 Tuukka Haapasalo
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
 package fi.tuska.jalkametri.gui;
 
 import android.content.Context;
@@ -31,10 +13,10 @@ import android.widget.ImageView;
  * Draws a pretty ugly color-sliding alcohol level gauge. This is not actually
  * used in the GUI, this was just used to create the initial gauge picture
  * which was then screen-captured and stored as an image.
- * 
+ *
  * This file is left here as an example of how to make a custom, very slow,
  * color-sliding thingy.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public abstract class BufferedImageView extends ImageView {

@@ -1,23 +1,3 @@
-/**
- * Copyright 2010 Google Inc. All Rights Reserved.
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
-// Copyright 2010 Google Inc. All Rights Reserved.
-
 package fi.tuska.jalkametri.billing;
 
 import java.security.InvalidKeyException;
@@ -116,7 +96,7 @@ public class Security {
      * the general case, there can be an array of purchase transactions
      * because there may be delays in processing the purchase on the backend
      * and then several purchases can be batched together.
-     * 
+     *
      * @param signedData the signed JSON string (signed, not encrypted)
      * @param signature the signature for the data, signed with the private
      * key
@@ -132,7 +112,7 @@ public class Security {
             /**
              * Compute your public key (that you got from the Android Market
              * publisher site).
-             * 
+             *
              * Instead of just storing the entire literal string here embedded
              * in the program, construct the key at runtime from pieces or use
              * bit manipulation (for example, XOR with some other string) to
@@ -140,7 +120,7 @@ public class Security {
              * but we don't want to make it easy for an adversary to replace
              * the public key with one of their own and then fake messages
              * from the server.
-             * 
+             *
              * Generally, encryption keys / passwords should only be kept in
              * memory long enough to perform the operation they need to
              * perform.
@@ -212,7 +192,7 @@ public class Security {
     /**
      * Generates a PublicKey instance from a string containing the
      * Base64-encoded public key.
-     * 
+     *
      * @param encodedPublicKey Base64-encoded public key
      * @throws IllegalArgumentException if encodedPublicKey is invalid
      */
@@ -235,7 +215,7 @@ public class Security {
     /**
      * Verifies that the signature from the server matches the computed
      * signature on the data. Returns true if the data is correctly signed.
-     * 
+     *
      * @param publicKey public key associated with the developer account
      * @param signedData signed data from server
      * @param signature server signature

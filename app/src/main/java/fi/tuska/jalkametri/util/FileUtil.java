@@ -1,21 +1,3 @@
-/**
- * Copyright 2006-2011 Tuukka Haapasalo
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
 package fi.tuska.jalkametri.util;
 
 import java.io.BufferedInputStream;
@@ -70,7 +52,7 @@ public final class FileUtil {
      * Copies a file.
      */
     public static void copyFile(File src, File dst) throws IOException {
-        LogUtil.d(TAG, "Copying file %s to %s", src, dst);        
+        LogUtil.d(TAG, "Copying file %s to %s", src, dst);
         FileChannel inChannel = null;
         FileChannel outChannel = null;
         try {
@@ -84,7 +66,7 @@ public final class FileUtil {
     }
 
     public static void writeUTF8ToFile(String dataToWrite, File file) throws IOException {
-        LogUtil.d(TAG, "Writing to file %s", file);        
+        LogUtil.d(TAG, "Writing to file %s", file);
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
         OutputStreamWriter osw = null;
@@ -106,7 +88,7 @@ public final class FileUtil {
     }
 
     public static String readUTF8FromFile(File file) throws IOException {
-        LogUtil.d(TAG, "Reading from file %s", file);        
+        LogUtil.d(TAG, "Reading from file %s", file);
         FileInputStream fis = null;
         BufferedInputStream bis = null;
         InputStreamReader isr = null;

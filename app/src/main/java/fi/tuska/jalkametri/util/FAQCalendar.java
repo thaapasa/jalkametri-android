@@ -1,25 +1,3 @@
-/**
- * Copyright 2004 Paul Hill.
- * 
- * This file has been found from the Interwebs at
- * http://www.xmission.com/~goodhill/dates/deltaDates.html and has been tuned
- * for usage with jAlkaMetri.
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
 package fi.tuska.jalkametri.util;
 
 import java.util.Calendar;
@@ -30,7 +8,7 @@ import android.content.Context;
 
 /**
  * Demonstration of delta day calculations.
- * 
+ *
  * @author Paul Hill
  * @copyright 2004 Paul Hill
  */
@@ -62,7 +40,7 @@ public class FAQCalendar extends GregorianCalendar {
      * Since the unix Day number is the same from local midnight to local
      * midnight adding JULIAN_DAY_OFFSET to that value results in the
      * chronologist, historians, or calenderists Julian Day number.
-     * 
+     *
      * @see http://www.hermetic.ch/cal_stud/jdn.htm
      */
     public static final long EPOCH_UNIX_ERA_DAY = 2440588L;
@@ -134,7 +112,7 @@ public class FAQCalendar extends GregorianCalendar {
      * subtracting day numbers. Just after midnight subtracted from just
      * before midnight is 0 days for this method while subtracting day numbers
      * would yields 1 day.
-     * 
+     *
      * @param end - any Calendar representing the moment of time at the end of
      * the interval for calculation.
      */

@@ -1,22 +1,3 @@
-/**
- * Copyright 2010 Google Inc. All Rights Reserved.
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
-
 package fi.tuska.jalkametri.billing;
 
 import java.lang.reflect.Method;
@@ -59,7 +40,7 @@ public abstract class PurchaseObserver {
     /**
      * This is the callback that is invoked when Android Market responds to
      * the {@link BillingService#checkBillingSupported()} request.
-     * 
+     *
      * @param supported true if in-app billing is supported.
      */
     public abstract void onBillingSupported(boolean supported);
@@ -71,7 +52,7 @@ public abstract class PurchaseObserver {
      * asynchronously when a purchase is made on another device (if the
      * purchase was for a Market-managed item), or if the purchase was
      * refunded, or the charge was canceled. This handles the UI update.
-     * 
+     *
      * @param boolean true if the user has the license
      */
     public abstract void onLicenseStateChanged(boolean hasLicense);
@@ -151,7 +132,7 @@ public abstract class PurchaseObserver {
      * Updates the UI after the database has been updated. This method runs in
      * a background thread so it has to post a Runnable to run on the UI
      * thread.
-     * 
+     *
      * @param purchaseState the purchase state of the item
      * @param itemId a string identifying the item
      * @param quantity the quantity of items in this purchase

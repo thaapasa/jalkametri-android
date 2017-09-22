@@ -1,21 +1,3 @@
-/**
- * Copyright 2010 Google Inc. All Rights Reserved.
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
 package fi.tuska.jalkametri.billing;
 
 import android.content.BroadcastReceiver;
@@ -35,7 +17,7 @@ import fi.tuska.jalkametri.util.LogUtil;
  * updates, or any tasks that might take a long time to complete. It also must
  * not start a background thread because that may be killed as soon as
  * {@link #onReceive(Context, Intent)} returns.
- * 
+ *
  * You should modify and obfuscate this code before using it.
  */
 public class BillingReceiver extends BroadcastReceiver {
@@ -77,7 +59,7 @@ public class BillingReceiver extends BroadcastReceiver {
      * state change. The signedData parameter is a plain-text JSON string that
      * is signed by the server with the developer's private key. The signature
      * for the signed data is passed in the signature parameter.
-     * 
+     *
      * @param context the context
      * @param signedData the (unencrypted) JSON string
      * @param signature the signature for the signedData
@@ -99,7 +81,7 @@ public class BillingReceiver extends BroadcastReceiver {
      * This BroadcastReceiver cannot bind to the MarketBillingService directly
      * so it starts the {@link BillingService}, which does the actual work of
      * sending the message.
-     * 
+     *
      * @param context the context
      * @param notifyId the notification ID
      */
@@ -113,7 +95,7 @@ public class BillingReceiver extends BroadcastReceiver {
     /**
      * This is called when Android Market sends a server response code. The
      * BillingService can then report the status of the response if desired.
-     * 
+     *
      * @param context the context
      * @param requestId the request ID that corresponds to a previous request
      * @param responseCodeIndex the ResponseCode ordinal value for the request

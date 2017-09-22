@@ -1,21 +1,3 @@
-/**
- * Copyright 2006-2011 Tuukka Haapasalo
- * 
- * This file is part of jAlkaMetri.
- * 
- * jAlkaMetri is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- * 
- * jAlkaMetri is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- * 
- * You should have received a copy of the GNU General Public License along
- * with jAlkaMetri (LICENSE.txt). If not, see <http://www.gnu.org/licenses/>.
- */
 package fi.tuska.jalkametri.gui;
 
 import java.util.Comparator;
@@ -29,13 +11,13 @@ import fi.tuska.jalkametri.util.MathUtil;
 /**
  * A color slider that allows you to get interpolated color values between
  * colors that you have specified at certain points in the slider.
- * 
+ *
  * For example, you could set up a slider with a red color at position 0, blue
  * color at position 0.5, and a yellow color at position 1. Then, getColor(0)
  * would return red, getColor(0.25) would return a red-blue interpolation,
  * getColor(0.4) would return a more bluey version of the red-blue mix, and so
  * on.
- * 
+ *
  * @author Tuukka Haapasalo
  */
 public class ColorSlider {
