@@ -9,6 +9,7 @@
     <fi.tuska.jalkametri.gui.AlcoholLevelView
         style="@style/view_alcoholmeter"
         android:id="@+id/status_image"
+        android:layout_gravity="center_vertical"
         android:onClick="toastAlcoholStatus" />
 
     <LinearLayout
