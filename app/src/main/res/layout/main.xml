@@ -24,34 +24,18 @@
         android:weightSum="1">
 
         <ImageButton
-            style="@style/button_main"
-            android:id="@+id/imageButton"
-            android:layout_gravity="end|center_vertical"
-            android:contentDescription="@string/title_about"
-            android:onClick="showHelp"
-            android:text=""
-            android:tint="@color/icon_color"
-            android:src="@drawable/ic_help_outline_black_24dp" />
+            style="@style/btn_help"
+            android:onClick="showHelp" />
 
         <Button
-            style="@style/button_main"
-            android:layout_gravity="start|center_vertical"
+            style="@style/btn_drink"
             android:layout_weight="1"
-            android:width="0dp"
-            android:height="45dp"
-            android:drawableStart="@drawable/ic_local_drink_black_24dp"
-            android:drawableTint="@color/icon_color"
-            android:onClick="showAddDrink"
-            android:text="@string/menu_drink" />
+            android:onClick="showAddDrink" />
 
         <ImageButton
-            style="@style/button_main"
-            android:layout_gravity="end|center_vertical"
-            android:contentDescription="@string/title_calculator"
-            android:onClick="showDrinkCalculator"
-            android:tint="@color/icon_color"
-            android:text=""
-            android:src="@drawable/ic_note_add_black_24dp" />
+            style="@style/btn_calculator"
+            android:onClick="showDrinkCalculator" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -61,22 +45,15 @@
         android:weightSum="2">
 
         <Button
-            style="@style/button_main"
-            android:layout_width="0dp"
+            style="@style/btn_drink_history"
             android:layout_weight="1"
-            android:drawableStart="@drawable/ic_date_range_black_24dp"
-            android:drawableTint="@color/icon_color"
-            android:onClick="showDrinkHistory"
-            android:text="@string/menu_history" />
+            android:onClick="showDrinkHistory" />
 
         <Button
-            style="@style/button_main"
-            android:layout_width="0dp"
+            style="@style/btn_statistics"
             android:layout_weight="1"
-            android:drawableEnd="@drawable/ic_assessment_black_24dp"
-            android:drawableTint="@color/icon_color"
-            android:onClick="showStatistics"
-            android:text="@string/menu_statistics" />
+            android:onClick="showStatistics" />
+
     </LinearLayout>
 
     <!-- Prompt to add favourites -->

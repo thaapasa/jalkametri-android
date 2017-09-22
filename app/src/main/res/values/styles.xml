@@ -10,6 +10,50 @@
         -->
     </style>
 
+    <style name="btn_material_design">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">45dp</item>
+        <item name="android:minWidth">45dp</item>
+        <item name="android:height">45dp</item>
+        <item name="android:width">45dp</item>
+        <item name="android:tint">@color/icon_color</item>
+        <item name="android:drawableTint">@color/icon_color</item>
+    </style>
+
+    <style name="btn_help" parent="btn_material_design">
+        <item name="android:layout_gravity">end|center_vertical</item>
+        <item name="android:contentDescription">@string/title_about</item>
+        <item name="android:src">@drawable/ic_help_outline_black_24dp</item>
+    </style>
+
+    <style name="btn_calculator" parent="btn_material_design">
+        <item name="android:layout_gravity">end|center_vertical</item>
+        <item name="android:contentDescription">@string/title_calculator</item>
+        <item name="android:src">@drawable/ic_note_add_black_24dp</item>
+    </style>
+
+    <style name="btn_drink" parent="btn_material_design">
+        <item name="android:layout_gravity">start|center_vertical</item>
+        <item name="android:contentDescription">@string/menu_drink</item>
+        <item name="android:text">@string/menu_drink</item>
+        <item name="android:drawableStart">@drawable/ic_local_drink_black_24dp</item>
+    </style>
+
+    <style name="btn_drink_history" parent="btn_material_design">
+        <item name="android:layout_gravity">start|center_vertical</item>
+        <item name="android:contentDescription">@string/menu_history</item>
+        <item name="android:text">@string/menu_history</item>
+        <item name="android:drawableStart">@drawable/ic_date_range_black_24dp</item>
+    </style>
+
+    <style name="btn_statistics" parent="btn_material_design">
+        <item name="android:layout_gravity">start|center_vertical</item>
+        <item name="android:contentDescription">@string/menu_statistics</item>
+        <item name="android:text">@string/menu_statistics</item>
+        <item name="android:drawableStart">@drawable/ic_assessment_black_24dp</item>
+    </style>
+
     <style name="simple_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
