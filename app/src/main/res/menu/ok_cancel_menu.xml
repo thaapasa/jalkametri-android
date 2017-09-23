@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" android:name="Context menu">
 
-  <item android:id="@+id/action_ok" android:title="@string/ok" android:icon="@drawable/ok" />
-  <item android:id="@+id/action_cancel" android:title="@string/cancel" android:icon="@drawable/cancel" />
+  <item android:id="@+id/action_ok" android:title="@string/ok" android:icon="@drawable/ic_check_mark" />
+  <item android:id="@+id/action_cancel" android:title="@string/cancel" android:icon="@drawable/ic_denied" />
 
 </menu>

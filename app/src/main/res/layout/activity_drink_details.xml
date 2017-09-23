@@ -14,7 +14,7 @@
                 style="@style/button_main"
                 android:id="@+id/drink_button"
                 android:text="@string/action_drink"
-                android:drawableLeft="@drawable/drink"
+                android:drawableStart="@drawable/drink"
                 android:layout_span="3"
                 android:onClick="onOKPressed" />
         </TableRow>
@@ -39,14 +39,16 @@
 
             <TextView
                 android:text="@string/drink_detail_strength"
-                style="@style/table_text" />
+                style="@style/table_text"
+                android:labelFor="@id/strength_edit"/>
 
             <LinearLayout
                 style="@style/horizontal_wrap"
-                android:layout_gravity="right">
+                android:layout_gravity="end">
 
                 <Button
-                    android:drawableRight="@drawable/calculator"
+                    style="@style/btn_material_design"
+                    android:drawableEnd="@drawable/ic_note_plus"
                     android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,7 +90,7 @@
                 <CheckBox
                     android:id="@+id/modify_size"
                     android:text="@string/drink_detail_modify_size"
-                    android:layout_gravity="left|center_vertical" />
+                    android:layout_gravity="start|center_vertical" />
 
                 <EditText
                     android:id="@+id/size_edit"
@@ -132,8 +134,8 @@
                     android:id="@+id/size_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="right"
-                    android:gravity="right"
+                    android:layout_gravity="end"
+                    android:gravity="end"
                     android:scaleType="fitXY"
                     android:adjustViewBounds="true" />
             </TableRow>
