@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_view"
     style="@style/fill_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:padding="@dimen/padding">
 
     <LinearLayout style="@style/vertical_wrap_hfill">
 
@@ -13,19 +14,14 @@
 
             <!-- Logo -->
             <ImageView
-                android:src="@drawable/maybe"
-                style="@style/wrap_content"
+                android:src="@drawable/ic_help_outline"
+                style="@style/btn_material_design"
                 android:layout_gravity="top" />
 
-            <LinearLayout
-                style="@style/vertical_wrap"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp">
-
-                <TextView
-                    android:text="@string/title_help"
-                    style="@style/simple_text" />
-            </LinearLayout>
+            <TextView
+                android:text="@string/title_help"
+                android:layout_marginStart="7dp"
+                style="@style/simple_text" />
 
         </LinearLayout>
 
@@ -38,13 +34,9 @@
             android:layout_marginBottom="10dip" />
 
         <Button
-            android:text="@string/ok"
+            style="@style/btn_ok"
             android:id="@+id/ok_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onOKPressed"
-            android:layout_marginLeft="15dip"
-            android:layout_marginRight="15dip" />
+            android:onClick="onOKPressed" />
 
     </LinearLayout>
 

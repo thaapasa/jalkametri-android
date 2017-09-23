@@ -75,6 +75,12 @@
         <item name="android:src">@drawable/ic_arrow_down</item>
     </style>
 
+    <style name="btn_ok" parent="btn_material_design">
+        <item name="android:text">@string/ok</item>
+        <item name="android:drawableStart">@drawable/ic_check_mark</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <style name="view_development">
         <item name="android:layout_width">0px</item>
         <item name="android:layout_height">0px</item>
