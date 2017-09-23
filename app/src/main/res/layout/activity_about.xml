@@ -14,7 +14,7 @@
 
             <!-- Logo -->
             <ImageView
-                android:src="@drawable/launcher"
+                android:src="@mipmap/ic_launcher"
                 style="@style/wrap_content"
                 android:layout_gravity="top" />
 

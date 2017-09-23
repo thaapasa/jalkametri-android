@@ -73,7 +73,7 @@ public class DrinkDetailsDialog extends Dialog {
         {
             ImageView icon = (ImageView) findViewById(R.id.icon);
             int resID = DrinkIconUtils.getDrinkIconRes(selection.getIcon());
-            icon.setImageResource(resID != 0 ? resID : R.drawable.launcher);
+            icon.setImageResource(resID != 0 ? resID : R.mipmap.ic_launcher);
         }
 
         // Comment
