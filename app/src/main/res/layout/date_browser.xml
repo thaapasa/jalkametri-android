@@ -4,18 +4,12 @@
     style="@style/horizontal_fill_vwrap"
     android:gravity="center_horizontal">
 
-    <Button
-        android:text=""
-        android:drawableStart="@drawable/arrow_left"
-        style="@style/button_wrap"
-        android:layout_gravity="start|center_vertical"
+    <ImageButton
+        style="@style/btn_left"
         android:onClick="onPreviousClick" />
 
-    <Button
-        android:text=""
-        android:drawableStart="@drawable/calendar"
-        style="@style/button_wrap"
-        android:layout_gravity="center|center_vertical"
+    <ImageButton
+        style="@style/btn_select_date"
         android:onClick="onSelectDayClick" />
 
     <LinearLayout
@@ -26,31 +20,25 @@
 
         <TextView
             android:id="@+id/browser_title"
-            android:text=""
+            android:text="31.12."
             style="@style/simple_text"
             android:layout_gravity="center_horizontal|center_vertical"
             android:gravity="center" />
 
         <TextView
             android:id="@+id/browser_subtitle"
-            android:text=""
+            android:text="Week 52"
             style="@style/small_text"
             android:layout_gravity="center_horizontal|center_vertical"
             android:gravity="center" />
     </LinearLayout>
 
-    <Button
-        android:text=""
-        style="@style/button_wrap"
-        android:drawableEnd="@drawable/target"
-        android:layout_gravity="center|center_vertical"
+    <ImageButton
+        style="@style/btn_today"
         android:onClick="onTodayClick" />
 
-    <Button
-        android:text=""
-        android:drawableEnd="@drawable/arrow_right"
-        style="@style/button_wrap"
-        android:layout_gravity="end|center_vertical"
+    <ImageButton
+        style="@style/btn_right"
         android:onClick="onNextClick" />
 
 </LinearLayout>

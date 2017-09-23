@@ -384,7 +384,7 @@ public class DragDropListView extends ListView {
         // v.setBackgroundColor(backGroundColor);
 
         // TODO: Set proper icon
-        v.setBackgroundResource(fi.tuska.jalkametri.R.drawable.arrow_up);
+        v.setBackgroundResource(fi.tuska.jalkametri.R.drawable.ic_arrow_up);
         v.setPadding(0, 0, 0, 0);
         v.setImageBitmap(bm);
         mDragBitmap = bm;
