@@ -354,6 +354,9 @@
     <string name="calc_add">Add</string>
     <string name="calc_ok">OK</string>
     <string name="calc_clear">Clear</string>
+    <string name="calc_default_strength">40</string>
+    <string name="calc_default_volume">0.2</string>
+    <string name="calc_zero">0.0</string>
 
     <!-- Reminder pages -->
     <string name="title_reminder">jAlcoMeter is free!</string>

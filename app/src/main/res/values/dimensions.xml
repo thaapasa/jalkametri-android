@@ -2,5 +2,6 @@
 <resources>
 
     <dimen name="padding">10dp</dimen>
+    <dimen name="text_spacing">4dp</dimen>
 
 </resources>
