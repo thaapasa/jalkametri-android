@@ -3,8 +3,6 @@
   android:name="Context menu">
 
   <!-- Debugging actions for setting/clearing the license -->
-  <item android:id="@+id/action_devel_clear_license" android:title="Clear license" />
-  <item android:id="@+id/action_devel_set_license" android:title="Set license" />
   <item android:id="@+id/action_devel_clear_disclaimer_read"
     android:title="Reset disclaimer" />
   <item android:id="@+id/action_devel_clear_def_library_created"

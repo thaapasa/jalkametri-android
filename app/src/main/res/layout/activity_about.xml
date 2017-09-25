@@ -53,36 +53,6 @@
             style="@style/simple_text"
             android:layout_marginTop="10dp" />
 
-        <!-- Purchase license button -->
-        <LinearLayout
-            style="@style/horizontal_fill_vwrap"
-            android:weightSum="10">
-
-            <Button
-                android:id="@+id/check_license"
-                style="@style/button_main"
-                android:text="@string/about_check_license"
-                android:onClick="checkLicense"
-                android:layout_weight="5" />
-
-            <Button
-                android:id="@+id/buy_license"
-                style="@style/button_main"
-                android:text="@string/about_buy_license"
-                android:onClick="purchaseLicense"
-                android:layout_weight="5" />
-        </LinearLayout>
-
-        <!-- Error message that is shown if license service is unavailable -->
-        <TextView
-            android:id="@+id/billing_service_error"
-            android:text="@string/billing_service_unavailable"
-            style="@style/info_text"
-            android:visibility="gone"
-            android:textColor="@color/error_text_color"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
-
         <!-- General info -->
         <TextView
             android:text="@string/about_stuff"
@@ -109,4 +79,3 @@
     </LinearLayout>
 
 </ScrollView>
-  

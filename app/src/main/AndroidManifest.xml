@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application android:label="@string/app_name" android:name=".JalkametriApplication"
         android:icon="@mipmap/ic_launcher" android:theme="@style/AppTheme">
@@ -72,16 +71,6 @@
                 <action android:name="fi.tuska.jalkametri.JalkametriWidget.FORCE_UPDATE" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/jalkametri_widget" />
-        </receiver>
-
-        <!-- Billing service and receiver for purchasing the license -->
-        <service android:name=".billing.BillingService" />
-        <receiver android:name=".billing.BillingReceiver">
-            <intent-filter>
-                <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
-                <action android:name="com.android.vending.billing.RESPONSE_CODE" />
-                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
-            </intent-filter>
         </receiver>
 
     </application>

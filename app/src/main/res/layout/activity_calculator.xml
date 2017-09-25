@@ -25,7 +25,7 @@
                 <TextView
                     android:text="@string/drink_detail_strength"
                     style="@style/table_text"
-                    android:labelFor="@id/strength_edit"/>
+                    android:labelFor="@+id/strength_edit"/>
 
                 <EditText
                     android:id="@+id/strength_edit"
@@ -47,7 +47,7 @@
                 <TextView
                     android:text="@string/drink_detail_size"
                     style="@style/table_text"
-                    android:labelFor="@id/volume_edit"/>
+                    android:labelFor="@+id/volume_edit"/>
 
                 <EditText
                     android:id="@+id/volume_edit"
@@ -85,7 +85,7 @@
                 <TextView
                     android:text="@string/drink_detail_strength"
                     style="@style/table_text"
-                    android:labelFor="@id/strength_show"/>
+                    android:labelFor="@+id/strength_show"/>
 
                 <TextView
                     android:id="@+id/strength_show"
@@ -104,7 +104,7 @@
                 <TextView
                     android:text="@string/drink_detail_size"
                     style="@style/table_text"
-                    android:labelFor="@id/volume_show"/>
+                    android:labelFor="@+id/volume_show"/>
 
                 <TextView
                     android:id="@+id/volume_show"
@@ -124,7 +124,7 @@
                 <TextView
                     android:text="@string/calc_portions"
                     style="@style/table_text"
-                    android:labelFor="@id/portions_show"/>
+                    android:labelFor="@+id/portions_show"/>
 
                 <TextView
                     android:id="@+id/portions_show"
@@ -154,4 +154,3 @@
     </TableLayout>
 
 </ScrollView>
-  

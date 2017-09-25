@@ -58,11 +58,9 @@
     <string name="title_about">About</string>
     <string name="about_copyright">Copyright © 2006–2017\nTuukka Haapasalo</string>
     <string name="about_version_free">
-        <![CDATA[This is the free version of jAlcoMeter. Purchase jAlkaMetri to show your support! After you have
-        bought the license, please wait a while until the purchase is confirmed. If you have already bought the
-        license, click \"Check license\".]]></string>
+        <![CDATA[jAlcoMeter is free.]]></string>
     <string name="about_version_licensed">
-        <![CDATA[This is the licensed full version of jAlcoMeter. Thank you for your support!]]></string>
+        <![CDATA[You have previously purchased a license for jAlcoMeter. Thank you for your support!]]></string>
     <string name="about_stuff">
         <![CDATA[The icons used in jAlcoMeter have been taken from the Open Clip Art library
         (http://openclipart.org/) and Open Icon Library (http://openiconlibrary.sourceforge.net/), and the alcohol
@@ -76,9 +74,6 @@
     <string name="about_ok">OK!</string>
     <string name="about_check_license">Check license</string>
     <string name="about_buy_license">Buy license</string>
-    <string name="billing_service_unavailable">In-app billing does not work for your phone, so you cannot buy the
-        license. Sorry!
-    </string>
 
     <string name="version_free">Free version</string>
     <string name="version_licensed">Licensed</string>
@@ -148,20 +143,7 @@
     <string name="msg_drink_size_not_set">Error: the drink size has not been set</string>
 
     <string name="title_error">Error</string>
-    <string name="msg_billing_not_supported">In-app billing is not supported, so you cannot purchase the jAlcoMeter
-        license.
-    </string>
-    <string name="msg_cannot_connect_billing">Cannot connect to billing service; please try again later.</string>
-    <string name="msg_purchase_failed">Purchase failed; please try again later. Android Market will not allow you to buy
-        more than one license.
-    </string>
-    <string name="msg_purchase_canceled">You canceled the license purchase.</string>
     <string name="title_success">Success</string>
-    <string name="msg_purchase_successful">jAlcoMeter has been successfully licensed. Thank you!</string>
-    <string name="msg_wait_for_market">Please wait… awaiting purchase response from Market.</string>
-    <string name="msg_checking_license">Checking license from Android Market. If you have a license, it will be applied
-        shortly.
-    </string>
 
     <string name="drink_detail_name">Drink</string>
     <string name="drink_detail_strength">Strength</string>

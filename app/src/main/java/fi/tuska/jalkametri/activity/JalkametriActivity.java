@@ -16,7 +16,6 @@ import fi.tuska.jalkametri.PrivateData;
 import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.dao.Preferences;
 import fi.tuska.jalkametri.data.PreferencesImpl;
-import fi.tuska.jalkametri.util.BillingUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
 
 /**
@@ -145,24 +144,6 @@ public abstract class JalkametriActivity extends Activity implements GUIActivity
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
-        case R.id.action_devel_clear_license:
-            // Debugging action: clear license information
-            if (PrivateData.DEVELOPER_FUNCTIONALITY_ENABLED) {
-                BillingUtil.removeLicenseInfo(prefs);
-                updateUI();
-                Toast.makeText(this, "Licence cleared", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-        case R.id.action_devel_set_license:
-            // Debugging action: set license information
-            if (PrivateData.DEVELOPER_FUNCTIONALITY_ENABLED) {
-                BillingUtil.setLicensePurchased(prefs);
-                updateUI();
-                Toast.makeText(this, "Licence set", Toast.LENGTH_SHORT).show();
-                return true;
-            }
 
         case R.id.action_devel_clear_def_library_created:
             // Debugging action: clear default drink library creation flag
