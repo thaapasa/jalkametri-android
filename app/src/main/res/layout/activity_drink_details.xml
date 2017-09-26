@@ -120,41 +120,49 @@
             android:layout_marginTop="@dimen/padding"/>
 
         <!-- Drinking time -->
+        <EditText
+            android:id="@+id/time_edit"
+            android:text="10:00"
+            android:hint="@string/drink_detail_time"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            app:layout_constraintTop_toBottomOf="@id/size_name_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/padding"/>
+
         <TextView
             style="@style/table_text"
             android:id="@+id/drink_time_text"
             android:text="@string/drink_detail_time"
+            android:labelFor="@id/time_edit"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/size_name_edit"
-            android:layout_marginTop="@dimen/padding"
-        />
-
-        <TimePicker
-            style="@style/table_time_picker"
-            android:id="@+id/time_edit"
-            app:layout_constraintTop_toBottomOf="@id/drink_time_text"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/padding"/>
+            app:layout_constraintBottom_toBottomOf="@id/time_edit"
+            android:padding="@dimen/label_padding" />
 
         <!-- Drinking date -->
-        <TextView
-            style="@style/table_text"
-            android:id="@+id/date_edit_text"
-            android:text="@string/drink_detail_date"
-            app:layout_constraintTop_toBottomOf="@id/time_edit"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/padding"/>
-
         <EditText
             android:id="@+id/date_edit"
+            android:text="31.12.2017"
             android:hint="@string/drink_detail_date"
             android:clickable="true"
             android:focusable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/date_edit_text"
+            app:layout_constraintTop_toBottomOf="@id/time_edit"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="@dimen/padding"/>
+
+        <TextView
+            style="@style/table_text"
+            android:labelFor="@id/date_edit"
+            android:id="@+id/date_edit_text"
+            android:text="@string/drink_detail_date"
+            app:layout_constraintBottom_toBottomOf="@id/date_edit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:padding="@dimen/label_padding" />
 
         <!-- Comment -->
         <EditText
@@ -168,6 +176,7 @@
         <TextView
             style="@style/table_text"
             android:text="@string/drink_detail_comment"
+            android:labelFor="@id/comment_edit"
             app:layout_constraintBottom_toBottomOf="@id/comment_edit"
             app:layout_constraintLeft_toLeftOf="parent"
             android:padding="@dimen/label_padding"/>

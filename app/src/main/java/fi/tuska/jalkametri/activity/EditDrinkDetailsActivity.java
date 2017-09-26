@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import fi.tuska.jalkametri.Common;
 import fi.tuska.jalkametri.CommonActivities;
@@ -65,7 +64,7 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
     private EditText nameEdit;
     private EditText strengthEdit;
     private EditText commentEdit;
-    private TimePicker timePicker;
+    private EditText timePicker;
     private EditText dateEdit;
     private TextView dateEditText;
     private IconView iconView;
@@ -177,8 +176,8 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
         nameEdit = (EditText) findViewById(R.id.name_edit);
         strengthEdit = (EditText) findViewById(R.id.strength_edit);
         commentEdit = (EditText) findViewById(R.id.comment_edit);
-        timePicker = (TimePicker) findViewById(R.id.time_edit);
-        timePicker.setIs24HourView(true);
+        timePicker = (EditText) findViewById(R.id.time_edit);
+        // timePicker.setIs24HourView(true);
         iconView = (IconView) findViewById(R.id.icon);
 
         dateEdit = (EditText) findViewById(R.id.date_edit);
@@ -293,8 +292,9 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
             assert drinkTime != null;
             Calendar cal = Calendar.getInstance();
             cal.setTime(drinkTime);
-            timePicker.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
-            timePicker.setCurrentMinute(cal.get(Calendar.MINUTE));
+            //timePicker.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
+            //timePicker.setCurrentMinute(cal.get(Calendar.MINUTE));
+            timePicker.setText(cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE));
             setSelectedDate(drinkTime);
         }
     }
@@ -331,8 +331,8 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
                 cal.setTime(selectedDate);
             }
 
-            cal.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
-            cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+            //cal.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+            //cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
             // Seconds come from the current time
             Calendar now = Calendar.getInstance();
 
