@@ -111,27 +111,29 @@ public class DrinkSizeSelector {
 
         if (!selectorShown) {
             // Hide the entire size selector
-            LogUtil.d(TAG, "Hiding size selector");
-            View selectorArea = parent.findViewById(R.id.size_selection_area);
-            assert selectorArea != null;
-            selectorArea.setVisibility(View.GONE);
+            LogUtil.e(TAG, "Hiding size selector -- TODO: REMOVE THIS!");
+            //View selectorArea = parent.findViewById(R.id.size_selection_area);
+            //assert selectorArea != null;
+            //selectorArea.setVisibility(View.GONE);
         } else {
             if (sizeIconEditorShown) {
                 // Show the size icon editor
-                View sizeArea = parent.findViewById(R.id.size_icon_area);
-                sizeArea.setVisibility(View.VISIBLE);
+                // View sizeArea = parent.findViewById(R.id.size_icon_area);
+                // sizeArea.setVisibility(View.VISIBLE);
 
                 sizeIcon = (IconView) parent.findViewById(R.id.size_icon);
-                sizeIcon.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Select an icon
-                        if (isCustomSizeEditingEnabled()) {
-                            // Select the icon from an icon selecting dialog
-                            parent.showDialog(sizeSelectionDialogID);
+                if (sizeIcon != null) {
+                    sizeIcon.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Select an icon
+                            if (isCustomSizeEditingEnabled()) {
+                                // Select the icon from an icon selecting dialog
+                                parent.showDialog(sizeSelectionDialogID);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
         // Modify size
@@ -223,7 +225,7 @@ public class DrinkSizeSelector {
         // Update the text editors
         sizeNameEdit.setText(size.getName());
         sizeEdit.setText(NumberUtil.toString(size.getVolume(), parent.getResources()));
-        if (sizeIconEditorShown)
+        if (sizeIconEditorShown && sizeIcon != null)
             sizeIcon.setIcon(size.getIcon());
     }
 
@@ -265,7 +267,7 @@ public class DrinkSizeSelector {
         if (modifySizeCheckbox != null) {
             modifySizeCheckbox.setChecked(false);
         }
-        if (sizeIconEditorShown)
+        if (sizeIconEditorShown && sizeIcon != null)
             sizeIcon.setIcon(size.getIcon());
         updateSizeEditorEnabling();
     }
@@ -275,7 +277,7 @@ public class DrinkSizeSelector {
 
         sizeNameEdit.setEnabled(controlsEnabled);
         sizeEdit.setEnabled(controlsEnabled);
-        if (sizeIconEditorShown) {
+        if (sizeIconEditorShown && sizeIcon != null) {
             sizeIcon.setEnabled(controlsEnabled);
         }
     }
@@ -302,7 +304,7 @@ public class DrinkSizeSelector {
     }
 
     private String getCurrentlySelectedIcon() {
-        if (sizeIconEditorShown)
+        if (sizeIconEditorShown && sizeIcon != null)
             return sizeIcon.getIcon().getIcon();
         else
             return Common.DEFAULT_ICON_NAME;

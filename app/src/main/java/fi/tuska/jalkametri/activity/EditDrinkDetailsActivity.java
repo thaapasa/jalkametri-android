@@ -66,8 +66,7 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
     private EditText strengthEdit;
     private EditText commentEdit;
     private TimePicker timePicker;
-    private EditText dateEdit;
-    private View dateEditorArea;
+    private DatePicker dateEdit;
     private TextView dateEditText;
     private IconView iconView;
     private boolean showTimeSelection = true;
@@ -175,14 +174,6 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
 
         originalID = extras.getLong(KEY_ORIGINAL);
 
-        showTimeSelection = extras.getBoolean(KEY_SHOW_TIME_PICKER);
-        if (!showTimeSelection) {
-            View v = findViewById(R.id.time_edit_area);
-            v.setVisibility(View.GONE);
-        }
-        boolean showSizeIconEdit = extras.getBoolean(KEY_SHOW_SIZE_ICON_EDIT);
-        boolean showSizeSelection = extras.getBoolean(KEY_SHOW_SIZE_SELECTION);
-
         nameEdit = (EditText) findViewById(R.id.name_edit);
         strengthEdit = (EditText) findViewById(R.id.strength_edit);
         commentEdit = (EditText) findViewById(R.id.comment_edit);
@@ -190,9 +181,8 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
         timePicker.setIs24HourView(true);
         iconView = (IconView) findViewById(R.id.icon);
 
-        dateEdit = (EditText) findViewById(R.id.date_edit);
+        dateEdit = (DatePicker) findViewById(R.id.date_edit);
         dateEdit.setOnClickListener(dateClickListener);
-        dateEditorArea = findViewById(R.id.date_edit_area);
 
         dateEditText = (TextView) findViewById(R.id.date_edit_text);
 
@@ -202,11 +192,9 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
             okButton.setText(okTitle);
         }
 
-        initializeComponents();
-
         // Initialize the drink size selector
-        drinkSizeSelector = new DrinkSizeSelector(this, adapter, showSizeSelection,
-            showSizeIconEdit, Common.DIALOG_SELECT_SIZE_ICON);
+        drinkSizeSelector = new DrinkSizeSelector(this, adapter, true,
+            true, Common.DIALOG_SELECT_SIZE_ICON);
         drinkSizeSelector.initializeComponents(selection.getSize());
 
         tryToHideSoftKeyboard(nameEdit);
@@ -246,7 +234,6 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
         }
 
         updateUIFromSelection();
-        updateDateEditorShown();
     }
 
     @Override
@@ -264,21 +251,12 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
     public void updateUI() {
     }
 
-    private void initializeComponents() {
-        updateDateEditorShown();
-    }
-
     /*
      * Custom actions
      * ----------------------------------------------------------
      */
     public boolean isModifying() {
         return originalID > 0;
-    }
-
-    public void updateDateEditorShown() {
-        dateEditorArea.setVisibility(isModifying() && showTimeSelection ? View.VISIBLE
-            : View.GONE);
     }
 
     public void onOKPressed(View okButton) {
@@ -323,7 +301,7 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
 
     public void setSelectedDate(Date date) {
         selectedDate = date;
-        dateEdit.setText(dateEditFormatter.format(selectedDate));
+        // dateEdit.setText(dateEditFormatter.format(selectedDate));
     }
 
     public void updateSelectionFromUI() {
