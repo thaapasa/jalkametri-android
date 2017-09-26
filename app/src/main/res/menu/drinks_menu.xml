@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" android:name="Context menu">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="Context menu">
 
-  <item android:id="@+id/action_add_drink" android:title="@string/menu_add_drink" />
+    <item
+        android:id="@+id/action_add_drink"
+        android:title="@string/menu_add_drink" />
 
 </menu>

@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" android:name="Context menu">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="Context menu">
 
-  <item android:id="@+id/action_add_favourite" android:title="@string/menu_add_favourite" />
-  <item android:id="@+id/action_show_preferences" android:title="@string/menu_prefs" />
-  <item android:id="@+id/action_legal" android:title="@string/menu_disclaimer" />
-  <item android:id="@+id/action_about" android:title="@string/menu_about" />
-  <item android:id="@+id/action_help" android:title="@string/menu_help" />
-  <!--
-  <item android:id="@+id/action_quit" android:title="@string/menu_quit" />
-  -->
+    <item
+        android:id="@+id/action_add_favourite"
+        android:title="@string/menu_add_favourite" />
+    <item
+        android:id="@+id/action_show_preferences"
+        android:title="@string/menu_prefs" />
+    <item
+        android:id="@+id/action_legal"
+        android:title="@string/menu_disclaimer" />
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/menu_about" />
+    <item
+        android:id="@+id/action_help"
+        android:title="@string/menu_help" />
+    <!--
+    <item android:id="@+id/action_quit" android:title="@string/menu_quit" />
+    -->
 </menu>

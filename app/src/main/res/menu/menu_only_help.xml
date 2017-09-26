@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-	android:name="Context menu">
+    android:name="Context menu">
 
-	<item android:id="@+id/action_help" android:title="@string/menu_help" />
+    <item
+        android:id="@+id/action_help"
+        android:title="@string/menu_help" />
 </menu>

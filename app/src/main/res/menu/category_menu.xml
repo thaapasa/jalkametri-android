@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" android:name="Context menu">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="Context menu">
 
-  <item android:id="@+id/action_default_drinks" android:title="@string/menu_default_drinks" />
-  <item android:id="@+id/action_add_category" android:title="@string/menu_add_category" />
-  <item android:id="@+id/action_help" android:title="@string/menu_help" />
+    <item
+        android:id="@+id/action_default_drinks"
+        android:title="@string/menu_default_drinks" />
+    <item
+        android:id="@+id/action_add_category"
+        android:title="@string/menu_add_category" />
+    <item
+        android:id="@+id/action_help"
+        android:title="@string/menu_help" />
 
 </menu>

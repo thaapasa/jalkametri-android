@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-  android:name="Context menu">
+    android:name="Context menu">
 
-  <!-- Debugging actions for setting/clearing the license -->
-  <item android:id="@+id/action_devel_clear_disclaimer_read"
-    android:title="Reset disclaimer" />
-  <item android:id="@+id/action_devel_clear_def_library_created"
-    android:title="Reset def.library creation" />
+    <!-- Debugging actions for setting/clearing the license -->
+    <item
+        android:id="@+id/action_devel_clear_disclaimer_read"
+        android:title="Reset disclaimer" />
+    <item
+        android:id="@+id/action_devel_clear_def_library_created"
+        android:title="Reset def.library creation" />
 
 </menu>
