@@ -16,6 +16,7 @@
             <ImageView
                 android:src="@mipmap/ic_launcher"
                 style="@style/wrap_content"
+                android:contentDescription="@string/app_name"
                 android:layout_gravity="top" />
 
             <LinearLayout

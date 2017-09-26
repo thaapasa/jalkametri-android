@@ -62,6 +62,12 @@
         <item name="android:src">@drawable/ic_today</item>
     </style>
 
+    <style name="btn_save" parent="btn_material_design">
+        <item name="android:contentDescription">@string/action_save</item>
+        <item name="android:text">@string/action_save</item>
+        <item name="android:drawableStart">@drawable/ic_drink</item>
+    </style>
+
     <style name="btn_left" parent="btn_material_design">
         <item name="android:src">@drawable/ic_arrow_left</item>
     </style>

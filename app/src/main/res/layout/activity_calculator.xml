@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_view"
-    android:fillViewport="true"
-    style="@style/fill_parent">
+            android:id="@+id/main_view"
+            android:fillViewport="true"
+            style="@style/fill_parent">
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -14,12 +13,12 @@
         <TextView
             style="@style/subtitle_text"
             android:layout_marginTop="0dp"
-            android:text="@string/calc_add_component" />
+            android:text="@string/calc_add_component"/>
 
         <TableLayout
             android:paddingLeft="@dimen/padding"
             android:paddingRight="@dimen/padding">
-        <!-- Strength of the component -->
+            <!-- Strength of the component -->
             <TableRow>
 
                 <TextView
@@ -32,13 +31,13 @@
                     android:text="@string/calc_default_strength"
                     style="@style/table_edit"
                     android:inputType="numberDecimal"
-                    android:maxLength="6" />
+                    android:maxLength="6"/>
 
                 <TextView
                     style="@style/simple_text"
                     android:text="@string/calc_str_unit"
                     android:paddingStart="@dimen/text_spacing"
-                    android:paddingEnd="@dimen/text_spacing" />
+                    android:paddingEnd="@dimen/text_spacing"/>
             </TableRow>
 
             <!-- Volume of the component -->
@@ -54,13 +53,13 @@
                     android:text="@string/calc_default_volume"
                     style="@style/table_edit"
                     android:inputType="numberDecimal"
-                    android:maxLength="6" />
+                    android:maxLength="6"/>
 
                 <TextView
                     style="@style/simple_text"
                     android:text="@string/calc_vol_unit"
                     android:paddingStart="@dimen/text_spacing"
-                    android:paddingEnd="@dimen/text_spacing" />
+                    android:paddingEnd="@dimen/text_spacing"/>
             </TableRow>
         </TableLayout>
 
@@ -68,12 +67,12 @@
         <Button
             android:text="@string/calc_add"
             style="@style/btn_material_design"
-            android:onClick="onAddPressed" />
+            android:onClick="onAddPressed"/>
 
         <!-- The mixture -->
         <TextView
             android:text="@string/calc_mixture"
-            style="@style/subtitle_text" />
+            style="@style/subtitle_text"/>
 
         <!-- Strength of the mixture -->
         <TableLayout
@@ -90,13 +89,13 @@
                 <TextView
                     android:id="@+id/strength_show"
                     android:text="@string/calc_zero"
-                    style="@style/simple_text_right" />
+                    style="@style/simple_text_right"/>
 
                 <TextView
                     android:text="@string/calc_str_unit"
                     style="@style/simple_text"
                     android:paddingStart="@dimen/text_spacing"
-                    android:paddingEnd="@dimen/text_spacing" />
+                    android:paddingEnd="@dimen/text_spacing"/>
             </TableRow>
             <!-- Volume of the mixture -->
             <TableRow>
@@ -110,13 +109,13 @@
                     android:id="@+id/volume_show"
                     android:text="@string/calc_zero"
                     style="@style/simple_text_right"
-                    android:layout_gravity="end" />
+                    android:layout_gravity="end"/>
 
                 <TextView
                     android:text="@string/calc_vol_unit"
                     style="@style/simple_text"
                     android:paddingStart="@dimen/text_spacing"
-                    android:paddingEnd="@dimen/text_spacing" />
+                    android:paddingEnd="@dimen/text_spacing"/>
             </TableRow>
             <!-- Portions in the mixture -->
             <TableRow>
@@ -129,7 +128,7 @@
                 <TextView
                     android:id="@+id/portions_show"
                     android:text="@string/calc_zero"
-                    style="@style/simple_text_right" />
+                    style="@style/simple_text_right"/>
 
             </TableRow>
         </TableLayout>
@@ -143,12 +142,12 @@
             <Button
                 style="@style/btn_ok"
                 android:onClick="onOKPressed"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
             <Button
                 style="@style/btn_clear"
                 android:onClick="onClearPressed"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
         </LinearLayout>
 
     </TableLayout>
