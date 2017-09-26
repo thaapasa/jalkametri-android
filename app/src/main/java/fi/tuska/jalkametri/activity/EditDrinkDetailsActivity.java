@@ -66,7 +66,7 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
     private EditText strengthEdit;
     private EditText commentEdit;
     private TimePicker timePicker;
-    private DatePicker dateEdit;
+    private EditText dateEdit;
     private TextView dateEditText;
     private IconView iconView;
     private boolean showTimeSelection = true;
@@ -181,7 +181,7 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
         timePicker.setIs24HourView(true);
         iconView = (IconView) findViewById(R.id.icon);
 
-        dateEdit = (DatePicker) findViewById(R.id.date_edit);
+        dateEdit = (EditText) findViewById(R.id.date_edit);
         dateEdit.setOnClickListener(dateClickListener);
 
         dateEditText = (TextView) findViewById(R.id.date_edit_text);
@@ -255,7 +255,7 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
      * Custom actions
      * ----------------------------------------------------------
      */
-    public boolean isModifying() {
+    private boolean isModifying() {
         return originalID > 0;
     }
 
@@ -270,7 +270,7 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
         showDialog(Common.DIALOG_SELECT_ICON);
     }
 
-    public void updateUIFromSelection() {
+    private void updateUIFromSelection() {
         assert selection != null;
         // Drink type details
         {
@@ -299,12 +299,12 @@ public class EditDrinkDetailsActivity extends JalkametriDBActivity {
         }
     }
 
-    public void setSelectedDate(Date date) {
+    private void setSelectedDate(Date date) {
         selectedDate = date;
-        // dateEdit.setText(dateEditFormatter.format(selectedDate));
+        dateEdit.setText(dateEditFormatter.format(selectedDate));
     }
 
-    public void updateSelectionFromUI() {
+    private void updateSelectionFromUI() {
         // Drink type details
         {
             Drink drink = selection.getDrink();
