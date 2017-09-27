@@ -39,7 +39,7 @@ public class SelectSizeForDrinkActivity extends JalkametriDBActivity {
         initializeComponents();
 
         // Initialize the drink size selector
-        drinkSizeSelector = new DrinkSizeSelector(this, adapter, true, true,
+        drinkSizeSelector = new DrinkSizeSelector(this, getAdapter(), true, true,
             Common.DIALOG_SELECT_SIZE_ICON);
         drinkSizeSelector.initializeComponents(null);
         selection = drinkSizeSelector.getDrinkSize();

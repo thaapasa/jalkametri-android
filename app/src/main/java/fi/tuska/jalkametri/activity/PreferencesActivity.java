@@ -366,7 +366,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
     private void recalculateHistoryPortions() {
         allowLeave = false;
         // Recalculate the portions in history database
-        DrinkActions.recalculateHistoryPortions(adapter, this, new Runnable() {
+        DrinkActions.recalculateHistoryPortions(getAdapter(), this, new Runnable() {
             @Override
             public void run() {
                 allowLeave = true;

@@ -100,7 +100,7 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
      */
     @Override
     public void updateUI() {
-        DrinkLibrary library = new DrinkLibraryDB(adapter);
+        DrinkLibrary library = new DrinkLibraryDB(getAdapter());
         DrinkSizes sizeProvider = library.getDrinkSizes();
         loadLibraries(sizeProvider);
     }

@@ -79,8 +79,8 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_category);
 
-        this.library = new DrinkLibraryDB(adapter);
-        this.history = new HistoryDB(adapter, this);
+        this.library = new DrinkLibraryDB(getAdapter());
+        this.history = new HistoryDB(getAdapter(), this);
 
         this.categoryList = (GridView) findViewById(R.id.list);
         this.prevDrinkList = (GridView) findViewById(R.id.previous_list);

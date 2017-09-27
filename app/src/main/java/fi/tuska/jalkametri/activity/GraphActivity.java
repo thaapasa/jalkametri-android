@@ -84,7 +84,7 @@ public class GraphActivity extends JalkametriDBActivity {
     }
 
     private Graph loadGraph(Intent intent, Type type, Date start, Date end) {
-        Statistics stats = new StatisticsDB(adapter, getPrefs(), this);
+        Statistics stats = new StatisticsDB(getAdapter(), getPrefs(), this);
         List<DailyDrinkStatistics> dailyStats = stats.getDailyDrinkAmounts(start, end);
         return DailyStatisticsGraph.getGraph(type, dailyStats, getPrefs(), this);
     }
