@@ -36,8 +36,7 @@ import java.util.*
  * details.
  *
  * The full drink selecting path is SelectDrinkCategoryActivity -
- * SelectDrinkTypeActivity - SelectDrinkSizeActivity -
- * EditDrinkDetailsActivity.
+ * SelectDrinkTypeActivity - SelectDrinkSizeActivity - EditDrinkDetailsActivity.
  */
 class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_details, R.string.help_edit_drink) {
 
@@ -88,7 +87,6 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
             if (okTitle != null) {
                 okButton.text = okTitle
             }
-            activity.tryToHideSoftKeyboard(nameEdit)
             activity.invalidateView()
         }
 
@@ -110,7 +108,6 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
             selectedDate = date
             dateEdit.setText(dateEditFormatter.format(selectedDate))
         }
-
 
         fun updateSelectionFromUI() {
             selection.drink.let {
@@ -183,6 +180,7 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drink_details)
+        hideSoftKeyboard()
         viewModel = ViewModel(this)
     }
 

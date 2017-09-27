@@ -2,17 +2,14 @@ package fi.tuska.jalkametri.activity
 
 import android.app.Activity
 import android.content.Context
-import android.content.SharedPreferences.Editor
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import fi.tuska.jalkametri.CommonActivities
-import fi.tuska.jalkametri.PrivateData
 import fi.tuska.jalkametri.PrivateData.DEVELOPER_FUNCTIONALITY_ENABLED
 import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.Preferences
@@ -83,6 +80,10 @@ abstract class JalkametriActivity(private val titleResourceId: Int, private val 
 
     override fun getContext(): Context {
         return applicationContext
+    }
+
+    protected fun hideSoftKeyboard() {
+        window.setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
     protected fun tryToHideSoftKeyboard(view: View) {
