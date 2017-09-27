@@ -71,7 +71,7 @@ public class AboutActivity extends JalkametriActivity implements GUIActivity {
     @Override
     public void updateUI() {
         Resources res = getResources();
-        final boolean hasLicense = prefs.isLicensePurchased();
+        final boolean hasLicense = getPrefs().isLicensePurchased();
         // Set the version text to reflect the license purchasing status
         versionShort.setText(res
                 .getString(hasLicense ? R.string.version_licensed
@@ -91,7 +91,7 @@ public class AboutActivity extends JalkametriActivity implements GUIActivity {
 
     public void purchaseLicense(View v) {
         // Purchase the license
-        if (prefs.isLicensePurchased()) {
+        if (getPrefs().isLicensePurchased()) {
             LogUtil.i(TAG, "License already bought, not repurchasing");
             // Already bought
             updateUI();
@@ -100,7 +100,7 @@ public class AboutActivity extends JalkametriActivity implements GUIActivity {
 
     public void checkLicense(View v) {
         // Check for existing license
-        if (prefs.isLicensePurchased()) {
+        if (getPrefs().isLicensePurchased()) {
             LogUtil.i(TAG, "License already bought, not checking");
             updateUI();
         }

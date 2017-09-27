@@ -144,7 +144,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
 
     private void updateAdsEditButtons() {
         Resources res = getResources();
-        final boolean hasLicense = prefs.isLicensePurchased();
+        final boolean hasLicense = getPrefs().isLicensePurchased();
         if (!hasLicense) {
             adsEnabled.setChecked(true);
         }
@@ -209,7 +209,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
 
     public void updateUIFromPreferences() {
         // Populate language
-        Locale lang = prefs.getLocale();
+        Locale lang = getPrefs().getLocale();
         for (int i = 0; i < languageValues.length; i++) {
             if (lang.getLanguage().equals(languageValues[i])) {
                 languageSpinner.setSelection(i);
@@ -219,11 +219,11 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
 
         // Populate weight
         Resources res = getResources();
-        double weight = prefs.getWeight();
+        double weight = getPrefs().getWeight();
         weightEdit.setText(NumberUtil.toString(weight, res));
 
         // Populate driving limit
-        double drivingLimit = prefs.getDrivingAlcoholLimit();
+        double drivingLimit = getPrefs().getDrivingAlcoholLimit();
         drivingLimitEdit.setText(NumberUtil.toString(drivingLimit, res));
 
         // Populate maximum alcohol level
@@ -231,13 +231,13 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
         // maxLevelEdit.setText(NumberUtil.toString(maxLevel));
 
         // Populate day change time
-        int hour = prefs.getDayChangeHour();
-        int minute = prefs.getDayChangeMinute();
+        int hour = getPrefs().getDayChangeHour();
+        int minute = getPrefs().getDayChangeMinute();
         dayChangePicker.setCurrentHour(hour);
         dayChangePicker.setCurrentMinute(minute);
 
         // Populate gender
-        Gender gender = prefs.getGender();
+        Gender gender = getPrefs().getGender();
         for (int i = 0; i < genderValues.length; i++) {
             if (gender.toString().equals(genderValues[i])) {
                 genderSpinner.setSelection(i);
@@ -246,7 +246,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
         }
 
         // Populate standard drink selection
-        String drinkSel = prefs.getStandardDrinkCountry();
+        String drinkSel = getPrefs().getStandardDrinkCountry();
         for (int i = 0; i < standardDrinkValues.length; i++) {
             if (drinkSel != null && drinkSel.equalsIgnoreCase(standardDrinkValues[i])) {
                 standardDrinkSpinner.setSelection(i);
@@ -255,12 +255,12 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
         }
 
         // Populate week start
-        boolean startMonday = prefs.isWeekStartMonday();
+        boolean startMonday = getPrefs().isWeekStartMonday();
         // Monday is first
         weekStartSpinner.setSelection(startMonday ? 0 : 1);
 
         // Populate ads enabled
-        adsEnabled.setChecked(prefs.isLicensePurchased() ? prefs.isAdsEnabled() : true);
+        adsEnabled.setChecked(getPrefs().isLicensePurchased() ? getPrefs().isAdsEnabled() : true);
 
         // Populate sounds enabled
         // soundsEnabled.setChecked(prefs.isSoundsEnabled());
@@ -270,7 +270,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
     }
 
     private void savePreferences() {
-        Editor editor = prefs.edit();
+        Editor editor = getPrefs().edit();
         boolean needRecalculatePortions = false;
 
         // Set language
@@ -280,19 +280,19 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
                 String languageStr = languageValues[pos];
                 Locale lang = LocalizationUtil.getLocale(languageStr);
                 if (lang != null) {
-                    prefs.setLocale(editor, lang);
+                    getPrefs().setLocale(editor, lang);
                 }
             }
         }
 
         // Set weight
-        Locale locale = prefs.getLocale();
+        Locale locale = getPrefs().getLocale();
         double weight = NumberUtil.readDouble(weightEdit.getText().toString(), locale);
-        prefs.setWeight(editor, weight);
+        getPrefs().setWeight(editor, weight);
 
         // Set driving alcohol limit
         double drivingLimit = NumberUtil.readDouble(drivingLimitEdit.getText().toString(), locale);
-        prefs.setDrivingAlcoholLimit(editor, drivingLimit);
+        getPrefs().setDrivingAlcoholLimit(editor, drivingLimit);
 
         // Set maximum alcohol level
         // double maxLevel =
@@ -302,8 +302,8 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
         // Set day change time
         int hour = dayChangePicker.getCurrentHour();
         int minute = dayChangePicker.getCurrentMinute();
-        prefs.setDayChangeHour(editor, hour);
-        prefs.setDayChangeMinute(editor, minute);
+        getPrefs().setDayChangeHour(editor, hour);
+        getPrefs().setDayChangeMinute(editor, minute);
 
         // Set gender
         {
@@ -312,19 +312,19 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
                 String genderStr = genderValues[pos];
                 Gender gender = Gender.valueOf(genderStr);
                 if (gender != null) {
-                    prefs.setGender(editor, gender);
+                    getPrefs().setGender(editor, gender);
                 }
             }
         }
 
         // Set standard drink selection
-        double orgStdWei = prefs.getStandardDrinkAlcoholWeight();
+        double orgStdWei = getPrefs().getStandardDrinkAlcoholWeight();
         {
             int pos = standardDrinkSpinner.getSelectedItemPosition();
             if (pos >= 0 && pos <= standardDrinkValues.length) {
                 String stdDrinkCountry = standardDrinkValues[pos];
                 if (stdDrinkCountry != null) {
-                    prefs.setStandardDrinkCountry(editor, stdDrinkCountry);
+                    getPrefs().setStandardDrinkCountry(editor, stdDrinkCountry);
                 }
             }
         }
@@ -333,28 +333,28 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
         {
             int pos = weekStartSpinner.getSelectedItemPosition();
             if (pos >= 0 && pos <= genderValues.length) {
-                prefs.setWeekStartMonday(editor, pos == 0);
+                getPrefs().setWeekStartMonday(editor, pos == 0);
             }
         }
 
         // Set ads enabled
-        if (prefs.isLicensePurchased()) {
+        if (getPrefs().isLicensePurchased()) {
             // Only allow changing this setting if the license has been bought
-            prefs.setAdsEnabled(editor, adsEnabled.isChecked());
+            getPrefs().setAdsEnabled(editor, adsEnabled.isChecked());
         }
 
         // Set sounds enabled
         // prefs.setSoundsEnabled(editor, soundsEnabled.isChecked());
-        prefs.setSoundsEnabled(editor, false);
+        getPrefs().setSoundsEnabled(editor, false);
 
         // Set debug mode
         // prefs.setDebugMode(editor, debugMode.isChecked());
-        prefs.setDebugMode(editor, false);
+        getPrefs().setDebugMode(editor, false);
 
         // Commit changes
         editor.commit();
 
-        if (prefs.getStandardDrinkAlcoholWeight() != orgStdWei) {
+        if (getPrefs().getStandardDrinkAlcoholWeight() != orgStdWei) {
             needRecalculatePortions = true;
         }
 

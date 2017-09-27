@@ -26,7 +26,7 @@ public class EditDrinkSizeActivity extends JalkametriDBActivity {
     private Long originalId;
 
     public EditDrinkSizeActivity() {
-        super(R.string.title_edit_drink_size, NO_HELP_TEXT);
+        super(R.string.title_edit_drink_size, Companion.getNO_HELP_TEXT());
     }
 
     /*

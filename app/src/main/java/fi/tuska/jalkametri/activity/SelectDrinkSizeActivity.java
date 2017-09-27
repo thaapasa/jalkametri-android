@@ -53,7 +53,7 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
     private DrinkSelection eventSelectedForDetails;
 
     public SelectDrinkSizeActivity() {
-        super(R.string.title_select_drink_size, NO_HELP_TEXT);
+        super(R.string.title_select_drink_size, Companion.getNO_HELP_TEXT());
     }
 
     /*
@@ -258,7 +258,7 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
             case R.id.action_show_info:
                 // Show the information for this drink size
                 DrinkEvent ev = new DrinkEvent(selectedDrink, listAdapter.getItem(pos),
-                    timeUtil.getCurrentTime());
+                    getTimeUtil().getCurrentTime());
                 showEventDetails(ev);
                 return true;
 

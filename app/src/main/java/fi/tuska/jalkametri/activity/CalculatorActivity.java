@@ -131,7 +131,7 @@ public class CalculatorActivity extends JalkametriActivity {
     }
 
     public void onAddPressed(View v) {
-        Locale locale = prefs.getLocale();
+        Locale locale = getPrefs().getLocale();
         double vol = NumberUtil.readDouble(volumeEdit.getText().toString(), locale);
         double str = NumberUtil.readDouble(strengthEdit.getText().toString(), locale);
         LogUtil.d(TAG, "Adding selected component: %f liters of %f %%", vol, str);

@@ -17,7 +17,7 @@ public class HelpActivity extends JalkametriActivity {
     private static final String HELP_TEXT_RES_ID = "helpResId";
 
     public HelpActivity() {
-        super(R.string.title_help, NO_HELP_TEXT);
+        super(R.string.title_help, Companion.getNO_HELP_TEXT());
     }
 
     /**

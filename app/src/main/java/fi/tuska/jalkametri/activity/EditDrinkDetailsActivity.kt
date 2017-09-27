@@ -226,7 +226,7 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
         showDialog(Common.DIALOG_SELECT_ICON)
     }
 
-    override fun showDrinkCalculator(v: View) {
+    override fun showDrinkCalculator(v: View?) {
         viewModel?.let {
             it.updateSelectionFromUI()
             // Use the values from current selection as the basis of the calculator

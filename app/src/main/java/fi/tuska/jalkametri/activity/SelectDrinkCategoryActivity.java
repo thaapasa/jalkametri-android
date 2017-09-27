@@ -140,7 +140,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DrinkEvent selection = prevDrinkAdapter.getItem(position);
-                selection.setTime(timeUtil.getCurrentTime());
+                selection.setTime(getTimeUtil().getCurrentTime());
                 setResult(RESULT_OK, DrinkActivities.createDrinkSelectionResult(selection, null));
                 finish();
             }
@@ -174,15 +174,15 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
     }
 
     private void ensureDrinkLibraryIsInitialized() {
-        if (prefs.isDrinkLibraryInitialized())
+        if (getPrefs().isDrinkLibraryInitialized())
             return;
 
         // Library will be initialized if it has never been initialized, or if
         // the database has been recreated
         DrinkActions.resetDrinkLibrary(this, drinkLibraryResetHandler);
 
-        Editor e = prefs.edit();
-        prefs.setDrinkLibraryInitialized(e, true);
+        Editor e = getPrefs().edit();
+        getPrefs().setDrinkLibraryInitialized(e, true);
         e.commit();
     }
 

@@ -35,7 +35,7 @@ public class GraphActivity extends JalkametriDBActivity {
     private GraphView graphView;
 
     public GraphActivity() {
-        super(R.string.title_statistics, NO_HELP_TEXT);
+        super(R.string.title_statistics, Companion.getNO_HELP_TEXT());
     }
 
     /*
@@ -84,9 +84,9 @@ public class GraphActivity extends JalkametriDBActivity {
     }
 
     private Graph loadGraph(Intent intent, Type type, Date start, Date end) {
-        Statistics stats = new StatisticsDB(adapter, prefs, this);
+        Statistics stats = new StatisticsDB(adapter, getPrefs(), this);
         List<DailyDrinkStatistics> dailyStats = stats.getDailyDrinkAmounts(start, end);
-        return DailyStatisticsGraph.getGraph(type, dailyStats, prefs, this);
+        return DailyStatisticsGraph.getGraph(type, dailyStats, getPrefs(), this);
     }
 
     @Override

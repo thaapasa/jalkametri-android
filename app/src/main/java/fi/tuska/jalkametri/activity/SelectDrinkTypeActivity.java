@@ -54,7 +54,7 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
     private Long catID;
 
     public SelectDrinkTypeActivity() {
-        super(R.string.title_select_drink_type, NO_HELP_TEXT);
+        super(R.string.title_select_drink_type, Companion.getNO_HELP_TEXT());
     }
 
     /*
@@ -135,7 +135,7 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
             if (size != null) {
                 DrinkSelection sel = new DrinkSelection(drink);
                 sel.setSize(size);
-                sel.setTime(timeUtil.getCurrentTime());
+                sel.setTime(getTimeUtil().getCurrentTime());
                 setResult(RESULT_OK, DrinkActivities.createDrinkSelectionResult(sel, null));
                 finish();
                 return;

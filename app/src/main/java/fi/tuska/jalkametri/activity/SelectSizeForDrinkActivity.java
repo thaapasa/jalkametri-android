@@ -24,7 +24,7 @@ public class SelectSizeForDrinkActivity extends JalkametriDBActivity {
     private DrinkSize selection;
 
     public SelectSizeForDrinkActivity() {
-        super(R.string.title_select_size_for_drink, NO_HELP_TEXT);
+        super(R.string.title_select_size_for_drink, Companion.getNO_HELP_TEXT());
     }
 
     /*

@@ -314,8 +314,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
             activity.registerForContextMenu(developmentView)
             favouritesList.onItemClickListener = OnItemClickListener { _, _, position, _ ->
                 favouritesAdapter?.getItem(position)?.let { favorite ->
-                    val sel = DrinkSelection(favorite.drink, favorite.size, timeUtil
-                            .currentTime)
+                    val sel = DrinkSelection(favorite.drink, favorite.size, timeUtil.currentTime)
                     consumeDrink(sel)
                 }
             }

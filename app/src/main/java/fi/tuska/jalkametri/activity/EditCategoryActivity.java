@@ -49,7 +49,7 @@ public class EditCategoryActivity extends JalkametriActivity {
     };
 
     public EditCategoryActivity() {
-        super(R.string.title_edit_category, NO_HELP_TEXT);
+        super(R.string.title_edit_category, Companion.getNO_HELP_TEXT());
     }
 
     /*
