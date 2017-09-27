@@ -123,7 +123,7 @@ public final class DrinkActivities {
         // Create and prepare and intent for modifying the selected drink
         // event
         Intent i = new Intent(parent, EditDrinkDetailsActivity.class);
-        EditDrinkDetailsActivity.prepareForDrinkEventModification(parent, i, drink,
+        EditDrinkDetailsActivity.Companion.prepareForDrinkEventModification(parent, i, drink,
             showTimeSelection, showSizeSelector, showSizeIconEdit);
         parent.startActivityForResult(i, code);
         return code;
@@ -134,7 +134,7 @@ public final class DrinkActivities {
 
         // Create and prepare an intent for modifying the drink
         Intent i = new Intent(parent, EditDrinkDetailsActivity.class);
-        EditDrinkDetailsActivity.prepareForDrinkModification(parent, i, drink);
+        EditDrinkDetailsActivity.Companion.prepareForDrinkModification(parent, i, drink);
         parent.startActivityForResult(i, Common.ACTIVITY_CODE_MODIFY_DRINK);
         return Common.ACTIVITY_CODE_MODIFY_DRINK;
     }
@@ -156,7 +156,7 @@ public final class DrinkActivities {
         DrinkSelection drink = new DrinkSelection(originalDrink.getDrink(),
             originalDrink.getSize(), new TimeUtil(parent).getCurrentTime());
         // Prepare the intent for showing the selected category
-        if (EditDrinkDetailsActivity.prepareForDrinkSelection(parent, i, drink)) {
+        if (EditDrinkDetailsActivity.Companion.prepareForDrinkSelection(parent, i, drink)) {
             parent.startActivityForResult(i, code);
             return code;
         }
