@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.app.Dialog
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +13,6 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import fi.tuska.jalkametri.Common
 import fi.tuska.jalkametri.Common.KEY_ORIGINAL
@@ -64,16 +65,24 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
                     cal.get(Calendar.DAY_OF_MONTH))
             fdp.show()
         }
-
+        private val timeClickListener = OnClickListener {
+            val cal = timeUtil.getCalendar(selectedDate)
+            val tpd = TimePickerDialog(
+                    activity, OnTimeSetListener { view, hourOfDay, minute ->
+                setSelectedTime(hourOfDay, minute)
+            }, cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), true)
+            tpd.show()
+        }
         private val nameEdit: EditText = activity.findViewById(R.id.name_edit) as EditText
         private val strengthEdit: EditText = activity.findViewById(R.id.strength_edit) as EditText
         private val commentEdit: EditText = activity.findViewById(R.id.comment_edit) as EditText
-        private val timePicker: EditText = activity.findViewById(R.id.time_edit) as EditText
         private val iconView: IconView = activity.findViewById(R.id.icon) as IconView
         private val dateEdit: EditText = (activity.findViewById(R.id.date_edit) as EditText).apply {
             setOnClickListener(dateClickListener)
         }
-        private val dateEditText: TextView = activity.findViewById(R.id.date_edit_text) as TextView
+        private val timeEdit: EditText = (activity.findViewById(R.id.time_edit) as EditText).apply {
+            setOnClickListener(timeClickListener)
+        }
         private val showTimeSelection = true
         private var selectedDate: Date = timeUtil.currentTime
         val drinkSizeSelector: DrinkSizeSelector = (DrinkSizeSelector(activity, activity.adapter, true,
@@ -107,6 +116,11 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
         private fun setSelectedDate(date: Date) {
             selectedDate = date
             dateEdit.setText(dateEditFormatter.format(selectedDate))
+        }
+
+        private fun setSelectedTime(hourOfDay: Int, minute: Int) {
+            val timeStr = "$hourOfDay:$minute"
+            timeEdit.setText(timeStr)
         }
 
         fun updateSelectionFromUI() {
@@ -157,7 +171,7 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
                 cal.time = it
                 //timePicker.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
                 //timePicker.setCurrentMinute(cal.get(Calendar.MINUTE));
-                timePicker.setText(cal.get(Calendar.HOUR_OF_DAY).toString() + ":" + cal.get(Calendar.MINUTE))
+                setSelectedTime(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE))
                 setSelectedDate(it)
             }
         }
