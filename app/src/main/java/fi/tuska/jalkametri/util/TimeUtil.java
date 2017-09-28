@@ -38,21 +38,18 @@ public final class TimeUtil {
     private DateFormat timeFormat;
     private DateFormat sqlDateFormat;
 
+    public TimeUtil(Resources res, Locale locale) {
+        this.res = res;
+        this.locale = locale;
+    }
+
     public TimeUtil(Resources res) {
         this.res = res;
         this.locale = res.getConfiguration().locale;
     }
 
-    public TimeUtil(Context context) {
-        this(context.getResources());
-    }
-
-    public TimeUtil(GUIActivity act) {
-        this(act.getContext().getResources());
-    }
-
-    public TimeUtil(JalkametriActivity act) {
-        this(act.getContext().getResources());
+    public TimeUtil(Context ctx) {
+        this(ctx.getResources());
     }
 
     public Calendar getCurrentCalendar() {

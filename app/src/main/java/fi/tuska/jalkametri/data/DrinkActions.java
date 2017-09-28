@@ -239,7 +239,7 @@ public final class DrinkActions {
      */
     public static <T extends GUIActivity & DBActivity> void addDrinkForSelectedDay(History history,
                                                                                    DrinkSelection drink, Date day, T parent) {
-        TimeUtil timeUtil = new TimeUtil(parent);
+        TimeUtil timeUtil = new TimeUtil(parent.getContext());
         Calendar selCal = timeUtil.getCalendar(drink.getTime().toDate());
         Calendar curCal = timeUtil.getCalendar(day);
         selCal.set(Calendar.YEAR, curCal.get(Calendar.YEAR));

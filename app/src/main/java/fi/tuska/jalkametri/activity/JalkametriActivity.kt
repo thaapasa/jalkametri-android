@@ -10,10 +10,10 @@ import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import fi.tuska.jalkametri.CommonActivities
+import fi.tuska.jalkametri.JalkametriApplication
 import fi.tuska.jalkametri.PrivateData.DEVELOPER_FUNCTIONALITY_ENABLED
 import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.Preferences
-import fi.tuska.jalkametri.data.PreferencesImpl
 import fi.tuska.jalkametri.util.TimeUtil
 
 /**
@@ -25,14 +25,16 @@ abstract class JalkametriActivity(private val titleResourceId: Int, private val 
     private var mainView: View? = null
     private var showDefaultHelpMenu = false
 
-    protected val prefs: Preferences
-        get() = currentPrefs!!
+    val jalkametriApplication: JalkametriApplication
+        get() = application as JalkametriApplication
 
-    protected val timeUtil: TimeUtil
-        get() = currentTimeUtil!!
+    val prefs: Preferences
+        get() = jalkametriApplication.prefs
+
+    val timeUtil: TimeUtil
+        get() = jalkametriApplication.timeUtil
 
     private var currentPrefs: Preferences? = null
-    private var currentTimeUtil: TimeUtil? = null
 
     private var firstRun: Boolean = false
 
@@ -50,8 +52,6 @@ abstract class JalkametriActivity(private val titleResourceId: Int, private val 
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.currentTimeUtil = TimeUtil(this)
-        this.currentPrefs = PreferencesImpl(this)
 
         val res = resources
         // Update title to enforce correct language

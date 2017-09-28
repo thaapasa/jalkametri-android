@@ -306,6 +306,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
     private class State(val activity: MainActivity) {
         val timeUtil = activity.timeUtil
         val adapter = activity.adapter
+
         val history: History = HistoryDB(adapter, activity)
         val meter: AlcoholLevelMeter = AlcoholLevelMeter(history, activity)
         val favourites: Favourites = FavouritesDB(activity.adapter, activity)

@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import fi.tuska.jalkametri.dao.Preferences
 import fi.tuska.jalkametri.data.PreferencesImpl
 import fi.tuska.jalkametri.util.LocalizationUtil
+import fi.tuska.jalkametri.util.TimeUtil
 import net.danlew.android.joda.JodaTimeAndroid
 
 /**
@@ -16,18 +17,33 @@ import net.danlew.android.joda.JodaTimeAndroid
  */
 class JalkametriApplication : Application() {
 
+    val timeUtil: TimeUtil
+        get() = currentTimeUtil!!
+
+    val prefs: Preferences
+        get() = currentPrefs!!
+
+    private var currentTimeUtil: TimeUtil? = null
+    private var currentPrefs: Preferences? = null
+
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
-        val prefs = PreferencesImpl(this)
-        LocalizationUtil.setLocale(prefs.locale, baseContext)
+        reset()
     }
 
     override fun onCreate() {
         super.onCreate()
         JodaTimeAndroid.init(this)
+        reset()
+    }
 
-        val prefs = PreferencesImpl(this)
-        LocalizationUtil.setLocale(prefs.locale, baseContext)
+    private fun reset() {
+        val p = PreferencesImpl(this)
+        val locale = p.locale
+        LocalizationUtil.setLocale(locale, baseContext)
+
+        currentTimeUtil = TimeUtil(resources, locale)
+        currentPrefs = p
     }
 
 }
