@@ -60,8 +60,8 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
         private val timeFormatter: DateTimeFormatter = DateTimeFormat.forPattern(resources.getString(R.string.time_format)).withZone(timeUtil.timeZone).withLocale(prefs.locale)
         private val dateClickListener = OnClickListener {
             DatePickerDialog(activity,
-                    OnDateSetListener { _, y, m, d -> setSelectedDate(LocalDate(y, m, d)) },
-                    selectedDate.year, selectedDate.monthOfYear, selectedDate.dayOfMonth).show()
+                    OnDateSetListener { _, y, m, d -> setSelectedDate(LocalDate(y, m + 1, d)) },
+                    selectedDate.year, selectedDate.monthOfYear - 1, selectedDate.dayOfMonth).show()
         }
         private val timeClickListener = OnClickListener {
             TimePickerDialog(activity,
