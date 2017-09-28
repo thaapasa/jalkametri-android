@@ -15,7 +15,7 @@ import fi.tuska.jalkametri.R;
 public class DisclaimerActivity extends JalkametriActivity {
 
     public DisclaimerActivity() {
-        super(R.string.title_disclaimer, NO_HELP_TEXT);
+        super(R.string.title_disclaimer, Companion.getNO_HELP_TEXT());
     }
 
     /*
@@ -42,8 +42,8 @@ public class DisclaimerActivity extends JalkametriActivity {
      */
     public void onOKPressed(View v) {
         // Mark that the disclaimer has been read
-        Editor editor = prefs.edit();
-        prefs.setDisclaimerRead(editor, true);
+        Editor editor = getPrefs().edit();
+        getPrefs().setDisclaimerRead(editor, true);
         editor.commit();
 
         // Dismiss this activity when OK is pressed

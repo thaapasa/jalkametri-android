@@ -3,16 +3,15 @@
     style="@style/horizontal_fill_vwrap"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:weightSum="10">
+    android:weightSum="1">
 
     <TextView
+        style="@style/spinner_text"
         android:id="@+id/text"
         android:text="Spinner text"
-        style="@style/spinner_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/spinner_text"
-        android:layout_weight="10" />
+        android:layout_weight="1" />
 
     <fi.tuska.jalkametri.gui.IconView
         style="@style/table_icon"
@@ -20,8 +19,8 @@
         android:id="@+id/icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="right"
-        android:gravity="right"
+        android:layout_gravity="end"
+        android:gravity="end"
         android:scaleType="fitXY"
         android:adjustViewBounds="true" />
 

@@ -78,9 +78,9 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
         dateSubtitle = (TextView) findViewById(R.id.browser_subtitle);
         dateSubtitle.setVisibility(View.GONE);
 
-        dateTitleFormat = timeUtil.getMonthCorrectedDateFormat(getDateTitlePattern(this, type));
+        dateTitleFormat = getTimeUtil().getMonthCorrectedDateFormat(getDateTitlePattern(this, type));
 
-        loadDay(timeUtil.getCurrentTime());
+        loadDay(getTimeUtil().getCurrentTime());
     }
 
     @Override
@@ -142,7 +142,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
 
     private void gotoNextOrPrevious(int multiplier) {
         // Go to next year/month/week
-        Calendar cal = timeUtil.getCalendar(day);
+        Calendar cal = getTimeUtil().getCalendar(day);
         cal.setLenient(true);
         switch (type) {
         case Weekly:
@@ -163,18 +163,18 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
 
     public void onTodayClick(View v) {
         // Show this day
-        loadDay(timeUtil.getCurrentDrinkingDate(prefs));
+        loadDay(getTimeUtil().getCurrentDrinkingDate(getPrefs()));
     }
 
     public void onSelectDayClick(View v) {
         // Select day to show
         LogUtil.d(TAG, "Showing date selection dialog");
-        Calendar cal = timeUtil.getCalendar(day);
+        Calendar cal = getTimeUtil().getCalendar(day);
         // Show a date picker dialog
         new DatePickerDialog(this, new OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                loadDay(timeUtil.getCalendarFromDatePicker(year, monthOfYear, dayOfMonth)
+                loadDay(getTimeUtil().getCalendarFromDatePicker(year, monthOfYear, dayOfMonth)
                     .getTime());
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
@@ -188,15 +188,15 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
         setStatistics(statistics.getGeneralStatistics(start, end));
         dailyStats = statistics.getDailyDrinkAmounts(start, end);
         graphView.clear();
-        graphView.addGraph(DailyStatisticsGraph.getGraph(type, dailyStats, prefs, this));
+        graphView.addGraph(DailyStatisticsGraph.getGraph(type, dailyStats, getPrefs(), this));
 
         updateUI();
     }
 
     private void calculateDates(Date date) {
-        this.day = timeUtil.clearTimeValues(date);
+        this.day = getTimeUtil().clearTimeValues(date);
 
-        Calendar cal = timeUtil.getCalendar(day);
+        Calendar cal = getTimeUtil().getCalendar(day);
         switch (type) {
         case Yearly:
             cal.set(Calendar.MONTH, Calendar.JANUARY);
@@ -206,8 +206,8 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
             cal.set(Calendar.DAY_OF_MONTH, 1);
             break;
         case Weekly:
-            cal = timeUtil.getStartOfWeek(day, prefs);
-            timeUtil.clearTimeValues(cal);
+            cal = getTimeUtil().getStartOfWeek(day, getPrefs());
+            getTimeUtil().clearTimeValues(cal);
             break;
         }
         start = cal.getTime();

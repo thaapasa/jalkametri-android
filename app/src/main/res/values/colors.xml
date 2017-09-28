@@ -15,8 +15,6 @@
 
     <color name="header_color">#FFFFFFFF</color>
 
-    <color name="spinner_text">#FF000000</color>
-
     <color name="subtitle_text_color">#FF4081</color>
     <color name="subtitle_bg_color">#474747</color>
 

@@ -13,7 +13,7 @@ import fi.tuska.jalkametri.R;
 public class PurchaseReminderActivity extends JalkametriActivity {
 
     public PurchaseReminderActivity() {
-        super(R.string.title_reminder, NO_HELP_TEXT);
+        super(R.string.title_reminder, Companion.getNO_HELP_TEXT());
     }
 
 

@@ -1,214 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/scrollview_vertical"
     android:id="@+id/main_view"
-    style="@style/scrollview_vertical">
+    android:padding="@dimen/padding">
 
-    <TableLayout
-        style="@style/fill_parent"
-        android:stretchColumns="1">
+    <android.support.constraint.ConstraintLayout
+        style="@style/fill_parent">
 
         <!-- OK button -->
-        <TableRow>
-
-            <Button
-                style="@style/button_main"
-                android:id="@+id/drink_button"
-                android:text="@string/action_drink"
-                android:drawableStart="@drawable/drink"
-                android:layout_span="3"
-                android:onClick="onOKPressed" />
-        </TableRow>
+        <Button
+            style="@style/btn_drink"
+            android:id="@+id/drink_button"
+            android:onClick="onOKPressed"
+            android:layout_width="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <!-- Drink type selection -->
-        <TableRow>
+        <TextView
+            style="@style/table_text"
+            android:text="@string/drink_detail_name"
+            app:layout_constraintBottom_toBottomOf="@+id/name_edit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:padding="@dimen/label_padding"/>
 
-            <TextView
-                android:text="@string/drink_detail_name"
-                style="@style/table_text" />
+        <EditText
+            style="@style/table_edit"
+            android:id="@+id/name_edit"
+            android:text=""
+            android:inputType="text"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/drink_button"
+            android:layout_marginTop="@dimen/padding"/>
 
-            <EditText
-                android:id="@+id/name_edit"
-                android:text=""
-                style="@style/table_edit"
-                android:layout_span="2"
-                android:inputType="text" />
-        </TableRow>
+        <!-- Strength -->
+        <TextView
+            style="@style/table_text"
+            android:id="@+id/strength_text"
+            android:labelFor="@id/strength_edit"
+            android:text="@string/drink_detail_strength"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/strength_edit"
+            android:padding="@dimen/label_padding"/>
 
-        <!-- Strength selection -->
-        <TableRow>
+        <Button
+            style="@style/btn_material_design"
+            android:drawableEnd="@drawable/ic_note_plus"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showDrinkCalculator"
+            app:layout_constraintLeft_toRightOf="@id/strength_text"
+            app:layout_constraintRight_toLeftOf="@id/strength_edit"
+            app:layout_constraintBottom_toBottomOf="@id/strength_edit"/>
 
-            <TextView
-                android:text="@string/drink_detail_strength"
-                style="@style/table_text"
-                android:labelFor="@id/strength_edit"/>
+        <EditText
+            style="@style/table_edit_small"
+            android:id="@+id/strength_edit"
+            android:text=""
+            android:inputType="numberDecimal"
+            android:maxLength="6"
+            app:layout_constraintTop_toBottomOf="@id/name_edit"
+            app:layout_constraintRight_toLeftOf="@+id/unit_text"
+            android:layout_marginTop="@dimen/padding"/>
 
-            <LinearLayout
-                style="@style/horizontal_wrap"
-                android:layout_gravity="end">
-
-                <Button
-                    style="@style/btn_material_design"
-                    android:drawableEnd="@drawable/ic_note_plus"
-                    android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="showDrinkCalculator" />
-
-                <EditText
-                    android:id="@+id/strength_edit"
-                    android:text=""
-                    style="@style/table_edit_small"
-                    android:inputType="numberDecimal"
-                    android:maxLength="6" />
-            </LinearLayout>
-
-            <TextView
-                android:text="@string/unit_percent"
-                style="@style/unit_text" />
-        </TableRow>
+        <TextView
+            style="@style/unit_text"
+            android:id="@+id/unit_text"
+            android:text="@string/unit_percent"
+            app:layout_constraintBottom_toBottomOf="@+id/strength_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="@dimen/label_padding"/>
 
         <!-- Size selection -->
-        <TableLayout
-            android:id="@+id/size_selection_area"
-            style="@style/fill_parent"
-            android:stretchColumns="1">
+        <Spinner
+            style="@style/table_widespinner"
+            android:id="@+id/size_selector"
+            app:layout_constraintTop_toBottomOf="@id/strength_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/doublePadding"/>
 
-            <TableRow>
+        <TextView
+            style="@style/table_text"
+            android:text="@string/drink_detail_size"
+            app:layout_constraintBottom_toBottomOf="@id/size_selector"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:padding="@dimen/label_padding"/>
 
-                <TextView
-                    android:text="@string/drink_detail_size"
-                    style="@style/table_text" />
+        <!-- Size -->
+        <EditText
+            style="@style/table_edit_small"
+            android:id="@+id/size_edit"
+            android:text=""
+            android:inputType="numberDecimal"
+            android:maxLength="6"
+            app:layout_constraintRight_toLeftOf="@+id/unit_liter"
+            app:layout_constraintTop_toBottomOf="@id/size_selector"
+            android:layout_marginTop="@dimen/padding"/>
 
-                <Spinner
-                    android:id="@+id/size_selector"
-                    style="@style/table_widespinner"
-                    android:layout_span="2" />
-            </TableRow>
+        <TextView
+            style="@style/unit_text"
+            android:id="@+id/unit_liter"
+            android:text="@string/unit_liter"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/size_edit"
+            android:padding="@dimen/label_padding"/>
 
-            <TableRow>
-
-                <CheckBox
-                    android:id="@+id/modify_size"
-                    android:text="@string/drink_detail_modify_size"
-                    android:layout_gravity="start|center_vertical" />
-
-                <EditText
-                    android:id="@+id/size_edit"
-                    android:text=""
-                    style="@style/table_edit_small"
-                    android:inputType="numberDecimal"
-                    android:maxLength="6"
-                    android:enabled="false" />
-
-                <TextView
-                    android:text="@string/unit_liter"
-                    style="@style/unit_text" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:text=""
-                    style="@style/table_text" />
-
-                <EditText
-                    android:id="@+id/size_name_edit"
-                    android:text=""
-                    style="@style/table_edit"
-                    android:inputType="text"
-                    android:layout_span="2"
-                    android:enabled="false" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/size_icon_area"
-                android:visibility="gone">
-
-                <TextView
-                    android:text="@string/drink_detail_size_icon"
-                    style="@style/table_text" />
-
-                <fi.tuska.jalkametri.gui.IconView
-                    style="@style/table_icon"
-                    android:src="@drawable/drink_generic"
-                    android:id="@+id/size_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="end"
-                    android:gravity="end"
-                    android:scaleType="fitXY"
-                    android:adjustViewBounds="true" />
-            </TableRow>
-        </TableLayout>
+        <!-- Size name -->
+        <EditText
+            style="@style/table_edit"
+            android:id="@+id/size_name_edit"
+            android:text=""
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/size_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/padding"/>
 
         <!-- Drinking time -->
-        <TableRow android:id="@+id/time_edit_area">
+        <EditText
+            android:id="@+id/time_edit"
+            android:text="10:00"
+            android:hint="@string/drink_detail_time"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            app:layout_constraintTop_toBottomOf="@id/size_name_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/padding"/>
 
-            <TextView
-                android:text="@string/drink_detail_time"
-                style="@style/table_text" />
-
-            <fi.tuska.jalkametri.gui.TimePicker24
-                android:id="@+id/time_edit"
-                style="@style/table_time_picker"
-                android:layout_span="2" />
-        </TableRow>
+        <TextView
+            style="@style/table_text"
+            android:id="@+id/drink_time_text"
+            android:text="@string/drink_detail_time"
+            android:labelFor="@id/time_edit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/time_edit"
+            android:padding="@dimen/label_padding" />
 
         <!-- Drinking date -->
-        <TableRow android:id="@+id/date_edit_area">
+        <EditText
+            android:id="@+id/date_edit"
+            android:text="31.12.2017"
+            android:hint="@string/drink_detail_date"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/time_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/padding"/>
 
-            <TextView
-                android:id="@+id/date_edit_text"
-                android:text="@string/drink_detail_date"
-                style="@style/table_text" />
+        <TextView
+            style="@style/table_text"
+            android:labelFor="@id/date_edit"
+            android:id="@+id/date_edit_text"
+            android:text="@string/drink_detail_date"
+            app:layout_constraintBottom_toBottomOf="@id/date_edit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:padding="@dimen/label_padding" />
 
-            <EditText
-                android:id="@+id/date_edit"
-                style="@style/table_edit"
-                android:editable="false"
-                android:inputType="none"
-                android:focusable="false"
-                android:clickable="true"
-                android:layout_span="2" />
-        </TableRow>
+        <!-- Comment -->
+        <EditText
+            style="@style/table_edit"
+            android:id="@+id/comment_edit"
+            android:hint="@string/drink_detail_comment_hint"
+            app:layout_constraintTop_toBottomOf="@id/date_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/padding"/>
 
-        <TableRow>
+        <TextView
+            style="@style/table_text"
+            android:text="@string/drink_detail_comment"
+            android:labelFor="@id/comment_edit"
+            app:layout_constraintBottom_toBottomOf="@id/comment_edit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:padding="@dimen/label_padding"/>
 
-            <TextView
-                android:text="@string/drink_detail_comment"
-                style="@style/table_text" />
+        <!-- Icon -->
+        <TextView
+            style="@style/table_text"
+            android:text="@string/drink_detail_icon"
+            app:layout_constraintBottom_toBottomOf="@id/icon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:padding="@dimen/label_padding"/>
 
-            <EditText
-                android:id="@+id/comment_edit"
-                android:hint="@string/drink_detail_comment_hint"
-                style="@style/table_edit"
-                android:layout_span="2" />
-        </TableRow>
+        <fi.tuska.jalkametri.gui.IconView
+            style="@style/table_icon"
+            android:id="@+id/icon"
+            android:src="@drawable/drink_generic"
+            android:clickable="true"
+            android:onClick="onClickIcon"
+            app:layout_constraintTop_toBottomOf="@id/comment_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/padding"/>
 
-        <TableRow>
+        <!-- OK button -->
+        <Button
+            style="@style/btn_drink"
+            android:id="@+id/drink_button_bottom"
+            android:onClick="onOKPressed"
+            android:layout_width="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/padding"/>
 
-            <TextView
-                android:text="@string/drink_detail_icon"
-                style="@style/table_text" />
-
-            <fi.tuska.jalkametri.gui.IconView
-                android:id="@+id/icon"
-                style="@style/table_icon"
-                android:src="@drawable/drink_generic"
-                android:layout_span="2"
-                android:clickable="true"
-                android:onClick="onClickIcon" />
-        </TableRow>
-
-        <!--
-        <TableRow android:layout_marginTop="30dp">
-          <Button android:text="@string/action_drink" android:id="@+id/drink_button"
-            style="@style/wrap_content"
-            android:drawableLeft="@drawable/drink" android:layout_span="3"
-            android:onClick="onOKPressed" />
-        </TableRow>
-        -->
-
-    </TableLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

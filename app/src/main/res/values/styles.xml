@@ -154,7 +154,6 @@
     <style name="spinner_text" parent="simple_text">
         <item name="android:layout_gravity">center_horizontal|center_vertical</item>
         <item name="android:gravity">center_horizontal|center_vertical</item>
-        <item name="android:textColor">@color/spinner_text</item>
     </style>
 
     <style name="info_text">

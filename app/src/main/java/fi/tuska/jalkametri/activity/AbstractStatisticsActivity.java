@@ -56,9 +56,9 @@ public abstract class AbstractStatisticsActivity extends JalkametriDBActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.statistics = new StatisticsDB(getDBAdapter(), prefs, this);
+        this.statistics = new StatisticsDB(getDBAdapter(), getPrefs(), this);
         this.generalStats = null;
-        this.dateFormat = timeUtil.getDateFormatFull();
+        this.dateFormat = getTimeUtil().getDateFormatFull();
     }
 
     @Override
