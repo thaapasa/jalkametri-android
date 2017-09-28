@@ -1,7 +1,5 @@
 package fi.tuska.jalkametri;
 
-import static fi.tuska.jalkametri.Common.KEY_ORIGINAL;
-import static fi.tuska.jalkametri.Common.KEY_RESULT;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +26,10 @@ import fi.tuska.jalkametri.db.DBDataObject;
 import fi.tuska.jalkametri.media.SoundPlayer;
 import fi.tuska.jalkametri.media.ToastLibrary;
 import fi.tuska.jalkametri.util.LogUtil;
-import fi.tuska.jalkametri.util.TimeUtil;
+
+import static fi.tuska.jalkametri.Common.KEY_ORIGINAL;
+import static fi.tuska.jalkametri.Common.KEY_RESULT;
+import static org.joda.time.Instant.now;
 
 /**
  * Helper functions for setting up drink selection, modification, and so on.
@@ -101,30 +102,29 @@ public final class DrinkActivities {
      * This preserves the original drinking time of the event.
      */
     public static int startModifyDrinkEvent(Activity parent, DrinkEvent drink,
-        boolean showTimeSelection) {
+                                            boolean showTimeSelection) {
         return startModifyDrinkEvent(parent, drink, showTimeSelection, true, false,
-            Common.ACTIVITY_CODE_MODIFY_DRINK_EVENT);
+                Common.ACTIVITY_CODE_MODIFY_DRINK_EVENT);
     }
 
     public static int startCreateDrink(Activity parent, DrinkSizes sizes) {
         DrinkSize size = sizes.getDefaultSize();
-        DrinkEvent basis = new DrinkEvent(new Drink(), size,
-            new TimeUtil(parent).getCurrentTime());
+        DrinkEvent basis = new DrinkEvent(new Drink(), size, now());
         return startModifyDrinkEvent(parent, basis, false, true, true,
-            Common.ACTIVITY_CODE_CREATE_DRINK);
+                Common.ACTIVITY_CODE_CREATE_DRINK);
     }
 
     /**
      * This preserves the original drinking time of the event.
      */
     public static int startModifyDrinkEvent(Activity parent, DrinkEvent drink,
-        boolean showTimeSelection, boolean showSizeSelector, boolean showSizeIconEdit, int code) {
+                                            boolean showTimeSelection, boolean showSizeSelector, boolean showSizeIconEdit, int code) {
 
         // Create and prepare and intent for modifying the selected drink
         // event
         Intent i = new Intent(parent, EditDrinkDetailsActivity.class);
         EditDrinkDetailsActivity.Companion.prepareForDrinkEventModification(parent, i, drink,
-            showTimeSelection, showSizeSelector, showSizeIconEdit);
+                showTimeSelection, showSizeSelector, showSizeIconEdit);
         parent.startActivityForResult(i, code);
         return code;
     }
@@ -150,11 +150,11 @@ public final class DrinkActivities {
      * This will update the drinking time to the current time.
      */
     public static int startSelectDrinkDetails(Activity parent, DrinkSelection originalDrink,
-        int code) {
+                                              int code) {
         Intent i = new Intent(parent, EditDrinkDetailsActivity.class);
         // Create a copy of the drink selection with updated time
         DrinkSelection drink = new DrinkSelection(originalDrink.getDrink(),
-            originalDrink.getSize(), new TimeUtil(parent).getCurrentTime());
+                originalDrink.getSize(), now());
         // Prepare the intent for showing the selected category
         if (EditDrinkDetailsActivity.Companion.prepareForDrinkSelection(parent, i, drink)) {
             parent.startActivityForResult(i, code);

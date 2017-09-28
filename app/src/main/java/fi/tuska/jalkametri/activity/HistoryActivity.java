@@ -1,13 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import static fi.tuska.jalkametri.Common.KEY_ORIGINAL;
-import static fi.tuska.jalkametri.Common.KEY_RESULT;
-
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -48,6 +40,14 @@ import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.StringUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import static fi.tuska.jalkametri.Common.KEY_ORIGINAL;
+import static fi.tuska.jalkametri.Common.KEY_RESULT;
+
 /**
  * An activity that shows the user's drinking history, day by day.
  *
@@ -82,8 +82,8 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         @Override
         public String convert(NamedIcon src) {
             DrinkEvent drink = (DrinkEvent) src;
-            return String.format("%s: %s\n%.1f %s", timeFormat.format(drink.getTime()),
-                drink.getName(), drink.getPortions(getContext()), iconNameUnitStr);
+            return String.format("%s: %s\n%.1f %s", timeFormat.format(drink.getTime().toDate()),
+                    drink.getName(), drink.getPortions(getContext()), iconNameUnitStr);
         }
     };
 
@@ -114,7 +114,9 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
      * --------------------------------------------
      */
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,7 +192,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         List<DrinkEvent> drinks = history.getDrinks(day, false);
         LogUtil.d(TAG, "Loaded %d drinks for %s", drinks.size(), wdayFormat.format(day));
         listAdapter = new NamedIconAdapter<DrinkEvent>(this, drinks, false, iconNameConverter,
-            Common.DEFAULT_ICON_RES);
+                Common.DEFAULT_ICON_RES);
         setListAdapter(listAdapter);
         setPortions(countPortions(drinks), HistoryHelper.countWeekPortions(history, day, this));
     }
@@ -227,7 +229,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     private void setPortions(double todayPortions, double weekPortions) {
         Resources res = getResources();
         portionsText.setText(res.getString(R.string.history_portions_title) + " "
-            + String.format(PORTIONS_FORMAT, todayPortions, weekPortions));
+                + String.format(PORTIONS_FORMAT, todayPortions, weekPortions));
     }
 
     public void onPreviousClick(View v) {
@@ -269,14 +271,14 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     protected Dialog onCreateDialog(int id) {
         Dialog dialog = null;
         switch (id) {
-        case Common.DIALOG_SHOW_DRINK_DETAILS:
-            dialog = new DrinkDetailsDialog(this);
-            return dialog;
-        case Common.DIALOG_SELECT_DATE:
-            Calendar cal = timeUtil.getCalendar(day);
-            dialog = new DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-            return dialog;
+            case Common.DIALOG_SHOW_DRINK_DETAILS:
+                dialog = new DrinkDetailsDialog(this);
+                return dialog;
+            case Common.DIALOG_SELECT_DATE:
+                Calendar cal = timeUtil.getCalendar(day);
+                dialog = new DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                return dialog;
         }
         return super.onCreateDialog(id);
     }
@@ -284,17 +286,17 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     @Override
     protected void onPrepareDialog(int id, Dialog dialog) {
         switch (id) {
-        case Common.DIALOG_SHOW_DRINK_DETAILS: {
-            DrinkDetailsDialog d = (DrinkDetailsDialog) dialog;
-            d.showDrinkSelection(selectedEvent, true);
-        }
+            case Common.DIALOG_SHOW_DRINK_DETAILS: {
+                DrinkDetailsDialog d = (DrinkDetailsDialog) dialog;
+                d.showDrinkSelection(selectedEvent, true);
+            }
             break;
-        case Common.DIALOG_SELECT_DATE: {
-            Calendar cal = timeUtil.getCalendar(day);
-            DatePickerDialog d = (DatePickerDialog) dialog;
-            d.updateDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH));
-        }
+            case Common.DIALOG_SELECT_DATE: {
+                Calendar cal = timeUtil.getCalendar(day);
+                DatePickerDialog d = (DatePickerDialog) dialog;
+                d.updateDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH));
+            }
             break;
         }
         super.onPrepareDialog(id, dialog);
@@ -328,21 +330,21 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
             DrinkEvent selectedEvent = listAdapter.getItem(pos);
             switch (item.getItemId()) {
 
-            case R.id.action_delete:
-                // Delete this drink event from the history
-                DrinkActions.deleteDrinkEvent(history, selectedEvent, this);
-                return true;
+                case R.id.action_delete:
+                    // Delete this drink event from the history
+                    DrinkActions.deleteDrinkEvent(history, selectedEvent, this);
+                    return true;
 
-            case R.id.action_modify:
-                // Modify this drink event from the history
-                // Start modifying the drink
-                DrinkActivities.startModifyDrinkEvent(this, selectedEvent, true);
-                return true;
+                case R.id.action_modify:
+                    // Modify this drink event from the history
+                    // Start modifying the drink
+                    DrinkActivities.startModifyDrinkEvent(this, selectedEvent, true);
+                    return true;
 
-            case R.id.action_show_info:
-                // Show the information for this drink event
-                showEventDetails(selectedEvent);
-                return true;
+                case R.id.action_show_info:
+                    // Show the information for this drink event
+                    showEventDetails(selectedEvent);
+                    return true;
 
             }
         }
@@ -358,20 +360,20 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
 
-            case Common.ACTIVITY_CODE_MODIFY_DRINK_EVENT: {
-                // Modify an existing drink
-                Bundle extras = data.getExtras();
-                DrinkSelection modifications = (DrinkSelection) extras.get(KEY_RESULT);
-                long originalID = extras.getLong(KEY_ORIGINAL);
-                DrinkActions.updateDrinkEvent(history, originalID, modifications, this);
-            }
+                case Common.ACTIVITY_CODE_MODIFY_DRINK_EVENT: {
+                    // Modify an existing drink
+                    Bundle extras = data.getExtras();
+                    DrinkSelection modifications = (DrinkSelection) extras.get(KEY_RESULT);
+                    long originalID = extras.getLong(KEY_ORIGINAL);
+                    DrinkActions.updateDrinkEvent(history, originalID, modifications, this);
+                }
                 break;
 
-            case Common.ACTIVITY_CODE_ADD_DRINK_FOR_DAY: {
-                // Add a new drink for the shown day
-                DrinkSelection drink = DrinkActivities.getDrinkSelectionFromResult(data);
-                DrinkActions.addDrinkForSelectedDay(history, drink, day, this);
-            }
+                case Common.ACTIVITY_CODE_ADD_DRINK_FOR_DAY: {
+                    // Add a new drink for the shown day
+                    DrinkSelection drink = DrinkActivities.getDrinkSelectionFromResult(data);
+                    DrinkActions.addDrinkForSelectedDay(history, drink, day, this);
+                }
                 break;
 
             }
@@ -393,28 +395,30 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.action_clear_day:
-            // Ask the user if they really wish to delete all drinks
-            Confirmation.showConfirmation(this, R.string.confirm_clear_day, new Runnable() {
-                @Override
-                public void run() {
-                    DrinkActions.clearEventsFromDay(history, day, HistoryActivity.this);
-                }
-            });
-            return true;
-        case R.id.action_add_drink:
-            DrinkActivities.startSelectDrink(this, Common.ACTIVITY_CODE_ADD_DRINK_FOR_DAY);
-            return true;
-        case R.id.action_help:
-            // Show the help screen for this activity
-            showHelp(null);
-            return true;
+            case R.id.action_clear_day:
+                // Ask the user if they really wish to delete all drinks
+                Confirmation.showConfirmation(this, R.string.confirm_clear_day, new Runnable() {
+                    @Override
+                    public void run() {
+                        DrinkActions.clearEventsFromDay(history, day, HistoryActivity.this);
+                    }
+                });
+                return true;
+            case R.id.action_add_drink:
+                DrinkActivities.startSelectDrink(this, Common.ACTIVITY_CODE_ADD_DRINK_FOR_DAY);
+                return true;
+            case R.id.action_help:
+                // Show the help screen for this activity
+                showHelp(null);
+                return true;
 
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /** Shows the statistics screen. */
+    /**
+     * Shows the statistics screen.
+     */
     public void showHelp(View v) {
         HelpActivity.showHelp(R.string.help_history, this);
     }

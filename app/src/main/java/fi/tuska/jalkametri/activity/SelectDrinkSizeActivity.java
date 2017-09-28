@@ -1,8 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import java.util.Date;
-import java.util.List;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,9 +29,13 @@ import fi.tuska.jalkametri.gui.DrinkDetailsDialog;
 import fi.tuska.jalkametri.gui.NamedIconAdapter;
 import fi.tuska.jalkametri.util.LogUtil;
 
+import java.util.List;
+
+import static org.joda.time.Instant.now;
+
 /**
  * Selects the drink size.
- *
+ * <p>
  * <p>
  * The full drink selecting path is SelectDrinkCategoryActivity -
  * SelectDrinkTypeActivity - SelectDrinkSizeActivity -
@@ -75,7 +76,9 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
      * --------------------------------------------
      */
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +122,7 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
     private void loadLibraries(DrinkSizes sizeProvider) {
         List<DrinkSize> drinkSizes = sizeProvider.getSizes(selectedDrink);
         listAdapter = new NamedIconAdapter<DrinkSize>(this, drinkSizes, true,
-            Common.DEFAULT_ICON_RES);
+                Common.DEFAULT_ICON_RES);
         list.setAdapter(listAdapter);
     }
 
@@ -129,7 +132,7 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
      */
     private void selectDrink(DrinkSize size) {
         DrinkSelection sel = new DrinkSelection(selectedDrink, size);
-        sel.setTime(new Date());
+        sel.setTime(now());
         setResult(RESULT_OK, DrinkActivities.createDrinkSelectionResult(sel, null));
         finish();
     }
@@ -147,9 +150,9 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
     protected Dialog onCreateDialog(int id) {
         Dialog dialog = null;
         switch (id) {
-        case Common.DIALOG_SHOW_DRINK_DETAILS:
-            dialog = new DrinkDetailsDialog(this);
-            return dialog;
+            case Common.DIALOG_SHOW_DRINK_DETAILS:
+                dialog = new DrinkDetailsDialog(this);
+                return dialog;
         }
         return super.onCreateDialog(id);
     }
@@ -157,10 +160,10 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog) {
         switch (id) {
-        case Common.DIALOG_SHOW_DRINK_DETAILS: {
-            DrinkDetailsDialog d = (DrinkDetailsDialog) dialog;
-            d.showDrinkSelection(eventSelectedForDetails, false);
-        }
+            case Common.DIALOG_SHOW_DRINK_DETAILS: {
+                DrinkDetailsDialog d = (DrinkDetailsDialog) dialog;
+                d.showDrinkSelection(eventSelectedForDetails, false);
+            }
         }
         super.onPrepareDialog(id, dialog);
     }
@@ -174,26 +177,26 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
 
-            // Selected the drink, drinking it
-            case Common.ACTIVITY_CODE_SELECT_DRINK_DETAILS: {
-                setResult(RESULT_OK, data);
-                finish();
-            }
+                // Selected the drink, drinking it
+                case Common.ACTIVITY_CODE_SELECT_DRINK_DETAILS: {
+                    setResult(RESULT_OK, data);
+                    finish();
+                }
                 break;
 
-            // Adding a new size for this drink
-            case Common.ACTIVITY_CODE_ADD_DRINK_SIZE: {
-                DrinkSize size = DrinkActivities.getDrinkSizeFromResult(data);
-                DrinkActions.addSizeToDrink(selectedDrink, size, this);
-            }
+                // Adding a new size for this drink
+                case Common.ACTIVITY_CODE_ADD_DRINK_SIZE: {
+                    DrinkSize size = DrinkActivities.getDrinkSizeFromResult(data);
+                    DrinkActions.addSizeToDrink(selectedDrink, size, this);
+                }
                 break;
 
-            // Adding a new size for this drink
-            case Common.ACTIVITY_CODE_MODIFY_DRINK_SIZE: {
-                DrinkSize size = DrinkActivities.getDrinkSizeFromResult(data);
-                long originalID = data.getLongExtra(Common.KEY_ORIGINAL, 0);
-                DrinkActions.updateDrinkSize(originalID, size, this);
-            }
+                // Adding a new size for this drink
+                case Common.ACTIVITY_CODE_MODIFY_DRINK_SIZE: {
+                    DrinkSize size = DrinkActivities.getDrinkSizeFromResult(data);
+                    long originalID = data.getLongExtra(Common.KEY_ORIGINAL, 0);
+                    DrinkActions.updateDrinkSize(originalID, size, this);
+                }
                 break;
 
             }
@@ -231,36 +234,35 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
         if (pos != AdapterView.INVALID_POSITION) {
             switch (item.getItemId()) {
 
-            case R.id.action_drink_size: {
-                // Drink the selected drink size
-                DrinkSize size = listAdapter.getItem(pos);
-                DrinkActivities.startSelectDrinkDetails(this, new DrinkSelection(selectedDrink,
-                    size));
-            }
+                case R.id.action_drink_size: {
+                    // Drink the selected drink size
+                    DrinkSize size = listAdapter.getItem(pos);
+                    DrinkActivities.startSelectDrinkDetails(this, new DrinkSelection(selectedDrink,
+                            size));
+                }
                 return true;
 
-            case R.id.action_modify_size: {
-                // Modifies the selected drink size
-                final DrinkSize size = listAdapter.getItem(pos);
-                LogUtil.i(TAG, "Request to modify drink size %s", size);
-                DrinkActivities.startModifyDrinkSize(this, size);
-            }
+                case R.id.action_modify_size: {
+                    // Modifies the selected drink size
+                    final DrinkSize size = listAdapter.getItem(pos);
+                    LogUtil.i(TAG, "Request to modify drink size %s", size);
+                    DrinkActivities.startModifyDrinkSize(this, size);
+                }
                 return true;
 
-            case R.id.action_delete_size: {
-                // Delete the selected drink size from the drink
-                final DrinkSize size = listAdapter.getItem(pos);
-                LogUtil.i(TAG, "Request to delete drink size %s", size);
-                DrinkActions.removeSizeFromDrink(selectedDrink, size, this);
-            }
+                case R.id.action_delete_size: {
+                    // Delete the selected drink size from the drink
+                    final DrinkSize size = listAdapter.getItem(pos);
+                    LogUtil.i(TAG, "Request to delete drink size %s", size);
+                    DrinkActions.removeSizeFromDrink(selectedDrink, size, this);
+                }
                 return true;
 
-            case R.id.action_show_info:
-                // Show the information for this drink size
-                DrinkEvent ev = new DrinkEvent(selectedDrink, listAdapter.getItem(pos),
-                    getTimeUtil().getCurrentTime());
-                showEventDetails(ev);
-                return true;
+                case R.id.action_show_info:
+                    // Show the information for this drink size
+                    DrinkEvent ev = new DrinkEvent(selectedDrink, listAdapter.getItem(pos), now());
+                    showEventDetails(ev);
+                    return true;
 
             }
         }
@@ -282,9 +284,9 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.action_add_size:
-            DrinkActivities.startAddDrinkSize(this);
-            return true;
+            case R.id.action_add_size:
+                DrinkActivities.startAddDrinkSize(this);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

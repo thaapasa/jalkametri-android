@@ -1,5 +1,13 @@
 package fi.tuska.jalkametri.util;
 
+import android.content.Context;
+import android.content.res.Resources;
+import fi.tuska.jalkametri.R;
+import fi.tuska.jalkametri.activity.GUIActivity;
+import fi.tuska.jalkametri.activity.JalkametriActivity;
+import fi.tuska.jalkametri.dao.Preferences;
+import org.joda.time.DateTimeZone;
+
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.NumberFormat;
@@ -9,13 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import android.content.Context;
-import android.content.res.Resources;
-import fi.tuska.jalkametri.R;
-import fi.tuska.jalkametri.activity.GUIActivity;
-import fi.tuska.jalkametri.activity.JalkametriActivity;
-import fi.tuska.jalkametri.dao.Preferences;
 
 public final class TimeUtil {
 
@@ -67,11 +68,11 @@ public final class TimeUtil {
      * specification (i.e., month is 1-based, 1=January; and hour is 0-23).
      * Sets the milliseconds to zero.
      *
-     * @param year the year as it is normally used (1900=1900, 2011=2011)
-     * @param month the month as it is normally used (1=January, ...,
-     * 12=December)
-     * @param day the day of month (1=1st, 2=2nd, ...)
-     * @param hour the hour of day (from 0 to 23
+     * @param year   the year as it is normally used (1900=1900, 2011=2011)
+     * @param month  the month as it is normally used (1=January, ...,
+     *               12=December)
+     * @param day    the day of month (1=1st, 2=2nd, ...)
+     * @param hour   the hour of day (from 0 to 23
      * @param minute the minute
      * @param second the second
      * @return the calendar instance configured to the given time
@@ -98,11 +99,11 @@ public final class TimeUtil {
      * specification (i.e., month is 1-based, 1=January; and hour is 0-23).
      * Sets the milliseconds to zero.
      *
-     * @param year the year as it is normally used (1900=1900, 2011=2011)
-     * @param month the month as it is normally used (1=January, ...,
-     * 12=December)
-     * @param day the day of month (1=1st, 2=2nd, ...)
-     * @param hour the hour of day (from 0 to 23
+     * @param year   the year as it is normally used (1900=1900, 2011=2011)
+     * @param month  the month as it is normally used (1=January, ...,
+     *               12=December)
+     * @param day    the day of month (1=1st, 2=2nd, ...)
+     * @param hour   the hour of day (from 0 to 23
      * @param minute the minute
      * @param second the second
      * @return the requested time instance
@@ -154,6 +155,10 @@ public final class TimeUtil {
             return cal;
         cal.setTime(date);
         return cal;
+    }
+
+    public DateTimeZone getTimeZone() {
+        return DateTimeZone.forID("Europe/Helsinki");
     }
 
     public double getHourDifference(Date date1, Date date2) {
@@ -328,24 +333,24 @@ public final class TimeUtil {
 
     public int getDaysInMonth(int month, int year) {
         switch (month) {
-        case 1:
-        case 3:
-        case 5:
-        case 7:
-        case 8:
-        case 10:
-        case 12:
-            return 31;
-        case 2:
-            return isLeapYear(year) ? 29 : 28;
-        case 4:
-        case 6:
-        case 9:
-        case 11:
-            return 30;
-        default:
-            LogUtil.w(TAG, "Unknown month: %d/%d", month, year);
-            return 0;
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                return 31;
+            case 2:
+                return isLeapYear(year) ? 29 : 28;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                return 30;
+            default:
+                LogUtil.w(TAG, "Unknown month: %d/%d", month, year);
+                return 0;
         }
     }
 
@@ -363,8 +368,7 @@ public final class TimeUtil {
 
             /**
              * Constructor
-             */
-            {
+             */ {
                 formatter = new SimpleDateFormat(pattern);
                 formatters = new DateFormat[12];
                 for (int i = 0; i < 12; i++) {
@@ -377,30 +381,30 @@ public final class TimeUtil {
 
             private String getMonthName(int month) {
                 switch (month) {
-                case Calendar.JANUARY:
-                    return res.getString(R.string.month_january);
-                case Calendar.FEBRUARY:
-                    return res.getString(R.string.month_february);
-                case Calendar.MARCH:
-                    return res.getString(R.string.month_march);
-                case Calendar.APRIL:
-                    return res.getString(R.string.month_april);
-                case Calendar.MAY:
-                    return res.getString(R.string.month_may);
-                case Calendar.JUNE:
-                    return res.getString(R.string.month_june);
-                case Calendar.JULY:
-                    return res.getString(R.string.month_july);
-                case Calendar.AUGUST:
-                    return res.getString(R.string.month_august);
-                case Calendar.SEPTEMBER:
-                    return res.getString(R.string.month_september);
-                case Calendar.OCTOBER:
-                    return res.getString(R.string.month_october);
-                case Calendar.NOVEMBER:
-                    return res.getString(R.string.month_november);
-                case Calendar.DECEMBER:
-                    return res.getString(R.string.month_december);
+                    case Calendar.JANUARY:
+                        return res.getString(R.string.month_january);
+                    case Calendar.FEBRUARY:
+                        return res.getString(R.string.month_february);
+                    case Calendar.MARCH:
+                        return res.getString(R.string.month_march);
+                    case Calendar.APRIL:
+                        return res.getString(R.string.month_april);
+                    case Calendar.MAY:
+                        return res.getString(R.string.month_may);
+                    case Calendar.JUNE:
+                        return res.getString(R.string.month_june);
+                    case Calendar.JULY:
+                        return res.getString(R.string.month_july);
+                    case Calendar.AUGUST:
+                        return res.getString(R.string.month_august);
+                    case Calendar.SEPTEMBER:
+                        return res.getString(R.string.month_september);
+                    case Calendar.OCTOBER:
+                        return res.getString(R.string.month_october);
+                    case Calendar.NOVEMBER:
+                        return res.getString(R.string.month_november);
+                    case Calendar.DECEMBER:
+                        return res.getString(R.string.month_december);
                 }
                 LogUtil.w(TAG, "Unknown month: %d", month);
                 return "";

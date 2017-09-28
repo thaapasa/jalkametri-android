@@ -1,7 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -29,10 +27,14 @@ import fi.tuska.jalkametri.gui.Confirmation;
 import fi.tuska.jalkametri.gui.NamedIconAdapter;
 import fi.tuska.jalkametri.util.LogUtil;
 
+import java.util.List;
+
+import static org.joda.time.Instant.now;
+
 /**
  * An activity for selecting a drink type. This activity requires that the
  * drink category has been already selected (via SelectDrinkCategoryActivity).
- *
+ * <p>
  * <p>
  * The full drink selecting path is SelectDrinkCategoryActivity -
  * SelectDrinkTypeActivity - SelectDrinkSizeActivity -
@@ -75,7 +77,9 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
      * --------------------------------------------
      */
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,7 +139,7 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
             if (size != null) {
                 DrinkSelection sel = new DrinkSelection(drink);
                 sel.setSize(size);
-                sel.setTime(getTimeUtil().getCurrentTime());
+                sel.setTime(now());
                 setResult(RESULT_OK, DrinkActivities.createDrinkSelectionResult(sel, null));
                 finish();
                 return;
@@ -153,25 +157,25 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-            case Common.ACTIVITY_CODE_SELECT_DRINK_SIZE:
-            case Common.ACTIVITY_CODE_SELECT_DRINK_DETAILS:
-                setResult(RESULT_OK, data);
-                finish();
+                case Common.ACTIVITY_CODE_SELECT_DRINK_SIZE:
+                case Common.ACTIVITY_CODE_SELECT_DRINK_DETAILS:
+                    setResult(RESULT_OK, data);
+                    finish();
+                    break;
+
+                case Common.ACTIVITY_CODE_CREATE_DRINK: {
+                    // Insert the drink into database
+                    DrinkSelection drink = DrinkActivities.getDrinkSelectionFromResult(data);
+                    DrinkActions.createDrink(category, drink, this);
+                }
                 break;
 
-            case Common.ACTIVITY_CODE_CREATE_DRINK: {
-                // Insert the drink into database
-                DrinkSelection drink = DrinkActivities.getDrinkSelectionFromResult(data);
-                DrinkActions.createDrink(category, drink, this);
-            }
-                break;
-
-            case Common.ACTIVITY_CODE_MODIFY_DRINK: {
-                // Insert the drink into database
-                DrinkSelection selection = DrinkActivities.getDrinkSelectionFromResult(data);
-                long originalId = data.getExtras().getLong(Common.KEY_ORIGINAL);
-                DrinkActions.updateDrink(category, originalId, selection.getDrink(), this);
-            }
+                case Common.ACTIVITY_CODE_MODIFY_DRINK: {
+                    // Insert the drink into database
+                    DrinkSelection selection = DrinkActivities.getDrinkSelectionFromResult(data);
+                    long originalId = data.getExtras().getLong(Common.KEY_ORIGINAL);
+                    DrinkActions.updateDrink(category, originalId, selection.getDrink(), this);
+                }
                 break;
             }
         }
@@ -209,40 +213,40 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
             DBDataObject.enforceBackedObject(drink);
             switch (item.getItemId()) {
 
-            case R.id.action_drink:
-                // Move to drink details selection
-                List<DrinkSize> sizeList = drink.getDrinkSizes();
-                if (sizeList.size() > 0) {
-                    // Select the first drink size
-                    DrinkSize size = drink.getDrinkSizes().get(0);
-                    DrinkActivities.startSelectDrinkDetails(SelectDrinkTypeActivity.this,
-                        new DrinkSelection(drink, size));
-                } else {
-                    // No drink sizes defined; must go to drink size selection
+                case R.id.action_drink:
+                    // Move to drink details selection
+                    List<DrinkSize> sizeList = drink.getDrinkSizes();
+                    if (sizeList.size() > 0) {
+                        // Select the first drink size
+                        DrinkSize size = drink.getDrinkSizes().get(0);
+                        DrinkActivities.startSelectDrinkDetails(SelectDrinkTypeActivity.this,
+                                new DrinkSelection(drink, size));
+                    } else {
+                        // No drink sizes defined; must go to drink size selection
+                        DrinkActivities.startSelectDrinkSize(this, drink);
+                    }
+                    return true;
+
+                case R.id.action_delete:
+                    // Delete this drink
+                    Confirmation.showConfirmation(this, R.string.confirm_delete_drink,
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    DrinkActions.deleteDrink(category, drink,
+                                            SelectDrinkTypeActivity.this);
+                                }
+                            });
+                    return true;
+
+                case R.id.action_show_sizes:
+                    // Show the drink size list
                     DrinkActivities.startSelectDrinkSize(this, drink);
-                }
-                return true;
+                    return true;
 
-            case R.id.action_delete:
-                // Delete this drink
-                Confirmation.showConfirmation(this, R.string.confirm_delete_drink,
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            DrinkActions.deleteDrink(category, drink,
-                                SelectDrinkTypeActivity.this);
-                        }
-                    });
-                return true;
-
-            case R.id.action_show_sizes:
-                // Show the drink size list
-                DrinkActivities.startSelectDrinkSize(this, drink);
-                return true;
-
-            case R.id.action_modify:
-                DrinkActivities.startModifyDrink(this, drink);
-                return true;
+                case R.id.action_modify:
+                    DrinkActivities.startModifyDrink(this, drink);
+                    return true;
             }
         }
         return super.onContextItemSelected(item);
@@ -268,10 +272,10 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.action_add_drink:
-            DrinkLibrary library = new DrinkLibraryDB(getAdapter());
-            DrinkActivities.startCreateDrink(this, library.getDrinkSizes());
-            return true;
+            case R.id.action_add_drink:
+                DrinkLibrary library = new DrinkLibraryDB(getAdapter());
+                DrinkActivities.startCreateDrink(this, library.getDrinkSizes());
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

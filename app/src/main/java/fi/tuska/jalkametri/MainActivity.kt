@@ -16,12 +16,18 @@ import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
 import android.widget.TextView
-import fi.tuska.jalkametri.Common.*
+import fi.tuska.jalkametri.Common.ACTIVITY_CODE_ADD_FAVOURITE
+import fi.tuska.jalkametri.Common.ACTIVITY_CODE_MODIFY_FAVOURITE
+import fi.tuska.jalkametri.Common.ACTIVITY_CODE_SELECT_DRINK
+import fi.tuska.jalkametri.Common.KEY_ORIGINAL
+import fi.tuska.jalkametri.Common.KEY_RESULT
 import fi.tuska.jalkametri.activity.GUIActivity
 import fi.tuska.jalkametri.activity.JalkametriDBActivity
 import fi.tuska.jalkametri.activity.fragment.CurrentStatusFragment
 import fi.tuska.jalkametri.dao.DrinkStatus
-import fi.tuska.jalkametri.dao.DrinkStatus.DrivingState.*
+import fi.tuska.jalkametri.dao.DrinkStatus.DrivingState.DrivingMaybe
+import fi.tuska.jalkametri.dao.DrinkStatus.DrivingState.DrivingNo
+import fi.tuska.jalkametri.dao.DrinkStatus.DrivingState.DrivingOK
 import fi.tuska.jalkametri.dao.Favourites
 import fi.tuska.jalkametri.dao.History
 import fi.tuska.jalkametri.dao.HistoryHelper
@@ -34,7 +40,12 @@ import fi.tuska.jalkametri.db.HistoryDB
 import fi.tuska.jalkametri.gui.DrinkDetailsDialog
 import fi.tuska.jalkametri.gui.NamedIconAdapter
 import fi.tuska.jalkametri.task.AlcoholLevelMeter
-import fi.tuska.jalkametri.util.*
+import fi.tuska.jalkametri.util.AssertionUtils
+import fi.tuska.jalkametri.util.DialogUtil
+import fi.tuska.jalkametri.util.LocalizationUtil
+import fi.tuska.jalkametri.util.LogUtil
+import fi.tuska.jalkametri.util.StringUtil
+import org.joda.time.Instant
 
 /**
  * Main activity class: shows status information and links to other activities.
@@ -50,6 +61,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
             DrinkActivities.makeDrinkToast(this, it.currentStatus.level, false)
         }
     }
+
     fun showAddDrink(v: View) {
         CommonActivities.showAddDrink(this)
     }
@@ -314,7 +326,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
             activity.registerForContextMenu(developmentView)
             favouritesList.onItemClickListener = OnItemClickListener { _, _, position, _ ->
                 favouritesAdapter?.getItem(position)?.let { favorite ->
-                    val sel = DrinkSelection(favorite.drink, favorite.size, timeUtil.currentTime)
+                    val sel = DrinkSelection(favorite.drink, favorite.size, Instant.now())
                     consumeDrink(sel)
                 }
             }

@@ -1,14 +1,14 @@
 package fi.tuska.jalkametri.data;
 
-import java.util.Date;
-import java.util.List;
-
 import android.content.Context;
 import fi.tuska.jalkametri.dao.DrinkStatus;
 import fi.tuska.jalkametri.dao.History;
 import fi.tuska.jalkametri.dao.Preferences;
 import fi.tuska.jalkametri.dao.Preferences.Gender;
 import fi.tuska.jalkametri.util.TimeUtil;
+
+import java.util.Date;
+import java.util.List;
 
 public final class DrinkStatusCalc implements DrinkStatus {
 
@@ -19,7 +19,9 @@ public final class DrinkStatusCalc implements DrinkStatus {
     private int lastUpdateIndex;
     private double maxAlcoholAmount;
 
-    /** The total amount of alcohol, in grams. */
+    /**
+     * The total amount of alcohol, in grams.
+     */
     private double totalAlcoholAmount;
 
     private final List<DrinkEvent> drinks;
@@ -159,8 +161,8 @@ public final class DrinkStatusCalc implements DrinkStatus {
         if (getLastDrinkEvent() == null) {
             return 0;
         }
-        return Math.min(getBurnedAlcoholAmount(getLastDrinkEvent().getTime(), timeUtil.getCurrentTime()),
-            alcoholAtUpdate);
+        return Math.min(getBurnedAlcoholAmount(getLastDrinkEvent().getTime().toDate(), timeUtil.getCurrentTime()),
+                alcoholAtUpdate);
     }
 
     public DrinkEvent getLastDrinkEvent() {
@@ -221,7 +223,7 @@ public final class DrinkStatusCalc implements DrinkStatus {
         for (int i = lastUpdateIndex + 1; i < drinks.size(); i++) {
             final DrinkEvent event = drinks.get(i);
             if (lastEvent != null) {
-                alcoholAtUpdate -= getBurnedAlcoholAmount(lastEvent.getTime(), event.getTime());
+                alcoholAtUpdate -= getBurnedAlcoholAmount(lastEvent.getTime().toDate(), event.getTime().toDate());
                 if (alcoholAtUpdate < 0) {
                     alcoholAtUpdate = 0;
                 }
@@ -239,13 +241,7 @@ public final class DrinkStatusCalc implements DrinkStatus {
     @Override
     public DrivingState getDrivingState(Preferences prefs) {
         double level = getAlcoholLevel();
-        double max = prefs.getDrivingAlcoholLimit();
-        if (level <= 0)
-            return DrivingState.DrivingOK;
-        else if (level < max)
-            return DrivingState.DrivingMaybe;
-        else
-            return DrivingState.DrivingNo;
+        return getDrivingState(prefs, level);
     }
 
     public static DrivingState getDrivingState(Preferences prefs, double level) {

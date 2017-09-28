@@ -1,9 +1,8 @@
 package fi.tuska.jalkametri.data;
 
-import java.util.Date;
-
 import fi.tuska.jalkametri.dao.DataObject;
 import fi.tuska.jalkametri.db.DBDataObject;
+import org.joda.time.Instant;
 
 public class DrinkEvent extends DrinkSelection implements DataObject {
 
@@ -11,14 +10,14 @@ public class DrinkEvent extends DrinkSelection implements DataObject {
 
     private final long index;
 
-    public DrinkEvent(long index, Drink drink, DrinkSize size, Date time) {
+    public DrinkEvent(long index, Drink drink, DrinkSize size, Instant time) {
         super(drink, size, time);
         this.index = index;
         assert index != 0;
         DBDataObject.enforceBackedObject(index);
     }
 
-    public DrinkEvent(Drink drink, DrinkSize size, Date time) {
+    public DrinkEvent(Drink drink, DrinkSize size, Instant time) {
         super(drink, size, time);
         this.index = DBDataObject.getInvalidID();
     }

@@ -1,7 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import java.util.List;
-
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -31,11 +29,15 @@ import fi.tuska.jalkametri.gui.DragDropGridView;
 import fi.tuska.jalkametri.gui.NamedIconAdapter;
 import fi.tuska.jalkametri.util.LogUtil;
 
+import java.util.List;
+
+import static org.joda.time.Instant.now;
+
 /**
  * An activity for selecting a drink category. The path for selecting a drink
  * starts from this activity, commonly via DrinkActions.startSelectDrink()
  * which will fire up this activity.
- *
+ * <p>
  * <p>
  * The full drink selecting path is SelectDrinkCategoryActivity -
  * SelectDrinkTypeActivity - SelectDrinkSizeActivity -
@@ -73,7 +75,10 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
      * Standard activity functions
      * --------------------------------------------
      */
-    /** Called when the activity is first created. */
+
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +145,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DrinkEvent selection = prevDrinkAdapter.getItem(position);
-                selection.setTime(getTimeUtil().getCurrentTime());
+                selection.setTime(now());
                 setResult(RESULT_OK, DrinkActivities.createDrinkSelectionResult(selection, null));
                 finish();
             }
@@ -148,10 +153,10 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
         prevDrinkList.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
-                long arg3) {
+                                           long arg3) {
                 DrinkEvent selection = prevDrinkAdapter.getItem(position);
                 DrinkActivities.startSelectDrinkDetails(SelectDrinkCategoryActivity.this,
-                    selection);
+                        selection);
                 return true;
             }
         });
@@ -160,7 +165,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
     private void loadLibraries(DrinkLibrary library) {
         List<DrinkCategory> cats = library.getCategories();
         categoryAdapter = new NamedIconAdapter<DrinkCategory>(this, cats, true,
-            Common.DEFAULT_ICON_RES);
+                Common.DEFAULT_ICON_RES);
         categoryList.setAdapter(categoryAdapter);
         LogUtil.d(TAG, "Loaded %d categories", cats.size());
     }
@@ -168,7 +173,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
     private void loadPreviousDrinks(History history) {
         List<DrinkEvent> prevDrinks = history.getPreviousDrinks(NUM_PREVIOUS_DRINKS);
         prevDrinkAdapter = new NamedIconAdapter<DrinkEvent>(this, prevDrinks, true,
-            Common.DEFAULT_ICON_RES);
+                Common.DEFAULT_ICON_RES);
         prevDrinkList.setAdapter(prevDrinkAdapter);
         LogUtil.d(TAG, "Loaded %d previous drinks", prevDrinks.size());
     }
@@ -229,24 +234,24 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
         if (pos != AdapterView.INVALID_POSITION) {
             final DrinkCategory sel = categoryAdapter.getItem(pos);
             switch (item.getItemId()) {
-            case R.id.action_delete:
-                // Confirm deletion
-                LogUtil.i(TAG, "Request to delete category %s", sel);
+                case R.id.action_delete:
+                    // Confirm deletion
+                    LogUtil.i(TAG, "Request to delete category %s", sel);
 
-                // Ask the user if they really wish to delete this category
-                Confirmation.showConfirmation(this, R.string.confirm_delete_category,
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            DrinkActions.deleteDrinkCategory(library, sel,
-                                SelectDrinkCategoryActivity.this);
-                        }
-                    });
-                return true;
-            case R.id.action_modify:
-                // Start modifying the category
-                DrinkActivities.startModifyCategory(this, sel);
-                return true;
+                    // Ask the user if they really wish to delete this category
+                    Confirmation.showConfirmation(this, R.string.confirm_delete_category,
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    DrinkActions.deleteDrinkCategory(library, sel,
+                                            SelectDrinkCategoryActivity.this);
+                                }
+                            });
+                    return true;
+                case R.id.action_modify:
+                    // Start modifying the category
+                    DrinkActivities.startModifyCategory(this, sel);
+                    return true;
             }
         }
         return super.onContextItemSelected(item);
@@ -261,29 +266,29 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
         LogUtil.d(TAG, "Result %d for %d", resultCode, requestCode);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-            case Common.ACTIVITY_CODE_SELECT_DRINK_TYPE:
-            case Common.ACTIVITY_CODE_SELECT_DRINK_DETAILS:
-                // A drink is selected; forward OK result back to caller
-                setResult(RESULT_OK, data);
-                finish();
+                case Common.ACTIVITY_CODE_SELECT_DRINK_TYPE:
+                case Common.ACTIVITY_CODE_SELECT_DRINK_DETAILS:
+                    // A drink is selected; forward OK result back to caller
+                    setResult(RESULT_OK, data);
+                    finish();
+                    break;
+
+                case Common.ACTIVITY_CODE_ADD_CATEGORY: {
+                    // Add a new category
+                    LogUtil.d(TAG, "Add category data");
+                    DrinkCategory category = DrinkActivities.getCategoryFromResult(data);
+                    DrinkActions.createDrinkCategory(library, category, this);
+                }
                 break;
 
-            case Common.ACTIVITY_CODE_ADD_CATEGORY: {
-                // Add a new category
-                LogUtil.d(TAG, "Add category data");
-                DrinkCategory category = DrinkActivities.getCategoryFromResult(data);
-                DrinkActions.createDrinkCategory(library, category, this);
-            }
-                break;
-
-            case Common.ACTIVITY_CODE_EDIT_CATEGORY: {
-                // Edit a category
-                LogUtil.d(TAG, "Edit category data");
-                Bundle extras = data.getExtras();
-                long id = extras.getLong(Common.KEY_ORIGINAL);
-                DrinkCategory category = DrinkActivities.getCategoryFromResult(data);
-                DrinkActions.updateDrinkCategory(library, id, category, this);
-            }
+                case Common.ACTIVITY_CODE_EDIT_CATEGORY: {
+                    // Edit a category
+                    LogUtil.d(TAG, "Edit category data");
+                    Bundle extras = data.getExtras();
+                    long id = extras.getLong(Common.KEY_ORIGINAL);
+                    DrinkCategory category = DrinkActivities.getCategoryFromResult(data);
+                    DrinkActions.updateDrinkCategory(library, id, category, this);
+                }
                 break;
             }
         }
@@ -309,20 +314,20 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-        case R.id.action_default_drinks:
-            // Ask the user if they really wish to reset the drinks library
-            Confirmation.showConfirmation(this, R.string.confirm_default_drinks, new Runnable() {
-                @Override
-                public void run() {
-                    DrinkActions.resetDrinkLibrary(SelectDrinkCategoryActivity.this,
-                        drinkLibraryResetHandler);
-                }
-            });
-            return true;
+            case R.id.action_default_drinks:
+                // Ask the user if they really wish to reset the drinks library
+                Confirmation.showConfirmation(this, R.string.confirm_default_drinks, new Runnable() {
+                    @Override
+                    public void run() {
+                        DrinkActions.resetDrinkLibrary(SelectDrinkCategoryActivity.this,
+                                drinkLibraryResetHandler);
+                    }
+                });
+                return true;
 
-        case R.id.action_add_category:
-            DrinkActivities.startAddCategory(this);
-            return true;
+            case R.id.action_add_category:
+                DrinkActivities.startAddCategory(this);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

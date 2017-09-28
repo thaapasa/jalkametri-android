@@ -1,22 +1,5 @@
 package fi.tuska.jalkametri.db;
 
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_COMMENT;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_ICON;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_ID;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_NAME;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_PORTIONS;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_SIZE_NAME;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_STRENGTH;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_TIME;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_VOLUME;
-import static fi.tuska.jalkametri.db.DBAdapter.TAG;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -30,6 +13,24 @@ import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.data.PreferencesImpl;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.Instant;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_COMMENT;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_ICON;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_ID;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_NAME;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_PORTIONS;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_SIZE_NAME;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_STRENGTH;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_TIME;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_VOLUME;
+import static fi.tuska.jalkametri.db.DBAdapter.TAG;
 
 public class HistoryDB extends AbstractDB implements History {
 
@@ -37,26 +38,26 @@ public class HistoryDB extends AbstractDB implements History {
 
     public static final String KEY_GROUP_NAME = "unique_name";
     public static final String COLUMN_GROUP_NAME = "(name || ', ' || size_name) AS "
-        + KEY_GROUP_NAME;
+            + KEY_GROUP_NAME;
 
     public static final String SQL_CREATE_TABLE_HISTORY_1 = "CREATE TABLE history (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-        + "drink_id INTEGER REFERENCES drinks (id) ON DELETE SET NULL, "
-        + "name TEXT NOT NULL, "
-        + "strength FLOAT NOT NULL, "
-        + "volume FLOAT NOT NULL, "
-        + "size_name TEXT NOT NULL, "
-        + "icon TEXT NOT NULL, " + "time TEXT UNIQUE NOT NULL);";
+            + "drink_id INTEGER REFERENCES drinks (id) ON DELETE SET NULL, "
+            + "name TEXT NOT NULL, "
+            + "strength FLOAT NOT NULL, "
+            + "volume FLOAT NOT NULL, "
+            + "size_name TEXT NOT NULL, "
+            + "icon TEXT NOT NULL, " + "time TEXT UNIQUE NOT NULL);";
 
     public static final String SQL_CREATE_TABLE_HISTORY_2 = "CREATE TABLE history (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-        + "drink_id INTEGER REFERENCES drinks (id) ON DELETE SET NULL, "
-        + "name TEXT NOT NULL, "
-        + "strength FLOAT NOT NULL, "
-        + "volume FLOAT NOT NULL, "
-        + "portions FLOAT NOT NULL DEFAULT 0, "
-        + "size_name TEXT NOT NULL, "
-        + "icon TEXT NOT NULL, "
-        + "comment TEXT NOT NULL DEFAULT '', "
-        + "time TEXT UNIQUE NOT NULL);";
+            + "drink_id INTEGER REFERENCES drinks (id) ON DELETE SET NULL, "
+            + "name TEXT NOT NULL, "
+            + "strength FLOAT NOT NULL, "
+            + "volume FLOAT NOT NULL, "
+            + "portions FLOAT NOT NULL DEFAULT 0, "
+            + "size_name TEXT NOT NULL, "
+            + "icon TEXT NOT NULL, "
+            + "comment TEXT NOT NULL DEFAULT '', "
+            + "time TEXT UNIQUE NOT NULL);";
 
     public static final String SQL_CREATE_HISTORY_INDEX = "CREATE INDEX IF NOT EXISTS history_time_idx ON history (time)";
 
@@ -72,7 +73,7 @@ public class HistoryDB extends AbstractDB implements History {
     private void createValues(ContentValues values, DrinkSelection selection) {
         DrinkSelectionHelper.createCommonValues(values, selection);
         {
-            Date time = selection.getTime();
+            Date time = selection.getTime().toDate();
             assert time != null;
             values.put(KEY_TIME, sqlDateFormat.format(time));
         }
@@ -106,30 +107,30 @@ public class HistoryDB extends AbstractDB implements History {
         return getDrinks(start.getTime(), end.getTime(), ascending);
     }
 
-    private static final String[] DRINK_QUERY_COLUMNS = new String[] { KEY_ID, KEY_NAME,
-        KEY_STRENGTH, KEY_VOLUME, KEY_SIZE_NAME, KEY_ICON, KEY_COMMENT, KEY_TIME };
+    private static final String[] DRINK_QUERY_COLUMNS = new String[]{KEY_ID, KEY_NAME,
+            KEY_STRENGTH, KEY_VOLUME, KEY_SIZE_NAME, KEY_ICON, KEY_COMMENT, KEY_TIME};
     private static final String TIME_QUERY_WHERE = KEY_TIME + " >= ? AND " + KEY_TIME + " < ?";
 
-    private static final String[] PREVIOUS_QUERY_COLUMNS = new String[] { KEY_ID, KEY_NAME,
-        KEY_STRENGTH, KEY_VOLUME, KEY_SIZE_NAME, KEY_ICON, KEY_COMMENT, KEY_TIME,
-        COLUMN_GROUP_NAME };
+    private static final String[] PREVIOUS_QUERY_COLUMNS = new String[]{KEY_ID, KEY_NAME,
+            KEY_STRENGTH, KEY_VOLUME, KEY_SIZE_NAME, KEY_ICON, KEY_COMMENT, KEY_TIME,
+            COLUMN_GROUP_NAME};
 
     @Override
     public List<DrinkEvent> getDrinks(Date fromTime, Date toTime, boolean ascending) {
         LogUtil.d(TAG, "Querying for drinks between %s and %s", fromTime, toTime);
 
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME, DRINK_QUERY_COLUMNS,
-            TIME_QUERY_WHERE,
-            new String[] { sqlDateFormat.format(fromTime), sqlDateFormat.format(toTime) }, null,
-            null, KEY_TIME + (ascending ? " ASC" : " DESC"));
+                TIME_QUERY_WHERE,
+                new String[]{sqlDateFormat.format(fromTime), sqlDateFormat.format(toTime)}, null,
+                null, KEY_TIME + (ascending ? " ASC" : " DESC"));
         int count = cursor.getCount();
         List<DrinkEvent> drinks = new ArrayList<DrinkEvent>(count);
         if (cursor.moveToFirst()) {
             do {
                 int c = -1;
                 drinks.add(createDrinkSelection(cursor.getLong(++c), cursor.getString(++c),
-                    cursor.getDouble(++c), cursor.getDouble(++c), cursor.getString(++c),
-                    cursor.getString(++c), cursor.getString(++c), cursor.getString(++c)));
+                        cursor.getDouble(++c), cursor.getDouble(++c), cursor.getString(++c),
+                        cursor.getString(++c), cursor.getString(++c), cursor.getString(++c)));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -142,7 +143,7 @@ public class HistoryDB extends AbstractDB implements History {
         LogUtil.d(TAG, "Querying for previous drinks");
 
         Cursor cursor = adapter.getDatabase().query(false, TABLE_NAME, PREVIOUS_QUERY_COLUMNS,
-            null, null, KEY_GROUP_NAME, null, KEY_TIME + " DESC", String.valueOf(limit));
+                null, null, KEY_GROUP_NAME, null, KEY_TIME + " DESC", String.valueOf(limit));
 
         int count = cursor.getCount();
         List<DrinkEvent> drinks = new ArrayList<DrinkEvent>(count);
@@ -150,8 +151,8 @@ public class HistoryDB extends AbstractDB implements History {
             do {
                 int c = -1;
                 drinks.add(createDrinkSelection(cursor.getLong(++c), cursor.getString(++c),
-                    cursor.getDouble(++c), cursor.getDouble(++c), cursor.getString(++c),
-                    cursor.getString(++c), cursor.getString(++c), cursor.getString(++c)));
+                        cursor.getDouble(++c), cursor.getDouble(++c), cursor.getString(++c),
+                        cursor.getString(++c), cursor.getString(++c), cursor.getString(++c)));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -165,13 +166,13 @@ public class HistoryDB extends AbstractDB implements History {
         LogUtil.d(TAG, "Querying for drink %d", index);
 
         Cursor cursor = adapter.getDatabase().query(true, TABLE_NAME, DRINK_QUERY_COLUMNS,
-            getIndexClause(index), null, null, null, null, null);
+                getIndexClause(index), null, null, null, null, null);
         DrinkEvent event = null;
         if (cursor.moveToFirst()) {
             int c = -1;
             event = createDrinkSelection(cursor.getLong(++c), cursor.getString(++c),
-                cursor.getDouble(++c), cursor.getDouble(++c), cursor.getString(++c),
-                cursor.getString(++c), cursor.getString(++c), cursor.getString(++c));
+                    cursor.getDouble(++c), cursor.getDouble(++c), cursor.getString(++c),
+                    cursor.getString(++c), cursor.getString(++c), cursor.getString(++c));
         }
         cursor.close();
 
@@ -179,7 +180,7 @@ public class HistoryDB extends AbstractDB implements History {
     }
 
     private DrinkEvent createDrinkSelection(long eventId, String name, double strength,
-        double volume, String sizeName, String icon, String comment, String time) {
+                                            double volume, String sizeName, String icon, String comment, String time) {
         Drink drink = new Drink(name, strength, icon, comment, new ArrayList<DrinkSize>());
         DrinkSize size = new DrinkSize(sizeName, volume, icon);
 
@@ -190,7 +191,7 @@ public class HistoryDB extends AbstractDB implements History {
             LogUtil.w(TAG, e.getMessage());
         }
 
-        return new DrinkEvent(eventId, drink, size, drinkTime);
+        return new DrinkEvent(eventId, drink, size, new Instant(drinkTime));
     }
 
     @Override
@@ -206,7 +207,7 @@ public class HistoryDB extends AbstractDB implements History {
     public void clearDrinks(Date fromTime, Date toTime) {
         LogUtil.i(TAG, "Deleting drinks between %s and %s", fromTime, toTime);
         adapter.getDatabase().delete(TABLE_NAME, TIME_QUERY_WHERE,
-            new String[] { sqlDateFormat.format(fromTime), sqlDateFormat.format(toTime) });
+                new String[]{sqlDateFormat.format(fromTime), sqlDateFormat.format(toTime)});
     }
 
     @Override
@@ -222,9 +223,9 @@ public class HistoryDB extends AbstractDB implements History {
         LogUtil.d(TAG, "Querying for portions between %s and %s", fromTime, toTime);
 
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
-            new String[] { "SUM(" + KEY_PORTIONS + ")" }, TIME_QUERY_WHERE,
-            new String[] { sqlDateFormat.format(fromTime), sqlDateFormat.format(toTime) }, null,
-            null, null);
+                new String[]{"SUM(" + KEY_PORTIONS + ")"}, TIME_QUERY_WHERE,
+                new String[]{sqlDateFormat.format(fromTime), sqlDateFormat.format(toTime)}, null,
+                null, null);
         return getSingleDouble(cursor, 0);
     }
 
@@ -233,7 +234,7 @@ public class HistoryDB extends AbstractDB implements History {
         LogUtil.d(TAG, "Querying for total portions");
 
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
-            new String[] { "SUM(" + KEY_PORTIONS + ")" }, null, null, null, null, null);
+                new String[]{"SUM(" + KEY_PORTIONS + ")"}, null, null, null, null, null);
         return getSingleDouble(cursor, 0);
     }
 
@@ -248,7 +249,7 @@ public class HistoryDB extends AbstractDB implements History {
         Preferences prefs = new PreferencesImpl(context);
         double stdAlcWeight = prefs.getStandardDrinkAlcoholWeight();
         String updateS = "UPDATE " + tableName + " SET " + KEY_PORTIONS + " = ((((" + KEY_VOLUME + " * " + KEY_STRENGTH
-            + ") / 100) * " + Common.ALCOHOL_LITER_WEIGHT + ") / " + stdAlcWeight + ")";
+                + ") / 100) * " + Common.ALCOHOL_LITER_WEIGHT + ") / " + stdAlcWeight + ")";
         LogUtil.d(DBAdapter.TAG, "Running upgrade SQL: \"%s\"", updateS);
         adapter.getDatabase().execSQL(updateS);
     }

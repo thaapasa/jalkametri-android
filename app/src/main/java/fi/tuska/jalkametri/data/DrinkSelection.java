@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import fi.tuska.jalkametri.Common;
 import fi.tuska.jalkametri.dao.NamedIcon;
 import fi.tuska.jalkametri.dao.Preferences;
+import org.joda.time.Instant;
 
 public class DrinkSelection implements Serializable, NamedIcon {
 
@@ -15,7 +16,7 @@ public class DrinkSelection implements Serializable, NamedIcon {
 
     private Drink drink;
     private DrinkSize size;
-    private Date time;
+    private Instant time;
 
     public DrinkSelection(Drink drink) {
         setDrink(drink);
@@ -26,7 +27,7 @@ public class DrinkSelection implements Serializable, NamedIcon {
         setSize(size);
     }
 
-    public DrinkSelection(Drink drink, DrinkSize size, Date time) {
+    public DrinkSelection(Drink drink, DrinkSize size, Instant time) {
         setDrink(drink);
         setSize(size);
         setTime(time);
@@ -80,11 +81,11 @@ public class DrinkSelection implements Serializable, NamedIcon {
         this.size = new DrinkSize(size);
     }
 
-    public Date getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public final void setTime(Date time) {
+    public final void setTime(Instant time) {
         this.time = time;
     }
 

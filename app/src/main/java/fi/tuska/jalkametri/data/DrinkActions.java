@@ -1,8 +1,5 @@
 package fi.tuska.jalkametri.data;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import android.app.Activity;
 import android.content.Context;
 import fi.tuska.jalkametri.DBActivity;
@@ -22,6 +19,10 @@ import fi.tuska.jalkametri.db.HistoryDB;
 import fi.tuska.jalkametri.gui.TaskExecutor;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.Instant;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public final class DrinkActions {
 
@@ -36,7 +37,7 @@ public final class DrinkActions {
      */
 
     public static <T extends Activity & DBActivity & GUIActivity> void resetDrinkLibrary(final T parent,
-        final Runnable onCompletion) {
+                                                                                         final Runnable onCompletion) {
 
         TaskExecutor.execute(parent, R.string.drink_library_reset, new Runnable() {
             @Override
@@ -47,7 +48,7 @@ public final class DrinkActions {
     }
 
     public static void recalculateHistoryPortions(final DBAdapter adapter, final Context context,
-        final Runnable onCompletion) {
+                                                  final Runnable onCompletion) {
         TaskExecutor.execute(context, R.string.prefs_recalculating_portions, new Runnable() {
             @Override
             public void run() {
@@ -195,7 +196,7 @@ public final class DrinkActions {
      * Modifies an existing drink event in the history.
      */
     public static <T extends GUIActivity & DBActivity> void updateDrinkEvent(History history, long originalID,
-        DrinkSelection modifications, T parent) {
+                                                                             DrinkSelection modifications, T parent) {
         DrinkEvent event = history.getDrink(originalID);
         event.setDrink(modifications.getDrink());
         event.setSize(modifications.getSize());
@@ -237,9 +238,9 @@ public final class DrinkActions {
      * Adds a drink for the currently selected day.
      */
     public static <T extends GUIActivity & DBActivity> void addDrinkForSelectedDay(History history,
-        DrinkSelection drink, Date day, T parent) {
+                                                                                   DrinkSelection drink, Date day, T parent) {
         TimeUtil timeUtil = new TimeUtil(parent);
-        Calendar selCal = timeUtil.getCalendar(drink.getTime());
+        Calendar selCal = timeUtil.getCalendar(drink.getTime().toDate());
         Calendar curCal = timeUtil.getCalendar(day);
         selCal.set(Calendar.YEAR, curCal.get(Calendar.YEAR));
         // First set day of month to 1 so that the day is not too high if a
@@ -260,8 +261,7 @@ public final class DrinkActions {
             // the next calendar day
             selCal.add(Calendar.DAY_OF_MONTH, 1);
         }
-
-        drink.setTime(selCal.getTime());
+        drink.setTime(new Instant(selCal.getTime()));
         history.createDrink(drink);
 
         JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDBAdapter());

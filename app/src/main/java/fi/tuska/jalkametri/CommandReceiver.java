@@ -10,7 +10,8 @@ import fi.tuska.jalkametri.data.DrinkEvent;
 import fi.tuska.jalkametri.db.DBAdapter;
 import fi.tuska.jalkametri.db.HistoryDB;
 import fi.tuska.jalkametri.task.AlcoholLevelMeter;
-import fi.tuska.jalkametri.util.TimeUtil;
+
+import static org.joda.time.Instant.now;
 
 /**
  * Receives commands from the jAlkaMetri widget: used to drink a favourite
@@ -55,7 +56,7 @@ public class CommandReceiver extends BroadcastReceiver {
         double orgLevel = status.getAlcoholLevel();
 
         // Update event
-        event.setTime(new TimeUtil(context).getCurrentTime());
+        event.setTime(now());
         // Store event
         history.createDrink(event);
         // Recalculate widgets
@@ -70,7 +71,7 @@ public class CommandReceiver extends BroadcastReceiver {
         Intent intent = new Intent(index > 0 ? ACTION_DRINK + "_" + index : ACTION_DRINK);
         intent.putExtra(KEY_DRINK, drink);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, intent,
-            PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT);
         return pIntent;
     }
 
