@@ -32,6 +32,11 @@
     <string name="portions">0.0 / 0.0 / 0.0</string>
     <string name="sober">You\'re sober</string>
     <string name="drink_date_def">Mon 1.1.</string>
+    <string name="drink_time_def">18:35</string>
+    <string name="drink_name_def">Beer</string>
+    <string name="drink_strength_def">4.5</string>
+    <string name="drink_size_name_def">Pint</string>
+    <string name="drink_size_def">0.57</string>
 
     <string name="title_disclaimer">Legal disclaimer</string>
     <string name="disclaimer_text"><![CDATA[This application is meant for your amusement, and I do not guarantee
