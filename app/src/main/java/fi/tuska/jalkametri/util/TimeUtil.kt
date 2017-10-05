@@ -23,7 +23,7 @@ class TimeUtil(val res: Resources, val locale: Locale) {
     val currentTime: Date
         get() = currentCalendar.time
 
-    val timeZone: DateTimeZone = DateTimeZone.forID("Europe/Helsinki")
+    val timeZone: DateTimeZone = DateTimeZone.getDefault()
 
     constructor(res: Resources) : this(res, res.configuration.locale)
     constructor(ctx: Context) : this(ctx.resources)
