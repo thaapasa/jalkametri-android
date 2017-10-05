@@ -1,7 +1,5 @@
 package fi.tuska.jalkametri.gui;
 
-import java.text.DateFormat;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,14 +13,20 @@ import fi.tuska.jalkametri.data.DrinkSelection;
 import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.util.StringUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Locale;
 
 public class DrinkDetailsDialog extends Dialog {
 
-    private DateFormat dateFormat;
+    private DateTimeFormatter dateFormat;
+    private Locale locale;
 
     public DrinkDetailsDialog(Context context) {
         super(context);
-        dateFormat = new TimeUtil(context).getDateFormatFull();
+        TimeUtil t = new TimeUtil(context);
+        dateFormat = t.getDateFormatFull();
+        locale = t.getLocale();
         setContentView(R.layout.activity_show_event);
 
         Button okButton = (Button) findViewById(R.id.ok);
@@ -43,7 +47,7 @@ public class DrinkDetailsDialog extends Dialog {
         setDialogText(R.id.name, drink.getName());
         // Drink strength
         setDialogText(R.id.strength,
-            String.format("%.1f %s", drink.getStrength(), res.getString(R.string.unit_percent)));
+                String.format(locale, "%.1f %s", drink.getStrength(), res.getString(R.string.unit_percent)));
 
         DrinkSize size = selection.getSize();
         // Drink size name
@@ -53,9 +57,9 @@ public class DrinkDetailsDialog extends Dialog {
 
         // Portions
         setDialogText(
-            R.id.portions,
-            String.format("%.1f %s", selection.getPortions(getContext()),
-                res.getString(R.string.unit_portions)));
+                R.id.portions,
+                String.format(locale, "%.1f %s", selection.getPortions(getContext()),
+                        res.getString(R.string.unit_portions)));
 
         // Date
         {
@@ -63,7 +67,7 @@ public class DrinkDetailsDialog extends Dialog {
             if (showTime) {
                 drinkTime.setVisibility(View.VISIBLE);
                 setDialogText(R.id.date,
-                    StringUtil.uppercaseFirstLetter(dateFormat.format(selection.getTime())));
+                        StringUtil.uppercaseFirstLetter(dateFormat.print(selection.getTime())));
             } else {
                 drinkTime.setVisibility(View.GONE);
             }
@@ -89,7 +93,7 @@ public class DrinkDetailsDialog extends Dialog {
         }
     }
 
-    public void setDialogText(int resID, String text) {
+    private void setDialogText(int resID, String text) {
         TextView t = (TextView) findViewById(resID);
         if (t != null) {
             t.setText(text);

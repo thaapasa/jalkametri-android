@@ -5,6 +5,8 @@ import android.content.res.Resources
 import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.Preferences
 import org.joda.time.DateTimeZone
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.DateTimeFormatter
 import java.text.DateFormat
 import java.text.FieldPosition
 import java.text.NumberFormat
@@ -21,8 +23,7 @@ class TimeUtil(val res: Resources, val locale: Locale) {
     val currentTime: Date
         get() = currentCalendar.time
 
-    val timeZone: DateTimeZone
-        get() = DateTimeZone.forID("Europe/Helsinki")
+    val timeZone: DateTimeZone = DateTimeZone.forID("Europe/Helsinki")
 
     constructor(res: Resources) : this(res, res.configuration.locale)
     constructor(ctx: Context) : this(ctx.resources)
@@ -255,8 +256,8 @@ class TimeUtil(val res: Resources, val locale: Locale) {
     val timeFormat: DateFormat
         get() = SimpleDateFormat(res.getString(R.string.time_format), locale)
 
-    val dateFormatFull: DateFormat
-        get() = SimpleDateFormat(res.getString(R.string.day_full_format), locale)
+    val dateFormatFull: DateTimeFormatter
+        get() = DateTimeFormat.forPattern(res.getString(R.string.day_full_format)).withLocale(locale).withZone(timeZone)
 
     /**
      * @return the number formatter used for reading the numbers in

@@ -1,8 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import java.text.DateFormat;
-import java.util.Date;
-
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +9,10 @@ import fi.tuska.jalkametri.dao.GeneralStatistics;
 import fi.tuska.jalkametri.dao.Statistics;
 import fi.tuska.jalkametri.db.StatisticsDB;
 import fi.tuska.jalkametri.util.NumberUtil;
+import org.joda.time.Instant;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Date;
 
 public abstract class AbstractStatisticsActivity extends JalkametriDBActivity {
 
@@ -36,7 +37,7 @@ public abstract class AbstractStatisticsActivity extends JalkametriDBActivity {
     protected Statistics statistics;
     protected GeneralStatistics generalStats;
 
-    protected DateFormat dateFormat;
+    protected DateTimeFormatter dateFormat;
 
     public AbstractStatisticsActivity() {
         super(R.string.title_statistics, R.string.help_statistics);
@@ -119,14 +120,14 @@ public abstract class AbstractStatisticsActivity extends JalkametriDBActivity {
         if (totalAlcohol != null) {
             String pureAlcoholFormatString = res.getString(R.string.stats_total_alcohol_format);
             totalAlcohol.setText(String.format(pureAlcoholFormatString,
-                NumberUtil.toString(generalStats.getTotalPortionsAsPureAlcoholLiters(getContext()), res)));
+                    NumberUtil.toString(generalStats.getTotalPortionsAsPureAlcoholLiters(getContext()), res)));
         }
 
         // First day
         if (firstDay != null) {
             Date date = generalStats.getFirstDay();
-            firstDay.setText(date != null ? dateFormat.format(date) : res
-                .getString(R.string.stats_no_days));
+            firstDay.setText(date != null ? dateFormat.print(new Instant(date)) : res
+                    .getString(R.string.stats_no_days));
         }
         if (allDays != null)
             allDays.setText(NumberUtil.toString(generalStats.getNumberOfRecordedDays(), res));
@@ -134,23 +135,23 @@ public abstract class AbstractStatisticsActivity extends JalkametriDBActivity {
         // Sober days
         if (soberDays != null)
             soberDays.setText(String.format("%s (%s %%)",
-                NumberUtil.toString(generalStats.getNumberOfSoberDays(), res),
-                NumberUtil.toString(generalStats.getSoberDayPercentage(), res)));
+                    NumberUtil.toString(generalStats.getNumberOfSoberDays(), res),
+                    NumberUtil.toString(generalStats.getSoberDayPercentage(), res)));
         // Drunk days
         if (drunkDays != null)
             drunkDays.setText(String.format("%s (%s %%)",
-                NumberUtil.toString(generalStats.getNumberOfDrunkDays(), res),
-                NumberUtil.toString(generalStats.getDrunkDayPercentage(), res)));
+                    NumberUtil.toString(generalStats.getNumberOfDrunkDays(), res),
+                    NumberUtil.toString(generalStats.getDrunkDayPercentage(), res)));
 
         // Average portions per day
         if (avgPortionsAllDays != null)
             avgPortionsAllDays.setText(NumberUtil.toString(generalStats.getAvgPortionsAllDays(),
-                res));
+                    res));
         if (avgPortionsDrunkDays != null)
             avgPortionsDrunkDays.setText(NumberUtil.toString(
-                generalStats.getAvgPortionsDrunkDays(), res));
+                    generalStats.getAvgPortionsDrunkDays(), res));
         if (avgWeeklyPortions != null)
             avgWeeklyPortions.setText(NumberUtil.toString(generalStats.getAvgWeeklyPortions(),
-                res));
+                    res));
     }
 }
