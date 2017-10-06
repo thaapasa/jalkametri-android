@@ -19,10 +19,10 @@ import fi.tuska.jalkametri.db.HistoryDB;
 import fi.tuska.jalkametri.gui.TaskExecutor;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.Duration;
 import org.joda.time.Instant;
-
-import java.util.Calendar;
-import java.util.Date;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 public final class DrinkActions {
 
@@ -224,7 +224,7 @@ public final class DrinkActions {
     /**
      * Removes all drink events from a given day from the drink history.
      */
-    public static <T extends GUIActivity & DBActivity> void clearEventsFromDay(History history, Date day, T parent) {
+    public static <T extends GUIActivity & DBActivity> void clearEventsFromDay(History history, LocalDate day, T parent) {
         LogUtil.d(TAG, "Clearing all drinks of %s", day);
         history.clearDay(day);
 
@@ -238,30 +238,21 @@ public final class DrinkActions {
      * Adds a drink for the currently selected day.
      */
     public static <T extends GUIActivity & DBActivity> void addDrinkForSelectedDay(History history,
-                                                                                   DrinkSelection drink, Date day, T parent) {
+                                                                                   DrinkSelection drink, LocalDate day, T parent) {
         TimeUtil timeUtil = new TimeUtil(parent.getContext());
-        Calendar selCal = timeUtil.getCalendar(drink.getTime().toDate());
-        Calendar curCal = timeUtil.getCalendar(day);
-        selCal.set(Calendar.YEAR, curCal.get(Calendar.YEAR));
-        // First set day of month to 1 so that the day is not too high if a
-        // shorter month is currently selected. I'm not sure if this is
-        // required (depends on when the sanity of the date settings is
-        // enforced), but this can't be bad.
-        selCal.set(Calendar.DAY_OF_MONTH, 1);
-        selCal.set(Calendar.MONTH, curCal.get(Calendar.MONTH));
-        selCal.set(Calendar.DAY_OF_MONTH, curCal.get(Calendar.DAY_OF_MONTH));
-
+        LocalTime time = drink.getTime().toDateTime(timeUtil.getTimeZone()).toLocalTime();
+        Instant sel = day.toDateTime(time, timeUtil.getTimeZone()).toInstant();
         // Update 16.5.2011: We must further check if the requested time is
         // before the day changing time. If it is, the recorded day must be
         // set one higher (you see), so that the drink will be shown on this
         // day's drink list.
         Preferences prefs = new PreferencesImpl(parent.getContext());
-        if (timeUtil.isTimeBefore(selCal, prefs.getDayChangeHour(), prefs.getDayChangeMinute())) {
+        if (time.isBefore(prefs.getDayChangeTime())) {
             // This time recording goes to the morning hours, so move it to
             // the next calendar day
-            selCal.add(Calendar.DAY_OF_MONTH, 1);
+            sel = sel.plus(Duration.standardDays(1));
         }
-        drink.setTime(new Instant(selCal.getTime()));
+        drink.setTime(sel);
         history.createDrink(drink);
 
         JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDBAdapter());

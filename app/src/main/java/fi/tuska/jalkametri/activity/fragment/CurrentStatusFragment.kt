@@ -67,13 +67,13 @@ class CurrentStatusFragment : Fragment() {
         } else {
             val hours = status.hoursToSober
             val minutes = (hours - hours.toInt()) * 60
-            val soberity = timeUtil!!.getTimeAfterHours(hours)
+            val sobriety = timeUtil!!.getTimeAfterHours(hours)
             if (hours > 1) {
                 showSobrietyText(String.format("%d%s %d%s (%s)", hours.toInt(), res.getString(R.string.hour),
-                        minutes.toInt(), res.getString(R.string.minute), timeUtil!!.timeFormat.format(soberity)))
+                        minutes.toInt(), res.getString(R.string.minute), timeUtil!!.timeFormat.print(sobriety)))
             } else {
                 showSobrietyText(String.format("%d %s (%s)", minutes.toInt(), res.getString(R.string.minute),
-                        timeUtil!!.timeFormat.format(soberity)))
+                        timeUtil!!.timeFormat.print(sobriety)))
             }
         }
     }

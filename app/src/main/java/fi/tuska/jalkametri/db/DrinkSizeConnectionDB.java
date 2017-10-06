@@ -10,6 +10,7 @@ import android.database.Cursor;
 import fi.tuska.jalkametri.dao.DrinkSizes;
 import fi.tuska.jalkametri.data.Drink;
 import fi.tuska.jalkametri.data.DrinkSize;
+import fi.tuska.jalkametri.util.TimeUtil;
 
 public class DrinkSizeConnectionDB extends AbstractDB {
 

@@ -1,36 +1,37 @@
 package fi.tuska.jalkametri.data;
 
-import java.util.Date;
-
 import android.content.Context;
-
 import fi.tuska.jalkametri.Common;
 import fi.tuska.jalkametri.dao.GeneralStatistics;
 import fi.tuska.jalkametri.dao.Preferences;
-import fi.tuska.jalkametri.util.FAQCalendar;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+
+import java.util.Date;
 
 public class GeneralStatisticsImpl implements GeneralStatistics {
+
+    private static final LocalDate MIN_START = new LocalDate(2000, 1, 1);
 
     private long totalDrinks = 0;
     private double totalPortions = 0;
     private long allDays = 0;
     private long drunkDays = 0;
-    private Date lastDay;
-    private Date firstDay;
+    private LocalDate lastDay;
+    private LocalDate firstDay;
 
-    public GeneralStatisticsImpl(Date start, Date end, Date firstRecordedDay, Context context) {
+    public GeneralStatisticsImpl(LocalDate start, LocalDate end, LocalDate firstRecordedDay, Context context) {
         TimeUtil timeUtil = new TimeUtil(context);
-        Date cur = timeUtil.getCurrentTime();
-        firstDay = start != null ? start : new Date(0);
+        LocalDate cur = new LocalDate(timeUtil.getTimeZone());
+        firstDay = start != null ? start : MIN_START;
         lastDay = end != null ? end : cur;
-        if (firstRecordedDay.getTime() > firstDay.getTime())
+        if (firstRecordedDay.isAfter(firstDay))
             firstDay = firstRecordedDay;
-        if (lastDay.getTime() > cur.getTime())
+        if (lastDay.isAfter(cur))
             lastDay = cur;
 
-        FAQCalendar fcal = new FAQCalendar(firstDay, context);
-        allDays = fcal.diffDayPeriods(timeUtil.getCalendar(lastDay)) + 1;
+        allDays = new Period(firstDay, lastDay).getDays() + 1;
     }
 
     public void setTotalDrinks(long count) {
@@ -62,7 +63,7 @@ public class GeneralStatisticsImpl implements GeneralStatistics {
     }
 
     @Override
-    public Date getFirstDay() {
+    public LocalDate getFirstDay() {
         return firstDay;
     }
 
@@ -94,13 +95,13 @@ public class GeneralStatisticsImpl implements GeneralStatistics {
     @Override
     public double getSoberDayPercentage() {
         return getNumberOfRecordedDays() > 0 ? (double) getNumberOfSoberDays() * 100d
-            / getNumberOfRecordedDays() : 0;
+                / getNumberOfRecordedDays() : 0;
     }
 
     @Override
     public double getDrunkDayPercentage() {
         return getNumberOfRecordedDays() > 0 ? (double) drunkDays * 100d
-            / getNumberOfRecordedDays() : 0;
+                / getNumberOfRecordedDays() : 0;
     }
 
     @Override

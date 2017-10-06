@@ -1,10 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
@@ -21,6 +16,10 @@ import fi.tuska.jalkametri.gui.GraphView;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.StringUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.List;
 
 /**
  * Shows statistics about your drinking habits. The truth is often harsh;
@@ -37,11 +36,11 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
 
     private TextView dateTitle;
     private TextView dateSubtitle;
-    private DateFormat dateTitleFormat;
+    private DateTimeFormatter dateTitleFormat;
 
-    private Date day;
-    private Date start;
-    private Date end;
+    private LocalDate day;
+    private LocalDate start;
+    private LocalDate end;
 
     private Type type;
 
@@ -50,7 +49,9 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
 
     public enum Type {
         Yearly, Monthly, Weekly
-    };
+    }
+
+    ;
 
     public StatisticsDailyActivity() {
         super();
@@ -80,13 +81,13 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
 
         dateTitleFormat = getTimeUtil().getMonthCorrectedDateFormat(getDateTitlePattern(this, type));
 
-        loadDay(getTimeUtil().getCurrentTime());
+        loadDay(new LocalDate(getTimeUtil().getTimeZone()));
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Date d = (Date) savedInstanceState.getSerializable(DAY_STORE_KEY);
+        LocalDate d = (LocalDate) savedInstanceState.getSerializable(DAY_STORE_KEY);
         if (d != null)
             loadDay(d);
     }
@@ -97,21 +98,21 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
         outState.putSerializable(DAY_STORE_KEY, day);
     }
 
-    protected static String getTitle(Context context, Type type, Date date) {
-        DateFormat f = new TimeUtil(context).getMonthCorrectedDateFormat(getDateTitlePattern(
-            context, type));
-        return StringUtil.uppercaseFirstLetter(f.format(date));
+    protected static String getTitle(Context context, Type type, LocalDate date) {
+        DateTimeFormatter f = new TimeUtil(context).getMonthCorrectedDateFormat(getDateTitlePattern(
+                context, type));
+        return StringUtil.uppercaseFirstLetter(f.print(date));
     }
 
     protected static String getDateTitlePattern(Context context, Type type) {
         Resources res = context.getResources();
         switch (type) {
-        case Yearly:
-            return res.getString(R.string.stats_yearly_title_pattern);
-        case Monthly:
-            return res.getString(R.string.stats_monthly_title_pattern);
-        case Weekly:
-            return res.getString(R.string.stats_weekly_title_pattern);
+            case Yearly:
+                return res.getString(R.string.stats_yearly_title_pattern);
+            case Monthly:
+                return res.getString(R.string.stats_monthly_title_pattern);
+            case Weekly:
+                return res.getString(R.string.stats_weekly_title_pattern);
         }
         LogUtil.w(TAG, "Unknown type: %s", type);
         return "???";
@@ -125,7 +126,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
     @Override
     public void updateUI() {
         super.updateUI();
-        dateTitle.setText(StringUtil.uppercaseFirstLetter(dateTitleFormat.format(day)));
+        dateTitle.setText(StringUtil.uppercaseFirstLetter(dateTitleFormat.print(day)));
     }
 
     public void showGraph(View v) {
@@ -141,24 +142,20 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
     }
 
     private void gotoNextOrPrevious(int multiplier) {
+        LocalDate d = this.day;
         // Go to next year/month/week
-        Calendar cal = getTimeUtil().getCalendar(day);
-        cal.setLenient(true);
         switch (type) {
-        case Weekly:
-            cal.add(Calendar.DAY_OF_MONTH, multiplier * 7);
-            break;
-        case Monthly:
-            cal.set(Calendar.DAY_OF_MONTH, 1);
-            cal.add(Calendar.MONTH, multiplier * 1);
-            break;
-        case Yearly:
-            cal.set(Calendar.DAY_OF_MONTH, 1);
-            cal.set(Calendar.MONTH, Calendar.JANUARY);
-            cal.add(Calendar.YEAR, multiplier * 1);
-            break;
+            case Weekly:
+                d = d.plusDays(7 * multiplier);
+                break;
+            case Monthly:
+                d = d.withDayOfMonth(1).plusMonths(multiplier);
+                break;
+            case Yearly:
+                d = d.withDayOfMonth(1).withMonthOfYear(1).plusYears(multiplier);
+                break;
         }
-        loadDay(cal.getTime());
+        loadDay(d);
     }
 
     public void onTodayClick(View v) {
@@ -169,19 +166,16 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
     public void onSelectDayClick(View v) {
         // Select day to show
         LogUtil.d(TAG, "Showing date selection dialog");
-        Calendar cal = getTimeUtil().getCalendar(day);
         // Show a date picker dialog
         new DatePickerDialog(this, new OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                loadDay(getTimeUtil().getCalendarFromDatePicker(year, monthOfYear, dayOfMonth)
-                    .getTime());
+                loadDay(new LocalDate(year, monthOfYear, dayOfMonth));
             }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
-            .show();
+        }, day.getYear(), day.getMonthOfYear(), day.getDayOfMonth()).show();
     }
 
-    private void loadDay(Date date) {
+    private void loadDay(LocalDate date) {
         calculateDates(date);
 
         LogUtil.d(TAG, "Loading daily statistics between %s and %s", start, end);
@@ -193,41 +187,34 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
         updateUI();
     }
 
-    private void calculateDates(Date date) {
-        this.day = getTimeUtil().clearTimeValues(date);
+    private void calculateDates(LocalDate date) {
+        this.day = date;
 
-        Calendar cal = getTimeUtil().getCalendar(day);
         switch (type) {
-        case Yearly:
-            cal.set(Calendar.MONTH, Calendar.JANUARY);
-            cal.set(Calendar.DAY_OF_MONTH, 1);
-            break;
-        case Monthly:
-            cal.set(Calendar.DAY_OF_MONTH, 1);
-            break;
-        case Weekly:
-            cal = getTimeUtil().getStartOfWeek(day, getPrefs());
-            getTimeUtil().clearTimeValues(cal);
-            break;
+            case Yearly:
+                start = day.withDayOfMonth(1).withMonthOfYear(1);
+                break;
+            case Monthly:
+                start = day.withDayOfMonth(1);
+                break;
+            case Weekly:
+                start = getTimeUtil().getStartOfWeek(day, getPrefs());
+                break;
         }
-        start = cal.getTime();
 
         switch (type) {
-        case Yearly:
-            cal.add(Calendar.YEAR, 1);
-            break;
-        case Monthly:
-            cal.add(Calendar.MONTH, 1);
-            break;
-        case Weekly:
-            cal.add(Calendar.DAY_OF_MONTH, 7);
-            break;
+            case Yearly:
+                end = start.plusYears(1);
+                break;
+            case Monthly:
+                end = start.plusMonths(1);
+                break;
+            case Weekly:
+                end = start.plusDays(7);
+                break;
         }
         // Back up to the previous day
-        cal.getTime();
-        cal.add(Calendar.DAY_OF_MONTH, -1);
-
-        end = cal.getTime();
+        end = end.minusDays(1);
     }
 
 }

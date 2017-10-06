@@ -1,12 +1,11 @@
 package fi.tuska.jalkametri.dao;
 
-import java.util.Date;
-
 import fi.tuska.jalkametri.gui.GraphView.Point;
+import org.joda.time.LocalDate;
 
 public interface DailyDrinkStatistics extends Point {
 
-    Date getDay();
+    LocalDate getDay();
 
     double getPortions();
 

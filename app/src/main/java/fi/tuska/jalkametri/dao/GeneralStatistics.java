@@ -1,8 +1,7 @@
 package fi.tuska.jalkametri.dao;
 
-import java.util.Date;
-
 import android.content.Context;
+import org.joda.time.LocalDate;
 
 public interface GeneralStatistics {
 
@@ -25,7 +24,7 @@ public interface GeneralStatistics {
     /**
      * @return the date of the first recorded drinking event
      */
-    Date getFirstDay();
+    LocalDate getFirstDay();
 
     /**
      * @return the number of days from the first recorded drinking event

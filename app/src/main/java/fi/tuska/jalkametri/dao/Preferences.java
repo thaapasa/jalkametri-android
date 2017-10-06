@@ -1,15 +1,18 @@
 package fi.tuska.jalkametri.dao;
 
-import java.util.Locale;
-
 import android.content.SharedPreferences.Editor;
 import fi.tuska.jalkametri.data.PurchaseReminderHandler;
+import org.joda.time.LocalTime;
+
+import java.util.Locale;
 
 public interface Preferences {
 
     enum Gender {
         Male, Female
-    };
+    }
+
+    ;
 
     String PREF_WEIGHT = "pref_weight";
     String PREF_GENDER = "pref_gender";
@@ -79,6 +82,8 @@ public interface Preferences {
     int getDayChangeMinute();
 
     void setDayChangeMinute(Editor editor, int minute);
+
+    LocalTime getDayChangeTime();
 
     boolean isDrinkLibraryInitialized();
 

@@ -6,6 +6,7 @@ import fi.tuska.jalkametri.dao.History;
 import fi.tuska.jalkametri.dao.Preferences;
 import fi.tuska.jalkametri.dao.Preferences.Gender;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.Instant;
 
 import java.util.Date;
 import java.util.List;
@@ -49,7 +50,7 @@ public final class DrinkStatusCalc implements DrinkStatus {
         updateAlcoholLevel();
     }
 
-    public DrinkStatusCalc(History history, Context context, Date start, Date end) {
+    public DrinkStatusCalc(History history, Context context, Instant start, Instant end) {
         this.context = context;
         this.timeUtil = new TimeUtil(context);
         this.alcoholAtUpdate = 0;

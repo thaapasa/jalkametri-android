@@ -1,14 +1,5 @@
 package fi.tuska.jalkametri.db;
 
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_PORTIONS;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_TIME;
-import static fi.tuska.jalkametri.db.DBAdapter.TAG;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import fi.tuska.jalkametri.dao.DailyDrinkStatistics;
@@ -19,6 +10,17 @@ import fi.tuska.jalkametri.data.DailyDrinkStatisticsImpl;
 import fi.tuska.jalkametri.data.GeneralStatisticsImpl;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.Duration;
+import org.joda.time.Instant;
+import org.joda.time.LocalDate;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_PORTIONS;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_TIME;
+import static fi.tuska.jalkametri.db.DBAdapter.TAG;
+import static org.joda.time.Instant.now;
 
 public class StatisticsDB extends AbstractDB implements Statistics {
 
@@ -54,14 +56,17 @@ public class StatisticsDB extends AbstractDB implements Statistics {
     }
 
     @Override
-    public GeneralStatistics getGeneralStatistics(Date start, Date end) {
+    public GeneralStatistics getGeneralStatistics(LocalDate startDay, LocalDate endDay) {
+
+        Instant start = startDay != null ? timeUtil.getStartOfDrinkDay(startDay, prefs) : null;
+        Instant end = endDay != null ? timeUtil.getStartOfDrinkDay(endDay, prefs).plus(Duration.standardDays(1)) : null;
 
         // Wrap all the queries in a single transaction
         adapter.beginTransaction();
         try {
             // First day
-            GeneralStatisticsImpl stats = new GeneralStatisticsImpl(start, end,
-                getFirstDrinkEventTime(start), context);
+            GeneralStatisticsImpl stats = new GeneralStatisticsImpl(startDay, endDay,
+                getFirstDrinkEventDate(startDay), context);
             stats.setTotalDrinks(getNumberOfDrinkEvents(start, end));
             stats.setTotalPortions(getNumberOfPortions(start, end));
             stats.setDrunkDays(getNumberOfDrunkDays(start, end));
@@ -73,7 +78,9 @@ public class StatisticsDB extends AbstractDB implements Statistics {
     }
 
     @Override
-    public List<DailyDrinkStatistics> getDailyDrinkAmounts(Date start, Date end) {
+    public List<DailyDrinkStatistics> getDailyDrinkAmounts(LocalDate startDay, LocalDate endDay) {
+        Instant start = timeUtil.getStartOfDrinkDay(startDay, prefs);
+        Instant end = timeUtil.getStartOfDrinkDay(endDay, prefs).plus(Duration.standardDays(1));
         String colSpec = getTheDateGroupColumnSpec();
         LogUtil.d(TAG, "Querying for daily drink amounts between %s and %s; colSpec is %s",
             start, end, colSpec);
@@ -95,9 +102,9 @@ public class StatisticsDB extends AbstractDB implements Statistics {
         return res;
     }
 
-    private Date getFirstDrinkEventTime(Date start) {
-        Date sysStart = getFirstDrinkEventTime();
-        return (start != null && sysStart.getTime() < start.getTime()) ? start : sysStart;
+    public LocalDate getFirstDrinkEventDate(LocalDate start) {
+        LocalDate dbDate = getFirstDrinkEventTime().toDateTime(timeUtil.getTimeZone()).toLocalDate();
+        return start != null && start.isBefore(dbDate) ? start : dbDate;
     }
 
     /**
@@ -105,19 +112,19 @@ public class StatisticsDB extends AbstractDB implements Statistics {
      * current time, if no drinks have been recorded
      */
     @Override
-    public Date getFirstDrinkEventTime() {
+    public Instant getFirstDrinkEventTime() {
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME, new String[] { KEY_TIME }, null,
             null, null, null, KEY_TIME + " ASC", "1");
         String date = getSingleString(cursor, null);
         try {
-            return date != null ? sqlDateFormat.parse(date) : new Date();
-        } catch (ParseException e) {
+            return date != null ? Instant.parse(date, sqlDateFormat) : now();
+        } catch (Exception e) {
             LogUtil.w(TAG, "Invalid date value in database: %s", date);
-            return new Date();
+            return now();
         }
     }
 
-    private long getNumberOfDrinkEvents(Date start, Date end) {
+    private long getNumberOfDrinkEvents(Instant start, Instant end) {
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
             new String[] { COL_COUNT, getTheDateGroupColumnSpec() },
             getDateSelection(KEY_THEDATE, start, end), getDateSelectionArgs(start, end), null,
@@ -125,7 +132,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
         return getSingleLong(cursor, 0);
     }
 
-    private double getNumberOfPortions(Date start, Date end) {
+    private double getNumberOfPortions(Instant start, Instant end) {
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
             new String[] { COL_PORTIONS, getTheDateGroupColumnSpec() },
             getDateSelection(KEY_THEDATE, start, end), getDateSelectionArgs(start, end), null,
@@ -133,7 +140,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
         return getSingleDouble(cursor, 0);
     }
 
-    private int getNumberOfDrunkDays(Date start, Date end) {
+    private int getNumberOfDrunkDays(Instant start, Instant end) {
         String colSpec = getTimeGroupColumnSpec();
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME, new String[] { colSpec },
             getDateSelection(KEY_THEDATE, start, end), getDateSelectionArgs(start, end), null,
@@ -153,7 +160,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
             DBAdapter.formatAsSQLTime(prefs.getDayChangeHour(), prefs.getDayChangeMinute()));
     }
 
-    protected String getDateSelection(String timeCol, Date start, Date end) {
+    protected String getDateSelection(String timeCol, Instant start, Instant end) {
         if (start == null && end == null)
             return null;
         if (end == null)
@@ -163,7 +170,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
         return timeCol + " >= ? AND " + timeCol + " <= ?";
     }
 
-    protected String[] getDateSelectionArgs(Date start, Date end) {
+    protected String[] getDateSelectionArgs(Instant start, Instant end) {
         if (start == null && end == null)
             return null;
         if (end == null)

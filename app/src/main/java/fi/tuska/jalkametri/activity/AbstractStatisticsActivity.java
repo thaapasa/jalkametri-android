@@ -10,6 +10,7 @@ import fi.tuska.jalkametri.dao.Statistics;
 import fi.tuska.jalkametri.db.StatisticsDB;
 import fi.tuska.jalkametri.util.NumberUtil;
 import org.joda.time.Instant;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Date;
@@ -125,8 +126,8 @@ public abstract class AbstractStatisticsActivity extends JalkametriDBActivity {
 
         // First day
         if (firstDay != null) {
-            Date date = generalStats.getFirstDay();
-            firstDay.setText(date != null ? dateFormat.print(new Instant(date)) : res
+            LocalDate date = generalStats.getFirstDay();
+            firstDay.setText(date != null ? dateFormat.print(date) : res
                     .getString(R.string.stats_no_days));
         }
         if (allDays != null)

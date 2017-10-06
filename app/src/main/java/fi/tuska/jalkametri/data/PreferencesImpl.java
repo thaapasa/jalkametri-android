@@ -1,9 +1,5 @@
 package fi.tuska.jalkametri.data;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +8,11 @@ import android.preference.PreferenceManager;
 import fi.tuska.jalkametri.dao.Preferences;
 import fi.tuska.jalkametri.util.LocalizationUtil;
 import fi.tuska.jalkametri.util.LogUtil;
+import org.joda.time.LocalTime;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Stores the user preferences in Android shared preferences.
@@ -118,6 +119,11 @@ public class PreferencesImpl implements Preferences {
     @Override
     public void setDayChangeMinute(Editor editor, int minute) {
         editor.putInt(PREF_DAY_CHANGE_MINUTE, minute);
+    }
+
+    @Override
+    public LocalTime getDayChangeTime() {
+        return new LocalTime(getDayChangeHour(), getDayChangeMinute());
     }
 
     @Override

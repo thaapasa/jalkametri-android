@@ -1,8 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import java.util.Date;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +14,10 @@ import fi.tuska.jalkametri.data.DailyStatisticsGraph;
 import fi.tuska.jalkametri.db.StatisticsDB;
 import fi.tuska.jalkametri.gui.GraphView;
 import fi.tuska.jalkametri.gui.GraphView.Graph;
+import org.joda.time.LocalDate;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Shows a graph on the whole screen.
@@ -42,7 +43,7 @@ public class GraphActivity extends JalkametriDBActivity {
      * Functions for preparing the activity to be shown
      * --------------------------------------------
      */
-    public static void showGraph(Activity parent, Date start, Date end, Type type) {
+    public static void showGraph(Activity parent, LocalDate start, LocalDate end, Type type) {
         Intent i = new Intent(parent, GraphActivity.class);
         i.putExtra(KEY_DATE_START, start);
         i.putExtra(KEY_DATE_END, end);
@@ -62,8 +63,8 @@ public class GraphActivity extends JalkametriDBActivity {
         Intent intent = getIntent();
         // Grab the intent data
         Type type = (Type) intent.getSerializableExtra(KEY_TYPE);
-        Date start = (Date) intent.getSerializableExtra(KEY_DATE_START);
-        Date end = (Date) intent.getSerializableExtra(KEY_DATE_END);
+        LocalDate start = (LocalDate) intent.getSerializableExtra(KEY_DATE_START);
+        LocalDate end = (LocalDate) intent.getSerializableExtra(KEY_DATE_END);
 
 
         title = (TextView) findViewById(R.id.title);
@@ -83,7 +84,7 @@ public class GraphActivity extends JalkametriDBActivity {
         }
     }
 
-    private Graph loadGraph(Intent intent, Type type, Date start, Date end) {
+    private Graph loadGraph(Intent intent, Type type, LocalDate start, LocalDate end) {
         Statistics stats = new StatisticsDB(getAdapter(), getPrefs(), this);
         List<DailyDrinkStatistics> dailyStats = stats.getDailyDrinkAmounts(start, end);
         return DailyStatisticsGraph.getGraph(type, dailyStats, getPrefs(), this);

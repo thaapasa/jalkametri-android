@@ -39,10 +39,9 @@ import fi.tuska.jalkametri.util.Converter;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.StringUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormatter;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static fi.tuska.jalkametri.Common.KEY_ORIGINAL;
@@ -62,10 +61,10 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
 
     private static final String PORTIONS_FORMAT = "%.1f / %.1f";
 
-    private DateFormat wdayFormat;
+    private DateTimeFormatter wdayFormat;
 
     private DBAdapter adapter;
-    private Date day;
+    private LocalDate day;
     private TextView dateText;
     private TextView weekText;
     private TextView portionsText;
@@ -74,7 +73,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     private Preferences prefs;
     private DrinkSelection selectedEvent;
     private String weekPrefix;
-    private DateFormat timeFormat;
+    private DateTimeFormatter timeFormat;
     private TimeUtil timeUtil;
 
     private String iconNameUnitStr;
@@ -82,7 +81,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         @Override
         public String convert(NamedIcon src) {
             DrinkEvent drink = (DrinkEvent) src;
-            return String.format("%s: %s\n%.1f %s", timeFormat.format(drink.getTime().toDate()),
+            return String.format(timeUtil.getLocale(), "%s: %s\n%.1f %s", timeFormat.print(drink.getTime()),
                     drink.getName(), drink.getPortions(getContext()), iconNameUnitStr);
         }
     };
@@ -90,7 +89,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            loadDay(timeUtil.getCalendarFromDatePicker(year, monthOfYear, dayOfMonth).getTime());
+            loadDay(new LocalDate(year, monthOfYear, dayOfMonth));
         }
     };
 
@@ -105,7 +104,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     /**
      * Call to prepare an intent for showing the selected category.
      */
-    public static void prepareForDay(Intent intent, Date showDay) {
+    public static void prepareForDay(Intent intent, LocalDate showDay) {
         intent.putExtra(KEY_SHOW_DAY, showDay);
     }
 
@@ -146,7 +145,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         this.wdayFormat = timeUtil.getDateFormatWDay();
         this.timeFormat = timeUtil.getTimeFormat();
         Bundle extras = getIntent().getExtras();
-        Date showDay = (Date) extras.get(KEY_SHOW_DAY);
+        LocalDate showDay = (LocalDate) extras.get(KEY_SHOW_DAY);
         initComponents();
         loadDay(showDay);
     }
@@ -161,7 +160,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     @Override
     protected void onRestoreInstanceState(Bundle state) {
         super.onRestoreInstanceState(state);
-        Date date = (Date) state.get(KEY_SHOW_DAY);
+        LocalDate date = (LocalDate) state.get(KEY_SHOW_DAY);
         if (date != null)
             loadDay(date);
         selectedEvent = (DrinkEvent) state.get(KEY_SELECTED_EVENT);
@@ -190,8 +189,8 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     @Override
     public void updateUI() {
         List<DrinkEvent> drinks = history.getDrinks(day, false);
-        LogUtil.d(TAG, "Loaded %d drinks for %s", drinks.size(), wdayFormat.format(day));
-        listAdapter = new NamedIconAdapter<DrinkEvent>(this, drinks, false, iconNameConverter,
+        LogUtil.d(TAG, "Loaded %d drinks for %s", drinks.size(), wdayFormat.print(day));
+        listAdapter = new NamedIconAdapter<>(this, drinks, false, iconNameConverter,
                 Common.DEFAULT_ICON_RES);
         setListAdapter(listAdapter);
         setPortions(countPortions(drinks), HistoryHelper.countWeekPortions(history, day, this));
@@ -218,10 +217,10 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         showDialog(Common.DIALOG_SHOW_DRINK_DETAILS);
     }
 
-    private void loadDay(Date date) {
+    private void loadDay(LocalDate date) {
         this.day = date;
-        dateText.setText(StringUtil.uppercaseFirstLetter(wdayFormat.format(date)));
-        weekText.setText(weekPrefix + String.valueOf(timeUtil.getWeekNumber(day, prefs)));
+        dateText.setText(StringUtil.uppercaseFirstLetter(wdayFormat.print(date)));
+        weekText.setText(weekPrefix + day.getWeekOfWeekyear());
         LogUtil.d(TAG, "Selected day: %s", day);
         updateUI();
     }
@@ -229,17 +228,17 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     private void setPortions(double todayPortions, double weekPortions) {
         Resources res = getResources();
         portionsText.setText(res.getString(R.string.history_portions_title) + " "
-                + String.format(PORTIONS_FORMAT, todayPortions, weekPortions));
+                + String.format(timeUtil.getLocale(), PORTIONS_FORMAT, todayPortions, weekPortions));
     }
 
     public void onPreviousClick(View v) {
         // Show previous day
-        loadDay(timeUtil.addDays(day, -1));
+        loadDay(day.minusDays(1));
     }
 
     public void onNextClick(View v) {
         // Show next day
-        loadDay(timeUtil.addDays(day, 1));
+        loadDay(day.plusDays(1));
     }
 
     public void onTodayClick(View v) {
@@ -275,9 +274,8 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
                 dialog = new DrinkDetailsDialog(this);
                 return dialog;
             case Common.DIALOG_SELECT_DATE:
-                Calendar cal = timeUtil.getCalendar(day);
-                dialog = new DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),
-                        cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                dialog = new DatePickerDialog(this, dateSetListener, day.getYear(),
+                        day.getMonthOfYear(), day.getDayOfMonth());
                 return dialog;
         }
         return super.onCreateDialog(id);
@@ -292,10 +290,8 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
             }
             break;
             case Common.DIALOG_SELECT_DATE: {
-                Calendar cal = timeUtil.getCalendar(day);
                 DatePickerDialog d = (DatePickerDialog) dialog;
-                d.updateDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
-                        cal.get(Calendar.DAY_OF_MONTH));
+                d.updateDate(day.getYear(), day.getMonthOfYear(), day.getDayOfMonth());
             }
             break;
         }

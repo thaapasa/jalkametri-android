@@ -149,7 +149,7 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
                 val time = LocalDateTime(it, timeUtil.timeZone)
                 // cal.time = it
                 //timePicker.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
-                //timePicker.setCurrentMinute(cal.get(Calendar.MINUTE));
+                //timePicker.setCurrentMinute(cal.get(Calendar.MINUTE_MS));
                 setSelectedTime(time.toLocalTime())
                 setSelectedDate(time.toLocalDate())
             }

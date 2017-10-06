@@ -1,48 +1,38 @@
 package fi.tuska.jalkametri.dao;
 
+import fi.tuska.jalkametri.data.DrinkEvent;
+import fi.tuska.jalkametri.data.DrinkSelection;
+import org.joda.time.Instant;
+import org.joda.time.LocalDate;
+
 import java.util.Date;
 import java.util.List;
 
-import fi.tuska.jalkametri.data.DrinkEvent;
-import fi.tuska.jalkametri.data.DrinkSelection;
-
 public interface History {
 
-    /**
-     * C: create
-     */
     void createDrink(DrinkSelection selection);
 
-    /**
-     * R: read
-     */
     DrinkEvent getDrink(long index);
 
-    /**
-     * U: update
-     */
     void updateEvent(long index, DrinkEvent event);
 
-    /**
-     * D: delete
-     */
     boolean deleteEvent(long index);
 
-    List<DrinkEvent> getDrinks(Date day, boolean ascending);
+    List<DrinkEvent> getDrinks(LocalDate day, boolean ascending);
 
-    List<DrinkEvent> getDrinks(Date fromTime, Date toTime, boolean ascending);
+    List<DrinkEvent> getDrinks(Instant fromTime, Instant toTime, boolean ascending);
 
     List<DrinkEvent> getPreviousDrinks(int limit);
 
-    void clearDay(Date day);
+    void clearDay(LocalDate day);
 
-    void clearDrinks(Date fromTime, Date toTime);
+    void clearDrinks(Instant fromTime, Instant toTime);
 
     void clearAll();
 
     double countTotalPortions();
 
-    double countPortions(Date fromTime, Date endTime);
+    double countPortions(Instant fromTime, Instant endTime);
 
     void recalculatePortions();
 

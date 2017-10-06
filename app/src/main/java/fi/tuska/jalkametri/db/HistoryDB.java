@@ -14,11 +14,9 @@ import fi.tuska.jalkametri.data.PreferencesImpl;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
 import org.joda.time.Instant;
+import org.joda.time.LocalDate;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static fi.tuska.jalkametri.db.DBAdapter.KEY_COMMENT;
@@ -31,6 +29,7 @@ import static fi.tuska.jalkametri.db.DBAdapter.KEY_STRENGTH;
 import static fi.tuska.jalkametri.db.DBAdapter.KEY_TIME;
 import static fi.tuska.jalkametri.db.DBAdapter.KEY_VOLUME;
 import static fi.tuska.jalkametri.db.DBAdapter.TAG;
+import static org.joda.time.Duration.standardDays;
 
 public class HistoryDB extends AbstractDB implements History {
 
@@ -73,9 +72,9 @@ public class HistoryDB extends AbstractDB implements History {
     private void createValues(ContentValues values, DrinkSelection selection) {
         DrinkSelectionHelper.createCommonValues(values, selection);
         {
-            Date time = selection.getTime().toDate();
+            Instant time = selection.getTime();
             assert time != null;
-            values.put(KEY_TIME, sqlDateFormat.format(time));
+            values.put(KEY_TIME, sqlDateFormat.print(time));
         }
         // Portions
         values.put(KEY_PORTIONS, selection.getPortions(context));
@@ -99,12 +98,11 @@ public class HistoryDB extends AbstractDB implements History {
     }
 
     @Override
-    public List<DrinkEvent> getDrinks(Date day, boolean ascending) {
+    public List<DrinkEvent> getDrinks(LocalDate day, boolean ascending) {
         Preferences prefs = new PreferencesImpl(context);
-        Calendar start = timeUtil.getStartOfDay(day, prefs);
-        Calendar end = timeUtil.getCalendar(start);
-        end.add(Calendar.DAY_OF_MONTH, 1);
-        return getDrinks(start.getTime(), end.getTime(), ascending);
+        Instant start = timeUtil.getStartOfDrinkDay(day, prefs);
+        Instant end = start.plus(standardDays(1));
+        return getDrinks(start, end, ascending);
     }
 
     private static final String[] DRINK_QUERY_COLUMNS = new String[]{KEY_ID, KEY_NAME,
@@ -116,12 +114,12 @@ public class HistoryDB extends AbstractDB implements History {
             COLUMN_GROUP_NAME};
 
     @Override
-    public List<DrinkEvent> getDrinks(Date fromTime, Date toTime, boolean ascending) {
+    public List<DrinkEvent> getDrinks(Instant fromTime, Instant toTime, boolean ascending) {
         LogUtil.d(TAG, "Querying for drinks between %s and %s", fromTime, toTime);
 
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME, DRINK_QUERY_COLUMNS,
                 TIME_QUERY_WHERE,
-                new String[]{sqlDateFormat.format(fromTime), sqlDateFormat.format(toTime)}, null,
+                new String[]{sqlDateFormat.print(fromTime), sqlDateFormat.print(toTime)}, null,
                 null, KEY_TIME + (ascending ? " ASC" : " DESC"));
         int count = cursor.getCount();
         List<DrinkEvent> drinks = new ArrayList<DrinkEvent>(count);
@@ -184,30 +182,29 @@ public class HistoryDB extends AbstractDB implements History {
         Drink drink = new Drink(name, strength, icon, comment, new ArrayList<DrinkSize>());
         DrinkSize size = new DrinkSize(sizeName, volume, icon);
 
-        Date drinkTime = null;
+        Instant drinkTime = null;
         try {
-            drinkTime = sqlDateFormat.parse(time);
-        } catch (ParseException e) {
+            drinkTime = Instant.parse(time, sqlDateFormat);
+        } catch (Exception e) {
             LogUtil.w(TAG, e.getMessage());
         }
 
-        return new DrinkEvent(eventId, drink, size, new Instant(drinkTime));
+        return new DrinkEvent(eventId, drink, size, drinkTime);
     }
 
     @Override
-    public void clearDay(Date day) {
+    public void clearDay(LocalDate day) {
         Preferences prefs = new PreferencesImpl(context);
-        Calendar start = timeUtil.getStartOfDay(day, prefs);
-        Calendar end = timeUtil.getCalendar(start);
-        end.add(Calendar.DAY_OF_MONTH, 1);
-        clearDrinks(start.getTime(), end.getTime());
+        Instant start = timeUtil.getStartOfDrinkDay(day, prefs);
+        Instant end = start.plus(standardDays(1));
+        clearDrinks(start, end);
     }
 
     @Override
-    public void clearDrinks(Date fromTime, Date toTime) {
+    public void clearDrinks(Instant fromTime, Instant toTime) {
         LogUtil.i(TAG, "Deleting drinks between %s and %s", fromTime, toTime);
         adapter.getDatabase().delete(TABLE_NAME, TIME_QUERY_WHERE,
-                new String[]{sqlDateFormat.format(fromTime), sqlDateFormat.format(toTime)});
+                new String[]{sqlDateFormat.print(fromTime), sqlDateFormat.print(toTime)});
     }
 
     @Override
@@ -219,12 +216,12 @@ public class HistoryDB extends AbstractDB implements History {
     }
 
     @Override
-    public double countPortions(Date fromTime, Date toTime) {
+    public double countPortions(Instant fromTime, Instant toTime) {
         LogUtil.d(TAG, "Querying for portions between %s and %s", fromTime, toTime);
 
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
                 new String[]{"SUM(" + KEY_PORTIONS + ")"}, TIME_QUERY_WHERE,
-                new String[]{sqlDateFormat.format(fromTime), sqlDateFormat.format(toTime)}, null,
+                new String[]{sqlDateFormat.print(fromTime), sqlDateFormat.print(toTime)}, null,
                 null, null);
         return getSingleDouble(cursor, 0);
     }

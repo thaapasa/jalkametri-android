@@ -1,27 +1,21 @@
 package fi.tuska.jalkametri.data;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import android.content.Context;
-
 import fi.tuska.jalkametri.dao.DailyDrinkStatistics;
 import fi.tuska.jalkametri.gui.GraphView.Point;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 public class DailyDrinkStatisticsImpl implements DailyDrinkStatistics, Point {
 
-    private static final long serialVersionUID = 261921892737912321L;
-
-    /** Time shift to noon. */
-    private static final double POINT_OFFSET_MS = 1000 * 60 * 60 * 12d;
-
-    private Date day;
+    private LocalDate day;
     private double portions;
     private int nDrinks;
     private final TimeUtil timeUtil;
+    private static final LocalTime positionTime = new LocalTime(12, 0, 0);
 
-    public DailyDrinkStatisticsImpl(Date day, double portions, int nDrinks, Context context) {
+    public DailyDrinkStatisticsImpl(LocalDate day, double portions, int nDrinks, Context context) {
         this.day = day;
         this.portions = portions;
         this.nDrinks = nDrinks;
@@ -30,16 +24,13 @@ public class DailyDrinkStatisticsImpl implements DailyDrinkStatistics, Point {
 
     public DailyDrinkStatisticsImpl(String dateSQLString, double portions, int nDrinks, Context context) {
         this.timeUtil = new TimeUtil(context);
-        this.day = timeUtil.fromSQLDate(dateSQLString);
+        this.day = timeUtil.fromSQLDate(dateSQLString).toDateTime(timeUtil.getTimeZone()).toLocalDate();
         this.portions = portions;
         this.nDrinks = nDrinks;
     }
 
-    /**
-     * The time value of this date is set to 0:00:00.
-     */
     @Override
-    public Date getDay() {
+    public LocalDate getDay() {
         return day;
     }
 
@@ -60,12 +51,7 @@ public class DailyDrinkStatisticsImpl implements DailyDrinkStatistics, Point {
 
     @Override
     public double getPosition() {
-        Calendar cal = timeUtil.getCalendar(day);
-        cal.set(Calendar.HOUR_OF_DAY, 12);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTimeInMillis();
+        return day.toDateTime(positionTime, timeUtil.getTimeZone()).getMillis();
     }
 
     @Override

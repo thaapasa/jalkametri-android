@@ -1,15 +1,5 @@
 package fi.tuska.jalkametri.db;
 
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_CATEGORY_ID;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_COMMENT;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_ICON;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_ID;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_NAME;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_ORDER;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -17,6 +7,16 @@ import fi.tuska.jalkametri.dao.DrinkCategory;
 import fi.tuska.jalkametri.dao.DrinkSizes;
 import fi.tuska.jalkametri.data.Drink;
 import fi.tuska.jalkametri.data.DrinkSize;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_CATEGORY_ID;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_COMMENT;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_ICON;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_ID;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_NAME;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_ORDER;
 
 public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
 
@@ -26,14 +26,14 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
     private static final String KEY_STRENGTH = "strength";
 
     public static final String SQL_CREATE_TABLE_DRINKS_1 = "CREATE TABLE " + TABLE_NAME
-        + " (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + "name TEXT NOT NULL, "
-        + "cat_id INTEGER NOT NULL REFERENCES categories (id), " + "strength FLOAT NOT NULL, "
-        + "icon TEXT NOT NULL, " + "pos INTEGER NOT NULL);";
+            + " (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + "name TEXT NOT NULL, "
+            + "cat_id INTEGER NOT NULL REFERENCES categories (id), " + "strength FLOAT NOT NULL, "
+            + "icon TEXT NOT NULL, " + "pos INTEGER NOT NULL);";
     public static final String SQL_CREATE_TABLE_DRINKS_2 = "CREATE TABLE " + TABLE_NAME
-        + " (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + "name TEXT NOT NULL, "
-        + "cat_id INTEGER NOT NULL REFERENCES categories (id), " + "strength FLOAT NOT NULL, "
-        + "icon TEXT NOT NULL, " + "comment TEXT NOT NULL DEFAULT '', "
-        + "pos INTEGER NOT NULL);";
+            + " (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + "name TEXT NOT NULL, "
+            + "cat_id INTEGER NOT NULL REFERENCES categories (id), " + "strength FLOAT NOT NULL, "
+            + "icon TEXT NOT NULL, " + "comment TEXT NOT NULL DEFAULT '', "
+            + "pos INTEGER NOT NULL);";
 
     private final long index;
     private String name;
@@ -45,7 +45,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
     // + DrinkSizeConnectionDB.TABLE_NAME + " WHERE drink_id = drinks.id)";
 
     public DrinkCategoryDB(DBAdapter adapter, DrinkSizes sizes, long index, String name,
-        String icon) {
+                           String icon) {
         super(adapter, TABLE_NAME);
         this.index = index;
         this.icon = icon;
@@ -93,7 +93,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
 
     @Override
     public Drink createDrink(String name, double strength, String icon, DrinkSize[] sizes,
-        int order) {
+                             int order) {
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_NAME, name);
         newValues.put(KEY_CATEGORY_ID, getIndex());
@@ -119,7 +119,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
         DrinkSelectionHelper.createCommonValues(newValues, drinkInfo);
 
         int updated = adapter.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index),
-            null);
+                null);
         assert updated <= 1;
         return updated > 0;
     }
@@ -133,7 +133,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
         DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(adapter);
         connDB.deleteConnectionsForDrink(drink);
         int modified = adapter.getDatabase().delete(TABLE_NAME, DBAdapter.ID_WHERE_CLAUSE,
-            new String[] { String.valueOf(index) });
+                new String[]{String.valueOf(index)});
 
         assert modified <= 1;
         return modified > 0;
@@ -145,15 +145,15 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
         DBDataObject.enforceBackedObject(index);
 
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
-            new String[] { KEY_NAME, KEY_STRENGTH, KEY_ICON, KEY_COMMENT, KEY_ORDER },
-            KEY_ID + " = " + index + " AND " + KEY_CATEGORY_ID + " = " + getIndex(), null, null,
-            null, KEY_ORDER);
+                new String[]{KEY_NAME, KEY_STRENGTH, KEY_ICON, KEY_COMMENT, KEY_ORDER},
+                KEY_ID + " = " + index + " AND " + KEY_CATEGORY_ID + " = " + getIndex(), null, null,
+                null, KEY_ORDER);
 
         Drink drink = null;
         if (cursor.moveToFirst()) {
             int c = -1;
             drink = createDrink(index, cursor.getString(++c), cursor.getDouble(++c),
-                cursor.getString(++c), cursor.getString(++c));
+                    cursor.getString(++c), cursor.getString(++c));
         }
         cursor.close();
         return drink;
@@ -162,15 +162,15 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
     @Override
     public List<Drink> getDrinks() {
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
-            new String[] { KEY_ID, KEY_NAME, KEY_STRENGTH, KEY_ICON, KEY_COMMENT, KEY_ORDER },
-            KEY_CATEGORY_ID + " = " + getIndex(), null, null, null, KEY_ORDER);
+                new String[]{KEY_ID, KEY_NAME, KEY_STRENGTH, KEY_ICON, KEY_COMMENT, KEY_ORDER},
+                KEY_CATEGORY_ID + " = " + getIndex(), null, null, null, KEY_ORDER);
         int count = cursor.getCount();
         List<Drink> list = new ArrayList<Drink>(count);
         if (cursor.moveToFirst()) {
             do {
                 int c = -1;
                 Drink drink = createDrink(cursor.getLong(++c), cursor.getString(++c),
-                    cursor.getDouble(++c), cursor.getString(++c), cursor.getString(++c));
+                        cursor.getDouble(++c), cursor.getString(++c), cursor.getString(++c));
                 list.add(drink);
             } while (cursor.moveToNext());
         }

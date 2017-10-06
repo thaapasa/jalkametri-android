@@ -1,34 +1,38 @@
 package fi.tuska.jalkametri.db;
 
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_ID;
-import static fi.tuska.jalkametri.db.DBAdapter.KEY_ORDER;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import android.database.Cursor;
 import fi.tuska.jalkametri.Common;
 import fi.tuska.jalkametri.dao.DataObject;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Locale;
+
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_ID;
+import static fi.tuska.jalkametri.db.DBAdapter.KEY_ORDER;
 
 public abstract class AbstractDB {
 
+    private final Locale DB_LOCALE = Locale.ENGLISH;
+    private final DateTimeZone DB_ZONE = DateTimeZone.UTC;
+    final DateTimeFormatter sqlDateFormat = DateTimeFormat.forPattern(Common.SQL_DATE_FORMAT_STR).withLocale(DB_LOCALE).withZone(DB_ZONE);
+
     protected final DBAdapter adapter;
-    protected final String tableName;
+    final String tableName;
 
-    protected final DateFormat sqlDateFormat = new SimpleDateFormat(Common.SQL_DATE_FORMAT_STR);
-
-    protected AbstractDB(DBAdapter adapter, String tableName) {
+    AbstractDB(DBAdapter adapter, String tableName) {
         this.adapter = adapter;
         this.tableName = tableName;
     }
 
-    protected int getLargestOrderNumber() {
-        Cursor cursor = adapter.getDatabase().query(tableName, new String[] { KEY_ORDER }, null,
-            null, null, null, KEY_ORDER + " DESC");
+    int getLargestOrderNumber() {
+        Cursor cursor = adapter.getDatabase().query(tableName, new String[]{KEY_ORDER}, null,
+                null, null, null, KEY_ORDER + " DESC");
         return getSingleInt(cursor, 0);
     }
 
-    public String getIndexClause(long index) {
+    String getIndexClause(long index) {
         StringBuilder b = new StringBuilder(KEY_ID);
         b.append(" = ");
         b.append(index);
@@ -47,7 +51,7 @@ public abstract class AbstractDB {
      * of the first row); or the given default value, if nothing is returned
      * by the query. Always closes the cursor.
      */
-    protected double getSingleDouble(Cursor cursor, double defaultValue) {
+    double getSingleDouble(Cursor cursor, double defaultValue) {
         double value = defaultValue;
         if (cursor.moveToFirst()) {
             value = cursor.getDouble(0);
@@ -61,7 +65,7 @@ public abstract class AbstractDB {
      * the first row); or the given default value, if nothing is returned by
      * the query. Always closes the cursor.
      */
-    protected int getSingleInt(Cursor cursor, int defaultValue) {
+    int getSingleInt(Cursor cursor, int defaultValue) {
         int value = defaultValue;
         if (cursor.moveToFirst()) {
             value = cursor.getInt(0);
@@ -75,7 +79,7 @@ public abstract class AbstractDB {
      * of the first row); or the given default value, if nothing is returned
      * by the query. Always closes the cursor.
      */
-    protected long getSingleLong(Cursor cursor, long defaultValue) {
+    long getSingleLong(Cursor cursor, long defaultValue) {
         long value = defaultValue;
         if (cursor.moveToFirst()) {
             value = cursor.getInt(0);
@@ -89,7 +93,7 @@ public abstract class AbstractDB {
      * of the first row); or the given default value, if nothing is returned
      * by the query. Always closes the cursor.
      */
-    protected String getSingleString(Cursor cursor, String defaultValue) {
+    String getSingleString(Cursor cursor, String defaultValue) {
         String value = defaultValue;
         if (cursor.moveToFirst()) {
             value = cursor.getString(0);
@@ -98,7 +102,7 @@ public abstract class AbstractDB {
         return value;
     }
 
-    protected String[] getIndexValues(DataObject... objects) {
+    String[] getIndexValues(DataObject... objects) {
         String[] res = new String[objects.length];
         for (int i = 0; i < res.length; ++i) {
             res[i] = String.valueOf(objects[i].getIndex());

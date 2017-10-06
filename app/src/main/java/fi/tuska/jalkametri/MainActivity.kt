@@ -365,7 +365,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
         private fun updateDrinkDateText() {
             val today = timeUtil.getCurrentDrinkingDate(activity.prefs)
-            currentStatus.showDrinkDate(StringUtil.uppercaseFirstLetter(timeUtil.dateFormatWDay.format(today)))
+            currentStatus.showDrinkDate(StringUtil.uppercaseFirstLetter(timeUtil.dateFormatWDay.print(today)))
         }
 
         fun showDrivingStatus(v: View) {
@@ -398,7 +398,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         }
 
         fun getTimeAfterHours(afterHours: Double): String {
-            return timeUtil.timeFormat.format(timeUtil.getTimeAfterHours(afterHours))
+            return timeUtil.timeFormat.print(timeUtil.getTimeAfterHours(afterHours))
         }
 
         fun getHoursMsg(hours: Double): String {

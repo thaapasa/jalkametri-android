@@ -4,15 +4,16 @@ import android.content.Context
 import android.content.res.Resources
 import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.Preferences
+import org.joda.time.DateTimeConstants
 import org.joda.time.DateTimeZone
+import org.joda.time.Duration
+import org.joda.time.Instant
+import org.joda.time.LocalDate
+import org.joda.time.LocalTime
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
-import java.text.DateFormat
-import java.text.FieldPosition
 import java.text.NumberFormat
 import java.text.ParseException
-import java.text.ParsePosition
-import java.text.SimpleDateFormat
 import java.util.*
 
 class TimeUtil(val res: Resources, val locale: Locale) {
@@ -104,8 +105,16 @@ class TimeUtil(val res: Resources, val locale: Locale) {
         return cal
     }
 
-    fun getCurrentDrinkingDate(prefs: Preferences): Date {
-        return getCurrentDrinkingCalendar(prefs).time
+    fun dayChangeTime(prefs: Preferences): LocalTime = LocalTime(prefs.dayChangeHour, prefs.dayChangeMinute)
+
+    fun getCurrentDrinkingDate(prefs: Preferences): LocalDate {
+        val time = Instant.now()
+        val dt = time.toDateTime(timeZone)
+
+        return dt.toLocalDate().let {
+            if (dt.toLocalTime().isBefore(dayChangeTime(prefs))) it.minusDays(1)
+            else it
+        }
     }
 
     fun getCalendar(calendar: Calendar): Calendar {
@@ -123,7 +132,7 @@ class TimeUtil(val res: Resources, val locale: Locale) {
     }
 
     fun getHourDifference(date1: Date, date2: Date): Double {
-        return (date2.time - date1.time) / HOUR.toDouble()
+        return (date2.time - date1.time) / HOUR_MS.toDouble()
     }
 
     fun getWeekNumber(cur: Date, prefs: Preferences): Int {
@@ -190,71 +199,46 @@ class TimeUtil(val res: Resources, val locale: Locale) {
         return start
     }
 
-    fun getStartOfDay(day: Date, prefs: Preferences): Calendar {
-        val start = getCalendar(day)
+    fun getStartOfDrinkDay(day: LocalDate, prefs: Preferences): Instant = day.toDateTime(prefs.dayChangeTime, timeZone).toInstant()
 
-        start.set(Calendar.HOUR_OF_DAY, prefs.dayChangeHour)
-        start.set(Calendar.MINUTE, prefs.dayChangeMinute)
-        start.set(Calendar.SECOND, 0)
-        start.set(Calendar.MILLISECOND, 0)
+    fun clearTimeValues(time: Instant): Instant = time.toDateTime(timeZone).toLocalDate().toDateTimeAtStartOfDay(timeZone).toInstant()
 
-        return start
-    }
-
-    fun clearTimeValues(date: Date): Date {
-        val cal = getCalendar(date)
-        clearTimeValues(cal)
-        return cal.time
-    }
-
-    fun clearTimeValues(cal: Calendar) {
-        cal.set(Calendar.HOUR_OF_DAY, 0)
-        cal.set(Calendar.MINUTE, 0)
-        cal.set(Calendar.SECOND, 0)
-        cal.set(Calendar.MILLISECOND, 0)
-    }
-
-    fun getStartOfWeek(day: Date, prefs: Preferences): Calendar {
-        // Get the start of today (day)
-        val cur = getStartOfDay(day, prefs)
-
-        val firstDayOfWeek = if (prefs.isWeekStartMonday) Calendar.MONDAY else Calendar.SUNDAY
-
-        // Find the correct week starting date
-        while (cur.get(Calendar.DAY_OF_WEEK) != firstDayOfWeek) {
-            cur.add(Calendar.DATE, -1)
+    fun getStartOfWeek(day: LocalDate, prefs: Preferences): LocalDate {
+        var cur = day
+        val firstDayOfWeek = if (prefs.isWeekStartMonday) DateTimeConstants.MONDAY else DateTimeConstants.SUNDAY
+        while (cur.dayOfWeek != firstDayOfWeek) {
+            cur = cur.minusDays(1)
         }
-        // cur is now at the first day of week
         return cur
     }
 
-    fun toSQLDate(date: Date): String {
-        return sqlDateFormat.format(date).apply {
+    fun toSQLDate(date: Instant): String {
+        return sqlDateFormat.print(date).apply {
             LogUtil.d(TAG, "Sql date is %s; parsed from %s", this, date)
         }
     }
 
-    fun fromSQLDate(dateString: String): Date? {
+    fun fromSQLDate(dateString: String): Instant? {
         return try {
-            sqlDateFormat.parse(dateString)
+            Instant.parse(dateString, sqlDateFormat)
         } catch (e: ParseException) {
             LogUtil.w(TAG, "Invalid SQL date string: %s", dateString)
             null
         }
     }
 
-    val sqlDateFormat: DateFormat
-        get() = SimpleDateFormat("yyyy-MM-dd", locale)
-
-    fun getTimeAfterHours(hours: Double): Date {
-        return Date(currentTime.time + (hours * HOUR).toLong())
+    fun getTimeAfterHours(hours: Double): Instant {
+        return Instant.now().plus(Duration.millis((hours * HOUR_MS).toLong()))
     }
 
-    val dateFormatWDay: DateFormat
-        get() = SimpleDateFormat(res.getString(R.string.day_showday_format), locale)
+    val sqlDateFormat: DateTimeFormatter
+        get() = DateTimeFormat.forPattern("yyyy-MM-dd").withLocale(locale).withZone(timeZone)
 
-    val timeFormat: DateFormat
-        get() = SimpleDateFormat(res.getString(R.string.time_format), locale)
+    val dateFormatWDay: DateTimeFormatter
+        get() = DateTimeFormat.forPattern(res.getString(R.string.day_showday_format)).withLocale(locale).withZone(timeZone)
+
+    val timeFormat: DateTimeFormatter
+        get() = DateTimeFormat.forPattern(res.getString(R.string.time_format)).withLocale(locale).withZone(timeZone)
 
     val dateFormatFull: DateTimeFormatter
         get() = DateTimeFormat.forPattern(res.getString(R.string.day_full_format)).withLocale(locale).withZone(timeZone)
@@ -281,8 +265,9 @@ class TimeUtil(val res: Resources, val locale: Locale) {
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
     }
 
-    fun getMonthCorrectedDateFormat(pattern: String): DateFormat {
-        return object : DateFormat() {
+    fun getMonthCorrectedDateFormat(pattern: String): DateTimeFormatter {
+        return DateTimeFormat.forPattern(pattern).withLocale(locale).withZone(timeZone)
+        /*object : DateFormat() {
 
             private val formatter: DateFormat = SimpleDateFormat(pattern, locale)
             private val formatters: List<DateFormat> = (0..11).map {
@@ -321,16 +306,16 @@ class TimeUtil(val res: Resources, val locale: Locale) {
                 return formatter.parse(string, position)
             }
 
-        }
+        }*/
     }
 
     companion object {
 
-        val SECOND: Long = 1000
-        val MINUTE = 60 * SECOND
-        val HOUR = 60 * MINUTE
-        val DAY = 24 * HOUR
-        val WEEK = 7 * DAY
+        val SECOND_MS: Long = 1000
+        val MINUTE_MS = 60 * SECOND_MS
+        val HOUR_MS = 60 * MINUTE_MS
+        val DAY_MS = 24 * HOUR_MS
+        val WEEK_MS = 7 * DAY_MS
 
         private val TAG = "TimeUtil"
     }
