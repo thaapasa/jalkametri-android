@@ -8,8 +8,9 @@ import fi.tuska.jalkametri.dao.Preferences.Gender;
 import fi.tuska.jalkametri.util.TimeUtil;
 import org.joda.time.Instant;
 
-import java.util.Date;
 import java.util.List;
+
+import static org.joda.time.Instant.now;
 
 public final class DrinkStatusCalc implements DrinkStatus {
 
@@ -148,8 +149,8 @@ public final class DrinkStatusCalc implements DrinkStatus {
         return getAlcoholLevel(maxAlcoholAmount);
     }
 
-    public double getBurnedAlcoholAmount(Date date1, Date date2) {
-        return getAlcoholBurningRate() * timeUtil.getHourDifference(date1, date2);
+    public double getBurnedAlcoholAmount(Instant from, Instant to) {
+        return getAlcoholBurningRate() * timeUtil.getHourDifference(from, to);
     }
 
     /**
@@ -162,8 +163,7 @@ public final class DrinkStatusCalc implements DrinkStatus {
         if (getLastDrinkEvent() == null) {
             return 0;
         }
-        return Math.min(getBurnedAlcoholAmount(getLastDrinkEvent().getTime().toDate(), timeUtil.getCurrentTime()),
-                alcoholAtUpdate);
+        return Math.min(getBurnedAlcoholAmount(getLastDrinkEvent().getTime(), now()), alcoholAtUpdate);
     }
 
     public DrinkEvent getLastDrinkEvent() {
@@ -224,7 +224,7 @@ public final class DrinkStatusCalc implements DrinkStatus {
         for (int i = lastUpdateIndex + 1; i < drinks.size(); i++) {
             final DrinkEvent event = drinks.get(i);
             if (lastEvent != null) {
-                alcoholAtUpdate -= getBurnedAlcoholAmount(lastEvent.getTime().toDate(), event.getTime().toDate());
+                alcoholAtUpdate -= getBurnedAlcoholAmount(lastEvent.getTime(), event.getTime());
                 if (alcoholAtUpdate < 0) {
                     alcoholAtUpdate = 0;
                 }

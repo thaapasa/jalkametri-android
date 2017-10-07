@@ -10,19 +10,19 @@ import org.joda.time.Duration
 import org.joda.time.Instant
 import org.joda.time.LocalDate
 import org.joda.time.LocalTime
+import org.joda.time.Period
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 import java.text.NumberFormat
 import java.text.ParseException
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class TimeUtil(val res: Resources, val locale: Locale) {
 
     val currentCalendar: Calendar
         get() = Calendar.getInstance(locale)
-
-    val currentTime: Date
-        get() = currentCalendar.time
 
     val timeZone: DateTimeZone = DateTimeZone.getDefault()
 
@@ -131,8 +131,8 @@ class TimeUtil(val res: Resources, val locale: Locale) {
         return cal
     }
 
-    fun getHourDifference(date1: Date, date2: Date): Double {
-        return (date2.time - date1.time) / HOUR_MS.toDouble()
+    fun getHourDifference(from: Instant, to: Instant): Double {
+        return Period(to, from).millis.toDouble() / HOUR_MS
     }
 
     fun getWeekNumber(cur: Date, prefs: Preferences): Int {
