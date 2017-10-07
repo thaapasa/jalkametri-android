@@ -23,7 +23,6 @@ import fi.tuska.jalkametri.data.DrinkSelection;
 import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.data.PreferencesImpl;
 import fi.tuska.jalkametri.db.DBDataObject;
-import fi.tuska.jalkametri.media.SoundPlayer;
 import fi.tuska.jalkametri.media.ToastLibrary;
 import fi.tuska.jalkametri.util.LogUtil;
 
@@ -224,9 +223,6 @@ public final class DrinkActivities {
         LogUtil.d(TAG, "Getting toast for %d %%", ((int) (percentage * 100)));
         Pair<Integer, Integer> toast = ToastLibrary.getToast(percentage, isDrinking);
         Toast.makeText(context, res.getString(toast.first), Toast.LENGTH_SHORT).show();
-        if (prefs.isSoundsEnabled() && toast.second != ToastLibrary.NO_TOAST_SOUND) {
-            SoundPlayer.playSound(context, toast.second);
-        }
     }
 
     public static Intent createDrinkSizeResult(DrinkSize size, Long originalID) {

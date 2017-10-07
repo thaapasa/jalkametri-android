@@ -152,16 +152,6 @@ public class PreferencesImpl implements Preferences {
     }
 
     @Override
-    public boolean isSoundsEnabled() {
-        return prefs.getBoolean(PREF_SOUNDS_ENABLED, DEFAULT_SOUNDS);
-    }
-
-    @Override
-    public void setSoundsEnabled(Editor editor, boolean state) {
-        editor.putBoolean(PREF_SOUNDS_ENABLED, state);
-    }
-
-    @Override
     public boolean isWeekStartMonday() {
         return prefs.getBoolean(PREF_WEEK_START_MONDAY, DEFAULT_WEEK_START_MONDAY);
     }

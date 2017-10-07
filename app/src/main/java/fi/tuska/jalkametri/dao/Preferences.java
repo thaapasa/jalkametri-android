@@ -12,8 +12,6 @@ public interface Preferences {
         Male, Female
     }
 
-    ;
-
     String PREF_WEIGHT = "pref_weight";
     String PREF_GENDER = "pref_gender";
     String PREF_DAY_CHANGE_HOUR = "pref_day_change_hour";
@@ -21,7 +19,6 @@ public interface Preferences {
     String PREF_DRIVING_ALCOHOL_LIMIT = "pref_driving_alcohol_limit";
     String PREF_MAX_ALCOHOL_LEVEL = "pref_max_alcohol_level";
     String PREF_DRINK_LIB_INIT = "pref_drink_lib_init";
-    String PREF_SOUNDS_ENABLED = "pref_sounds";
     String PREF_DEBUG_MODE = "pref_debug_mode";
     String PREF_WEEK_START_MONDAY = "pref_week_start_monday";
     String PREF_DISCLAIMER_READ = "pref_disclaimer_read";
@@ -92,10 +89,6 @@ public interface Preferences {
     boolean isDebugMode();
 
     void setDebugMode(Editor editor, boolean state);
-
-    boolean isSoundsEnabled();
-
-    void setSoundsEnabled(Editor editor, boolean state);
 
     boolean isWeekStartMonday();
 

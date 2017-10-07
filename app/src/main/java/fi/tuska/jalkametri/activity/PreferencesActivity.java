@@ -1,7 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import java.util.Locale;
-
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
@@ -21,6 +19,8 @@ import fi.tuska.jalkametri.data.DrinkActions;
 import fi.tuska.jalkametri.gui.DataBackupHandler;
 import fi.tuska.jalkametri.util.LocalizationUtil;
 import fi.tuska.jalkametri.util.NumberUtil;
+
+import java.util.Locale;
 
 /**
  * An activity for editing your preferences.
@@ -116,8 +116,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
         if (allowLeave) {
             backRequested = false;
             super.onBackPressed();
-        }
-        else {
+        } else {
             backRequested = true;
         }
     }
@@ -165,28 +164,28 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
         // Language spinner
         {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.language_options,
-                android.R.layout.simple_spinner_item);
+                    android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             languageSpinner.setAdapter(adapter);
         }
         // Gender spinner
         {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender_options,
-                android.R.layout.simple_spinner_item);
+                    android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             genderSpinner.setAdapter(adapter);
         }
         // Week start day spinner
         {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.week_start_options,
-                android.R.layout.simple_spinner_item);
+                    android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             weekStartSpinner.setAdapter(adapter);
         }
         // Standard drink spinner
         {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.std_drink_weight_options, android.R.layout.simple_spinner_item);
+                    R.array.std_drink_weight_options, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             standardDrinkSpinner.setAdapter(adapter);
         }
@@ -342,10 +341,6 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
             // Only allow changing this setting if the license has been bought
             getPrefs().setAdsEnabled(editor, adsEnabled.isChecked());
         }
-
-        // Set sounds enabled
-        // prefs.setSoundsEnabled(editor, soundsEnabled.isChecked());
-        getPrefs().setSoundsEnabled(editor, false);
 
         // Set debug mode
         // prefs.setDebugMode(editor, debugMode.isChecked());
