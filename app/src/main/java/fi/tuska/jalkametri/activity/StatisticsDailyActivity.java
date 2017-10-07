@@ -101,7 +101,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
     protected static String getTitle(Context context, Type type, LocalDate date) {
         DateTimeFormatter f = new TimeUtil(context).getMonthCorrectedDateFormat(getDateTitlePattern(
                 context, type));
-        return StringUtil.uppercaseFirstLetter(f.print(date));
+        return StringUtil.INSTANCE.uppercaseFirstLetter(f.print(date));
     }
 
     protected static String getDateTitlePattern(Context context, Type type) {
@@ -126,7 +126,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
     @Override
     public void updateUI() {
         super.updateUI();
-        dateTitle.setText(StringUtil.uppercaseFirstLetter(dateTitleFormat.print(day)));
+        dateTitle.setText(StringUtil.INSTANCE.uppercaseFirstLetter(dateTitleFormat.print(day)));
     }
 
     public void showGraph(View v) {

@@ -219,7 +219,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
 
     private void loadDay(LocalDate date) {
         this.day = date;
-        dateText.setText(StringUtil.uppercaseFirstLetter(wdayFormat.print(date)));
+        dateText.setText(StringUtil.INSTANCE.uppercaseFirstLetter(wdayFormat.print(date)));
         weekText.setText(weekPrefix + day.getWeekOfWeekyear());
         LogUtil.d(TAG, "Selected day: %s", day);
         updateUI();

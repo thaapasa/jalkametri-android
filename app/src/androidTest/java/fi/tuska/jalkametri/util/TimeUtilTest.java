@@ -29,7 +29,7 @@ public class TimeUtilTest extends JalkametriTestCase {
         DateTimeFormatter formatter = getTimeUtil().getDateFormatFull();
         assertEquals("Mon 5/16/2011 10:00", formatter.print(date));
 
-        switchLocale(LocalizationUtil.LOCALE_FI);
+        switchLocale(LocalizationUtil.INSTANCE.getLOCALE_FI());
         setTimeUtil(new TimeUtil(getContext()));
         formatter = getTimeUtil().getDateFormatFull();
         assertEquals("ma 16.5.2011 10:00", formatter.print(date));
@@ -41,7 +41,7 @@ public class TimeUtilTest extends JalkametriTestCase {
         DateTimeFormatter formatter = getTimeUtil().getTimeFormat();
         assertEquals("10:00", formatter.print(date));
 
-        switchLocale(LocalizationUtil.LOCALE_FI);
+        switchLocale(LocalizationUtil.INSTANCE.getLOCALE_FI());
         formatter = getTimeUtil().getTimeFormat();
         assertEquals("10:00", formatter.print(date));
     }
@@ -51,17 +51,17 @@ public class TimeUtilTest extends JalkametriTestCase {
 
         DateTimeFormatter formatter = null;
 
-        switchLocale(LocalizationUtil.LOCALE_EN);
+        switchLocale(LocalizationUtil.INSTANCE.getLOCALE_EN());
         setTimeUtil(new TimeUtil(getContext()));
         formatter = getTimeUtil().getDateFormatWDay();
         assertEquals("Mon 5/16", formatter.print(date));
 
-        switchLocale(LocalizationUtil.LOCALE_FI);
+        switchLocale(LocalizationUtil.INSTANCE.getLOCALE_FI());
         setTimeUtil(new TimeUtil(getContext()));
         formatter = getTimeUtil().getDateFormatWDay();
         assertEquals("ma 16.5.", formatter.print(date));
 
-        switchLocale(LocalizationUtil.LOCALE_EN);
+        switchLocale(LocalizationUtil.INSTANCE.getLOCALE_EN());
         setTimeUtil(new TimeUtil(getContext()));
         formatter = getTimeUtil().getDateFormatWDay();
         assertEquals("Mon 5/16", formatter.print(date));

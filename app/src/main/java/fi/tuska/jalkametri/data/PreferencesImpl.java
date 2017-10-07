@@ -183,8 +183,8 @@ public class PreferencesImpl implements Preferences {
 
     @Override
     public Locale getLocale() {
-        String localeCode = prefs.getString(PREF_LOCALE, LocalizationUtil.getDefaultLocale().getLanguage());
-        return LocalizationUtil.getLocale(localeCode);
+        String localeCode = prefs.getString(PREF_LOCALE, LocalizationUtil.INSTANCE.getDefaultLocale().getLanguage());
+        return LocalizationUtil.INSTANCE.getLocale(localeCode);
     }
 
     @Override

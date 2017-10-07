@@ -278,7 +278,7 @@ public class PreferencesActivity extends JalkametriDBActivity implements GUIActi
             int pos = languageSpinner.getSelectedItemPosition();
             if (pos >= 0 && pos <= languageValues.length) {
                 String languageStr = languageValues[pos];
-                Locale lang = LocalizationUtil.getLocale(languageStr);
+                Locale lang = LocalizationUtil.INSTANCE.getLocale(languageStr);
                 if (lang != null) {
                     getPrefs().setLocale(editor, lang);
                 }

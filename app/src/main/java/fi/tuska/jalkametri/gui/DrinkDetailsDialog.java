@@ -67,7 +67,7 @@ public class DrinkDetailsDialog extends Dialog {
             if (showTime) {
                 drinkTime.setVisibility(View.VISIBLE);
                 setDialogText(R.id.date,
-                        StringUtil.uppercaseFirstLetter(dateFormat.print(selection.getTime())));
+                        StringUtil.INSTANCE.uppercaseFirstLetter(dateFormat.print(selection.getTime())));
             } else {
                 drinkTime.setVisibility(View.GONE);
             }

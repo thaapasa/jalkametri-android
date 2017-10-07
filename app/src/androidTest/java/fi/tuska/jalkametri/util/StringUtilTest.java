@@ -10,11 +10,11 @@ import android.test.AndroidTestCase;
 public class StringUtilTest extends AndroidTestCase {
 
     public void testUppercaseFirstLetter() {
-        assertEquals(null, StringUtil.uppercaseFirstLetter(null));
-        assertEquals("Moro", StringUtil.uppercaseFirstLetter("moro"));
-        assertEquals("Moro", StringUtil.uppercaseFirstLetter("Moro"));
-        assertEquals("MORO", StringUtil.uppercaseFirstLetter("MORO"));
-        assertEquals("MORO", StringUtil.uppercaseFirstLetter("mORO"));
+        assertEquals(null, StringUtil.INSTANCE.uppercaseFirstLetter(null));
+        assertEquals("Moro", StringUtil.INSTANCE.uppercaseFirstLetter("moro"));
+        assertEquals("Moro", StringUtil.INSTANCE.uppercaseFirstLetter("Moro"));
+        assertEquals("MORO", StringUtil.INSTANCE.uppercaseFirstLetter("MORO"));
+        assertEquals("MORO", StringUtil.INSTANCE.uppercaseFirstLetter("mORO"));
     }
 
 }

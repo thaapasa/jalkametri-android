@@ -19,7 +19,11 @@ import fi.tuska.jalkametri.Common.KEY_ORIGINAL
 import fi.tuska.jalkametri.CommonActivities
 import fi.tuska.jalkametri.DrinkActivities
 import fi.tuska.jalkametri.R
-import fi.tuska.jalkametri.data.*
+import fi.tuska.jalkametri.data.Drink
+import fi.tuska.jalkametri.data.DrinkEvent
+import fi.tuska.jalkametri.data.DrinkSelection
+import fi.tuska.jalkametri.data.DrinkSize
+import fi.tuska.jalkametri.data.IconName
 import fi.tuska.jalkametri.gui.DrinkSizeSelector
 import fi.tuska.jalkametri.gui.IconPickerDialog
 import fi.tuska.jalkametri.gui.IconView
@@ -147,9 +151,6 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
             drinkSizeSelector.setDrinkSize(selection.size, false)
             selection.time.let {
                 val time = LocalDateTime(it, timeUtil.timeZone)
-                // cal.time = it
-                //timePicker.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
-                //timePicker.setCurrentMinute(cal.get(Calendar.MINUTE_MS));
                 setSelectedTime(time.toLocalTime())
                 setSelectedDate(time.toLocalDate())
             }
@@ -204,7 +205,7 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
 
     override fun updateUI() {}
 
-    fun onOKPressed(okButton: View) {
+    fun onOKPressed(v: View) {
         viewModel?.let {
             it.updateSelectionFromUI()
             setResult(Activity.RESULT_OK, DrinkActivities.createDrinkSelectionResult(it.selection, it.originalID))
