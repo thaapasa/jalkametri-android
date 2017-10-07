@@ -15,23 +15,20 @@ import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 import java.text.NumberFormat
 import java.text.ParseException
-import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
 class TimeUtil(val res: Resources, val locale: Locale) {
 
-    val currentCalendar: Calendar
-        get() = Calendar.getInstance(locale)
-
-    val timeZone: DateTimeZone = DateTimeZone.getDefault()
-
     constructor(res: Resources) : this(res, res.configuration.locale)
     constructor(ctx: Context) : this(ctx.resources)
 
-    fun timeFormatter(pattern: String): DateTimeFormatter = DateTimeFormat.forPattern(pattern).withLocale(locale).withZone(timeZone)
+    val timeZone: DateTimeZone = DateTimeZone.getDefault()
 
-    fun dayChangeTime(prefs: Preferences): LocalTime = LocalTime(prefs.dayChangeHour, prefs.dayChangeMinute)
+    fun timeFormatter(pattern: String): DateTimeFormatter =
+            DateTimeFormat.forPattern(pattern).withLocale(locale).withZone(timeZone)
+
+    fun dayChangeTime(prefs: Preferences): LocalTime =
+            LocalTime(prefs.dayChangeHour, prefs.dayChangeMinute)
 
     fun getCurrentDrinkingDate(prefs: Preferences): LocalDate {
         val time = Instant.now()
@@ -43,91 +40,11 @@ class TimeUtil(val res: Resources, val locale: Locale) {
         }
     }
 
-    fun getCalendar(calendar: Calendar): Calendar {
-        val calCopy = currentCalendar
-        calCopy.time = calendar.time
-        return calCopy
-    }
+    fun getHourDifference(from: Instant, to: Instant): Double =
+            Period(to, from).millis.toDouble() / HOUR_MS
 
-    fun getCalendar(date: Date?): Calendar {
-        val cal = currentCalendar
-        if (date == null)
-            return cal
-        cal.time = date
-        return cal
-    }
-
-    fun getHourDifference(from: Instant, to: Instant): Double {
-        return Period(to, from).millis.toDouble() / HOUR_MS
-    }
-
-    fun getWeekNumber(cur: Date, prefs: Preferences): Int {
-        val cal = getCalendar(cur)
-        // Android calendar always seems to start weeks on Sunday
-        if (!prefs.isWeekStartMonday) {
-            // !monday == sunday, so the week is given correctly
-            return cal.get(Calendar.WEEK_OF_YEAR)
-        }
-        // Check if the current date is Sunday
-        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-            // Return the week number of yesterday (Saturday)
-            cal.add(Calendar.DAY_OF_MONTH, -1)
-            assert(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
-            // Return the week number of yesterday
-            return cal.get(Calendar.WEEK_OF_YEAR)
-        }
-        // Otherwise, week number is okay
-        return cal.get(Calendar.WEEK_OF_YEAR)
-    }
-
-    fun addDays(cur: Date, days: Int): Date {
-        val cal = getCalendar(cur)
-        cal.add(Calendar.DAY_OF_MONTH, days)
-        return cal.time
-    }
-
-    fun add(cur: Date, what: Int, amount: Int): Date {
-        val cal = getCalendar(cur)
-        cal.add(what, amount)
-        return cal.time
-    }
-
-    fun getCalendarFromDatePicker(year: Int, monthOfYear: Int, dayOfMonth: Int): Calendar {
-        val cal = currentCalendar
-        cal.set(Calendar.YEAR, year)
-        cal.set(Calendar.MONTH, monthOfYear)
-        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-        LogUtil.d(TAG, "Selected date: %s", cal)
-        return cal
-    }
-
-    fun getStartOfToday(dayChangeHour: Int, dayChangeMinute: Int): Calendar {
-        val start = currentCalendar
-        start.set(Calendar.HOUR_OF_DAY, 12)
-        start.set(Calendar.MINUTE, 0)
-        start.set(Calendar.SECOND, 0)
-        start.set(Calendar.MILLISECOND, 0)
-
-        start.set(Calendar.HOUR_OF_DAY, dayChangeHour)
-        start.set(Calendar.MINUTE, dayChangeMinute)
-
-        val now = currentCalendar
-        while (start.after(now)) {
-            start.add(Calendar.DAY_OF_MONTH, -1)
-        }
-        val end = getCalendar(now)
-        end.add(Calendar.DAY_OF_MONTH, 1)
-        while (end.before(now)) {
-            start.add(Calendar.DAY_OF_MONTH, 1)
-            end.add(Calendar.DAY_OF_MONTH, 1)
-        }
-
-        return start
-    }
-
-    fun getStartOfDrinkDay(day: LocalDate, prefs: Preferences): Instant = day.toDateTime(prefs.dayChangeTime, timeZone).toInstant()
-
-    fun clearTimeValues(time: Instant): Instant = time.toDateTime(timeZone).toLocalDate().toDateTimeAtStartOfDay(timeZone).toInstant()
+    fun getStartOfDrinkDay(day: LocalDate, prefs: Preferences): Instant =
+            day.toDateTime(prefs.dayChangeTime, timeZone).toInstant()
 
     fun getStartOfWeek(day: LocalDate, prefs: Preferences): LocalDate {
         var cur = day
@@ -138,24 +55,18 @@ class TimeUtil(val res: Resources, val locale: Locale) {
         return cur
     }
 
-    fun toSQLDate(date: Instant): String {
-        return sqlDateFormat.print(date).apply {
-            LogUtil.d(TAG, "Sql date is %s; parsed from %s", this, date)
-        }
+    fun toSQLDate(date: Instant): String = sqlDateFormat.print(date).apply {
+        LogUtil.d(TAG, "Sql date is %s; parsed from %s", this, date)
     }
 
-    fun fromSQLDate(dateString: String): Instant? {
-        return try {
-            Instant.parse(dateString, sqlDateFormat)
-        } catch (e: ParseException) {
-            LogUtil.w(TAG, "Invalid SQL date string: %s", dateString)
-            null
-        }
+    fun fromSQLDate(dateString: String): Instant? = try {
+        Instant.parse(dateString, sqlDateFormat)
+    } catch (e: ParseException) {
+        LogUtil.w(TAG, "Invalid SQL date string: %s", dateString)
+        null
     }
 
-    fun getTimeAfterHours(hours: Double): Instant {
-        return Instant.now().plus(Duration.millis((hours * HOUR_MS).toLong()))
-    }
+    fun getTimeAfterHours(hours: Double): Instant = Instant.now().plus(Duration.millis((hours * HOUR_MS).toLong()))
 
     val sqlDateFormat: DateTimeFormatter
         get() = timeFormatter("yyyy-MM-dd")
@@ -168,11 +79,6 @@ class TimeUtil(val res: Resources, val locale: Locale) {
 
     val dateFormatFull: DateTimeFormatter
         get() = timeFormatter(res.getString(R.string.day_full_format))
-
-    /**
-     * @return the number formatter used for reading the numbers in
-     * jAlkaMetri.
-     */
 
     fun getNumberFormat(): NumberFormat = NumberFormat.getInstance(locale).apply {
         maximumFractionDigits = 2
