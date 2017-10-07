@@ -10,14 +10,12 @@ import fi.tuska.jalkametri.db.DBAdapter
  */
 abstract class JalkametriDBActivity protected constructor(titleResourceId: Int, helpTextResId: Int) : JalkametriActivity(titleResourceId, helpTextResId), GUIActivity, DBActivity {
 
-    private var currentAdapter: DBAdapter? = null
-    protected val adapter: DBAdapter
-        get() = currentAdapter!!
+    lateinit var adapter: DBAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        this.currentAdapter = DBAdapter(this)
+        this.adapter = DBAdapter(this)
     }
 
     override fun onPause() {

@@ -17,14 +17,9 @@ import net.danlew.android.joda.JodaTimeAndroid
  */
 class JalkametriApplication : Application() {
 
-    val timeUtil: TimeUtil
-        get() = currentTimeUtil!!
+    lateinit var timeUtil: TimeUtil
 
-    val prefs: Preferences
-        get() = currentPrefs!!
-
-    private var currentTimeUtil: TimeUtil? = null
-    private var currentPrefs: Preferences? = null
+    lateinit var prefs: Preferences
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
@@ -42,8 +37,8 @@ class JalkametriApplication : Application() {
         val locale = p.locale
         LocalizationUtil.setLocale(locale, baseContext)
 
-        currentTimeUtil = TimeUtil(resources, locale)
-        currentPrefs = p
+        timeUtil = TimeUtil(resources, locale)
+        prefs = p
     }
 
 }

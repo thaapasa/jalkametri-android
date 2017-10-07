@@ -34,8 +34,6 @@ abstract class JalkametriActivity(private val titleResourceId: Int, private val 
     val timeUtil: TimeUtil
         get() = jalkametriApplication.timeUtil
 
-    private var currentPrefs: Preferences? = null
-
     private var firstRun: Boolean = false
 
     /**
