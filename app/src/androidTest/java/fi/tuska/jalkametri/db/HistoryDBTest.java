@@ -1,8 +1,5 @@
 package fi.tuska.jalkametri.db;
 
-import java.util.Date;
-import java.util.List;
-
 import fi.tuska.jalkametri.dao.History;
 import fi.tuska.jalkametri.data.Drink;
 import fi.tuska.jalkametri.data.DrinkActions;
@@ -11,6 +8,9 @@ import fi.tuska.jalkametri.data.DrinkSelection;
 import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.data.DrinkSupport;
 import fi.tuska.jalkametri.test.JalkametriDBTestCase;
+import org.joda.time.DateTime;
+
+import java.util.List;
 
 public class HistoryDBTest extends JalkametriDBTestCase {
 
@@ -26,14 +26,14 @@ public class HistoryDBTest extends JalkametriDBTestCase {
     private void createSomeDrinks() {
         Drink beer = DrinkSupport.getBeer();
         DrinkSize pint = DrinkSupport.getPint();
-        history.createDrink(new DrinkSelection(beer, pint, timeUtil.getTime(2011, 5, 14, 01, 30,
-            0)));
-        history.createDrink(new DrinkSelection(beer, pint, timeUtil
-            .getTime(2011, 5, 13, 19, 0, 0)));
-        history.createDrink(new DrinkSelection(beer, pint, timeUtil
-            .getTime(2011, 5, 13, 18, 0, 0)));
-        history.createDrink(new DrinkSelection(beer, pint, timeUtil
-            .getTime(2011, 5, 14, 10, 0, 0)));
+        history.createDrink(new DrinkSelection(beer, pint, getTime(2011, 5, 14, 1, 30,
+                0).toInstant()));
+        history.createDrink(new DrinkSelection(beer, pint, getTime(2011, 5, 13, 19, 0,
+                0).toInstant()));
+        history.createDrink(new DrinkSelection(beer, pint, getTime(2011, 5, 13, 18, 0,
+                0).toInstant()));
+        history.createDrink(new DrinkSelection(beer, pint, getTime(2011, 5, 14, 10, 0,
+                0).toInstant()));
     }
 
     public void testHistoryAdd() {
@@ -43,30 +43,30 @@ public class HistoryDBTest extends JalkametriDBTestCase {
         assertTrue(drinks.isEmpty());
 
         // Sanity check
-        assertEquals(6, prefs.getDayChangeHour());
-        assertEquals(0, prefs.getDayChangeMinute());
+        assertEquals(6, getPrefs().getDayChangeHour());
+        assertEquals(0, getPrefs().getDayChangeMinute());
 
         createSomeDrinks();
 
-        drinks = history.getDrinks(timeUtil.getTime(2011, 5, 13, 0, 0, 0), true);
+        drinks = history.getDrinks(getTime(2011, 5, 13, 0, 0, 0).toLocalDate(), true);
         assertEquals(3, drinks.size());
-        assertSameTime(timeUtil.getTime(2011, 5, 13, 18, 0, 0), drinks.get(0).getTime());
-        assertSameTime(timeUtil.getTime(2011, 5, 13, 19, 0, 0), drinks.get(1).getTime());
-        assertSameTime(timeUtil.getTime(2011, 5, 14, 1, 30, 0), drinks.get(2).getTime());
+        assertSameTime(getTime(2011, 5, 13, 18, 0, 0).toInstant(), drinks.get(0).getTime());
+        assertSameTime(getTime(2011, 5, 13, 19, 0, 0).toInstant(), drinks.get(1).getTime());
+        assertSameTime(getTime(2011, 5, 14, 1, 30, 0).toInstant(), drinks.get(2).getTime());
 
-        drinks = history.getDrinks(timeUtil.getTime(2011, 5, 13, 0, 0, 0), false);
+        drinks = history.getDrinks(getTime(2011, 5, 13, 0, 0, 0).toLocalDate(), false);
         assertEquals(3, drinks.size());
-        assertSameTime(timeUtil.getTime(2011, 5, 14, 1, 30, 0), drinks.get(0).getTime());
-        assertSameTime(timeUtil.getTime(2011, 5, 13, 19, 0, 0), drinks.get(1).getTime());
-        assertSameTime(timeUtil.getTime(2011, 5, 13, 18, 0, 0), drinks.get(2).getTime());
+        assertSameTime(getTime(2011, 5, 14, 1, 30, 0).toInstant(), drinks.get(0).getTime());
+        assertSameTime(getTime(2011, 5, 13, 19, 0, 0).toInstant(), drinks.get(1).getTime());
+        assertSameTime(getTime(2011, 5, 13, 18, 0, 0).toInstant(), drinks.get(2).getTime());
 
         try {
             setDayChangeTime(0, 0);
 
-            drinks = history.getDrinks(timeUtil.getTime(2011, 5, 13, 0, 0, 0), true);
+            drinks = history.getDrinks(getTime(2011, 5, 13, 0, 0, 0).toLocalDate(), true);
             assertEquals(2, drinks.size());
-            assertSameTime(timeUtil.getTime(2011, 5, 13, 18, 0, 0), drinks.get(0).getTime());
-            assertSameTime(timeUtil.getTime(2011, 5, 13, 19, 0, 0), drinks.get(1).getTime());
+            assertSameTime(getTime(2011, 5, 13, 18, 0, 0).toInstant(), drinks.get(0).getTime());
+            assertSameTime(getTime(2011, 5, 13, 19, 0, 0).toInstant(), drinks.get(1).getTime());
         } finally {
             setDayChangeTime(6, 0);
         }
@@ -76,33 +76,33 @@ public class HistoryDBTest extends JalkametriDBTestCase {
         history.clearAll();
         createSomeDrinks();
 
-        Date day = timeUtil.getTime(2011, 5, 13, 0, 0, 0);
-        List<DrinkEvent> drinks = history.getDrinks(day, true);
+        DateTime day = getTime(2011, 5, 13, 0, 0, 0);
+        List<DrinkEvent> drinks = history.getDrinks(day.toLocalDate(), true);
         assertEquals(3, drinks.size());
 
         // Test: Add drink @ 16.5. to selected day 13.5.; time is during
         // normal hours
-        DrinkSelection beer = DrinkSupport.getBeerSelection(timeUtil.getTime(2011, 5, 16, 15, 0,
-            0));
-        DrinkActions.addDrinkForSelectedDay(history, beer, day, dummyParentActivity);
+        DrinkSelection beer = DrinkSupport.getBeerSelection(getTime(2011, 5, 16, 15, 0,
+                0).toInstant());
+        DrinkActions.addDrinkForSelectedDay(history, beer, day.toLocalDate(), dummyParentActivity);
 
         // Check that drink has been added and has correct time (will be the
         // first drink on this day)
-        drinks = history.getDrinks(day, true);
+        drinks = history.getDrinks(day.toLocalDate(), true);
         assertEquals(4, drinks.size());
-        assertSameTime(timeUtil.getTime(2011, 5, 13, 15, 0, 0), drinks.get(0).getTime());
+        assertSameTime(getTime(2011, 5, 13, 15, 0, 0).toInstant(), drinks.get(0).getTime());
 
         // Test: Add drink @ 16.5. to selected day 13.5.; time is during
         // morning hours
-        beer = DrinkSupport.getBeerSelection(timeUtil.getTime(2011, 5, 16, 2, 0, 0));
-        DrinkActions.addDrinkForSelectedDay(history, beer, day, dummyParentActivity);
+        beer = DrinkSupport.getBeerSelection(getTime(2011, 5, 16, 2, 0, 0).toInstant());
+        DrinkActions.addDrinkForSelectedDay(history, beer, day.toLocalDate(), dummyParentActivity);
 
         // Check that drink has been added and has correct time (will be the
         // last drink on this day)
-        drinks = history.getDrinks(day, true);
+        drinks = history.getDrinks(day.toLocalDate(), true);
         assertEquals(5, drinks.size());
         // The drinks should have been placed on the next day's morning
-        assertSameTime(timeUtil.getTime(2011, 5, 14, 2, 0, 0), drinks.get(4).getTime());
+        assertSameTime(getTime(2011, 5, 14, 2, 0, 0).toInstant(), drinks.get(4).getTime());
     }
 
 }

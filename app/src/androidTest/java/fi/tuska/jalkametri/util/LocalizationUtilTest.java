@@ -1,7 +1,6 @@
 package fi.tuska.jalkametri.util;
 
 import fi.tuska.jalkametri.test.JalkametriTestCase;
-import fi.tuska.jalkametri.util.LocalizationUtil;
 
 /**
  * Unit tests for the time utility functions.

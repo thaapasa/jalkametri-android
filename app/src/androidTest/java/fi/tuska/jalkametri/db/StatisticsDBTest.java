@@ -1,7 +1,5 @@
 package fi.tuska.jalkametri.db;
 
-import java.util.List;
-
 import fi.tuska.jalkametri.dao.DailyDrinkStatistics;
 import fi.tuska.jalkametri.dao.History;
 import fi.tuska.jalkametri.dao.Statistics;
@@ -10,6 +8,9 @@ import fi.tuska.jalkametri.data.DrinkSelection;
 import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.data.DrinkSupport;
 import fi.tuska.jalkametri.test.JalkametriDBTestCase;
+import org.joda.time.LocalDate;
+
+import java.util.List;
 
 public class StatisticsDBTest extends JalkametriDBTestCase {
 
@@ -20,7 +21,7 @@ public class StatisticsDBTest extends JalkametriDBTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         history = new HistoryDB(adapter, getContext());
-        statistics = new StatisticsDB(adapter, prefs, getContext());
+        statistics = new StatisticsDB(adapter, getPrefs(), getContext());
         setDayChangeTime(6, 0);
     }
 
@@ -33,17 +34,17 @@ public class StatisticsDBTest extends JalkametriDBTestCase {
     public void testTimeGroupColumnSpec() {
         // Create an overridden instance of StatisticsDB so that we are able
         // to access its protected methods
-        new StatisticsDB(adapter, prefs, getContext()) {
+        new StatisticsDB(adapter, getPrefs(), getContext()) {
             public void checkFormat() {
                 setDayChangeTime(5, 8);
                 assertEquals("DISTINCT(TRIM(SUBSTR(DATETIME(time, '-05:08'), 0, 11))) AS thedate",
-                    getTimeGroupColumnSpec());
+                        getTimeGroupColumnSpec());
                 setDayChangeTime(6, 0);
                 assertEquals("DISTINCT(TRIM(SUBSTR(DATETIME(time, '-06:00'), 0, 11))) AS thedate",
-                    getTimeGroupColumnSpec());
+                        getTimeGroupColumnSpec());
                 setDayChangeTime(10, 15);
                 assertEquals("DISTINCT(TRIM(SUBSTR(DATETIME(time, '-10:15'), 0, 11))) AS thedate",
-                    getTimeGroupColumnSpec());
+                        getTimeGroupColumnSpec());
             }
         }.checkFormat();
     }
@@ -57,40 +58,41 @@ public class StatisticsDBTest extends JalkametriDBTestCase {
         setDayChangeTime(0, 0);
 
         List<DailyDrinkStatistics> amounts = statistics.getDailyDrinkAmounts(
-            timeUtil.getTime(2011, 5, 13, 15, 0, 0), timeUtil.getTime(2011, 5, 13, 13, 0, 0));
+                getTime(2011, 5, 13, 15, 0, 0).toLocalDate(),
+                getTime(2011, 5, 13, 13, 0, 0).toLocalDate());
         assertNotNull(amounts);
         assertEquals(1, amounts.size());
         DailyDrinkStatistics st = amounts.get(0);
-        assertSameTime(timeUtil.getTime(2011, 5, 13, 0, 0, 0), st.getDay());
+        assertSameTime(getTime(2011, 5, 13, 0, 0, 0).toLocalDate(), st.getDay());
         assertEquals(2, st.getNumberOfDrinks());
         assertCloseEnough(3.4402, st.getPortions());
 
         // Include the other day
 
-        amounts = statistics.getDailyDrinkAmounts(timeUtil.getTime(2011, 4, 20, 15, 0, 0),
-            timeUtil.getTime(2011, 5, 15, 13, 0, 0));
+        amounts = statistics.getDailyDrinkAmounts(getTime(2011, 4, 20, 15, 0, 0).toLocalDate(),
+                getTime(2011, 5, 15, 13, 0, 0).toLocalDate());
         assertNotNull(amounts);
         assertEquals(2, amounts.size());
         // Check 13.5.
         st = amounts.get(0);
-        assertSameTime(timeUtil.getTime(2011, 5, 13, 0, 0, 0), st.getDay());
+        assertSameTime(getTime(2011, 5, 13, 0, 0, 0).toLocalDate(), st.getDay());
         assertEquals(2, st.getNumberOfDrinks());
         assertCloseEnough(3.4402, st.getPortions());
         // Check 14.5.
         st = amounts.get(1);
-        assertSameTime(timeUtil.getTime(2011, 5, 14, 0, 0, 0), st.getDay());
+        assertSameTime(getTime(2011, 5, 14, 0, 0, 0).toLocalDate(), st.getDay());
         assertEquals(2, st.getNumberOfDrinks());
         assertCloseEnough(3.4402, st.getPortions());
 
         setDayChangeTime(6, 0);
         // One of the drinks of 14.5. should now be listed as a drink of 13.5.
 
-        amounts = statistics.getDailyDrinkAmounts(timeUtil.getTime(2011, 5, 13, 15, 0, 0),
-            timeUtil.getTime(2011, 5, 13, 13, 0, 0));
+        amounts = statistics.getDailyDrinkAmounts(new LocalDate(2011, 5, 13),
+                new LocalDate(2011, 5, 13));
         assertNotNull(amounts);
         assertEquals(1, amounts.size());
         st = amounts.get(0);
-        assertSameTime(timeUtil.getTime(2011, 5, 13, 0, 0, 0), st.getDay());
+        assertSameTime(new LocalDate(2011, 5, 13), st.getDay());
         assertEquals(3, st.getNumberOfDrinks());
         assertCloseEnough(5.1603, st.getPortions());
 
@@ -99,14 +101,15 @@ public class StatisticsDBTest extends JalkametriDBTestCase {
     private void createSomeDrinks() {
         Drink beer = DrinkSupport.getBeer();
         DrinkSize pint = DrinkSupport.getPint();
-        history.createDrink(new DrinkSelection(beer, pint, timeUtil.getTime(2011, 5, 14, 01, 30,
-            0)));
-        history.createDrink(new DrinkSelection(beer, pint, timeUtil
-            .getTime(2011, 5, 13, 19, 0, 0)));
-        history.createDrink(new DrinkSelection(beer, pint, timeUtil
-            .getTime(2011, 5, 13, 18, 0, 0)));
-        history.createDrink(new DrinkSelection(beer, pint, timeUtil
-            .getTime(2011, 5, 14, 10, 0, 0)));
+        history.createDrink(new DrinkSelection(beer, pint, getTime(2011, 5, 14, 01, 30,
+                0).toInstant()));
+        history.createDrink(new DrinkSelection(beer, pint, getTime(2011, 5, 13, 19, 0,
+                0).toInstant()));
+        history.createDrink(new DrinkSelection(beer, pint, getTime(2011, 5, 13, 18, 0,
+                0).toInstant()));
+        history.createDrink(new DrinkSelection(beer, pint, getTime(2011, 5, 14, 10, 0,
+                0).toInstant()));
+
     }
 
 }

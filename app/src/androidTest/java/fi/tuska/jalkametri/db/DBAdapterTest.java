@@ -1,6 +1,5 @@
 package fi.tuska.jalkametri.db;
 
-import fi.tuska.jalkametri.db.DBAdapter;
 import fi.tuska.jalkametri.test.JalkametriTestCase;
 
 public class DBAdapterTest extends JalkametriTestCase {

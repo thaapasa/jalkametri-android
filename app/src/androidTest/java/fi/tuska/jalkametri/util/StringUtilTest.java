@@ -1,6 +1,5 @@
 package fi.tuska.jalkametri.util;
 
-import fi.tuska.jalkametri.util.StringUtil;
 import android.test.AndroidTestCase;
 
 /**
