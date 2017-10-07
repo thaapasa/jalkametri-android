@@ -54,10 +54,10 @@ import org.joda.time.Instant
  */
 open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_main), GUIActivity {
 
-    private var state: State? = null
+    private var viewModel: ViewModel? = null
 
     fun toastAlcoholStatus(v: View) {
-        state?.let {
+        viewModel?.let {
             DrinkActivities.makeDrinkToast(this, it.currentStatus.level, false)
         }
     }
@@ -67,7 +67,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
     }
 
     fun showDrivingStatus(v: View): Unit {
-        state?.showDrivingStatus(v)
+        viewModel?.showDrivingStatus(v)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +77,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        state = State(this).apply {
+        viewModel = ViewModel(this).apply {
             updateFavourites()
         }
     }
@@ -99,17 +99,17 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
     }
 
     override fun updateUI() {
-        state?.updateUI()
+        viewModel?.updateUI()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        state?.let { outState.putSerializable(KEY_SHOWN_FAVOURITE, it.shownFavourite) }
+        viewModel?.let { outState.putSerializable(KEY_SHOWN_FAVOURITE, it.shownFavourite) }
     }
 
     override fun onRestoreInstanceState(savedState: Bundle?) {
         super.onRestoreInstanceState(savedState)
-        state?.apply {
+        viewModel?.apply {
             shownFavourite = savedState?.get(KEY_SHOWN_FAVOURITE) as DrinkEvent?
         }
     }
@@ -117,7 +117,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
     override fun onSearchRequested(): Boolean {
         if (PrivateData.DEVELOPER_FUNCTIONALITY_ENABLED) {
             LogUtil.i(TAG, "Showing development menu")
-            state?.let { openContextMenu(it.developmentView) }
+            viewModel?.let { openContextMenu(it.developmentView) }
             return true
         } else {
             return super.onSearchRequested()
@@ -153,7 +153,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
             R.id.action_modify -> {
                 // Modify the selected favorite
-                state?.favouritesAdapter?.getItem(info.position)?.let { fav ->
+                viewModel?.favouritesAdapter?.getItem(info.position)?.let { fav ->
                     LogUtil.d(TAG, "Modifying %s", fav)
                     DrinkActivities.startModifyDrinkEvent(this, fav, true, true, false, ACTIVITY_CODE_MODIFY_FAVOURITE)
                 }
@@ -162,9 +162,9 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
             R.id.action_show_info -> {
                 // Show the drink information
-                state?.favouritesAdapter?.getItem(info.position)?.let { fav ->
+                viewModel?.favouritesAdapter?.getItem(info.position)?.let { fav ->
                     LogUtil.d(TAG, "Showing %s", fav)
-                    state?.shownFavourite = fav
+                    viewModel?.shownFavourite = fav
                     showDialog(DIALOG_DRINK_DETAILS)
                 }
                 return true
@@ -172,7 +172,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
             R.id.action_delete -> {
                 // Delete the selected favorite
-                state?.apply {
+                viewModel?.apply {
                     favouritesAdapter?.getItem(info.position)?.let { fav ->
                         LogUtil.d(TAG, "Deleting %s", fav)
                         favourites.deleteFavourite(fav.index)
@@ -184,7 +184,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
             R.id.action_drink -> {
                 // Drink the selected favorite
-                state?.favouritesAdapter?.getItem(info.position)?.let { fav ->
+                viewModel?.favouritesAdapter?.getItem(info.position)?.let { fav ->
                     LogUtil.d(TAG, "Drinking %s", fav)
                     DrinkActivities.startSelectDrinkDetails(this, fav, ACTIVITY_CODE_SELECT_DRINK)
                 }
@@ -203,7 +203,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         when (id) {
             DIALOG_DRINK_DETAILS -> {
                 val d = dialog as DrinkDetailsDialog
-                state?.let { d.showDrinkSelection(it.shownFavourite, false) }
+                viewModel?.let { d.showDrinkSelection(it.shownFavourite, false) }
             }
         }
         super.onPrepareDialog(id, dialog)
@@ -217,14 +217,14 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
                 ACTIVITY_CODE_SELECT_DRINK -> {
                     run {
                         val sel = DrinkActivities.getDrinkSelectionFromResult(data)
-                        state?.consumeDrink(sel)
+                        viewModel?.consumeDrink(sel)
                     }
                     return
                 }
                 ACTIVITY_CODE_ADD_FAVOURITE -> {
                     run {
                         val sel = extras!!.get(KEY_RESULT) as DrinkSelection
-                        state?.apply {
+                        viewModel?.apply {
                             favourites?.createFavourite(sel)
                             updateFavourites()
                             LogUtil.d(TAG, "Added %s to favourites", sel)
@@ -237,7 +237,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
                         val modifications = extras!!.get(KEY_RESULT) as DrinkSelection
                         val originalID = extras.getLong(KEY_ORIGINAL)
 
-                        state?.apply {
+                        viewModel?.apply {
                             val event = favourites.getFavourite(originalID)
                             event.drink = modifications.drink
                             event.size = modifications.size
@@ -303,7 +303,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
     }
 
 
-    private class State(val activity: MainActivity) {
+    private class ViewModel(val activity: MainActivity) {
         val timeUtil = activity.timeUtil
         val adapter = activity.adapter
 
