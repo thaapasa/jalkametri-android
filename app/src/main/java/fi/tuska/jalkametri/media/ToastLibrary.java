@@ -83,7 +83,7 @@ public final class ToastLibrary {
             try {
                 level = TOASTS.headMap(curAlcoholPercentage).lastKey();
             } catch (NoSuchElementException e) {
-                LogUtil.w(TAG, "No proper toast found");
+                LogUtil.INSTANCE.w(TAG, "No proper toast found");
                 level = SMALL_LEVEL;
             }
         }

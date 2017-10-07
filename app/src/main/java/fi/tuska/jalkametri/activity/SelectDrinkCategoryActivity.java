@@ -121,13 +121,13 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
             catDD.setDragListener(new DragDropGridView.DragListener() {
                 @Override
                 public void drag(int from, int to) {
-                    LogUtil.i(TAG, "Drag from %d to %d", from, to);
+                    LogUtil.INSTANCE.i(TAG, "Drag from %d to %d", from, to);
                 }
             });
             catDD.setDropListener(new DragDropGridView.DropListener() {
                 @Override
                 public void drop(int from, int to) {
-                    LogUtil.i(TAG, "Drop from %d to %d", from, to);
+                    LogUtil.INSTANCE.i(TAG, "Drop from %d to %d", from, to);
                 }
             });
         }
@@ -167,7 +167,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
         categoryAdapter = new NamedIconAdapter<DrinkCategory>(this, cats, true,
                 Common.DEFAULT_ICON_RES);
         categoryList.setAdapter(categoryAdapter);
-        LogUtil.d(TAG, "Loaded %d categories", cats.size());
+        LogUtil.INSTANCE.d(TAG, "Loaded %d categories", cats.size());
     }
 
     private void loadPreviousDrinks(History history) {
@@ -175,7 +175,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
         prevDrinkAdapter = new NamedIconAdapter<DrinkEvent>(this, prevDrinks, true,
                 Common.DEFAULT_ICON_RES);
         prevDrinkList.setAdapter(prevDrinkAdapter);
-        LogUtil.d(TAG, "Loaded %d previous drinks", prevDrinks.size());
+        LogUtil.INSTANCE.d(TAG, "Loaded %d previous drinks", prevDrinks.size());
     }
 
     private void ensureDrinkLibraryIsInitialized() {
@@ -196,7 +196,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
      * ----------------------------------------------------------
      */
     protected void selectCategory(DrinkCategory cat) {
-        LogUtil.d(TAG, "Selected category %s", cat.getName());
+        LogUtil.INSTANCE.d(TAG, "Selected category %s", cat.getName());
 
         Intent i = new Intent(this, SelectDrinkTypeActivity.class);
         // Prepare the intent for showing the selected category
@@ -236,7 +236,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
             switch (item.getItemId()) {
                 case R.id.action_delete:
                     // Confirm deletion
-                    LogUtil.i(TAG, "Request to delete category %s", sel);
+                    LogUtil.INSTANCE.i(TAG, "Request to delete category %s", sel);
 
                     // Ask the user if they really wish to delete this category
                     Confirmation.showConfirmation(this, R.string.confirm_delete_category,
@@ -263,7 +263,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogUtil.d(TAG, "Result %d for %d", resultCode, requestCode);
+        LogUtil.INSTANCE.d(TAG, "Result %d for %d", resultCode, requestCode);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Common.ACTIVITY_CODE_SELECT_DRINK_TYPE:
@@ -275,7 +275,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
 
                 case Common.ACTIVITY_CODE_ADD_CATEGORY: {
                     // Add a new category
-                    LogUtil.d(TAG, "Add category data");
+                    LogUtil.INSTANCE.d(TAG, "Add category data");
                     DrinkCategory category = DrinkActivities.getCategoryFromResult(data);
                     DrinkActions.createDrinkCategory(library, category, this);
                 }
@@ -283,7 +283,7 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
 
                 case Common.ACTIVITY_CODE_EDIT_CATEGORY: {
                     // Edit a category
-                    LogUtil.d(TAG, "Edit category data");
+                    LogUtil.INSTANCE.d(TAG, "Edit category data");
                     Bundle extras = data.getExtras();
                     long id = extras.getLong(Common.KEY_ORIGINAL);
                     DrinkCategory category = DrinkActivities.getCategoryFromResult(data);

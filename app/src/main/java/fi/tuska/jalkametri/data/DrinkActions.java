@@ -52,7 +52,7 @@ public final class DrinkActions {
         TaskExecutor.execute(context, R.string.prefs_recalculating_portions, new Runnable() {
             @Override
             public void run() {
-                LogUtil.i(TAG, "Recalculating portions in history database");
+                LogUtil.INSTANCE.i(TAG, "Recalculating portions in history database");
                 HistoryDB history = new HistoryDB(adapter, context);
                 history.recalculatePortions();
             }
@@ -67,13 +67,13 @@ public final class DrinkActions {
      * Creates a new drink into the drink library
      */
     public static void createDrink(DrinkCategory category, DrinkSelection selection, GUIActivity parent) {
-        LogUtil.i(TAG, "Creating new drink %s", selection);
+        LogUtil.INSTANCE.i(TAG, "Creating new drink %s", selection);
         Drink drink = selection.getDrink();
         DrinkSize[] sizes = new DrinkSize[1];
         sizes[0] = selection.getSize();
         Drink inserted = category.createDrink(drink.getName(), drink.getStrength(), drink.getIcon(), sizes);
         if (inserted == null)
-            LogUtil.w(TAG, "New drink was not inserted!");
+            LogUtil.INSTANCE.w(TAG, "New drink was not inserted!");
         if (parent != null) {
             parent.updateUI();
         }
@@ -83,7 +83,7 @@ public final class DrinkActions {
      * Deletes a drink from the drink library
      */
     public static void deleteDrink(DrinkCategory category, Drink drink, GUIActivity parent) {
-        LogUtil.i(TAG, "Deleting drink %s", drink);
+        LogUtil.INSTANCE.i(TAG, "Deleting drink %s", drink);
         category.deleteDrink(drink.getIndex());
 
         if (parent != null) {
@@ -110,10 +110,10 @@ public final class DrinkActions {
      * Adds a new category into the drink library.
      */
     public static void createDrinkCategory(DrinkLibrary library, DrinkCategory category, GUIActivity parent) {
-        LogUtil.i(TAG, "Adding category: %s", category);
+        LogUtil.INSTANCE.i(TAG, "Adding category: %s", category);
         DrinkCategory inserted = library.createCategory(category.getName(), category.getIcon());
         if (inserted == null)
-            LogUtil.w(TAG, "New category was not inserted!");
+            LogUtil.INSTANCE.w(TAG, "New category was not inserted!");
         if (parent != null) {
             parent.updateUI();
         }
@@ -123,7 +123,7 @@ public final class DrinkActions {
      * Modifies an existing drink category.
      */
     public static void updateDrinkCategory(DrinkLibrary library, long id, DrinkCategory category, GUIActivity parent) {
-        LogUtil.i(TAG, "Editing category: %s (%d)", category, id);
+        LogUtil.INSTANCE.i(TAG, "Editing category: %s (%d)", category, id);
         library.updateCategory(id, category);
 
         if (parent != null) {
@@ -135,10 +135,10 @@ public final class DrinkActions {
      * Deletes the drink category.
      */
     public static void deleteDrinkCategory(DrinkLibrary library, DrinkCategory category, GUIActivity parent) {
-        LogUtil.i(TAG, "Deleting drink category %s", category);
+        LogUtil.INSTANCE.i(TAG, "Deleting drink category %s", category);
         boolean success = library.deleteCategory(category.getIndex());
         if (!success)
-            LogUtil.w(TAG, "Category deleting failed!");
+            LogUtil.INSTANCE.w(TAG, "Category deleting failed!");
 
         if (parent != null) {
             parent.updateUI();
@@ -153,7 +153,7 @@ public final class DrinkActions {
      * Adds the given size to this drink.
      */
     public static <T extends GUIActivity & DBActivity> void addSizeToDrink(Drink drink, DrinkSize size, T parent) {
-        LogUtil.d(TAG, "Adding size %s to drink %s", size, drink);
+        LogUtil.INSTANCE.d(TAG, "Adding size %s to drink %s", size, drink);
 
         DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(parent.getDBAdapter());
         boolean res = connDB.addSize(drink, size);
@@ -166,7 +166,7 @@ public final class DrinkActions {
      * Removes the given size from this drink. If all the sizes are deleted, removes the size from the size database.
      */
     public static <T extends GUIActivity & DBActivity> void removeSizeFromDrink(Drink drink, DrinkSize size, T parent) {
-        LogUtil.d(TAG, "Removing size %s from drink %s", size, drink);
+        LogUtil.INSTANCE.d(TAG, "Removing size %s from drink %s", size, drink);
 
         DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(parent.getDBAdapter());
         boolean res = connDB.removeConnectionFromDrink(drink, size);
@@ -179,7 +179,7 @@ public final class DrinkActions {
      * Modifies a drink size in the drink library.
      */
     public static <T extends GUIActivity & DBActivity> void updateDrinkSize(long originalID, DrinkSize size, T parent) {
-        LogUtil.d(TAG, "Updating size %s with id %d", size, originalID);
+        LogUtil.INSTANCE.d(TAG, "Updating size %s with id %d", size, originalID);
 
         DrinkSizes sizeLib = new DrinkLibraryDB(parent.getDBAdapter()).getDrinkSizes();
         boolean res = sizeLib.updateSize(originalID, size);
@@ -225,7 +225,7 @@ public final class DrinkActions {
      * Removes all drink events from a given day from the drink history.
      */
     public static <T extends GUIActivity & DBActivity> void clearEventsFromDay(History history, LocalDate day, T parent) {
-        LogUtil.d(TAG, "Clearing all drinks of %s", day);
+        LogUtil.INSTANCE.d(TAG, "Clearing all drinks of %s", day);
         history.clearDay(day);
 
         if (parent != null) {

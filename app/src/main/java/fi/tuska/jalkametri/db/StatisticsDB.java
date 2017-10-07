@@ -82,7 +82,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
         Instant start = timeUtil.getStartOfDrinkDay(startDay, prefs);
         Instant end = timeUtil.getStartOfDrinkDay(endDay, prefs).plus(Duration.standardDays(1));
         String colSpec = getTheDateGroupColumnSpec();
-        LogUtil.d(TAG, "Querying for daily drink amounts between %s and %s; colSpec is %s",
+        LogUtil.INSTANCE.d(TAG, "Querying for daily drink amounts between %s and %s; colSpec is %s",
             start, end, colSpec);
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
             new String[] { colSpec, "SUM(portions)", "COUNT(*)" },
@@ -119,7 +119,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
         try {
             return date != null ? Instant.parse(date, sqlDateFormat) : now();
         } catch (Exception e) {
-            LogUtil.w(TAG, "Invalid date value in database: %s", date);
+            LogUtil.INSTANCE.w(TAG, "Invalid date value in database: %s", date);
             return now();
         }
     }

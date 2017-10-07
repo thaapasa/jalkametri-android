@@ -18,13 +18,13 @@ public class DropAndCreate extends DBCreator implements DBUpgrader {
 
     @Override
     public void updateDB(Context context, SQLiteDatabase db, int fromVersion, int toVersion) {
-        LogUtil.d(DBAdapter.TAG, "Dropping tables");
+        LogUtil.INSTANCE.d(DBAdapter.TAG, "Dropping tables");
         Resources res = context.getResources();
         // Drop tables
         String[] tables = res.getStringArray(R.array.database_tables);
         for (String tableName : tables) {
             String updateS = "DROP TABLE IF EXISTS " + tableName;
-            LogUtil.d(DBAdapter.TAG, updateS);
+            LogUtil.INSTANCE.d(DBAdapter.TAG, updateS);
             db.execSQL(updateS);
         }
 

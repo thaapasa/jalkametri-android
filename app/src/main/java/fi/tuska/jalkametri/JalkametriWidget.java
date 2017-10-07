@@ -97,7 +97,7 @@ public class JalkametriWidget extends AppWidgetProvider {
      * ----------------------------------------------------------
      */
     protected static void updateWidgetStatus(Context context, DBAdapter adapter) {
-        LogUtil.d(TAG, "Updating widget status");
+        LogUtil.INSTANCE.d(TAG, "Updating widget status");
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         recalculateStatus(views, context, adapter);
         updateWidgets(views, context);
@@ -124,7 +124,7 @@ public class JalkametriWidget extends AppWidgetProvider {
     }
 
     public static void recalculateWidgetUI(RemoteViews views, Context context, DBAdapter adapter) {
-        LogUtil.d(TAG, "Recalculating jAlkaMetri widget UI");
+        LogUtil.INSTANCE.d(TAG, "Recalculating jAlkaMetri widget UI");
         setFavouriteIcons(views, context, adapter);
         {
             // Set jAlkaMetri launch
@@ -140,7 +140,7 @@ public class JalkametriWidget extends AppWidgetProvider {
         DrinkStatus status = meter.getDrinkStatus();
         double level = status.getAlcoholLevel();
         views.setTextViewText(R.id.status, String.format("%.2f", level));
-        LogUtil.d(TAG, "Setting alcohol status to %f", level);
+        LogUtil.INSTANCE.d(TAG, "Setting alcohol status to %f", level);
     }
 
     protected static void setFavouriteIcons(RemoteViews views, Context context, DBAdapter adapter) {

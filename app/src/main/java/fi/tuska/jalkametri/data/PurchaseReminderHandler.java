@@ -32,11 +32,11 @@ public class PurchaseReminderHandler {
         int showAfter = prefs.getShowReminderAfter();
         showAfter--;
         if (showAfter < 1) {
-            LogUtil.d(TAG, "Reminder counter is zero, showing reminder");
+            LogUtil.INSTANCE.d(TAG, "Reminder counter is zero, showing reminder");
             resetReminderCounter(prefs);
             mustShow = true;
         } else {
-            LogUtil.d(TAG, "Decrementing reminder counter, now at %d", showAfter);
+            LogUtil.INSTANCE.d(TAG, "Decrementing reminder counter, now at %d", showAfter);
             Editor editor = prefs.edit();
             prefs.setShowReminderAfter(editor, showAfter);
             editor.commit();
@@ -54,7 +54,7 @@ public class PurchaseReminderHandler {
 
     public static void resetReminderCounter(Preferences prefs) {
         int steps = RANDOM.nextInt(REPEAT_MAX - REPEAT_MIN + 1) + REPEAT_MIN;
-        LogUtil.d(TAG, "Setting new reminder to fire up in %d restarts", steps);
+        LogUtil.INSTANCE.d(TAG, "Setting new reminder to fire up in %d restarts", steps);
 
         Editor editor = prefs.edit();
         prefs.setShowReminderAfter(editor, steps);

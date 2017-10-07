@@ -43,7 +43,7 @@ public class EditCategoryActivity extends JalkametriActivity {
         @Override
         public void objectSelected(IconName icon) {
             // Update icon
-            LogUtil.d(TAG, "Selecting icon %s", icon.getIcon());
+            LogUtil.INSTANCE.d(TAG, "Selecting icon %s", icon.getIcon());
             iconView.setIcon(icon);
         }
     };
@@ -63,7 +63,7 @@ public class EditCategoryActivity extends JalkametriActivity {
 
     public static boolean prepareForCategoryModification(Context parent, Intent intent,
         DrinkCategory category) {
-        LogUtil.d(TAG, "Preparing to edit category %s (%d)", category, category.getIndex());
+        LogUtil.INSTANCE.d(TAG, "Preparing to edit category %s (%d)", category, category.getIndex());
         intent.putExtra(KEY_SELECTED_CATEGORY, new CategorySelection(category));
         intent.putExtra(KEY_ORIGINAL, Long.valueOf(category.getIndex()));
         return true;
@@ -143,7 +143,7 @@ public class EditCategoryActivity extends JalkametriActivity {
     }
 
     public void onClickIcon(View v) {
-        LogUtil.d(TAG, "Selecting icon...");
+        LogUtil.INSTANCE.d(TAG, "Selecting icon...");
         showDialog(Common.DIALOG_SELECT_ICON);
     }
 

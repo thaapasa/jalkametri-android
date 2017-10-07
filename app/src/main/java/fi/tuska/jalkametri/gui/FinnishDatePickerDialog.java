@@ -83,7 +83,7 @@ public class FinnishDatePickerDialog extends DatePickerDialog {
 
         // Change the shown month names
         if (!setMonthNames(monthPicker, monthPicker.getClass(), 1, 12, getMonthNames())) {
-            LogUtil.w(TAG, "Setting the month names has failed");
+            LogUtil.INSTANCE.w(TAG, "Setting the month names has failed");
         }
 
         // Set a bit smaller text size

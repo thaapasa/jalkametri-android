@@ -80,7 +80,7 @@ public class DrinkSizeSelector {
         @Override
         public void objectSelected(IconName icon) {
             // Update icon
-            LogUtil.d(TAG, "Selecting icon %s", icon.getIcon());
+            LogUtil.INSTANCE.d(TAG, "Selecting icon %s", icon.getIcon());
             sizeIcon.setIcon(icon);
         }
     };
@@ -111,7 +111,7 @@ public class DrinkSizeSelector {
 
         if (!selectorShown) {
             // Hide the entire size selector
-            LogUtil.e(TAG, "Hiding size selector -- TODO: REMOVE THIS!");
+            LogUtil.INSTANCE.e(TAG, "Hiding size selector -- TODO: REMOVE THIS!");
             //View selectorArea = parent.findViewById(R.id.size_selection_area);
             //assert selectorArea != null;
             //selectorArea.setVisibility(View.GONE);
@@ -170,7 +170,7 @@ public class DrinkSizeSelector {
                     long id) {
                     DrinkSize size = sizeSelectionAdapter.getItem(position);
                     if (spinnerSelection == null || !spinnerSelection.equals(size)) {
-                        LogUtil.d(TAG, "DrinkSize item %s selected", size);
+                        LogUtil.INSTANCE.d(TAG, "DrinkSize item %s selected", size);
                         spinnerSelection = size;
                         setSizeSelected(size);
                     }

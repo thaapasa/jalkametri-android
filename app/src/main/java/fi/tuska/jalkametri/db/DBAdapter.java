@@ -117,14 +117,14 @@ public class DBAdapter {
         synchronized (databaseLock) {
             close();
             databaseLocked = true;
-            LogUtil.d(TAG, "Locked database");
+            LogUtil.INSTANCE.d(TAG, "Locked database");
         }
     }
 
     public void unlockDatabase() {
         synchronized (databaseLock) {
             databaseLocked = false;
-            LogUtil.d(TAG, "Unlocked database");
+            LogUtil.INSTANCE.d(TAG, "Unlocked database");
             // Wake up waiters
             databaseLock.notifyAll();
         }
@@ -178,7 +178,7 @@ public class DBAdapter {
                 long curTime = System.currentTimeMillis();
                 if (curTime - startWaitTime > MAX_DB_WAIT_TIME_MILLIS) {
                     // Waited for too long
-                    LogUtil.w(TAG, "open() has waited for too long, unlocking database");
+                    LogUtil.INSTANCE.w(TAG, "open() has waited for too long, unlocking database");
                     databaseLocked = false;
                     notifyAll();
                     return;
@@ -194,7 +194,7 @@ public class DBAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            LogUtil.w(TAG, "Creating the database tables from scratch");
+            LogUtil.INSTANCE.w(TAG, "Creating the database tables from scratch");
             dbCreator.updateDB(context, db, 0, DATABASE_VERSION);
         }
 
@@ -210,13 +210,13 @@ public class DBAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             int curV = oldVersion;
             if (newVersion < oldVersion) {
-                LogUtil.w(TAG, "Reverse-upgrading DB from version %s to %s", oldVersion,
+                LogUtil.INSTANCE.w(TAG, "Reverse-upgrading DB from version %s to %s", oldVersion,
                     newVersion);
                 dbReCreator.updateDB(context, db, oldVersion, newVersion);
                 return;
             }
 
-            LogUtil.w(TAG, "Upgrading DB from version %d to %d", oldVersion, newVersion);
+            LogUtil.INSTANCE.w(TAG, "Upgrading DB from version %d to %d", oldVersion, newVersion);
 
             int startVersion = getStartOfUpgrade(oldVersion);
             SortedMap<Integer, DBUpgrader> runUpdates = upgraders.tailMap(startVersion);
@@ -226,7 +226,7 @@ public class DBAdapter {
                 int newV = e.getKey();
                 if (newV >= newVersion)
                     break;
-                LogUtil.w(TAG, "Running DB upgrader for version %d: %s", newV, upgrader);
+                LogUtil.INSTANCE.w(TAG, "Running DB upgrader for version %d: %s", newV, upgrader);
                 upgrader.updateDB(context, db, curV, newV);
                 curV = newV;
             }

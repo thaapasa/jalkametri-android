@@ -92,7 +92,7 @@ public class AboutActivity extends JalkametriActivity implements GUIActivity {
     public void purchaseLicense(View v) {
         // Purchase the license
         if (getPrefs().isLicensePurchased()) {
-            LogUtil.i(TAG, "License already bought, not repurchasing");
+            LogUtil.INSTANCE.i(TAG, "License already bought, not repurchasing");
             // Already bought
             updateUI();
         }
@@ -101,7 +101,7 @@ public class AboutActivity extends JalkametriActivity implements GUIActivity {
     public void checkLicense(View v) {
         // Check for existing license
         if (getPrefs().isLicensePurchased()) {
-            LogUtil.i(TAG, "License already bought, not checking");
+            LogUtil.INSTANCE.i(TAG, "License already bought, not checking");
             updateUI();
         }
     }

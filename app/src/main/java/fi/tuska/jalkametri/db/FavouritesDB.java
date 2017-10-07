@@ -76,7 +76,7 @@ public class FavouritesDB extends AbstractDB implements Favourites {
 
     @Override
     public List<DrinkEvent> getFavourites(int limit) {
-        LogUtil.d(TAG, "Querying for favourites");
+        LogUtil.INSTANCE.d(TAG, "Querying for favourites");
 
         Cursor cursor = adapter.getDatabase().query(false, TABLE_NAME, FAVOURITE_QUERY_COLUMNS,
                 null, null, null, null, KEY_ORDER, limit > 0 ? String.valueOf(limit) : null);
@@ -118,7 +118,7 @@ public class FavouritesDB extends AbstractDB implements Favourites {
     @Override
     public DrinkEvent getFavourite(long index) {
         DBDataObject.enforceBackedObject(index);
-        LogUtil.d(TAG, "Querying for favourite %d", index);
+        LogUtil.INSTANCE.d(TAG, "Querying for favourite %d", index);
 
         Cursor cursor = adapter.getDatabase().query(true, TABLE_NAME, FAVOURITE_QUERY_COLUMNS,
                 getIndexClause(index), null, null, null, null, null);

@@ -123,7 +123,7 @@ public class CalculatorActivity extends JalkametriActivity {
     }
 
     public void onClearPressed(View v) {
-        LogUtil.d(TAG, "Clearing calculator");
+        LogUtil.INSTANCE.d(TAG, "Clearing calculator");
 
         // Clear the drink strength calculator
         calc.clear();
@@ -134,7 +134,7 @@ public class CalculatorActivity extends JalkametriActivity {
         Locale locale = getPrefs().getLocale();
         double vol = NumberUtil.readDouble(volumeEdit.getText().toString(), locale);
         double str = NumberUtil.readDouble(strengthEdit.getText().toString(), locale);
-        LogUtil.d(TAG, "Adding selected component: %f liters of %f %%", vol, str);
+        LogUtil.INSTANCE.d(TAG, "Adding selected component: %f liters of %f %%", vol, str);
         calc.addComponent(vol, str);
 
         updateUI();
@@ -147,7 +147,7 @@ public class CalculatorActivity extends JalkametriActivity {
         strengthShow.setText(NumberUtil.toString(calc.getStrength(), res));
         volumeShow.setText(NumberUtil.toString(calc.getVolume(), res));
         portionsShow.setText(NumberUtil.toString(calc.getPortions(getContext()), res));
-        LogUtil.d(TAG, "Alcohol weight is %f", calc.getAlcoholWeight());
+        LogUtil.INSTANCE.d(TAG, "Alcohol weight is %f", calc.getAlcoholWeight());
     }
 
 }

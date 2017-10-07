@@ -114,7 +114,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
             case Weekly:
                 return res.getString(R.string.stats_weekly_title_pattern);
         }
-        LogUtil.w(TAG, "Unknown type: %s", type);
+        LogUtil.INSTANCE.w(TAG, "Unknown type: %s", type);
         return "???";
     }
 
@@ -165,7 +165,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
 
     public void onSelectDayClick(View v) {
         // Select day to show
-        LogUtil.d(TAG, "Showing date selection dialog");
+        LogUtil.INSTANCE.d(TAG, "Showing date selection dialog");
         // Show a date picker dialog
         new DatePickerDialog(this, new OnDateSetListener() {
             @Override
@@ -178,7 +178,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
     private void loadDay(LocalDate date) {
         calculateDates(date);
 
-        LogUtil.d(TAG, "Loading daily statistics between %s and %s", start, end);
+        LogUtil.INSTANCE.d(TAG, "Loading daily statistics between %s and %s", start, end);
         setStatistics(statistics.getGeneralStatistics(start, end));
         dailyStats = statistics.getDailyDrinkAmounts(start, end);
         graphView.clear();

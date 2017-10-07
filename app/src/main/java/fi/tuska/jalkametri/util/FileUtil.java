@@ -52,7 +52,7 @@ public final class FileUtil {
      * Copies a file.
      */
     public static void copyFile(File src, File dst) throws IOException {
-        LogUtil.d(TAG, "Copying file %s to %s", src, dst);
+        LogUtil.INSTANCE.d(TAG, "Copying file %s to %s", src, dst);
         FileChannel inChannel = null;
         FileChannel outChannel = null;
         try {
@@ -66,7 +66,7 @@ public final class FileUtil {
     }
 
     public static void writeUTF8ToFile(String dataToWrite, File file) throws IOException {
-        LogUtil.d(TAG, "Writing to file %s", file);
+        LogUtil.INSTANCE.d(TAG, "Writing to file %s", file);
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
         OutputStreamWriter osw = null;
@@ -88,7 +88,7 @@ public final class FileUtil {
     }
 
     public static String readUTF8FromFile(File file) throws IOException {
-        LogUtil.d(TAG, "Reading from file %s", file);
+        LogUtil.INSTANCE.d(TAG, "Reading from file %s", file);
         FileInputStream fis = null;
         BufferedInputStream bis = null;
         InputStreamReader isr = null;
@@ -117,7 +117,7 @@ public final class FileUtil {
             try {
                 s.close();
             } catch (IOException e) {
-                LogUtil.w(TAG, "Error when closing stream %s: %s (%s)", s, e.getMessage(), e);
+                LogUtil.INSTANCE.w(TAG, "Error when closing stream %s: %s (%s)", s, e.getMessage(), e);
             }
         }
     }

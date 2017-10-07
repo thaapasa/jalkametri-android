@@ -34,7 +34,7 @@ public final class DefaultDrinkDatabase {
         DefaultDrinkLibrary defLib = DEFAULT_LIBRARIES.get(locale.getLanguage());
         assert defLib != null;
 
-        LogUtil.i(TAG, "Starting to create default drink library");
+        LogUtil.INSTANCE.i(TAG, "Starting to create default drink library");
         long startTime = System.currentTimeMillis();
 
         // Reset the library in a single transaction
@@ -52,6 +52,6 @@ public final class DefaultDrinkDatabase {
         }
 
         long timeElapsed = System.currentTimeMillis() - startTime;
-        LogUtil.i(TAG, "Default drink library created; this took %d ms", timeElapsed);
+        LogUtil.INSTANCE.i(TAG, "Default drink library created; this took %d ms", timeElapsed);
     }
 }

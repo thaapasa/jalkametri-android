@@ -50,7 +50,7 @@ public class FileDataBackup implements DataBackup {
             FileUtil.copyFile(dbFile, backupFile);
             return true;
         } catch (IOException e) {
-            LogUtil.w(TAG, "Error when restoring backup file: %s (%s)", e.getMessage(), e);
+            LogUtil.INSTANCE.w(TAG, "Error when restoring backup file: %s (%s)", e.getMessage(), e);
             return false;
         } finally {
             adapter.unlockDatabase();
@@ -72,7 +72,7 @@ public class FileDataBackup implements DataBackup {
             }
             return backups;
         } catch (IOException e) {
-            LogUtil.w(TAG, "Error reading backup directory: %s (%s)", e.getMessage(), e);
+            LogUtil.INSTANCE.w(TAG, "Error reading backup directory: %s (%s)", e.getMessage(), e);
             return backups;
         }
     }
@@ -86,14 +86,14 @@ public class FileDataBackup implements DataBackup {
             adapter.lockDatabase();
             File backupFile = new File(getBackupDirectory(), backupName);
             if (!backupFile.exists() || !backupFile.isFile()) {
-                LogUtil.w(TAG, "Backup file %s does not exist or is not a file", backupFile);
+                LogUtil.INSTANCE.w(TAG, "Backup file %s does not exist or is not a file", backupFile);
                 return false;
             }
             File dbFile = getDatabaseFile();
             FileUtil.copyFile(backupFile, dbFile);
             return true;
         } catch (IOException e) {
-            LogUtil.w(TAG, "Error when restoring backup file: %s (%s)", e.getMessage(), e);
+            LogUtil.INSTANCE.w(TAG, "Error when restoring backup file: %s (%s)", e.getMessage(), e);
             return false;
         } finally {
             adapter.unlockDatabase();
@@ -107,11 +107,11 @@ public class FileDataBackup implements DataBackup {
     }
 
     private File getDatabaseFile() throws IOException {
-        LogUtil.d(TAG, "Data dir is " + Environment.getDataDirectory());
+        LogUtil.INSTANCE.d(TAG, "Data dir is " + Environment.getDataDirectory());
         File dbFile = new File(Environment.getDataDirectory()
             + "/data/fi.tuska.jalkametri/databases/" + adapter.getDatabaseFilename());
         if (!dbFile.exists()) {
-            LogUtil.w(TAG, "Database file %s does not exist", dbFile);
+            LogUtil.INSTANCE.w(TAG, "Database file %s does not exist", dbFile);
             throw new IOException("Database file does not exist");
         }
         return dbFile;
@@ -122,16 +122,16 @@ public class FileDataBackup implements DataBackup {
             return null;
         File dir = new File(Environment.getExternalStorageDirectory(), "jAlcoMeter");
         if (!dir.exists()) {
-            LogUtil.d(TAG, "Backup directory does not exist, creating %s", dir);
+            LogUtil.INSTANCE.d(TAG, "Backup directory does not exist, creating %s", dir);
             if (!dir.mkdirs()) {
-                LogUtil.w(TAG, "Backup dir doesn't exist and can't create: %s", dir);
+                LogUtil.INSTANCE.w(TAG, "Backup dir doesn't exist and can't create: %s", dir);
                 throw new IOException("Cannot create backup directory");
             }
             return dir;
         }
 
         if (!dir.isDirectory()) {
-            LogUtil.w(TAG, "Backup directory is not a directory: %s", dir);
+            LogUtil.INSTANCE.w(TAG, "Backup directory is not a directory: %s", dir);
             throw new IOException("Backup directory is not a directory");
         }
         return dir;

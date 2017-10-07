@@ -38,7 +38,7 @@ public class RecalculatePortions implements DBUpgrader {
         for (String tableName : modifyTables) {
             String updateS = "UPDATE " + tableName + " SET " + KEY_PORTIONS + " = ((((" + KEY_VOLUME + " * "
                 + KEY_STRENGTH + ") / 100) * " + Common.ALCOHOL_LITER_WEIGHT + ") / " + stdAlcWeight + ")";
-            LogUtil.d(DBAdapter.TAG, "Running upgrade SQL: \"%s\"", updateS);
+            LogUtil.INSTANCE.d(DBAdapter.TAG, "Running upgrade SQL: \"%s\"", updateS);
             db.execSQL(updateS);
         }
     }

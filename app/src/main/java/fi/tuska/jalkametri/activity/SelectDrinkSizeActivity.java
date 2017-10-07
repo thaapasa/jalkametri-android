@@ -91,7 +91,7 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
 
         this.list = (GridView) findViewById(R.id.list);
 
-        LogUtil.d(TAG, "Selected drink: %s", selectedDrink);
+        LogUtil.INSTANCE.d(TAG, "Selected drink: %s", selectedDrink);
 
         initComponents();
         updateUI();
@@ -245,7 +245,7 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
                 case R.id.action_modify_size: {
                     // Modifies the selected drink size
                     final DrinkSize size = listAdapter.getItem(pos);
-                    LogUtil.i(TAG, "Request to modify drink size %s", size);
+                    LogUtil.INSTANCE.i(TAG, "Request to modify drink size %s", size);
                     DrinkActivities.startModifyDrinkSize(this, size);
                 }
                 return true;
@@ -253,7 +253,7 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
                 case R.id.action_delete_size: {
                     // Delete the selected drink size from the drink
                     final DrinkSize size = listAdapter.getItem(pos);
-                    LogUtil.i(TAG, "Request to delete drink size %s", size);
+                    LogUtil.INSTANCE.i(TAG, "Request to delete drink size %s", size);
                     DrinkActions.removeSizeFromDrink(selectedDrink, size, this);
                 }
                 return true;

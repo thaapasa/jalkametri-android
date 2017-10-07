@@ -93,7 +93,7 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
 
         this.list = (GridView) findViewById(R.id.list);
 
-        LogUtil.d(TAG, "Selected category: %s", extras.get(KEY_SELECTED_CATEGORY_NAME));
+        LogUtil.INSTANCE.d(TAG, "Selected category: %s", extras.get(KEY_SELECTED_CATEGORY_NAME));
 
         initComponents();
         updateUI();
@@ -130,7 +130,7 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
      * ----------------------------------------------------------
      */
     private void selectDrink(Drink drink) {
-        LogUtil.d(TAG, "Selected drink %s", drink.getName());
+        LogUtil.INSTANCE.d(TAG, "Selected drink %s", drink.getName());
 
         List<DrinkSize> drinkSizes = drink.getDrinkSizes();
         if (drinkSizes.size() == 1) {

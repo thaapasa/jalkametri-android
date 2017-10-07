@@ -220,7 +220,7 @@ public final class DrinkActivities {
         Resources res = context.getResources();
         Preferences prefs = new PreferencesImpl(context);
         double percentage = alcoholLevel / prefs.getMaxAlcoholLevel();
-        LogUtil.d(TAG, "Getting toast for %d %%", ((int) (percentage * 100)));
+        LogUtil.INSTANCE.d(TAG, "Getting toast for %d %%", ((int) (percentage * 100)));
         Pair<Integer, Integer> toast = ToastLibrary.getToast(percentage, isDrinking);
         Toast.makeText(context, res.getString(toast.first), Toast.LENGTH_SHORT).show();
     }

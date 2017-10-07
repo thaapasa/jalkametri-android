@@ -29,7 +29,7 @@ public final class CommonActivities {
      * Shows the user preferences screen.
      */
     public static void showPreferences(JalkametriActivity parent) {
-        LogUtil.i(TAG, "Showing preferences");
+        LogUtil.INSTANCE.i(TAG, "Showing preferences");
         Intent i = new Intent(parent, PreferencesActivity.class);
         parent.startActivityForResult(i, Common.ACTIVITY_CODE_SHOW_PREFERENCES);
     }
@@ -38,7 +38,7 @@ public final class CommonActivities {
      * Shows the drinking statistics screen.
      */
     public static void showStatistics(JalkametriActivity parent) {
-        LogUtil.i(TAG, "Showing statistics");
+        LogUtil.INSTANCE.i(TAG, "Showing statistics");
         Intent i = new Intent(parent, StatisticsActivity.class);
         parent.startActivity(i);
     }
@@ -47,7 +47,7 @@ public final class CommonActivities {
      * Shows a legal disclaimer message.
      */
     public static void showDisclaimer(JalkametriActivity parent) {
-        LogUtil.i(TAG, "Showing legal disclaimer");
+        LogUtil.INSTANCE.i(TAG, "Showing legal disclaimer");
         Intent i = new Intent(parent, DisclaimerActivity.class);
         parent.startActivity(i);
     }
@@ -56,7 +56,7 @@ public final class CommonActivities {
      * Shows the about screen.
      */
     public static void showAbout(JalkametriActivity parent) {
-        LogUtil.i(TAG, "Showing legal disclaimer");
+        LogUtil.INSTANCE.i(TAG, "Showing legal disclaimer");
         Intent i = new Intent(parent, AboutActivity.class);
         parent.startActivity(i);
     }
@@ -65,7 +65,7 @@ public final class CommonActivities {
      * Add a drink.
      */
     public static void showAddDrink(JalkametriActivity parent) {
-        LogUtil.i(TAG, "Adding a drink");
+        LogUtil.INSTANCE.i(TAG, "Adding a drink");
         DrinkActivities.startSelectDrink(parent);
     }
 
@@ -73,7 +73,7 @@ public final class CommonActivities {
      * Show the drinking history.
      */
     public static void showDrinkHistory(JalkametriActivity parent, Preferences prefs) {
-        LogUtil.i(TAG, "Showing drink history");
+        LogUtil.INSTANCE.i(TAG, "Showing drink history");
         Intent i = new Intent(parent, HistoryActivity.class);
         HistoryActivity.prepareForDay(i, parent.getTimeUtil().getCurrentDrinkingDate(prefs));
         parent.startActivity(i);
@@ -83,7 +83,7 @@ public final class CommonActivities {
      * Shows the drink strength calculator.
      */
     public static void showCalculator(JalkametriActivity parent) {
-        LogUtil.i(TAG, "Showing drink strength calculator");
+        LogUtil.INSTANCE.i(TAG, "Showing drink strength calculator");
         Intent i = new Intent(parent, CalculatorActivity.class);
         parent.startActivityForResult(i, Common.ACTIVITY_CODE_SHOW_CALCULATOR);
     }
@@ -92,7 +92,7 @@ public final class CommonActivities {
      * Shows the drink strength calculator.
      */
     public static void showCalculator(JalkametriActivity parent, DrinkSelection initialSelection) {
-        LogUtil.i(TAG, "Showing drink strength calculator");
+        LogUtil.INSTANCE.i(TAG, "Showing drink strength calculator");
         Intent i = new Intent(parent, CalculatorActivity.class);
         CalculatorActivity.prepareForDrink(i, initialSelection);
         parent.startActivityForResult(i, Common.ACTIVITY_CODE_SHOW_CALCULATOR);

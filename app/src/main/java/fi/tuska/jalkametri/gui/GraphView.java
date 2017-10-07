@@ -120,7 +120,7 @@ public final class GraphView extends BufferedImageView {
         // Draw background
         canvas.drawRect(0, 0, getWidth(), getHeight(), bgPaint);
 
-        LogUtil.d(TAG, "Graph drawer dimensions are %d x %d = %d x %d", getWidth(), getHeight(),
+        LogUtil.INSTANCE.d(TAG, "Graph drawer dimensions are %d x %d = %d x %d", getWidth(), getHeight(),
             canvas.getWidth(), canvas.getHeight());
 
         int labelHeight = (int) (labelPaint.getTextSize() + 6);
@@ -153,7 +153,7 @@ public final class GraphView extends BufferedImageView {
             drawGraphInfoLabel(canvas, l, info, padX, padY);
         }
 
-        LogUtil.d(TAG, "Graph area dimensions are %d x %d, padding %d x %d", width, height, padX,
+        LogUtil.INSTANCE.d(TAG, "Graph area dimensions are %d x %d, padding %d x %d", width, height, padX,
             padY);
 
         Point last = null;
@@ -218,7 +218,7 @@ public final class GraphView extends BufferedImageView {
             maxPosition = graph.getPreferredMaxPosition();
             minValue = graph.getPreferredMinValue();
             maxValue = graph.getPreferredMaxValue();
-            LogUtil.d(TAG, "Graph preferred pos range %.2f-%.2f", minPosition, maxPosition);
+            LogUtil.INSTANCE.d(TAG, "Graph preferred pos range %.2f-%.2f", minPosition, maxPosition);
             for (Point p : points) {
                 if (minPosition == null || p.getPosition() < minPosition)
                     minPosition = p.getPosition();
@@ -230,7 +230,7 @@ public final class GraphView extends BufferedImageView {
                     maxValue = p.getValue();
             }
             maxValue = graph.validateMaxValue(maxValue);
-            LogUtil
+            LogUtil.INSTANCE
                 .d(TAG, "Graph pos range after point scan %.2f-%.2f", minPosition, maxPosition);
         }
 

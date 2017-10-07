@@ -36,7 +36,7 @@ public class AlcoholLevelMeter {
         LocalDate day = timeUtil.getCurrentDrinkingDate(prefs);
         // Start of the time
         Instant start = timeUtil.getStartOfDrinkDay(day, prefs);
-        LogUtil.d(TAG, "Current date is %s; started at %s", day, start);
+        LogUtil.INSTANCE.d(TAG, "Current date is %s; started at %s", day, start);
         Instant end = start.plus(Duration.standardDays(1));
         // Calculate from yesterday to account for leftovers
         Instant yesterday = start.minus(Duration.standardDays(1));

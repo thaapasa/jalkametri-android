@@ -218,7 +218,7 @@ public class PreferencesImpl implements Preferences {
         Double val = STD_DRINK_WEIGHTS.get(country);
         if (val == null) {
             val = STD_DRINK_WEIGHTS.get(DEFAULT_STANDARD_DRINK_COUNTRY);
-            LogUtil.e(TAG, "No standard drink weight found for country %s; using default value (%.2d)", country, val);
+            LogUtil.INSTANCE.e(TAG, "No standard drink weight found for country %s; using default value (%.2d)", country, val);
         }
         return val;
     }

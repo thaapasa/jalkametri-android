@@ -189,7 +189,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     @Override
     public void updateUI() {
         List<DrinkEvent> drinks = history.getDrinks(day, false);
-        LogUtil.d(TAG, "Loaded %d drinks for %s", drinks.size(), wdayFormat.print(day));
+        LogUtil.INSTANCE.d(TAG, "Loaded %d drinks for %s", drinks.size(), wdayFormat.print(day));
         listAdapter = new NamedIconAdapter<>(this, drinks, false, iconNameConverter,
                 Common.DEFAULT_ICON_RES);
         setListAdapter(listAdapter);
@@ -221,7 +221,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         this.day = date;
         dateText.setText(StringUtil.INSTANCE.uppercaseFirstLetter(wdayFormat.print(date)));
         weekText.setText(weekPrefix + day.getWeekOfWeekyear());
-        LogUtil.d(TAG, "Selected day: %s", day);
+        LogUtil.INSTANCE.d(TAG, "Selected day: %s", day);
         updateUI();
     }
 
@@ -248,7 +248,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
 
     public void onSelectDayClick(View v) {
         // Select day to show
-        LogUtil.d(TAG, "Showing date selection dialog");
+        LogUtil.INSTANCE.d(TAG, "Showing date selection dialog");
         showDialog(Common.DIALOG_SELECT_DATE);
     }
 

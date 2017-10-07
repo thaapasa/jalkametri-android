@@ -72,7 +72,7 @@ abstract class JalkametriTestCase protected constructor() : AndroidTestCase() {
      * @param second the second
      * @return the requested time instance
      */
-    fun getTime(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int): DateTime {
-        return LocalDateTime(year, month, day, hour, minute, second).toDateTime(timeUtil.timeZone)
-    }
+    fun getTime(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int): DateTime
+            = LocalDateTime(year, month, day, hour, minute, second).toDateTime(timeUtil.timeZone)
+
 }

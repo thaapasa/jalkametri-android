@@ -22,7 +22,7 @@ public class RunUpgradeCommand implements DBUpgrader {
     @Override
     public void updateDB(Context context, SQLiteDatabase db, int fromVersion, int toVersion) {
         for (String updateS : updateCmds) {
-            LogUtil.d(DBAdapter.TAG, "Running upgrade SQL: \"%s\"", updateS);
+            LogUtil.INSTANCE.d(DBAdapter.TAG, "Running upgrade SQL: \"%s\"", updateS);
             db.execSQL(updateS);
         }
     }

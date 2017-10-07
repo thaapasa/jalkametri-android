@@ -36,10 +36,10 @@ public class DBCreator implements DBUpgrader {
     @Override
     public void updateDB(Context context, SQLiteDatabase db, int fromVersion, int toVersion) {
         if (fromVersion != 0) {
-            LogUtil.d(DBAdapter.TAG, "Creating old version DB tables from scratch");
+            LogUtil.INSTANCE.d(DBAdapter.TAG, "Creating old version DB tables from scratch");
             runUpdates(OLD_TABLES, db);
         } else {
-            LogUtil.d(DBAdapter.TAG, "Creating new version DB tables from scratch");
+            LogUtil.INSTANCE.d(DBAdapter.TAG, "Creating new version DB tables from scratch");
             runUpdates(NEW_TABLES, db);
         }
 
@@ -48,7 +48,7 @@ public class DBCreator implements DBUpgrader {
 
     private void runUpdates(String[] updates, SQLiteDatabase db) {
         for (String createSQL : updates) {
-            LogUtil.d(DBAdapter.TAG, createSQL);
+            LogUtil.INSTANCE.d(DBAdapter.TAG, createSQL);
             db.execSQL(createSQL);
         }
     }
@@ -59,7 +59,7 @@ public class DBCreator implements DBUpgrader {
     }
 
     private void clearLibraryInitialization(Context context) {
-        LogUtil.d(DBAdapter.TAG, "Clearing drink library initialization");
+        LogUtil.INSTANCE.d(DBAdapter.TAG, "Clearing drink library initialization");
         Preferences prefs = new PreferencesImpl(context);
         Editor editor = prefs.edit();
         prefs.setDrinkLibraryInitialized(editor, false);

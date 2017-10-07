@@ -40,7 +40,7 @@ public class DataBackupHandler {
         @Override
         public void run() {
             // Initiate data backup
-            LogUtil.d(TAG, "Initiating data backup");
+            LogUtil.INSTANCE.d(TAG, "Initiating data backup");
             if (!backupService.isBackupServiceAvailable()) {
                 Toast.makeText(context,
                     context.getResources().getString(R.string.backup_service_not_available),
@@ -52,7 +52,7 @@ public class DataBackupHandler {
                 @Override
                 public Boolean runTask() {
                     String targetName = backupService.generateDataBackupName();
-                    LogUtil.i(TAG, "Backing up data to file %s", targetName);
+                    LogUtil.INSTANCE.i(TAG, "Backing up data to file %s", targetName);
                     return backupService.backupData(targetName);
                 }
             }, new Result<Boolean>() {
@@ -60,13 +60,13 @@ public class DataBackupHandler {
                 public void processResult(Boolean result) {
                     if (result != null && result.booleanValue()) {
                         // Success
-                        LogUtil.i(TAG, "Data backed up");
+                        LogUtil.INSTANCE.i(TAG, "Data backed up");
                         Toast
                             .makeText(context, R.string.backup_backup_success, Toast.LENGTH_LONG)
                             .show();
                     } else {
                         // Failure
-                        LogUtil.w(TAG, "Data backup failed");
+                        LogUtil.INSTANCE.w(TAG, "Data backup failed");
                         Toast.makeText(context, R.string.backup_backup_failed, Toast.LENGTH_LONG)
                             .show();
 
@@ -81,7 +81,7 @@ public class DataBackupHandler {
         // Initiate data restore
         DBAdapter adapter = new DBAdapter(context);
         final DataBackup backup = new FileDataBackup(adapter);
-        LogUtil.d(TAG, "Initiating data restore");
+        LogUtil.INSTANCE.d(TAG, "Initiating data restore");
         if (!backup.isBackupServiceAvailable()) {
             Toast.makeText(context,
                 context.getResources().getString(R.string.backup_service_not_available),
@@ -131,7 +131,7 @@ public class DataBackupHandler {
             TaskExecutor.execute(context, R.string.backup_restoring_data, new Task<Boolean>() {
                 @Override
                 public Boolean runTask() {
-                    LogUtil.i(TAG, "Restoring data backup from file %s", fromBackup);
+                    LogUtil.INSTANCE.i(TAG, "Restoring data backup from file %s", fromBackup);
                     return backupService.restoreBackup(fromBackup);
                 }
             }, new Result<Boolean>() {
@@ -139,12 +139,12 @@ public class DataBackupHandler {
                 public void processResult(Boolean value) {
                     if (value != null && value.booleanValue()) {
                         // Success
-                        LogUtil.i(TAG, "Data restored");
+                        LogUtil.INSTANCE.i(TAG, "Data restored");
                         Toast.makeText(context, R.string.backup_restore_success,
                             Toast.LENGTH_LONG).show();
                     } else {
                         // Failure
-                        LogUtil.w(TAG, "Data restore failed");
+                        LogUtil.INSTANCE.w(TAG, "Data restore failed");
                         Toast
                             .makeText(context, R.string.backup_restore_failed, Toast.LENGTH_LONG)
                             .show();
