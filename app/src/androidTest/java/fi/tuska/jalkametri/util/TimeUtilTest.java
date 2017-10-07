@@ -1,10 +1,12 @@
 package fi.tuska.jalkametri.util;
 
-import java.text.DateFormat;
+import fi.tuska.jalkametri.test.JalkametriTestCase;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.util.Calendar;
 import java.util.Date;
-
-import fi.tuska.jalkametri.test.JalkametriTestCase;
 
 /**
  * Unit tests for the time utility functions.
@@ -25,48 +27,52 @@ public class TimeUtilTest extends JalkametriTestCase {
         assertEquals(47, cal.get(Calendar.SECOND));
     }
 
-    public void testDateFormatFull() {
-        final Date date = timeUtil.getTime(2011, 5, 16, 10, 0, 0);
+    private DateTime date(int y, int m, int d, int h, int min, int s) {
+        return new LocalDateTime(y, m, d, h, min, s).toDateTime(timeUtil.getTimeZone());
+    }
 
-        DateFormat formatter = timeUtil.getDateFormatFull();
-        assertEquals("Mon 5/16/2011 10:00", formatter.format(date));
+    public void testDateFormatFull() {
+        final DateTime date = date(2011, 5, 16, 10, 0, 0);
+
+        DateTimeFormatter formatter = timeUtil.getDateFormatFull();
+        assertEquals("Mon 5/16/2011 10:00", formatter.print(date));
 
         switchLocale(LocalizationUtil.LOCALE_FI);
         timeUtil = new TimeUtil(getContext());
         formatter = timeUtil.getDateFormatFull();
-        assertEquals("ma 16.5.2011 10:00", formatter.format(date));
+        assertEquals("ma 16.5.2011 10:00", formatter.print(date));
     }
 
     public void testTimeFormat() {
-        final Date date = timeUtil.getTime(2011, 5, 16, 10, 0, 0);
+        final DateTime date = date(2011, 5, 16, 10, 0, 0);
 
-        DateFormat formatter = timeUtil.getTimeFormat();
-        assertEquals("10:00", formatter.format(date));
+        DateTimeFormatter formatter = timeUtil.getTimeFormat();
+        assertEquals("10:00", formatter.print(date));
 
         switchLocale(LocalizationUtil.LOCALE_FI);
         formatter = timeUtil.getTimeFormat();
-        assertEquals("10:00", formatter.format(date));
+        assertEquals("10:00", formatter.print(date));
     }
 
     public void testDateFormatWDay() {
-        final Date date = timeUtil.getTime(2011, 5, 16, 10, 0, 0);
+        final DateTime date = date(2011, 5, 16, 10, 0, 0);
 
-        DateFormat formatter = null;
+        DateTimeFormatter formatter = null;
 
         switchLocale(LocalizationUtil.LOCALE_EN);
         timeUtil = new TimeUtil(getContext());
         formatter = timeUtil.getDateFormatWDay();
-        assertEquals("Mon 5/16", formatter.format(date));
+        assertEquals("Mon 5/16", formatter.print(date));
 
         switchLocale(LocalizationUtil.LOCALE_FI);
         timeUtil = new TimeUtil(getContext());
         formatter = timeUtil.getDateFormatWDay();
-        assertEquals("ma 16.5.", formatter.format(date));
+        assertEquals("ma 16.5.", formatter.print(date));
 
         switchLocale(LocalizationUtil.LOCALE_EN);
         timeUtil = new TimeUtil(getContext());
         formatter = timeUtil.getDateFormatWDay();
-        assertEquals("Mon 5/16", formatter.format(date));
+        assertEquals("Mon 5/16", formatter.print(date));
     }
 
     public void testTimeBefore() {

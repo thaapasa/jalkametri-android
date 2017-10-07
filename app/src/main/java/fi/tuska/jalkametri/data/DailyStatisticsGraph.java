@@ -13,11 +13,9 @@ import fi.tuska.jalkametri.gui.GraphView.Point;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormatter;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public abstract class DailyStatisticsGraph implements Graph {
@@ -56,6 +54,11 @@ public abstract class DailyStatisticsGraph implements Graph {
             slider.addColor(6, res.getColor(R.color.bar_critical));
         }
         return slider;
+    }
+
+    protected static double dateToPosition(LocalDate date) {
+        // Used timezone and time values do not matter as long as each date is processed similarly
+        return date.toDate().getTime();
     }
 
     @Override
@@ -99,12 +102,10 @@ public abstract class DailyStatisticsGraph implements Graph {
 
     @Override
     public List<Label> getValueLabels(Double maxValue) {
-        List<Label> l = new ArrayList<Label>((int) maxValue.doubleValue() / 2 + 1);
+        List<Label> l = new ArrayList<>((int) maxValue.doubleValue() / 2 + 1);
         for (int i = 0; i <= maxValue; i += 2) {
             final int pos = i;
             l.add(new Label() {
-                private static final long serialVersionUID = 169443846404063640L;
-
                 @Override
                 public double getPosition() {
                     return pos;
@@ -136,7 +137,7 @@ public abstract class DailyStatisticsGraph implements Graph {
     private static class YearlyGraph extends DailyStatisticsGraph {
 
         private final int year;
-        private final DateFormat formatter = new SimpleDateFormat("M");
+        private final DateTimeFormatter formatter = timeUtil.timeFormatter("M");
 
         private YearlyGraph(List<DailyDrinkStatistics> points, Preferences prefs, Context context) {
             super(points, prefs, context);
@@ -158,26 +159,25 @@ public abstract class DailyStatisticsGraph implements Graph {
 
         @Override
         public Double getPreferredMinPosition() {
-            Date date = timeUtil.getCalendar(year, 1, 1, 0, 0, 0).getTime();
+            LocalDate date = new LocalDate(year, 1, 1);
             LogUtil.d(TAG, "Preferred yearly min: %s", date);
-            return (double) date.getTime();
+            return dateToPosition(date);
         }
 
         @Override
         public Double getPreferredMaxPosition() {
-            Date date = timeUtil.getCalendar(year, 12, 31, 23, 59, 59).getTime();
+            LocalDate date = new LocalDate(year, 12, 31).plusDays(1);
             LogUtil.d(TAG, "Preferred yearly max: %s", date);
-            return (double) date.getTime();
+            return dateToPosition(date) - 1;
         }
 
     }
 
     private static class MonthlyGraph extends DailyStatisticsGraph {
 
-        private static final long serialVersionUID = 1686662376323346037L;
         private int year = 2000;
         private int month = 1;
-        private DateFormat formatter = new SimpleDateFormat("d");
+        private final DateTimeFormatter formatter = timeUtil.timeFormatter("d");
 
         private MonthlyGraph(List<DailyDrinkStatistics> points, Preferences prefs, Context context) {
             super(points, prefs, context);
@@ -202,25 +202,23 @@ public abstract class DailyStatisticsGraph implements Graph {
 
         @Override
         public Double getPreferredMinPosition() {
-            Date date = timeUtil.getCalendar(year, month, 1, 0, 0, 0).getTime();
+            LocalDate date = new LocalDate(year, month, 1);
             LogUtil.d(TAG, "Preferred monthly min: %s", date);
-            return (double) date.getTime();
+            return dateToPosition(date);
         }
 
         @Override
         public Double getPreferredMaxPosition() {
-            Date date = timeUtil.getCalendar(year, month, timeUtil.getDaysInMonth(month, year),
-                    23, 59, 59).getTime();
+            LocalDate date = new LocalDate(year, month, timeUtil.getDaysInMonth(month, year)).plusDays(1);
             LogUtil.d(TAG, "Preferred monthly max: %s", date);
-            return (double) date.getTime();
+            return dateToPosition(date) - 1;
         }
     }
 
     private static class WeeklyGraph extends DailyStatisticsGraph {
 
-        private static final long serialVersionUID = 3466629440872766941L;
         private Preferences prefs;
-        private final DateFormat formatter = new SimpleDateFormat("EE");
+        private final DateTimeFormatter formatter = timeUtil.timeFormatter("EE");
 
         private WeeklyGraph(List<DailyDrinkStatistics> points, Preferences prefs, Context context) {
             super(points, prefs, context);
@@ -233,7 +231,7 @@ public abstract class DailyStatisticsGraph implements Graph {
 
         @Override
         public List<Label> getPositionLabels() {
-            List<Label> l = new ArrayList<Label>(7);
+            List<Label> l = new ArrayList<>(7);
             LocalDate cur = getStartOfWeek();
             for (int d = 1; d <= 7; ++d) {
                 l.add(new DateLabel(cur, formatter));
@@ -246,7 +244,7 @@ public abstract class DailyStatisticsGraph implements Graph {
         public Double getPreferredMinPosition() {
             LocalDate date = getStartOfWeek();
             LogUtil.d(TAG, "Preferred weekly min: %s", date);
-            return (double) date.toDate().getTime();
+            return dateToPosition(date);
         }
 
         @Override
@@ -255,29 +253,28 @@ public abstract class DailyStatisticsGraph implements Graph {
             LocalDate max = cal.plusDays(7);
             LogUtil.d(TAG, "Preferred weekly max: %s", max);
             // Subtract one so that this week max < second week min
-            return (double) max.toDate().getTime() - 1;
+            return dateToPosition(max) - 1;
         }
     }
 
     private static class DateLabel implements Label {
 
         private LocalDate date;
-        private DateFormat formatter;
+        private DateTimeFormatter formatter;
 
-        private DateLabel(LocalDate date, DateFormat formatter) {
+        private DateLabel(LocalDate date, DateTimeFormatter formatter) {
             this.date = date;
             this.formatter = formatter;
         }
 
         @Override
         public double getPosition() {
-            // Used timezone and time values do not matter as long as each date is processed similarly
-            return date.toDate().getTime();
+            return dateToPosition(date);
         }
 
         @Override
         public String getLabel() {
-            return formatter.format(date);
+            return formatter.print(date);
         }
     }
 }

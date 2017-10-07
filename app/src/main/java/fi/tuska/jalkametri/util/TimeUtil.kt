@@ -29,6 +29,8 @@ class TimeUtil(val res: Resources, val locale: Locale) {
     constructor(res: Resources) : this(res, res.configuration.locale)
     constructor(ctx: Context) : this(ctx.resources)
 
+    fun timeFormatter(pattern: String): DateTimeFormatter = DateTimeFormat.forPattern(pattern).withLocale(locale).withZone(timeZone)
+
     /**
      * Returns the time instant specified by the given (user-friendly) day
      * specification (i.e., month is 1-based, 1=January; and hour is 0-23).
@@ -232,16 +234,16 @@ class TimeUtil(val res: Resources, val locale: Locale) {
     }
 
     val sqlDateFormat: DateTimeFormatter
-        get() = DateTimeFormat.forPattern("yyyy-MM-dd").withLocale(locale).withZone(timeZone)
+        get() = timeFormatter("yyyy-MM-dd")
 
     val dateFormatWDay: DateTimeFormatter
-        get() = DateTimeFormat.forPattern(res.getString(R.string.day_showday_format)).withLocale(locale).withZone(timeZone)
+        get() = timeFormatter(res.getString(R.string.day_showday_format))
 
     val timeFormat: DateTimeFormatter
-        get() = DateTimeFormat.forPattern(res.getString(R.string.time_format)).withLocale(locale).withZone(timeZone)
+        get() = timeFormatter(res.getString(R.string.time_format))
 
     val dateFormatFull: DateTimeFormatter
-        get() = DateTimeFormat.forPattern(res.getString(R.string.day_full_format)).withLocale(locale).withZone(timeZone)
+        get() = timeFormatter(res.getString(R.string.day_full_format))
 
     /**
      * @return the number formatter used for reading the numbers in
