@@ -17,12 +17,12 @@ import fi.tuska.jalkametri.util.TimeUtil
 
 class CurrentStatusFragment : Fragment() {
 
-    private var timeUtil: TimeUtil? = null
-    private var sobrietyText: TextView? = null
-    private var portionsText: TextView? = null
-    private var drinkDateText: TextView? = null
-    private var alcoholLevel: AlcoholLevelView? = null
-    private var carStatusView: ImageView? = null
+    private lateinit var timeUtil: TimeUtil
+    private lateinit var sobrietyText: TextView
+    private lateinit var portionsText: TextView
+    private lateinit var drinkDateText: TextView
+    private lateinit var alcoholLevel: AlcoholLevelView
+    private lateinit var carStatusView: ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -37,7 +37,7 @@ class CurrentStatusFragment : Fragment() {
     }
 
     fun setDrivingState(state: DrinkStatus.DrivingState) {
-        fun set(@DrawableRes img: Int, @ColorInt tint: Int) = carStatusView?.apply {
+        fun set(@DrawableRes img: Int, @ColorInt tint: Int) = carStatusView.apply {
             setImageResource(img)
             drawable.setTint(resources.getColor(tint))
         }
@@ -49,15 +49,15 @@ class CurrentStatusFragment : Fragment() {
     }
 
     fun setAlcoholLevel(level: Double, drivingState: DrinkStatus.DrivingState) {
-        alcoholLevel?.setLevel(level, drivingState)
+        alcoholLevel.setLevel(level, drivingState)
         setDrivingState(drivingState)
     }
 
     val level: Double
-        get() = alcoholLevel?.level ?: 0.0
+        get() = alcoholLevel.level
 
     val drivingState: DrinkStatus.DrivingState
-        get() = alcoholLevel?.drivingState ?: DrinkStatus.DrivingState.DrivingOK
+        get() = alcoholLevel.drivingState ?: DrinkStatus.DrivingState.DrivingOK
 
     fun updateSobriety(status: DrinkStatus) {
         val res = activity.resources
@@ -67,20 +67,31 @@ class CurrentStatusFragment : Fragment() {
         } else {
             val hours = status.hoursToSober
             val minutes = (hours - hours.toInt()) * 60
-            val sobriety = timeUtil!!.getTimeAfterHours(hours)
+            val sobriety = timeUtil.getTimeAfterHours(hours)
             if (hours > 1) {
                 showSobrietyText(String.format("%d%s %d%s (%s)", hours.toInt(), res.getString(R.string.hour),
-                        minutes.toInt(), res.getString(R.string.minute), timeUtil!!.timeFormat.print(sobriety)))
+                        minutes.toInt(), res.getString(R.string.minute), timeUtil.timeFormat.print(sobriety)))
             } else {
                 showSobrietyText(String.format("%d %s (%s)", minutes.toInt(), res.getString(R.string.minute),
-                        timeUtil!!.timeFormat.print(sobriety)))
+                        timeUtil.timeFormat.print(sobriety)))
             }
         }
     }
 
-    fun showSobrietyText(text: String) = sobrietyText?.let { it.text = text }
-    fun showPortions(text: String) = portionsText?.let { it.text = text }
-    fun showDrinkDate(text: String) = drinkDateText?.let { it.text = text }
-    fun startAnimation(a: Animation) = alcoholLevel?.startAnimation(a)
+    fun showSobrietyText(text: String) {
+        sobrietyText.text = text
+    }
+
+    fun showPortions(text: String) {
+        portionsText.text = text
+    }
+
+    fun showDrinkDate(text: String) {
+        drinkDateText.text = text
+    }
+
+    fun startAnimation(a: Animation) {
+        alcoholLevel.startAnimation(a)
+    }
 
 }
