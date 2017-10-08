@@ -7,6 +7,23 @@ package fi.tuska.jalkametri;
  */
 public interface Common {
 
+    /**
+     * Enables developer functionality.
+     */
+    boolean DEVELOPER_FUNCTIONALITY_ENABLED = true;
+
+    /**
+     * Android Market publishing guide at
+     * http://developer.android.com/guide/publishing/preparing.html says that
+     * logging should be "deactivated" for applications that are published to
+     * the App Market.
+     *
+     * jAlkaMetri checks whether to do logging by checking this variable.
+     */
+    boolean LOGGING_ENABLED = true;
+
+    boolean ASSERTIONS_ENABLED = true;
+
     /*
      * Activity codes
      * ----------------------------------------------------------

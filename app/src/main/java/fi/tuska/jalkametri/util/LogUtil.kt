@@ -1,7 +1,7 @@
 package fi.tuska.jalkametri.util
 
 import android.util.Log
-import fi.tuska.jalkametri.PrivateData
+import fi.tuska.jalkametri.Common.LOGGING_ENABLED
 
 interface Logger {
     fun d(tag: String, message: String): Int
@@ -17,7 +17,7 @@ object AndroidLogger : Logger {
     override fun e(tag: String, message: String) = Log.e(tag, message)
 }
 
-object NoopLogger: Logger {
+object NoopLogger : Logger {
     override fun d(tag: String, message: String) = 0
     override fun i(tag: String, message: String) = 0
     override fun w(tag: String, message: String) = 0
@@ -28,8 +28,7 @@ object LogUtil {
 
     var logger: Logger = AndroidLogger
 
-    val isLoggingEnabled: Boolean
-        get() = PrivateData.LOGGING_ENABLED
+    val isLoggingEnabled: Boolean = LOGGING_ENABLED
 
     private fun getLogTag(tag: String, message: String): String = "jAlcoMeter"
 
@@ -37,19 +36,19 @@ object LogUtil {
 
     fun d(tag: String, message: String, vararg params: Any) {
         val msg = String.format(message, *params)
-        if (PrivateData.LOGGING_ENABLED)
+        if (isLoggingEnabled)
             logger.d(getLogTag(tag, msg), getMessage(tag, msg))
     }
 
     fun i(tag: String, message: String, vararg params: Any) {
         val msg = String.format(message, *params)
-        if (PrivateData.LOGGING_ENABLED)
+        if (isLoggingEnabled)
             logger.i(getLogTag(tag, msg), getMessage(tag, msg))
     }
 
     fun w(tag: String, message: String, vararg params: Any) {
         val msg = String.format(message, *params)
-        if (PrivateData.LOGGING_ENABLED)
+        if (isLoggingEnabled)
             logger.w(getLogTag(tag, msg), getMessage(tag, msg))
     }
 

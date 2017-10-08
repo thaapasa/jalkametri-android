@@ -18,6 +18,7 @@ import android.widget.TextView
 import fi.tuska.jalkametri.Common.ACTIVITY_CODE_ADD_FAVOURITE
 import fi.tuska.jalkametri.Common.ACTIVITY_CODE_MODIFY_FAVOURITE
 import fi.tuska.jalkametri.Common.ACTIVITY_CODE_SELECT_DRINK
+import fi.tuska.jalkametri.Common.DEVELOPER_FUNCTIONALITY_ENABLED
 import fi.tuska.jalkametri.Common.KEY_ORIGINAL
 import fi.tuska.jalkametri.Common.KEY_RESULT
 import fi.tuska.jalkametri.activity.GUIActivity
@@ -97,7 +98,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
     }
 
     override fun onSearchRequested(): Boolean {
-        if (PrivateData.DEVELOPER_FUNCTIONALITY_ENABLED) {
+        if (DEVELOPER_FUNCTIONALITY_ENABLED) {
             LogUtil.i(TAG, "Showing development menu")
             viewModel?.let { openContextMenu(it.developmentView) }
             return true
@@ -119,7 +120,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
             R.id.development_view ->
                 // Show the development menu
-                if (PrivateData.DEVELOPER_FUNCTIONALITY_ENABLED) {
+                if (DEVELOPER_FUNCTIONALITY_ENABLED) {
                     LogUtil.d(TAG, "Showing development menu")
                     val inflater = menuInflater
                     inflater.inflate(R.menu.menu_developer, menu)

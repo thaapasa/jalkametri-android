@@ -10,9 +10,9 @@ import android.view.View
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import fi.tuska.jalkametri.Common.DEVELOPER_FUNCTIONALITY_ENABLED
 import fi.tuska.jalkametri.CommonActivities
 import fi.tuska.jalkametri.JalkametriApplication
-import fi.tuska.jalkametri.PrivateData.DEVELOPER_FUNCTIONALITY_ENABLED
 import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.Preferences
 import fi.tuska.jalkametri.util.TimeUtil

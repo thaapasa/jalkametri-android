@@ -1,12 +1,12 @@
 package fi.tuska.jalkametri.util
 
-import fi.tuska.jalkametri.PrivateData
+import fi.tuska.jalkametri.Common.ASSERTIONS_ENABLED
 
 object AssertionUtils {
 
     val TAG = "AssertionUtils"
 
-    val isAssertionsEnabled: Boolean = PrivateData.ASSERTIONS_ENABLED
+    val isAssertionsEnabled: Boolean = ASSERTIONS_ENABLED
 
     fun <T> expectEquals(v1: T, v2: T) {
         if (v1 != v2) {
