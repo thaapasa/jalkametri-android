@@ -20,18 +20,13 @@ class DrinkDetailsDialog : DialogFragment() {
 
     private lateinit var model: ViewModel
 
-    /*
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-    */
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         val (selection, showTime) = readArgs(arguments)
 
         val v = inflater.inflate(R.layout.activity_show_event, container, false)
         model = ViewModel(selection, showTime, resources, v)
+        dialog.setTitle(selection.getIconText(resources))
 
         val okButton = v.findViewById(R.id.ok) as Button
         okButton.setOnClickListener { dismiss() }
@@ -98,10 +93,7 @@ class DrinkDetailsDialog : DialogFragment() {
         }
 
         private fun setDialogText(resID: Int, text: String) {
-            val t = view.findViewById(resID) as TextView?
-            if (t != null) {
-                t.text = text
-            }
+            (view.findViewById(resID) as TextView?)?.text = text
         }
     }
 
