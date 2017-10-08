@@ -1,7 +1,6 @@
 package fi.tuska.jalkametri.dao;
 
 import android.content.SharedPreferences.Editor;
-import fi.tuska.jalkametri.data.PurchaseReminderHandler;
 import org.joda.time.LocalTime;
 
 import java.util.Locale;
@@ -41,7 +40,6 @@ public interface Preferences {
     boolean DEFAULT_DISCLAIMER_READ = false;
     boolean DEFAULT_LICENSE_PURCHASED = false;
     boolean DEFAULT_ADS_ENABLED = true;
-    int DEFAULT_SHOW_REMINDER_AFTER = PurchaseReminderHandler.DEFAULT_SHOW_AFTER;
     String DEFAULT_STANDARD_DRINK_COUNTRY = "fi";
 
     /**
@@ -109,10 +107,6 @@ public interface Preferences {
     Locale getLocale();
 
     void setLocale(Editor editor, Locale locale);
-
-    int getShowReminderAfter();
-
-    void setShowReminderAfter(Editor editor, int steps);
 
     String getStandardDrinkCountry();
 

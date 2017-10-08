@@ -35,28 +35,12 @@ abstract class JalkametriActivity(private val titleResourceId: Int, private val 
     val timeUtil: TimeUtil
         get() = jalkametriApplication.timeUtil
 
-    private var firstRun: Boolean = false
-
-    /**
-     * Returns true on the first run, false afterwards. The value is reset at
-     * onCreate(), so if this is called from onStart(), it will return true at
-     * the first onStart() invocation, and false after that.
-     */
-    val isFirstRunAfterCreate: Boolean
-        get() {
-            val res = firstRun
-            firstRun = false
-            return res
-        }
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val res = resources
         // Update title to enforce correct language
         title = res.getString(titleResourceId)
-
-        this.firstRun = true
     }
 
     override fun setContentView(view: View) {

@@ -203,16 +203,6 @@ public class PreferencesImpl implements Preferences {
     }
 
     @Override
-    public int getShowReminderAfter() {
-        return prefs.getInt(PREF_SHOW_REMINDER_AFTER, DEFAULT_SHOW_REMINDER_AFTER);
-    }
-
-    @Override
-    public void setShowReminderAfter(Editor editor, int steps) {
-        editor.putInt(PREF_SHOW_REMINDER_AFTER, steps);
-    }
-
-    @Override
     public double getStandardDrinkAlcoholWeight() {
         String country = getStandardDrinkCountry();
         Double val = STD_DRINK_WEIGHTS.get(country);

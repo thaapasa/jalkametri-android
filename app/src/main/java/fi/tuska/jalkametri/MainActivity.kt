@@ -33,7 +33,6 @@ import fi.tuska.jalkametri.dao.HistoryHelper
 import fi.tuska.jalkametri.data.DrinkEvent
 import fi.tuska.jalkametri.data.DrinkSelection
 import fi.tuska.jalkametri.data.DrinkStatusCalc
-import fi.tuska.jalkametri.data.PurchaseReminderHandler
 import fi.tuska.jalkametri.db.FavouritesDB
 import fi.tuska.jalkametri.db.HistoryDB
 import fi.tuska.jalkametri.gui.DrinkDetailsDialog
@@ -91,10 +90,6 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
         // Force widget update, in case widget updating thread is dead
         JalkametriWidget.triggerRecalculate(this, adapter)
-
-        if (isFirstRunAfterCreate) {
-            PurchaseReminderHandler.showReminderIfNecessary(this)
-        }
     }
 
     override fun updateUI() {
