@@ -72,8 +72,7 @@ public class DrinkSize extends DBDataObject implements NamedIcon, Serializable {
         this.volume = size;
     }
 
-    public String getFormattedSize(Context context) {
-        Resources res = context.getResources();
+    public String getFormattedSize(Resources res) {
         if (volume < 0.1) {
             return String.format("%d %s", (int) (volume * 100),
                 res.getString(R.string.unit_centiliter));

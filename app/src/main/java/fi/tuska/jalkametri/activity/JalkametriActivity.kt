@@ -1,6 +1,7 @@
 package fi.tuska.jalkametri.activity
 
 import android.app.Activity
+import android.app.DialogFragment
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
@@ -89,6 +90,8 @@ abstract class JalkametriActivity(private val titleResourceId: Int, private val 
         service.hideSoftInputFromInputMethod(view.windowToken, 0)
     }
 
+    protected fun showCustomDialog(dialog: DialogFragment) = showCustomDialog(this, dialog)
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val s = super.onCreateOptionsMenu(menu)
         if (showDefaultHelpMenu && helpTextId != NO_HELP_TEXT) {
@@ -153,6 +156,21 @@ abstract class JalkametriActivity(private val titleResourceId: Int, private val 
 
     companion object {
         val NO_HELP_TEXT = 0
+
+        fun showCustomDialog(activity: Activity, dialog: DialogFragment) {
+            // DialogFragment.show() will take care of adding the fragment
+            // in a transaction.  We also want to remove any currently showing
+            // dialog, so make our own transaction and take care of that here.
+            val fm = activity.fragmentManager
+            val ft = fm.beginTransaction()
+            val prev = fm.findFragmentByTag("dialog")
+            if (prev != null) {
+                ft.remove(prev)
+            }
+            ft.addToBackStack(null)
+            dialog.show(ft, "dialog")
+        }
+
     }
 
 }

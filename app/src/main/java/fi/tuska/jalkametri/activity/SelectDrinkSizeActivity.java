@@ -1,6 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -51,7 +50,6 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
     private GridView list;
     private NamedIconAdapter<DrinkSize> listAdapter;
     private Drink selectedDrink;
-    private DrinkSelection eventSelectedForDetails;
 
     public SelectDrinkSizeActivity() {
         super(R.string.title_select_drink_size, Companion.getNO_HELP_TEXT());
@@ -138,34 +136,7 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
     }
 
     protected void showEventDetails(DrinkEvent event) {
-        this.eventSelectedForDetails = event;
-        showDialog(Common.DIALOG_SHOW_DRINK_DETAILS);
-    }
-
-    /*
-     * Dialog handling
-     * -------------------------------------------------------------
-     */
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        switch (id) {
-            case Common.DIALOG_SHOW_DRINK_DETAILS:
-                dialog = new DrinkDetailsDialog(this);
-                return dialog;
-        }
-        return super.onCreateDialog(id);
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog) {
-        switch (id) {
-            case Common.DIALOG_SHOW_DRINK_DETAILS: {
-                DrinkDetailsDialog d = (DrinkDetailsDialog) dialog;
-                d.showDrinkSelection(eventSelectedForDetails, false);
-            }
-        }
-        super.onPrepareDialog(id, dialog);
+        showCustomDialog(DrinkDetailsDialog.Companion.createDialog(event, false));
     }
 
     /*

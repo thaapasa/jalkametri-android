@@ -1,7 +1,6 @@
 package fi.tuska.jalkametri
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.ContextMenu
@@ -102,18 +101,6 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         viewModel?.updateUI()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        viewModel?.let { outState.putSerializable(KEY_SHOWN_FAVOURITE, it.shownFavourite) }
-    }
-
-    override fun onRestoreInstanceState(savedState: Bundle?) {
-        super.onRestoreInstanceState(savedState)
-        viewModel?.apply {
-            shownFavourite = savedState?.get(KEY_SHOWN_FAVOURITE) as DrinkEvent?
-        }
-    }
-
     override fun onSearchRequested(): Boolean {
         if (PrivateData.DEVELOPER_FUNCTIONALITY_ENABLED) {
             LogUtil.i(TAG, "Showing development menu")
@@ -160,15 +147,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
                 return true
             }
 
-            R.id.action_show_info -> {
-                // Show the drink information
-                viewModel?.favouritesAdapter?.getItem(info.position)?.let { fav ->
-                    LogUtil.d(TAG, "Showing %s", fav)
-                    viewModel?.shownFavourite = fav
-                    showDialog(DIALOG_DRINK_DETAILS)
-                }
-                return true
-            }
+            R.id.action_show_info -> viewModel?.showInfoForSelected(info.position)
 
             R.id.action_delete -> {
                 // Delete the selected favorite
@@ -192,21 +171,6 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
             }
         }
         return super.onContextItemSelected(item)
-    }
-
-    override fun onCreateDialog(id: Int): Dialog {
-        return if (id == DIALOG_DRINK_DETAILS) DrinkDetailsDialog(this)
-        else super.onCreateDialog(id)
-    }
-
-    override fun onPrepareDialog(id: Int, dialog: Dialog) {
-        when (id) {
-            DIALOG_DRINK_DETAILS -> {
-                val d = dialog as DrinkDetailsDialog
-                viewModel?.let { d.showDrinkSelection(it.shownFavourite, false) }
-            }
-        }
-        super.onPrepareDialog(id, dialog)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -320,8 +284,6 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         val developmentView: View = activity.findViewById(R.id.development_view)
         var favouritesAdapter: NamedIconAdapter<DrinkEvent>? = null
 
-        var shownFavourite: DrinkEvent? = null
-
         init {
             currentStatus.setAlcoholLevel(0.6, DrivingMaybe)
             activity.registerForContextMenu(developmentView)
@@ -366,6 +328,13 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         private fun updateDrinkDateText() {
             val today = timeUtil.getCurrentDrinkingDate(activity.prefs)
             currentStatus.showDrinkDate(StringUtil.uppercaseFirstLetter(timeUtil.dateFormatWDay.print(today)))
+        }
+
+        fun showInfoForSelected(position: Int) {
+            favouritesAdapter?.getItem(position)?.let {
+                LogUtil.d(TAG, "Showing %s", it)
+                activity.showCustomDialog(DrinkDetailsDialog.createDialog(it, false))
+            }
         }
 
         fun showDrivingStatus(v: View) {
@@ -455,12 +424,8 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
     }
 
     companion object {
-
         private val TAG = "MainActivity"
-
-        private val KEY_SHOWN_FAVOURITE = "shown_favourite"
         private val PORTIONS_FORMAT = "%.1f / %.1f / %.1f"
-        private val DIALOG_DRINK_DETAILS = 1
     }
 
 }

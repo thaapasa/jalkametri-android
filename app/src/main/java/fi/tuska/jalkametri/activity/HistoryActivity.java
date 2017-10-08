@@ -57,7 +57,6 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     private static final String TAG = "HistoryActivity";
 
     private static final String KEY_SHOW_DAY = "day";
-    private static final String KEY_SELECTED_EVENT = "selectedEvent";
 
     private static final String PORTIONS_FORMAT = "%.1f / %.1f";
 
@@ -71,7 +70,6 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     private NamedIconAdapter<DrinkEvent> listAdapter;
     private History history;
     private Preferences prefs;
-    private DrinkSelection selectedEvent;
     private String weekPrefix;
     private DateTimeFormatter timeFormat;
     private TimeUtil timeUtil;
@@ -154,7 +152,6 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(KEY_SHOW_DAY, day);
-        outState.putSerializable(KEY_SELECTED_EVENT, selectedEvent);
     }
 
     @Override
@@ -163,7 +160,6 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         LocalDate date = (LocalDate) state.get(KEY_SHOW_DAY);
         if (date != null)
             loadDay(date);
-        selectedEvent = (DrinkEvent) state.get(KEY_SELECTED_EVENT);
     }
 
     @Override
@@ -213,8 +209,8 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
      * ----------------------------------------------------------
      */
     protected void showEventDetails(DrinkEvent event) {
-        this.selectedEvent = event;
-        showDialog(Common.DIALOG_SHOW_DRINK_DETAILS);
+        JalkametriActivity.Companion.showCustomDialog(this,
+                DrinkDetailsDialog.Companion.createDialog(event, true));
     }
 
     private void loadDay(LocalDate date) {
@@ -270,9 +266,6 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     protected Dialog onCreateDialog(int id) {
         Dialog dialog = null;
         switch (id) {
-            case Common.DIALOG_SHOW_DRINK_DETAILS:
-                dialog = new DrinkDetailsDialog(this);
-                return dialog;
             case Common.DIALOG_SELECT_DATE:
                 dialog = new DatePickerDialog(this, dateSetListener, day.getYear(),
                         day.getMonthOfYear(), day.getDayOfMonth());
@@ -284,11 +277,6 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     @Override
     protected void onPrepareDialog(int id, Dialog dialog) {
         switch (id) {
-            case Common.DIALOG_SHOW_DRINK_DETAILS: {
-                DrinkDetailsDialog d = (DrinkDetailsDialog) dialog;
-                d.showDrinkSelection(selectedEvent, true);
-            }
-            break;
             case Common.DIALOG_SELECT_DATE: {
                 DatePickerDialog d = (DatePickerDialog) dialog;
                 d.updateDate(day.getYear(), day.getMonthOfYear(), day.getDayOfMonth());
