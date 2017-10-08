@@ -10,6 +10,7 @@ import android.database.Cursor;
 import fi.tuska.jalkametri.dao.DrinkSizes;
 import fi.tuska.jalkametri.data.Drink;
 import fi.tuska.jalkametri.data.DrinkSize;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.TimeUtil;
 
 public class DrinkSizeConnectionDB extends AbstractDB {
@@ -45,7 +46,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
             } else {
                 size = sizeDB.createSize(size.getName(), size.getVolume(), size.getIcon());
             }
-            assert size != null;
+            AssertionUtils.INSTANCE.expect(size != null);
         }
         DBDataObject.enforceBackedObject(size);
 
@@ -78,7 +79,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
 
         int deleted = adapter.getDatabase().delete(TABLE_NAME, REMOVE_QUERY_WHERE,
             new String[] { String.valueOf(drink.getIndex()), String.valueOf(size.getIndex()) });
-        assert deleted <= 1;
+        AssertionUtils.INSTANCE.expect(deleted <= 1);
 
         if (deleted > 0) {
             // Check if there are any connections left for the drink size
@@ -87,7 +88,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
                 // This drink size is not used anymore
                 DrinkSizes sizeDB = new DrinkSizeDB(adapter);
                 boolean res = sizeDB.deleteSize(size.getIndex());
-                assert res;
+                AssertionUtils.INSTANCE.expect(res);
             }
         }
 
@@ -132,7 +133,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
             do {
                 long sizeID = cursor.getLong(0);
                 DrinkSize size = sizeDB.getSize(sizeID);
-                assert size != null;
+                AssertionUtils.INSTANCE.expect(size != null);
                 sizes.add(size);
             } while (cursor.moveToNext());
         }
@@ -151,7 +152,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
         Cursor cursor = adapter.getDatabase().query(TABLE_NAME, new String[] { "COUNT(*)" },
             FIND_DRINK_SIZE_CONNECTION_SELECTION, getIndexValues(drink, size), null, null, null);
         int count = getSingleInt(cursor, 0);
-        assert count <= 1;
+        AssertionUtils.INSTANCE.expect(count <= 1);
         return count > 0;
     }
 

@@ -12,8 +12,8 @@ public final class MathUtil {
      * Returns the value of the integer in between a and b, where pos is the
      * position from 0 to 1.
      *
-     * @param a value at 0
-     * @param b value at 1
+     * @param a   value at 0
+     * @param b   value at 1
      * @param pos position, from 0 to 1
      * @return the value at the given position
      */
@@ -35,10 +35,10 @@ public final class MathUtil {
      * @return
      */
     public static double getPosition(double value, double min, double max) {
-        assert min < max;
+        AssertionUtils.INSTANCE.expect(min < max);
 
         double rangeSize = max - min;
-        assert rangeSize > 0;
+        AssertionUtils.INSTANCE.expect(rangeSize > 0);
 
         double place = (value - min) / rangeSize;
 

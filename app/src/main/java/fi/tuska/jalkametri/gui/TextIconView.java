@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import fi.tuska.jalkametri.R;
+import fi.tuska.jalkametri.util.AssertionUtils;
 
 public class TextIconView extends LinearLayout {
 
@@ -25,14 +26,14 @@ public class TextIconView extends LinearLayout {
 
     private void initView(boolean vertical) {
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(
-            Context.LAYOUT_INFLATER_SERVICE);
+                Context.LAYOUT_INFLATER_SERVICE);
         li.inflate(vertical ? R.layout.text_icon_vertical : R.layout.text_icon_horizontal, this,
-            true);
+                true);
 
         textView = (TextView) findViewById(R.id.text);
         iconView = (ImageView) findViewById(R.id.icon);
-        assert textView != null;
-        assert iconView != null;
+        AssertionUtils.INSTANCE.expect(textView != null);
+        AssertionUtils.INSTANCE.expect(iconView != null);
     }
 
     public void setText(String text) {

@@ -35,6 +35,7 @@ import fi.tuska.jalkametri.db.HistoryDB;
 import fi.tuska.jalkametri.gui.Confirmation;
 import fi.tuska.jalkametri.gui.DrinkDetailsDialog;
 import fi.tuska.jalkametri.gui.NamedIconAdapter;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.Converter;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.StringUtil;
@@ -130,12 +131,12 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         this.prefs = new PreferencesImpl(this);
 
         this.portionsText = (TextView) findViewById(R.id.portions);
-        assert portionsText != null;
+        AssertionUtils.INSTANCE.expect(portionsText != null);
         setPortions(0, 0);
         this.dateText = (TextView) findViewById(R.id.browser_title);
-        assert dateText != null;
+        AssertionUtils.INSTANCE.expect(dateText != null);
         this.weekText = (TextView) findViewById(R.id.browser_subtitle);
-        assert weekText != null;
+        AssertionUtils.INSTANCE.expect(weekText != null);
 
         weekPrefix = res.getString(R.string.history_week_prefix) + " ";
 

@@ -70,7 +70,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
     override fun onCreate(savedInstanceState: Bundle?) {
         LogUtil.i(TAG, "Creating jAlkaMetri application")
-        LogUtil.d(TAG, "Assertions are %s", if (AssertionUtils.isAssertionsEnabled()) "on" else "off")
+        LogUtil.d(TAG, "Assertions are %s", if (AssertionUtils.isAssertionsEnabled) "on" else "off")
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

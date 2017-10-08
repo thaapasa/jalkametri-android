@@ -24,6 +24,7 @@ import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.data.PreferencesImpl;
 import fi.tuska.jalkametri.db.DBDataObject;
 import fi.tuska.jalkametri.media.ToastLibrary;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.LogUtil;
 
 import static fi.tuska.jalkametri.Common.KEY_ORIGINAL;
@@ -63,7 +64,7 @@ public final class DrinkActivities {
      * Start an activity for selecting the drink size for the given drink.
      */
     public static int startSelectDrinkSize(Activity parent, Drink drink) {
-        assert drink.isBacked();
+        AssertionUtils.INSTANCE.expect(drink.isBacked());
         DBDataObject.enforceBackedObject(drink);
 
         Intent i = new Intent(parent, SelectDrinkSizeActivity.class);

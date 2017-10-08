@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.dao.DrinkStatus;
 import fi.tuska.jalkametri.dao.DrinkStatus.DrivingState;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.MathUtil;
 
 /**
@@ -75,9 +76,9 @@ public final class AlcoholLevelView extends AppCompatImageView {
         meterBg1 = res.getDrawable(R.drawable.meter_bg_1);
         meterBg2 = res.getDrawable(R.drawable.meter_bg_2);
         meterBg3 = res.getDrawable(R.drawable.meter_bg_3);
-        assert meterBg1 != null;
-        assert meterBg2 != null;
-        assert meterBg3 != null;
+        AssertionUtils.INSTANCE.expect(meterBg1 != null);
+        AssertionUtils.INSTANCE.expect(meterBg2 != null);
+        AssertionUtils.INSTANCE.expect(meterBg3 != null);
         meterBg1.setBounds(0, 0, meterBg1.getIntrinsicWidth(), meterBg1.getIntrinsicHeight());
         meterBg2.setBounds(0, 0, meterBg2.getIntrinsicWidth(), meterBg2.getIntrinsicHeight());
         meterBg3.setBounds(0, 0, meterBg3.getIntrinsicWidth(), meterBg3.getIntrinsicHeight());

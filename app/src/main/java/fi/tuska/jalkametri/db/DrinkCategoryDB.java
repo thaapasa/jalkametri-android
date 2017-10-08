@@ -7,6 +7,7 @@ import fi.tuska.jalkametri.dao.DrinkCategory;
 import fi.tuska.jalkametri.dao.DrinkSizes;
 import fi.tuska.jalkametri.data.Drink;
 import fi.tuska.jalkametri.data.DrinkSize;
+import fi.tuska.jalkametri.util.AssertionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +108,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
         Drink drink = getDrink(id);
         for (DrinkSize size : sizes) {
             boolean res = sizeConn.addSize(drink, size);
-            assert res;
+            AssertionUtils.INSTANCE.expect(res);
         }
         return drink;
     }
@@ -120,7 +121,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
 
         int updated = adapter.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index),
                 null);
-        assert updated <= 1;
+        AssertionUtils.INSTANCE.expect(updated <= 1);
         return updated > 0;
     }
 
@@ -135,7 +136,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
         int modified = adapter.getDatabase().delete(TABLE_NAME, DBAdapter.ID_WHERE_CLAUSE,
                 new String[]{String.valueOf(index)});
 
-        assert modified <= 1;
+        AssertionUtils.INSTANCE.expect(modified <= 1);
         return modified > 0;
     }
 
@@ -190,7 +191,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
 
     @Override
     public boolean isBacked() {
-        assert DBDataObject.isValidID(index);
+        AssertionUtils.INSTANCE.expect(DBDataObject.isValidID(index));
         return true;
     }
 

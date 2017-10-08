@@ -23,4 +23,6 @@ public interface PrivateDataTemplate {
      */
     boolean LOGGING_ENABLED = false;
 
+    boolean ASSERTIONS_ENABLED = true;
+
 }

@@ -26,6 +26,7 @@ import fi.tuska.jalkametri.db.DBDataObject;
 import fi.tuska.jalkametri.db.DrinkLibraryDB;
 import fi.tuska.jalkametri.gui.DrinkDetailsDialog;
 import fi.tuska.jalkametri.gui.NamedIconAdapter;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.LogUtil;
 
 import java.util.List;
@@ -84,8 +85,8 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
 
         Bundle extras = getIntent().getExtras();
         this.selectedDrink = (Drink) extras.get(KEY_SELECTED_DRINK);
-        assert selectedDrink != null;
-        assert selectedDrink.isBacked();
+        AssertionUtils.INSTANCE.expect(selectedDrink != null);
+        AssertionUtils.INSTANCE.expect(selectedDrink.isBacked());
 
         this.list = (GridView) findViewById(R.id.list);
 

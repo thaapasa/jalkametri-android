@@ -3,6 +3,7 @@ package fi.tuska.jalkametri.db;
 import java.io.Serializable;
 
 import fi.tuska.jalkametri.dao.DataObject;
+import fi.tuska.jalkametri.util.AssertionUtils;
 
 public abstract class DBDataObject implements DataObject, Serializable {
 
@@ -18,7 +19,7 @@ public abstract class DBDataObject implements DataObject, Serializable {
 
     protected DBDataObject(long index) {
         this.index = index;
-        assert index != 0;
+        AssertionUtils.INSTANCE.expect(index != 0);
         enforceBackedObject(index);
     }
 

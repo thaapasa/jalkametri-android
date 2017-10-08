@@ -17,6 +17,7 @@ import fi.tuska.jalkametri.db.DrinkLibraryDB;
 import fi.tuska.jalkametri.db.DrinkSizeConnectionDB;
 import fi.tuska.jalkametri.db.HistoryDB;
 import fi.tuska.jalkametri.gui.TaskExecutor;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
 import org.joda.time.Duration;
@@ -157,7 +158,7 @@ public final class DrinkActions {
 
         DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(parent.getDBAdapter());
         boolean res = connDB.addSize(drink, size);
-        assert res;
+        AssertionUtils.INSTANCE.expect(res);
 
         parent.updateUI();
     }
@@ -170,7 +171,7 @@ public final class DrinkActions {
 
         DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(parent.getDBAdapter());
         boolean res = connDB.removeConnectionFromDrink(drink, size);
-        assert res;
+        AssertionUtils.INSTANCE.expect(res);
 
         parent.updateUI();
     }
@@ -183,7 +184,7 @@ public final class DrinkActions {
 
         DrinkSizes sizeLib = new DrinkLibraryDB(parent.getDBAdapter()).getDrinkSizes();
         boolean res = sizeLib.updateSize(originalID, size);
-        assert res;
+        AssertionUtils.INSTANCE.expect(res);
 
         parent.updateUI();
     }

@@ -9,6 +9,7 @@ import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.gui.DrinkSizeSelector;
 import fi.tuska.jalkametri.gui.IconPickerDialog;
+import fi.tuska.jalkametri.util.AssertionUtils;
 
 /**
  * Selects a new drink size to be added to a drink in the drink library. May
@@ -40,7 +41,7 @@ public class SelectSizeForDrinkActivity extends JalkametriDBActivity {
 
         // Initialize the drink size selector
         drinkSizeSelector = new DrinkSizeSelector(this, getAdapter(), true, true,
-            Common.DIALOG_SELECT_SIZE_ICON);
+                Common.DIALOG_SELECT_SIZE_ICON);
         drinkSizeSelector.initializeComponents(null);
         selection = drinkSizeSelector.getDrinkSize();
     }
@@ -108,7 +109,7 @@ public class SelectSizeForDrinkActivity extends JalkametriDBActivity {
     }
 
     public void updateUIFromSelection() {
-        assert selection != null;
+        AssertionUtils.INSTANCE.expect(selection != null);
         drinkSizeSelector.setDrinkSize(selection, false);
     }
 
@@ -125,9 +126,9 @@ public class SelectSizeForDrinkActivity extends JalkametriDBActivity {
     protected Dialog onCreateDialog(int id) {
         Dialog dialog = null;
         switch (id) {
-        case Common.DIALOG_SELECT_SIZE_ICON:
-            dialog = new IconPickerDialog(this, drinkSizeSelector.getSetSizeIconCallback());
-            return dialog;
+            case Common.DIALOG_SELECT_SIZE_ICON:
+                dialog = new IconPickerDialog(this, drinkSizeSelector.getSetSizeIconCallback());
+                return dialog;
         }
         return super.onCreateDialog(id);
     }

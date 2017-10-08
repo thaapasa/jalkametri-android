@@ -2,6 +2,7 @@ package fi.tuska.jalkametri.data;
 
 import fi.tuska.jalkametri.dao.DataObject;
 import fi.tuska.jalkametri.db.DBDataObject;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import org.joda.time.Instant;
 
 public class DrinkEvent extends DrinkSelection implements DataObject {
@@ -13,7 +14,7 @@ public class DrinkEvent extends DrinkSelection implements DataObject {
     public DrinkEvent(long index, Drink drink, DrinkSize size, Instant time) {
         super(drink, size, time);
         this.index = index;
-        assert index != 0;
+        AssertionUtils.INSTANCE.expect(index != 0);
         DBDataObject.enforceBackedObject(index);
     }
 

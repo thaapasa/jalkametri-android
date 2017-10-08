@@ -8,6 +8,7 @@ import fi.tuska.jalkametri.data.Drink;
 import fi.tuska.jalkametri.data.DrinkEvent;
 import fi.tuska.jalkametri.data.DrinkSelection;
 import fi.tuska.jalkametri.data.DrinkSize;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
 
@@ -58,7 +59,7 @@ public class FavouritesDB extends AbstractDB implements Favourites {
         values.put(KEY_ORDER, maxOrder + 1);
 
         long id = adapter.getDatabase().insert(TABLE_NAME, null, values);
-        assert id >= 0;
+        AssertionUtils.INSTANCE.expect(id >= 0);
     }
 
     @Override

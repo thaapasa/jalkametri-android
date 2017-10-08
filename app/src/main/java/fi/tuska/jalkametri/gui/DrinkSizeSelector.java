@@ -1,8 +1,5 @@
 package fi.tuska.jalkametri.gui;
 
-import java.util.List;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +22,9 @@ import fi.tuska.jalkametri.util.Converter;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.NumberUtil;
 import fi.tuska.jalkametri.util.ObjectCallback;
+
+import java.util.List;
+import java.util.Locale;
 
 public class DrinkSizeSelector {
 
@@ -86,7 +86,7 @@ public class DrinkSizeSelector {
     };
 
     public DrinkSizeSelector(Activity parent, DBAdapter adapter, boolean selecterShown,
-        boolean sizeIconEditorShown, int sizeSelectionDialogID) {
+                             boolean sizeIconEditorShown, int sizeSelectionDialogID) {
         this.parent = parent;
         this.sizeIconEditorShown = sizeIconEditorShown;
         this.selectorShown = selecterShown;
@@ -97,7 +97,7 @@ public class DrinkSizeSelector {
 
     /**
      * @param initialSelection initially selected size; may be null (in this
-     * case, selected the default size)
+     *                         case, selected the default size)
      */
     public void initializeComponents(DrinkSize initialSelection) {
         if (initialSelection == null) {
@@ -113,7 +113,7 @@ public class DrinkSizeSelector {
             // Hide the entire size selector
             LogUtil.INSTANCE.e(TAG, "Hiding size selector -- TODO: REMOVE THIS!");
             //View selectorArea = parent.findViewById(R.id.size_selection_area);
-            //assert selectorArea != null;
+            //AssertionUtils.INSTANCE.expect(selectorArea != null);
             //selectorArea.setVisibility(View.GONE);
         } else {
             if (sizeIconEditorShown) {
@@ -167,7 +167,7 @@ public class DrinkSizeSelector {
             sizeSelectionSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapter, View view, int position,
-                    long id) {
+                                           long id) {
                     DrinkSize size = sizeSelectionAdapter.getItem(position);
                     if (spinnerSelection == null || !spinnerSelection.equals(size)) {
                         LogUtil.INSTANCE.d(TAG, "DrinkSize item %s selected", size);
@@ -289,17 +289,17 @@ public class DrinkSizeSelector {
         List<DrinkSize> sizes = sizeLib.getAllSizes();
 
         sizeSelectionAdapter = new TextIconSpinnerAdapter<DrinkSize>(parent, sizes,
-            new Converter<DrinkSize, String>() {
-                @Override
-                public String convert(DrinkSize item) {
-                    return item.getIconText(parent.getResources());
-                }
-            }, new Converter<DrinkSize, String>() {
-                @Override
-                public String convert(DrinkSize item) {
-                    return item.getIcon();
-                }
-            });
+                new Converter<DrinkSize, String>() {
+                    @Override
+                    public String convert(DrinkSize item) {
+                        return item.getIconText(parent.getResources());
+                    }
+                }, new Converter<DrinkSize, String>() {
+            @Override
+            public String convert(DrinkSize item) {
+                return item.getIcon();
+            }
+        });
         sizeSelectionSpinner.setAdapter(sizeSelectionAdapter);
     }
 

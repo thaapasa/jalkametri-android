@@ -10,6 +10,7 @@ import fi.tuska.jalkametri.dao.Preferences;
 import fi.tuska.jalkametri.data.PreferencesImpl;
 import fi.tuska.jalkametri.db.DBAdapter;
 import fi.tuska.jalkametri.db.DrinkLibraryDB;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.LogUtil;
 
 public final class DefaultDrinkDatabase {
@@ -32,7 +33,7 @@ public final class DefaultDrinkDatabase {
         Preferences prefs = new PreferencesImpl(context);
         Locale locale = prefs.getLocale();
         DefaultDrinkLibrary defLib = DEFAULT_LIBRARIES.get(locale.getLanguage());
-        assert defLib != null;
+        AssertionUtils.INSTANCE.expect(defLib != null);
 
         LogUtil.INSTANCE.i(TAG, "Starting to create default drink library");
         long startTime = System.currentTimeMillis();

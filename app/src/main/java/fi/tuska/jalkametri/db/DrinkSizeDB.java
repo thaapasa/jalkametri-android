@@ -15,6 +15,7 @@ import android.database.Cursor;
 import fi.tuska.jalkametri.dao.DrinkSizes;
 import fi.tuska.jalkametri.data.Drink;
 import fi.tuska.jalkametri.data.DrinkSize;
+import fi.tuska.jalkametri.util.AssertionUtils;
 
 public class DrinkSizeDB extends AbstractDB implements DrinkSizes {
 
@@ -66,7 +67,7 @@ public class DrinkSizeDB extends AbstractDB implements DrinkSizes {
             // Just load this size from DB. This should make initial drink
             // library creation faster.
             DrinkSize size = loadSize(id);
-            assert size != null;
+            AssertionUtils.INSTANCE.expect(size != null);
             // And manually add it to the size list
             sizeList.add(size);
             sizeMap.put(size.getIndex(), size);
@@ -101,7 +102,7 @@ public class DrinkSizeDB extends AbstractDB implements DrinkSizes {
 
         int updated = adapter.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index),
             null);
-        assert updated <= 1;
+        AssertionUtils.INSTANCE.expect(updated <= 1);
         return updated > 0;
     }
 
@@ -113,7 +114,7 @@ public class DrinkSizeDB extends AbstractDB implements DrinkSizes {
         DBDataObject.enforceBackedObject(index);
 
         int deleted = adapter.getDatabase().delete(TABLE_NAME, getIndexClause(index), null);
-        assert deleted <= 1;
+        AssertionUtils.INSTANCE.expect(deleted <= 1);
         return deleted > 0;
     }
 

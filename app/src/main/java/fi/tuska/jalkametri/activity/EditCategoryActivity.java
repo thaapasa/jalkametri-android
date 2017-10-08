@@ -15,6 +15,7 @@ import fi.tuska.jalkametri.data.CategorySelection;
 import fi.tuska.jalkametri.data.IconName;
 import fi.tuska.jalkametri.gui.IconPickerDialog;
 import fi.tuska.jalkametri.gui.IconView;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.ObjectCallback;
 
@@ -80,7 +81,7 @@ public class EditCategoryActivity extends JalkametriActivity {
 
         Bundle extras = getIntent().getExtras();
         selection = (CategorySelection) extras.get(KEY_SELECTED_CATEGORY);
-        assert selection != null;
+        AssertionUtils.INSTANCE.expect(selection != null);
         originalID = extras.getLong(KEY_ORIGINAL);
 
         nameEdit = (EditText) findViewById(R.id.name_edit);
@@ -148,7 +149,7 @@ public class EditCategoryActivity extends JalkametriActivity {
     }
 
     public void updateUIFromSelection() {
-        assert selection != null;
+        AssertionUtils.INSTANCE.expect(selection != null);
         nameEdit.setText(selection.getName());
         String icon = selection.getIcon();
         iconView.setIcon(icon);

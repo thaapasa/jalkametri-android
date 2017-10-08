@@ -5,6 +5,7 @@ import android.database.Cursor;
 import fi.tuska.jalkametri.dao.DrinkCategory;
 import fi.tuska.jalkametri.dao.DrinkLibrary;
 import fi.tuska.jalkametri.dao.DrinkSizes;
+import fi.tuska.jalkametri.util.AssertionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +107,7 @@ public class DrinkLibraryDB extends AbstractDB implements DrinkLibrary {
         newValues.put(KEY_ICON, category.getIcon());
         int affected = adapter.getDatabase().update(TABLE_NAME, newValues, getIndexClause(id),
                 null);
-        assert affected <= 1;
+        AssertionUtils.INSTANCE.expect(affected <= 1);
         return affected > 0;
     }
 
@@ -116,7 +117,7 @@ public class DrinkLibraryDB extends AbstractDB implements DrinkLibrary {
         DBDataObject.enforceBackedObject(id);
 
         int affected = adapter.getDatabase().delete(TABLE_NAME, getIndexClause(id), null);
-        assert affected <= 1;
+        AssertionUtils.INSTANCE.expect(affected <= 1);
         return affected > 0;
     }
 

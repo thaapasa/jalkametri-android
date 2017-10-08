@@ -15,6 +15,7 @@ import fi.tuska.jalkametri.db.upgrade.DropAndCreate;
 import fi.tuska.jalkametri.db.upgrade.RecalculatePortions;
 import fi.tuska.jalkametri.db.upgrade.RunMultipleCommands;
 import fi.tuska.jalkametri.db.upgrade.RunUpgradeCommand;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.LogUtil;
 
 public class DBAdapter {
@@ -140,7 +141,7 @@ public class DBAdapter {
     protected SQLiteDatabase getDatabase() {
         if (db == null)
             open();
-        assert db != null;
+        AssertionUtils.INSTANCE.expect(db != null);
         return db;
     }
 

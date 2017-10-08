@@ -11,6 +11,7 @@ import fi.tuska.jalkametri.data.DrinkEvent;
 import fi.tuska.jalkametri.data.DrinkSelection;
 import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.data.PreferencesImpl;
+import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
 import org.joda.time.Instant;
@@ -73,7 +74,7 @@ public class HistoryDB extends AbstractDB implements History {
         DrinkSelectionHelper.createCommonValues(values, selection);
         {
             Instant time = selection.getTime();
-            assert time != null;
+            AssertionUtils.INSTANCE.expect(time != null);
             values.put(KEY_TIME, sqlDateFormat.print(time));
         }
         // Portions
@@ -85,7 +86,7 @@ public class HistoryDB extends AbstractDB implements History {
         ContentValues newValues = new ContentValues();
         createValues(newValues, selection);
         long id = adapter.getDatabase().insert(TABLE_NAME, null, newValues);
-        assert id >= 0;
+        AssertionUtils.INSTANCE.expect(id >= 0);
     }
 
     @Override
