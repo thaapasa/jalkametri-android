@@ -47,6 +47,80 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
 
     private var viewModel: ViewModel? = null
 
+    init {
+        setShowDefaultHelpMenu(true)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_drink_details)
+        hideSoftKeyboard()
+        viewModel = ViewModel(this)
+    }
+
+    override fun onPause() {
+        viewModel?.updateSelectionFromUI()
+        super.onPause()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel?.updateUIFromSelection()
+    }
+
+    override fun onBackPressed() {
+        viewModel?.updateSelectionFromUI()
+        super.onBackPressed()
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        viewModel?.restoreState(savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        viewModel?.saveState(outState)
+    }
+
+    override fun updateUI() {}
+
+    fun onOKPressed(v: View) {
+        viewModel?.let {
+            it.updateSelectionFromUI()
+            setResult(Activity.RESULT_OK, DrinkActivities.createDrinkSelectionResult(it.selection, it.originalID))
+            finish()
+        }
+    }
+
+    fun onClickIcon(v: View) {
+        LogUtil.d(TAG, "Selecting icon...")
+        showCustomDialog(IconPickerDialog.createDialog { viewModel?.selectIcon(it) })
+    }
+
+    override fun showDrinkCalculator(v: View?) {
+        viewModel?.let {
+            it.updateSelectionFromUI()
+            // Use the values from current selection as the basis of the calculator
+            CommonActivities.showCalculator(this, it.selection)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        LogUtil.d(TAG, "Return from activity %d; result %d", requestCode, resultCode)
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                Common.ACTIVITY_CODE_SHOW_CALCULATOR -> {
+                    // Returning from calculator
+                    CalculatorActivity.getCalculatorFromResult(data)?.let {
+                        viewModel?.updateStrength(it.strength)
+                    }
+                }
+            }
+        }
+    }
+
     private class ViewModel(private val activity: EditDrinkDetailsActivity) {
 
         private val prefs = activity.prefs
@@ -161,80 +235,6 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
             LogUtil.d(TAG, "Setting strength to %f", strength)
             selection.drink.strength = strength
             updateUIFromSelection()
-        }
-    }
-
-    init {
-        setShowDefaultHelpMenu(true)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_drink_details)
-        hideSoftKeyboard()
-        viewModel = ViewModel(this)
-    }
-
-    override fun onPause() {
-        viewModel?.updateSelectionFromUI()
-        super.onPause()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel?.updateUIFromSelection()
-    }
-
-    override fun onBackPressed() {
-        viewModel?.updateSelectionFromUI()
-        super.onBackPressed()
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-        viewModel?.restoreState(savedInstanceState)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        viewModel?.saveState(outState)
-    }
-
-    override fun updateUI() {}
-
-    fun onOKPressed(v: View) {
-        viewModel?.let {
-            it.updateSelectionFromUI()
-            setResult(Activity.RESULT_OK, DrinkActivities.createDrinkSelectionResult(it.selection, it.originalID))
-            finish()
-        }
-    }
-
-    fun onClickIcon(v: View) {
-        LogUtil.d(TAG, "Selecting icon...")
-        showCustomDialog(IconPickerDialog.createDialog { viewModel?.selectIcon(it) })
-    }
-
-    override fun showDrinkCalculator(v: View?) {
-        viewModel?.let {
-            it.updateSelectionFromUI()
-            // Use the values from current selection as the basis of the calculator
-            CommonActivities.showCalculator(this, it.selection)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        LogUtil.d(TAG, "Return from activity %d; result %d", requestCode, resultCode)
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                Common.ACTIVITY_CODE_SHOW_CALCULATOR -> {
-                    // Returning from calculator
-                    CalculatorActivity.getCalculatorFromResult(data)?.let {
-                        viewModel?.updateStrength(it.strength)
-                    }
-                }
-            }
         }
     }
 
