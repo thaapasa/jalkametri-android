@@ -48,13 +48,6 @@ public interface Common {
     int ACTIVITY_CODE_MODIFY_FAVOURITE = 0x00AC0002;
 
     /*
-     * Dialog codes
-     * ----------------------------------------------------------
-     */
-    int DIALOG_SELECT_DATE = 0xD1A70001;
-    int DIALOG_SELECT_SIZE_ICON = 0xD1A70004;
-
-    /*
      * Default values
      * ----------------------------------------------------------
      */

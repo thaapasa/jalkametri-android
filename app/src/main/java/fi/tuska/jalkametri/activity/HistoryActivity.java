@@ -85,13 +85,6 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         }
     };
 
-    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            loadDay(new LocalDate(year, monthOfYear, dayOfMonth));
-        }
-    };
-
     public HistoryActivity() {
     }
 
@@ -246,7 +239,13 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     public void onSelectDayClick(View v) {
         // Select day to show
         LogUtil.INSTANCE.d(TAG, "Showing date selection dialog");
-        showDialog(Common.DIALOG_SELECT_DATE);
+        // Show a date picker dialog
+        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                loadDay(new LocalDate(year, monthOfYear, dayOfMonth));
+            }
+        }, day.getYear(), day.getMonthOfYear(), day.getDayOfMonth()).show();
     }
 
     @Override
@@ -257,34 +256,6 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     @Override
     public DBAdapter getDBAdapter() {
         return adapter;
-    }
-
-    /*
-     * Dialog handling
-     * -------------------------------------------------------------
-     */
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        switch (id) {
-            case Common.DIALOG_SELECT_DATE:
-                dialog = new DatePickerDialog(this, dateSetListener, day.getYear(),
-                        day.getMonthOfYear(), day.getDayOfMonth());
-                return dialog;
-        }
-        return super.onCreateDialog(id);
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog) {
-        switch (id) {
-            case Common.DIALOG_SELECT_DATE: {
-                DatePickerDialog d = (DatePickerDialog) dialog;
-                d.updateDate(day.getYear(), day.getMonthOfYear(), day.getDayOfMonth());
-            }
-            break;
-        }
-        super.onPrepareDialog(id, dialog);
     }
 
     /*
