@@ -183,7 +183,7 @@ public final class DrinkActivities {
     public static int startAddCategory(Activity parent) {
         Intent i = new Intent(parent, EditCategoryActivity.class);
         // Prepare the intent for showing the selected category
-        if (EditCategoryActivity.prepareForCategoryAdd(parent, i)) {
+        if (EditCategoryActivity.Companion.prepareForCategoryAdd(parent, i)) {
             parent.startActivityForResult(i, Common.ACTIVITY_CODE_ADD_CATEGORY);
             return Common.ACTIVITY_CODE_ADD_CATEGORY;
         }
@@ -193,7 +193,7 @@ public final class DrinkActivities {
     public static int startModifyCategory(Activity parent, DrinkCategory category) {
         Intent i = new Intent(parent, EditCategoryActivity.class);
         // Prepare the intent for showing the selected category
-        if (EditCategoryActivity.prepareForCategoryModification(parent, i, category)) {
+        if (EditCategoryActivity.Companion.prepareForCategoryModification(parent, i, category)) {
             parent.startActivityForResult(i, Common.ACTIVITY_CODE_EDIT_CATEGORY);
             return Common.ACTIVITY_CODE_EDIT_CATEGORY;
         }

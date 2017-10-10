@@ -1,16 +1,13 @@
 package fi.tuska.jalkametri.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import fi.tuska.jalkametri.Common;
 import fi.tuska.jalkametri.DrinkActivities;
 import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.db.DBDataObject;
 import fi.tuska.jalkametri.gui.DrinkSizeSelector;
-import fi.tuska.jalkametri.gui.IconPickerDialog;
 import fi.tuska.jalkametri.util.AssertionUtils;
 
 /**
@@ -61,8 +58,7 @@ public class EditDrinkSizeActivity extends JalkametriDBActivity {
         initializeComponents();
 
         // Initialize the drink size selector
-        drinkSizeSelector = new DrinkSizeSelector(this, getAdapter(), true, true,
-                Common.DIALOG_SELECT_SIZE_ICON);
+        drinkSizeSelector = new DrinkSizeSelector(this, getAdapter(), true, true);
         drinkSizeSelector.initializeComponents(selectedSize);
     }
 
@@ -133,23 +129,7 @@ public class EditDrinkSizeActivity extends JalkametriDBActivity {
     }
 
     public void updateSelectionFromUI() {
-        DrinkSize size = drinkSizeSelector.getDrinkSize();
-        selectedSize = size;
-    }
-
-    /*
-     * Dialog handling
-     * -------------------------------------------------------------
-     */
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        switch (id) {
-            case Common.DIALOG_SELECT_SIZE_ICON:
-                dialog = new IconPickerDialog(this, drinkSizeSelector.getSetSizeIconCallback());
-                return dialog;
-        }
-        return super.onCreateDialog(id);
+        selectedSize = drinkSizeSelector.getDrinkSize();
     }
 
 }

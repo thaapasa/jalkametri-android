@@ -3,7 +3,6 @@ package fi.tuska.jalkametri.activity
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
-import android.app.Dialog
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
@@ -29,7 +28,6 @@ import fi.tuska.jalkametri.gui.IconPickerDialog
 import fi.tuska.jalkametri.gui.IconView
 import fi.tuska.jalkametri.util.LogUtil
 import fi.tuska.jalkametri.util.NumberUtil
-import fi.tuska.jalkametri.util.ObjectCallback
 import org.joda.time.Instant
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
@@ -85,8 +83,8 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
         private val showTimeSelection = true
         private var selectedDate: LocalDate = LocalDate.now(timeUtil.timeZone)
         private var selectedTime: LocalTime = LocalTime.now(timeUtil.timeZone)
-        val drinkSizeSelector: DrinkSizeSelector = (DrinkSizeSelector(activity, activity.adapter, true,
-                true, Common.DIALOG_SELECT_SIZE_ICON)).apply {
+        val drinkSizeSelector: DrinkSizeSelector = DrinkSizeSelector(activity, activity.adapter, true,
+                true).apply {
             initializeComponents(selection.size)
         }
 
@@ -104,7 +102,7 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
             updateUIFromSelection()
         }
 
-        val iconNameCallback = ObjectCallback<IconName> { icon ->
+        fun selectIcon(icon: IconName) {
             // Update icon
             LogUtil.d(TAG, "Selecting icon %s", icon.icon)
             iconView.icon = icon
@@ -166,7 +164,6 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
         }
     }
 
-
     init {
         setShowDefaultHelpMenu(true)
     }
@@ -215,7 +212,7 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
 
     fun onClickIcon(v: View) {
         LogUtil.d(TAG, "Selecting icon...")
-        showDialog(Common.DIALOG_SELECT_ICON)
+        showCustomDialog(IconPickerDialog.createDialog { viewModel?.selectIcon(it) })
     }
 
     override fun showDrinkCalculator(v: View?) {
@@ -224,21 +221,6 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
             // Use the values from current selection as the basis of the calculator
             CommonActivities.showCalculator(this, it.selection)
         }
-    }
-
-    override fun onCreateDialog(id: Int): Dialog {
-        var dialog: Dialog? = null
-        when (id) {
-            Common.DIALOG_SELECT_ICON -> {
-                dialog = IconPickerDialog(this, viewModel!!.iconNameCallback)
-                return dialog
-            }
-            Common.DIALOG_SELECT_SIZE_ICON -> {
-                dialog = IconPickerDialog(this, viewModel!!.drinkSizeSelector.setSizeIconCallback)
-                return dialog
-            }
-        }
-        return super.onCreateDialog(id)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {

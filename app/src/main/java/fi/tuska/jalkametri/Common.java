@@ -17,7 +17,7 @@ public interface Common {
      * http://developer.android.com/guide/publishing/preparing.html says that
      * logging should be "deactivated" for applications that are published to
      * the App Market.
-     *
+     * <p>
      * jAlkaMetri checks whether to do logging by checking this variable.
      */
     boolean LOGGING_ENABLED = true;
@@ -52,8 +52,6 @@ public interface Common {
      * ----------------------------------------------------------
      */
     int DIALOG_SELECT_DATE = 0xD1A70001;
-    int DIALOG_SHOW_DRINK_DETAILS = 0xD1A70002;
-    int DIALOG_SELECT_ICON = 0xD1A70003;
     int DIALOG_SELECT_SIZE_ICON = 0xD1A70004;
 
     /*
@@ -80,7 +78,9 @@ public interface Common {
      * Alcohol calculation constants
      * ----------------------------------------------------------
      */
-    /** Weight of one liter of alcohol, in grams. */
+    /**
+     * Weight of one liter of alcohol, in grams.
+     */
     double ALCOHOL_LITER_WEIGHT = 790d;
 
 }
