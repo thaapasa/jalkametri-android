@@ -8,6 +8,19 @@
 Anu Haapasalo
 
 ## Red launcher icon (beer glass)
-https://www.flaticon.com/free-icon/beer_168557
-<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+Image is taken from [Flaticon website](https://www.flaticon.com/free-icon/beer_168557).
+
+Icons made by [Freepik](http://www.freepik.com) from 
+[Flaticon](https://www.flaticon.com/) is licensed by 
+[Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+
+## Other new images
+Icons made by [Freepik](http://www.freepik.com) from 
+[Flaticon](https://www.flaticon.com/) is licensed by 
+[Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+
+Images have been vectorized at 
+[https://www.vectorizer.io/](https://www.vectorizer.io/)
+and then converted to Android assets at
+[http://inloop.github.io/svg2android/](http://inloop.github.io/svg2android/).
 

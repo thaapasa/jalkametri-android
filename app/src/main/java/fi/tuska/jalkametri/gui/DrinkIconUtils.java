@@ -21,7 +21,7 @@ public class DrinkIconUtils {
         addIcon("drink_water", R.drawable.drink_water);
 
         // Beers
-        addIcon("cat_beers", R.drawable.cat_beers);
+        addIcon("cat_beers", R.drawable.ic_cat_beers);
         addIcon("drink_beer_bottle", R.drawable.drink_beer_bottle);
         addIcon("drink_beer_can", R.drawable.drink_beer_can);
         addIcon("drink_beer_pint", R.drawable.drink_beer_pint);
@@ -91,7 +91,7 @@ public class DrinkIconUtils {
      */
     public static String getDrinkIconName(int resource) {
         String res = REVERSE_DRINK_ICONS.get(resource);
-        return res != null ? res : null;
+        return res;
     }
 
     public static List<IconName> getAsList() {
