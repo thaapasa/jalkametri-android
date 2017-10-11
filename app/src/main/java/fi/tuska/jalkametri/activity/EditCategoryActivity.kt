@@ -12,7 +12,6 @@ import fi.tuska.jalkametri.dao.DrinkCategory
 import fi.tuska.jalkametri.data.CategorySelection
 import fi.tuska.jalkametri.gui.IconPickerDialog
 import fi.tuska.jalkametri.gui.IconView
-import fi.tuska.jalkametri.util.AssertionUtils
 import fi.tuska.jalkametri.util.LogUtil
 
 /**
@@ -28,57 +27,80 @@ import fi.tuska.jalkametri.util.LogUtil
  */
 class EditCategoryActivity : JalkametriActivity(R.string.title_edit_category, JalkametriActivity.Companion.NO_HELP_TEXT) {
 
-    private var nameEdit: EditText? = null
-    private var iconView: IconView? = null
-
-    private var selection: CategorySelection? = null
-    private var originalID: Long = 0
-
-    val isModifying: Boolean
-        get() = originalID > 0
+    private var viewModel: ViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_details)
+        viewModel = ViewModel(this)
+    }
 
-        val extras = intent.extras
-        selection = extras.get(KEY_SELECTED_CATEGORY) as CategorySelection
-        AssertionUtils.expect(selection != null)
-        originalID = extras.getLong(KEY_ORIGINAL)
+    class ViewModel(val activity: EditCategoryActivity) {
 
-        nameEdit = findViewById(R.id.name_edit) as EditText
-        iconView = findViewById(R.id.icon) as IconView
+        private val extras = activity.intent.extras
+        private var _selection: CategorySelection = extras.get(KEY_SELECTED_CATEGORY) as CategorySelection
+        private val nameEdit: EditText = activity.findViewById(R.id.name_edit) as EditText
+        private val iconView: IconView = activity.findViewById(R.id.icon) as IconView
+        val originalID: Long = extras.getLong(KEY_ORIGINAL)
+
+        val isModifying: Boolean
+            get() = originalID > 0
+
+        var selection: CategorySelection
+            set(s) {
+                this._selection = s
+                updateUIFromSelection()
+            }
+            get() {
+                updateSelectionFromUI()
+                return this._selection
+            }
+
+        fun updateUIFromSelection() {
+            nameEdit.setText(_selection.name)
+            val icon = _selection.icon
+            iconView.setIcon(icon)
+        }
+
+        fun updateSelectionFromUI() {
+            // Drink type details
+            _selection.name = nameEdit.text.toString()
+            val icon = iconView.icon.icon
+            _selection.icon = icon
+        }
+
+        fun pickIcon() {
+            activity.showCustomDialog(IconPickerDialog.createDialog { icon ->
+                // Update icon
+                LogUtil.d(TAG, "Selecting icon %s", icon.icon)
+                iconView.icon = icon
+            })
+        }
     }
 
     override fun onPause() {
-        updateSelectionFromUI()
+        viewModel?.updateSelectionFromUI()
         super.onPause()
     }
 
     override fun onStart() {
         super.onStart()
-        updateUIFromSelection()
+        viewModel?.updateUIFromSelection()
     }
 
     override fun onBackPressed() {
-        updateSelectionFromUI()
+        viewModel?.updateSelectionFromUI()
         super.onBackPressed()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val sel = savedInstanceState.get(KEY_SELECTED_CATEGORY) as CategorySelection?
-        if (sel != null) {
-            this.selection = sel
-        }
-
-        updateUIFromSelection()
+        viewModel?.selection = savedInstanceState.get(KEY_SELECTED_CATEGORY) as CategorySelection
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        updateSelectionFromUI()
-        outState.putSerializable(KEY_SELECTED_CATEGORY, selection)
+        outState.putSerializable(KEY_SELECTED_CATEGORY, viewModel?.selection)
     }
 
     override fun updateUI() {
@@ -86,32 +108,15 @@ class EditCategoryActivity : JalkametriActivity(R.string.title_edit_category, Ja
     }
 
     fun onOKPressed(v: View) {
-        updateSelectionFromUI()
-        setResult(RESULT_OK, DrinkActivities.createCategoryResult(selection, originalID))
+        viewModel?.let {
+            setResult(RESULT_OK, DrinkActivities.createCategoryResult(it.selection, it.originalID))
+        }
         finish()
     }
 
     fun onClickIcon(v: View) {
         LogUtil.d(TAG, "Selecting icon...")
-        showCustomDialog(IconPickerDialog.createDialog { icon ->
-            // Update icon
-            LogUtil.d(TAG, "Selecting icon %s", icon.icon)
-            iconView!!.icon = icon
-        })
-    }
-
-    fun updateUIFromSelection() {
-        AssertionUtils.expect(selection != null)
-        nameEdit!!.setText(selection!!.name)
-        val icon = selection!!.icon
-        iconView!!.setIcon(icon)
-    }
-
-    fun updateSelectionFromUI() {
-        // Drink type details
-        selection!!.name = nameEdit!!.text.toString()
-        val icon = iconView!!.icon.icon
-        selection!!.icon = icon
+        viewModel?.pickIcon()
     }
 
     companion object {
