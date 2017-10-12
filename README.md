@@ -32,3 +32,8 @@ basic principle is the same, but the Android version is much better.
 Clone from git. Import to IDEA / Android Studio.
 jAlcoMeter is a standard Android gradle application built using gradle wrapper.
 
+Images can be vectorized at  
+[https://www.vectorizer.io/](https://www.vectorizer.io/)
+and converted to Android image assets at
+[http://inloop.github.io/svg2android/](http://inloop.github.io/svg2android/).
+

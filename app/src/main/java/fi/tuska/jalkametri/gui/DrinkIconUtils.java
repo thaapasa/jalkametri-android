@@ -22,12 +22,12 @@ public class DrinkIconUtils {
 
         // Beers
         addIcon("cat_beers", R.drawable.ic_cat_beers);
-        addIcon("drink_beer_bottle", R.drawable.drink_beer_bottle);
-        addIcon("drink_beer_can", R.drawable.drink_beer_can);
-        addIcon("drink_beer_pint", R.drawable.drink_beer_pint);
-        addIcon("drink_beer_glass", R.drawable.drink_beer_glass);
-        addIcon("drink_gin_bottle", R.drawable.drink_gin_bottle);
-        addIcon("drink_cider_bottle", R.drawable.drink_cider_bottle);
+        addIcon("drink_beer_bottle", R.drawable.ic_drink_beer_bottle_brown);
+        addIcon("drink_beer_can", R.drawable.ic_drink_beer_can);
+        addIcon("drink_beer_pint", R.drawable.ic_drink_beer_pint);
+        addIcon("drink_beer_glass", R.drawable.ic_drink_beer_glass);
+        addIcon("drink_gin_bottle", R.drawable.ic_drink_beer_bottle_blue);
+        addIcon("drink_cider_bottle", R.drawable.ic_drink_beer_bottle_green);
 
         // Wines
         addIcon("cat_wines", R.drawable.ic_cat_wines);
