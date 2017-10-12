@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/horizontal_wrap"
-    android:gravity="center_vertical">
+              style="@style/horizontal_wrap"
+              android:gravity="center_vertical">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/drink_generic" />
+    <LinearLayout
+        android:layout_width="@dimen/icon_area_width"
+        android:layout_height="@dimen/icon_area_height"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:src="@drawable/drink_generic"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text"
         android:text="Example icon text&#10;Continued"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|left"
-        android:gravity="left|center_vertical"
-        android:layout_marginLeft="5dp" />
+        android:layout_gravity="center_vertical|start"
+        android:gravity="start|center_vertical"
+        android:layout_marginStart="5dp"/>
 
 </LinearLayout>
