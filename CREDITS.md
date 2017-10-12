@@ -36,7 +36,9 @@ Icons made by [Roundicons](https://www.flaticon.com/authors/roundicons) from
 [Flaticon](https://www.flaticon.com/) is licensed by 
 [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 - Red Duff beer can 
-- Martini
+- Martini glass
+- Gin bottle
+- Blue cocktail
 
 Icons made by [Vectors Market](https://www.flaticon.com/authors/vectors-market) from 
 [Flaticon](https://www.flaticon.com/) is licensed by 

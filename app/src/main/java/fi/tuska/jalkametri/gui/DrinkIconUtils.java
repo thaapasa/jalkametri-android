@@ -17,7 +17,7 @@ public class DrinkIconUtils {
     static {
         // General
         addIcon("drink_generic", R.drawable.ic_drink_generic);
-        addIcon("drink_fancy", R.drawable.ic_drink_cocktail);
+        addIcon("drink_fancy", R.drawable.ic_drink_cocktail_red);
         addIcon("drink_water", R.drawable.ic_drink_water);
 
         // Beers
@@ -41,6 +41,8 @@ public class DrinkIconUtils {
         addIcon("cat_longdrinks", R.drawable.ic_cat_longdrinks);
         addIcon("cat_cocktails", R.drawable.ic_cat_cocktails);
         addIcon("drink_long_drink", R.drawable.ic_drink_cocktail_tall);
+        addIcon("drink_cocktail_red", R.drawable.ic_drink_cocktail_red);
+        addIcon("drink_cocktail_blue", R.drawable.ic_drink_cocktail_blue);
         addIcon("drink_long_gt", R.drawable.ic_drink_lemonade);
         addIcon("drink_irish_coffee", R.drawable.ic_drink_irish_coffee);
         addIcon("drink_martini", R.drawable.ic_drink_martini);
@@ -51,6 +53,7 @@ public class DrinkIconUtils {
         addIcon("drink_whisky", R.drawable.ic_drink_whisky);
         addIcon("drink_whisky_bottle", R.drawable.ic_drink_whisky_bottle);
         addIcon("drink_vodka", R.drawable.ic_drink_vodka);
+        addIcon("drink_gin", R.drawable.ic_drink);
 
         // Punches
         addIcon("cat_punches", R.drawable.ic_cat_punches);
