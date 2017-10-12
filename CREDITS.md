@@ -29,6 +29,8 @@ Icons made by [Freepik](http://www.freepik.com) from
 - Water glass
 - Champagne bottle, champagne glasses
 - Irish coffee
+- Tequila
+- Vodka, whiskies
 
 Icons made by [Roundicons](https://www.flaticon.com/authors/roundicons) from 
 [Flaticon](https://www.flaticon.com/) is licensed by 

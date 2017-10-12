@@ -47,8 +47,10 @@ public class DrinkIconUtils {
 
         // Spirits
         addIcon("cat_spirits", R.drawable.ic_cat_spirits);
-        addIcon("drink_shot", R.drawable.drink_shot);
-        addIcon("drink_whisky", R.drawable.drink_whisky);
+        addIcon("drink_shot", R.drawable.ic_drink_tequila);
+        addIcon("drink_whisky", R.drawable.ic_drink_whisky);
+        addIcon("drink_whisky_bottle", R.drawable.ic_drink_whisky_bottle);
+        addIcon("drink_vodka", R.drawable.ic_drink_vodka);
 
         // Punches
         addIcon("cat_punches", R.drawable.ic_cat_punches);
