@@ -30,7 +30,7 @@ public class DrinkIconUtils {
         addIcon("drink_cider_bottle", R.drawable.drink_cider_bottle);
 
         // Wines
-        addIcon("cat_wines", R.drawable.cat_wines);
+        addIcon("cat_wines", R.drawable.ic_cat_wines);
         addIcon("drink_wine_dessert", R.drawable.drink_wine_dessert);
         addIcon("drink_wine_red", R.drawable.drink_wine_red);
         addIcon("drink_wine_white", R.drawable.drink_wine_white);
