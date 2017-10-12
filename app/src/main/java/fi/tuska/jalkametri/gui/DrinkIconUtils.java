@@ -39,6 +39,7 @@ public class DrinkIconUtils {
 
         // Long drinks
         addIcon("cat_longdrinks", R.drawable.ic_cat_longdrinks);
+        addIcon("cat_cocktails", R.drawable.ic_cat_cocktails);
         addIcon("drink_long_drink", R.drawable.ic_drink_cocktail_tall);
         addIcon("drink_long_gt", R.drawable.ic_drink_lemonade);
         addIcon("drink_irish_coffee", R.drawable.ic_drink_irish_coffee);
