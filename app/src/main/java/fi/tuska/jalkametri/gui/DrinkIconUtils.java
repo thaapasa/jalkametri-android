@@ -31,9 +31,9 @@ public class DrinkIconUtils {
 
         // Wines
         addIcon("cat_wines", R.drawable.ic_cat_wines);
-        addIcon("drink_wine_dessert", R.drawable.drink_wine_dessert);
-        addIcon("drink_wine_red", R.drawable.drink_wine_red);
-        addIcon("drink_wine_white", R.drawable.drink_wine_white);
+        addIcon("drink_wine_dessert", R.drawable.ic_drink_wine_dessert);
+        addIcon("drink_wine_red", R.drawable.ic_drink_wine_glass_bottle_red);
+        addIcon("drink_wine_white", R.drawable.ic_drink_wine_glass_bottle_white);
         addIcon("drink_champagne", R.drawable.ic_drink_champagne);
         addIcon("drink_champagne_glasses", R.drawable.ic_drink_champagne_glasses);
 
@@ -54,7 +54,7 @@ public class DrinkIconUtils {
 
         // Punches
         addIcon("cat_punches", R.drawable.ic_cat_punches);
-        addIcon("drink_punch", R.drawable.drink_punch);
+        addIcon("drink_punch", R.drawable.ic_drink_punch_bowl);
 
         // Sizes
         addIcon("size_beer_bottle", R.drawable.size_beer_bottle);

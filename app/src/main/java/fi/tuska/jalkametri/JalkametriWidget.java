@@ -153,7 +153,7 @@ public class JalkametriWidget extends AppWidgetProvider {
 
     private static void setIconsAndIntents(int iconRes, Context context, RemoteViews views,
         List<DrinkEvent> favs, int index) {
-        int iconId = R.drawable.drink_none;
+        int iconId = R.drawable.ic_drink_ice_water;
         if (favs.size() > index) {
             DrinkEvent drink = favs.get(index);
             int newIconId = DrinkIconUtils.getDrinkIconRes(drink.getIcon());

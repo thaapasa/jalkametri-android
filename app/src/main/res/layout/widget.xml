@@ -18,20 +18,20 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:src="@drawable/drink_none" />
+        android:src="@drawable/ic_drink_ice_water" />
 
     <ImageView
         android:id="@+id/icon2"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:src="@drawable/drink_none" />
+        android:src="@drawable/ic_drink_ice_water" />
 
     <ImageView
         android:id="@+id/icon3"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:src="@drawable/drink_none" />
+        android:src="@drawable/ic_drink_ice_water" />
 
 </LinearLayout>
