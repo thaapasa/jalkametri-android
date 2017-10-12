@@ -15,6 +15,8 @@ Icons made by [Freepik](http://www.freepik.com) from
 [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 
 ## Other new images
+[Flat circular icons](https://www.flaticon.com/family/flat_circular/flat)
+
 Icons made by [Freepik](http://www.freepik.com) from 
 [Flaticon](https://www.flaticon.com/) is licensed by 
 [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
