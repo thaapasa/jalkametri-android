@@ -47,7 +47,7 @@ object Common {
     /* Default values */
     const val DEFAULT_ICON_NAME = "drink_generic"
     const val DEFAULT_SIZE_ICON_NAME = "drink_beer_pint"
-    const val DEFAULT_ICON_RES = R.drawable.drink_generic
+    const val DEFAULT_ICON_RES = R.drawable.ic_drink_generic
 
     /* Common keys */
     const val KEY_RESULT = "result"

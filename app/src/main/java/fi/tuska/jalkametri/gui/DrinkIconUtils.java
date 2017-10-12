@@ -16,9 +16,9 @@ public class DrinkIconUtils {
 
     static {
         // General
-        addIcon("drink_generic", R.drawable.drink_generic);
-        addIcon("drink_fancy", R.drawable.drink_fancy);
-        addIcon("drink_water", R.drawable.drink_water);
+        addIcon("drink_generic", R.drawable.ic_drink_generic);
+        addIcon("drink_fancy", R.drawable.ic_drink_cocktail);
+        addIcon("drink_water", R.drawable.ic_drink_water);
 
         // Beers
         addIcon("cat_beers", R.drawable.ic_cat_beers);
@@ -34,13 +34,14 @@ public class DrinkIconUtils {
         addIcon("drink_wine_dessert", R.drawable.drink_wine_dessert);
         addIcon("drink_wine_red", R.drawable.drink_wine_red);
         addIcon("drink_wine_white", R.drawable.drink_wine_white);
-        addIcon("drink_champagne", R.drawable.drink_champagne);
+        addIcon("drink_champagne", R.drawable.ic_drink_champagne);
+        addIcon("drink_champagne_glasses", R.drawable.ic_drink_champagne_glasses);
 
         // Long drinks
         addIcon("cat_longdrinks", R.drawable.ic_cat_longdrinks);
         addIcon("drink_long_drink", R.drawable.drink_long_drink);
         addIcon("drink_long_gt", R.drawable.drink_long_gt);
-        addIcon("drink_irish_coffee", R.drawable.drink_irish_coffee);
+        addIcon("drink_irish_coffee", R.drawable.ic_drink_irish_coffee);
         addIcon("drink_martini", R.drawable.drink_martini);
 
         // Spirits

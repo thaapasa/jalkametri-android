@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:src="@drawable/drink_generic"/>
+            android:src="@drawable/ic_drink_generic"/>
     </LinearLayout>
 
     <TextView

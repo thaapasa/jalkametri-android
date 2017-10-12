@@ -33,7 +33,7 @@
             <fi.tuska.jalkametri.gui.IconView
                 android:id="@+id/icon"
                 style="@style/table_icon"
-                android:src="@drawable/drink_generic"
+                android:src="@drawable/ic_drink_generic"
                 android:layout_span="2"
                 android:clickable="true"
                 android:onClick="onClickIcon"/>
