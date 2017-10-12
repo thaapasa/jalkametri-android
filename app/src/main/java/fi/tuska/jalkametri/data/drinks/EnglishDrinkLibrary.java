@@ -19,7 +19,7 @@ public class EnglishDrinkLibrary extends AbstractDrinkLibrary {
             R.drawable.size_pint_large, ++order);
         DrinkSize sizeHalfPint = createSize(sizes, "Half a pint", 0.284f,
             R.drawable.size_pint_half, ++order);
-        DrinkSize sizeBottle = createSize(sizes, "Bottle", 0.33f, R.drawable.size_beer_bottle,
+        DrinkSize sizeBottle = createSize(sizes, "Bottle", 0.33f, R.drawable.ic_size_beer_bottle,
             ++order);
         DrinkSize sizeShot = createSize(sizes, "Shot", 0.04f, R.drawable.size_shot, ++order);
         DrinkSize sizeShotHalf = createSize(sizes, "Half a shot", 0.02f, R.drawable.size_shot,

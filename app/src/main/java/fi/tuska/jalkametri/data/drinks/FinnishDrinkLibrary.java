@@ -23,7 +23,7 @@ public class FinnishDrinkLibrary extends AbstractDrinkLibrary {
             ++order);
         DrinkSize sizeHalfPint = createSize(sizes, "Puolikas tuoppi", 0.25f,
             R.drawable.size_pint_half, ++order);
-        DrinkSize sizeBottle = createSize(sizes, "Pullo", 0.33f, R.drawable.size_beer_bottle,
+        DrinkSize sizeBottle = createSize(sizes, "Pullo", 0.33f, R.drawable.ic_size_beer_bottle,
             ++order);
         DrinkSize sizeShot = createSize(sizes, "Shotti", 0.04f, R.drawable.size_shot, ++order);
         DrinkSize sizeShotHalf = createSize(sizes, "Puolikas shotti", 0.02f,

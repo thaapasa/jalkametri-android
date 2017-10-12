@@ -61,7 +61,7 @@ public class DrinkIconUtils {
         addIcon("drink_punch", R.drawable.ic_drink_punch_bowl);
 
         // Sizes
-        addIcon("size_beer_bottle", R.drawable.size_beer_bottle);
+        addIcon("size_beer_bottle", R.drawable.ic_size_beer_bottle);
         addIcon("size_beer_can", R.drawable.size_beer_can);
         addIcon("size_pint_euro", R.drawable.size_pint_euro);
         addIcon("size_pint_half", R.drawable.size_pint_half);
