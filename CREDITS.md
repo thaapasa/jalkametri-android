@@ -23,17 +23,18 @@ Icons made by [Freepik](http://www.freepik.com) from
 - Round category icons
 - Beer bottles (green and brown)
 - Beer glass and pint
-- Cocktail glass
+- Cocktail glass, cocktail in tall glass
 - Orange juice
 - Mezcal
 - Water glass
 - Champagne bottle, champagne glasses
 - Irish coffee
 
-Icons made by [Roundicons](https://www.flaticon.com/authors/roundicons)from 
+Icons made by [Roundicons](https://www.flaticon.com/authors/roundicons) from 
 [Flaticon](https://www.flaticon.com/) is licensed by 
 [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 - Red Duff beer can 
+- Martini
 
 Icons made by [Vectors Market](https://www.flaticon.com/authors/vectors-market) from 
 [Flaticon](https://www.flaticon.com/) is licensed by 

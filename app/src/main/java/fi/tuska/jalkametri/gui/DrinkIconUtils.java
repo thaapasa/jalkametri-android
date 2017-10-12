@@ -39,10 +39,10 @@ public class DrinkIconUtils {
 
         // Long drinks
         addIcon("cat_longdrinks", R.drawable.ic_cat_longdrinks);
-        addIcon("drink_long_drink", R.drawable.drink_long_drink);
-        addIcon("drink_long_gt", R.drawable.drink_long_gt);
+        addIcon("drink_long_drink", R.drawable.ic_drink_cocktail_tall);
+        addIcon("drink_long_gt", R.drawable.ic_drink_lemonade);
         addIcon("drink_irish_coffee", R.drawable.ic_drink_irish_coffee);
-        addIcon("drink_martini", R.drawable.drink_martini);
+        addIcon("drink_martini", R.drawable.ic_drink_martini);
 
         // Spirits
         addIcon("cat_spirits", R.drawable.ic_cat_spirits);
