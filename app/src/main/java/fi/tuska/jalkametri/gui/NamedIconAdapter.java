@@ -53,13 +53,7 @@ public class NamedIconAdapter<T extends NamedIcon> extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        TextIconView view;
-        if (convertView == null) {
-            // If it's not recycled, create it
-            view = new TextIconView(context, vertical);
-        } else {
-            view = (TextIconView) convertView;
-        }
+        TextIconView view = convertView != null ? (TextIconView) convertView : new TextIconView(context, vertical);
 
         T icon = getItem(position);
 

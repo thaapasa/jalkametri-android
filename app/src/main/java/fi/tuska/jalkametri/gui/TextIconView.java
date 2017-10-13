@@ -9,6 +9,9 @@ import android.widget.TextView;
 import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.util.AssertionUtils;
 
+import static android.view.Gravity.CENTER_HORIZONTAL;
+import static android.view.Gravity.CENTER_VERTICAL;
+
 public class TextIconView extends LinearLayout {
 
     private TextView textView;
@@ -27,6 +30,7 @@ public class TextIconView extends LinearLayout {
     private void initView(boolean vertical) {
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
+        setGravity(CENTER_HORIZONTAL | CENTER_VERTICAL);
         li.inflate(vertical ? R.layout.text_icon_vertical : R.layout.text_icon_horizontal, this,
                 true);
 
