@@ -31,6 +31,8 @@ import fi.tuska.jalkametri.util.LogUtil;
 
 import java.util.List;
 
+import static android.view.Gravity.CENTER;
+import static fi.tuska.jalkametri.Common.DEFAULT_ICON_RES;
 import static org.joda.time.Instant.now;
 
 /**
@@ -120,8 +122,8 @@ public class SelectDrinkSizeActivity extends JalkametriDBActivity {
 
     private void loadLibraries(DrinkSizes sizeProvider) {
         List<DrinkSize> drinkSizes = sizeProvider.getSizes(selectedDrink);
-        listAdapter = new NamedIconAdapter<DrinkSize>(this, drinkSizes, true,
-                Common.DEFAULT_ICON_RES);
+        listAdapter = new NamedIconAdapter<>(this, drinkSizes,
+                DEFAULT_ICON_RES, true, CENTER, null);
         list.setAdapter(listAdapter);
     }
 

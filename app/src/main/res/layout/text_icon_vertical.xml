@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/vertical_wrap"
-    android:gravity="center_horizontal">
+              style="@style/vertical_wrap"
+              android:gravity="center_horizontal">
 
-    <ImageView
-        android:id="@+id/icon"
-        style="@style/wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/drink_generic" />
+    <LinearLayout
+        android:layout_width="@dimen/icon_area_size"
+        android:layout_height="@dimen/icon_area_size"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/icon"
+            style="@style/wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:src="@drawable/ic_drink_generic"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text"
@@ -16,6 +23,6 @@
         android:layout_gravity="center_horizontal|top"
         android:gravity="center_horizontal|top"
         android:maxLines="2"
-        android:ellipsize="end" />
+        android:ellipsize="end"/>
 
 </LinearLayout>

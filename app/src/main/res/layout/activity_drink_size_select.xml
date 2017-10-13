@@ -65,7 +65,7 @@
 
             <fi.tuska.jalkametri.gui.IconView
                 style="@style/table_icon"
-                android:src="@drawable/drink_generic"
+                android:src="@drawable/ic_drink_generic"
                 android:id="@+id/size_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

@@ -71,22 +71,22 @@
             android:layout_marginBottom="@dimen/text_spacing" />
 
         <!-- Size selection -->
+        <Spinner
+            style="@style/table_widespinner"
+            android:id="@+id/size_selector"
+            app:layout_constraintTop_toBottomOf="@id/strength_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="@dimen/text_spacing"
+            android:layout_marginTop="@dimen/padding" />
+
         <TextView
             style="@style/table_text"
             android:id="@+id/size_label"
             android:text="@string/drink_detail_size"
-            app:layout_constraintTop_toBottomOf="@+id/name_edit"
+            app:layout_constraintBottom_toBottomOf="@id/size_selector"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="@dimen/padding"
             android:padding="@dimen/label_padding"/>
-
-        <Spinner
-            style="@style/table_widespinner"
-            android:id="@+id/size_selector"
-            app:layout_constraintBottom_toBottomOf="@id/size_label"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="@dimen/text_spacing"
-            android:layout_marginTop="@dimen/doublePadding"/>
 
         <!-- Size name -->
         <EditText
@@ -195,12 +195,13 @@
         <fi.tuska.jalkametri.gui.IconView
             style="@style/table_icon"
             android:id="@+id/icon"
-            android:src="@drawable/drink_generic"
+            android:src="@drawable/ic_drink_generic"
             android:clickable="true"
             android:onClick="onClickIcon"
             app:layout_constraintTop_toBottomOf="@id/comment_edit"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/padding"/>
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginEnd="@dimen/padding"/>
 
         <!-- OK button -->
         <Button
