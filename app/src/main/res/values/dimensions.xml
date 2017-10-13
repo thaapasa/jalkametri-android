@@ -5,9 +5,16 @@
     <dimen name="doublePadding">20dp</dimen>
     <dimen name="text_spacing">4dp</dimen>
     <dimen name="label_padding">7dp</dimen>
+
     <dimen name="icon_area_width">80dp</dimen>
     <dimen name="icon_area_height">80dp</dimen>
-    <dimen name="icon_width">60dp</dimen>
-    <dimen name="icon_height">60dp</dimen>
+
+    <dimen name="cat_icon_size">60dp</dimen>
+    <dimen name="size_icon_size">40dp</dimen>
+    <dimen name="size_icon_size_l">45dp</dimen>
+    <dimen name="size_icon_size_xl">50dp</dimen>
+    <dimen name="size_icon_size_s">30dp</dimen>
+    <dimen name="size_icon_size_xs">25dp</dimen>
+    <dimen name="drink_icon_size">55dp</dimen>
 
 </resources>
