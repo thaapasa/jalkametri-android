@@ -4,8 +4,8 @@
               android:gravity="center_horizontal">
 
     <LinearLayout
-        android:layout_width="@dimen/icon_area_width"
-        android:layout_height="@dimen/icon_area_height"
+        android:layout_width="@dimen/icon_area_size"
+        android:layout_height="@dimen/icon_area_size"
         android:gravity="center">
         <ImageView
             android:id="@+id/icon"

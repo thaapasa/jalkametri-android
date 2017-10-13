@@ -2,6 +2,7 @@ package fi.tuska.jalkametri.gui
 
 import android.content.Context
 import android.view.Gravity.CENTER
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -33,5 +34,8 @@ open class NamedIconAdapter<out T : NamedIcon>(
         view.text = textFormatter?.convert(icon) ?: icon.getIconText(context.resources)
         return view
     }
+
+    fun inflater(): LayoutInflater =
+            context.applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
 }
