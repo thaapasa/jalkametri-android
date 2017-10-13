@@ -1,6 +1,7 @@
 package fi.tuska.jalkametri.gui
 
 import android.content.Context
+import android.view.Gravity.CENTER
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -8,14 +9,13 @@ import fi.tuska.jalkametri.dao.NamedIcon
 import fi.tuska.jalkametri.gui.DrinkIconUtils.getDrinkIconRes
 import fi.tuska.jalkametri.util.Converter
 
-open class NamedIconAdapter<T : NamedIcon>(
+open class NamedIconAdapter<out T : NamedIcon>(
         protected val context: Context,
         private val icons: List<T>,
-        private val vertical: Boolean,
-        private val textFormatter: Converter<NamedIcon, String>?,
-        protected val defaultIconRes: Int) : BaseAdapter() {
-
-    constructor(c: Context, icons: List<T>, vertical: Boolean, defaultIconRes: Int) : this(c, icons, vertical, null, defaultIconRes)
+        protected val defaultIconRes: Int,
+        private val vertical: Boolean = true,
+        private val gravity: Int = CENTER,
+        private val textFormatter: Converter<NamedIcon, String>? = null) : BaseAdapter() {
 
     override fun getCount(): Int = icons.size
 
@@ -24,7 +24,7 @@ open class NamedIconAdapter<T : NamedIcon>(
     override fun getItemId(position: Int): Long = 0
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView as TextIconView? ?: TextIconView(context, vertical)
+        val view = convertView as TextIconView? ?: TextIconView(context, vertical, gravity)
         val icon = getItem(position)
 
         val res = getDrinkIconRes(icon.icon)

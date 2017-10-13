@@ -1,7 +1,6 @@
 package fi.tuska.jalkametri.activity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -45,6 +44,9 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
 
+import static android.view.Gravity.CENTER_VERTICAL;
+import static android.view.Gravity.START;
+import static fi.tuska.jalkametri.Common.DEFAULT_ICON_RES;
 import static fi.tuska.jalkametri.Common.KEY_ORIGINAL;
 import static fi.tuska.jalkametri.Common.KEY_RESULT;
 
@@ -180,8 +182,8 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     public void updateUI() {
         List<DrinkEvent> drinks = history.getDrinks(day, false);
         LogUtil.INSTANCE.d(TAG, "Loaded %d drinks for %s", drinks.size(), wdayFormat.print(day));
-        listAdapter = new NamedIconAdapter<>(this, drinks, false, iconNameConverter,
-                Common.DEFAULT_ICON_RES);
+        listAdapter = new NamedIconAdapter<>(this, drinks, DEFAULT_ICON_RES,
+                false, START | CENTER_VERTICAL, iconNameConverter);
         setListAdapter(listAdapter);
         setPortions(countPortions(drinks), HistoryHelper.countWeekPortions(history, day, this));
     }

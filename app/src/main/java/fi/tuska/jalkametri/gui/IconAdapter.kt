@@ -7,7 +7,8 @@ import android.widget.ImageView
 import fi.tuska.jalkametri.dao.NamedIcon
 import fi.tuska.jalkametri.gui.DrinkIconUtils.getDrinkIconRes
 
-class IconAdapter<T : NamedIcon>(c: Context, icons: List<T>, defaultIconRes: Int) : NamedIconAdapter<T>(c, icons, true, defaultIconRes) {
+class IconAdapter<out T : NamedIcon>(c: Context, icons: List<T>, defaultIconRes: Int) :
+        NamedIconAdapter<T>(c, icons, defaultIconRes) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: ImageView = convertView as ImageView? ?: ImageView(context)

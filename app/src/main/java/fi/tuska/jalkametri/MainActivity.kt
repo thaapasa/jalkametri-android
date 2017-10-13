@@ -18,6 +18,7 @@ import android.widget.TextView
 import fi.tuska.jalkametri.Common.ACTIVITY_CODE_ADD_FAVOURITE
 import fi.tuska.jalkametri.Common.ACTIVITY_CODE_MODIFY_FAVOURITE
 import fi.tuska.jalkametri.Common.ACTIVITY_CODE_SELECT_DRINK
+import fi.tuska.jalkametri.Common.DEFAULT_ICON_RES
 import fi.tuska.jalkametri.Common.DEVELOPER_FUNCTIONALITY_ENABLED
 import fi.tuska.jalkametri.Common.KEY_ORIGINAL
 import fi.tuska.jalkametri.Common.KEY_RESULT
@@ -295,7 +296,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         fun updateFavourites() {
             val favs = favourites.favourites
             LogUtil.d(TAG, "Showing %d favourites", favs.size)
-            favouritesAdapter = NamedIconAdapter(activity, favs, true, Common.DEFAULT_ICON_RES)
+            favouritesAdapter = NamedIconAdapter(activity, favs, DEFAULT_ICON_RES)
             favouritesList.adapter = favouritesAdapter
             JalkametriWidget.triggerRecalculate(activity, adapter)
             LogUtil.d(TAG, "Recalculated widget")

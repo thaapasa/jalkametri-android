@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
 import fi.tuska.jalkametri.Common
+import fi.tuska.jalkametri.Common.DEFAULT_ICON_RES
 import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.data.IconName
 import java.io.Serializable
@@ -24,7 +25,7 @@ class IconPickerDialog : DialogFragment() {
             this.dismiss()
         }
 
-        val adapter = IconAdapter(v.context, DrinkIconUtils.getAsList(), Common.DEFAULT_ICON_RES)
+        val adapter = IconAdapter(v.context, DrinkIconUtils.getAsList(), DEFAULT_ICON_RES)
         val list = v.findViewById(R.id.list) as GridView
         list.adapter = adapter
         list.onItemClickListener = OnItemClickListener { _, _, position, _ -> selectIcon(adapter.getItem(position)) }

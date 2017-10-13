@@ -31,6 +31,8 @@ import fi.tuska.jalkametri.util.LogUtil;
 
 import java.util.List;
 
+import static android.view.Gravity.CENTER;
+import static fi.tuska.jalkametri.Common.DEFAULT_ICON_RES;
 import static org.joda.time.Instant.now;
 
 /**
@@ -164,16 +166,16 @@ public class SelectDrinkCategoryActivity extends JalkametriDBActivity {
 
     private void loadLibraries(DrinkLibrary library) {
         List<DrinkCategory> cats = library.getCategories();
-        categoryAdapter = new NamedIconAdapter<DrinkCategory>(this, cats, true,
-                Common.DEFAULT_ICON_RES);
+        categoryAdapter = new NamedIconAdapter<>(this, cats,
+                DEFAULT_ICON_RES, true, CENTER, null);
         categoryList.setAdapter(categoryAdapter);
         LogUtil.INSTANCE.d(TAG, "Loaded %d categories", cats.size());
     }
 
     private void loadPreviousDrinks(History history) {
         List<DrinkEvent> prevDrinks = history.getPreviousDrinks(NUM_PREVIOUS_DRINKS);
-        prevDrinkAdapter = new NamedIconAdapter<DrinkEvent>(this, prevDrinks, true,
-                Common.DEFAULT_ICON_RES);
+        prevDrinkAdapter = new NamedIconAdapter<>(this, prevDrinks,
+                DEFAULT_ICON_RES, true, CENTER, null);
         prevDrinkList.setAdapter(prevDrinkAdapter);
         LogUtil.INSTANCE.d(TAG, "Loaded %d previous drinks", prevDrinks.size());
     }
