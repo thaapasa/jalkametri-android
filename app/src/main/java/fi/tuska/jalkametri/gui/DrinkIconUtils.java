@@ -73,9 +73,9 @@ public class DrinkIconUtils {
         addIcon("size_wine_bottle", R.drawable.ic_size_wine_bottle);
         addIcon("size_champagne", R.drawable.ic_size_champagne);
         addIcon("size_cocktail", R.drawable.ic_size_cocktail);
-        addIcon("size_glass", R.drawable.size_glass);
-        addIcon("size_glass_small", R.drawable.size_glass_small);
-        addIcon("size_shot", R.drawable.size_shot);
+        addIcon("size_glass", R.drawable.ic_size_glass);
+        addIcon("size_glass_small", R.drawable.ic_size_glass_small);
+        addIcon("size_shot", R.drawable.ic_size_shot);
     }
 
     private static void addIcon(String iconName, int resID) {

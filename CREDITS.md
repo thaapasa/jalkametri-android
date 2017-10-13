@@ -44,6 +44,9 @@ Icons made by [Freepik](http://www.freepik.com) from
 - Beer glass, large
 - Beer glass, small
 - Beer glass, half (glass of water)
+- Glass
+- Small glass
+- Shot glass
 - Cocktail glass
 - Wine bottle
 - Wine glasses from [this collection](https://www.flaticon.com/packs/wine)

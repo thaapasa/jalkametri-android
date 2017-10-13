@@ -25,15 +25,15 @@ public class FinnishDrinkLibrary extends AbstractDrinkLibrary {
             R.drawable.ic_size_pint_half, ++order);
         DrinkSize sizeBottle = createSize(sizes, "Pullo", 0.33f, R.drawable.ic_size_beer_bottle,
             ++order);
-        DrinkSize sizeShot = createSize(sizes, "Shotti", 0.04f, R.drawable.size_shot, ++order);
+        DrinkSize sizeShot = createSize(sizes, "Shotti", 0.04f, R.drawable.ic_size_shot, ++order);
         DrinkSize sizeShotHalf = createSize(sizes, "Puolikas shotti", 0.02f,
-            R.drawable.size_shot, ++order);
-        DrinkSize sizeShotDouble = createSize(sizes, "Tuplashotti", 0.08f, R.drawable.size_shot,
+            R.drawable.ic_size_shot, ++order);
+        DrinkSize sizeShotDouble = createSize(sizes, "Tuplashotti", 0.08f, R.drawable.ic_size_shot,
             ++order);
-        DrinkSize sizeDrop = createSize(sizes, "Tilkka", 0.01f, R.drawable.size_shot, ++order);
-        DrinkSize sizeGlass = createSize(sizes, "Lasi", 0.25f, R.drawable.size_glass, ++order);
+        DrinkSize sizeDrop = createSize(sizes, "Tilkka", 0.01f, R.drawable.ic_size_shot, ++order);
+        DrinkSize sizeGlass = createSize(sizes, "Lasi", 0.25f, R.drawable.ic_size_glass, ++order);
         DrinkSize sizeGlassSmall = createSize(sizes, "Pieni lasi", 0.15f,
-            R.drawable.size_glass_small, ++order);
+            R.drawable.ic_size_glass_small, ++order);
         DrinkSize sizeWineDessert = createSize(sizes, "Jälkiruokaviinilasi", 0.08f,
             R.drawable.ic_size_wine_small, ++order);
         DrinkSize sizeWineSmall = createSize(sizes, "Pieni viinilasi", 0.12f,
