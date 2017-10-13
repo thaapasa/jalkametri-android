@@ -15,14 +15,14 @@ public class FinnishDrinkLibrary extends AbstractDrinkLibrary {
 
         int order = 0;
         @SuppressWarnings("unused")
-        DrinkSize sizePint = createSize(sizes, "Pintti", 0.568f, R.drawable.size_pint_pint,
+        DrinkSize sizePint = createSize(sizes, "Pintti", 0.568f, R.drawable.ic_size_pint_pint,
             ++order);
-        DrinkSize sizeLargeBeer = createSize(sizes, "Tuoppi", 0.5f, R.drawable.size_pint_large,
+        DrinkSize sizeLargeBeer = createSize(sizes, "Tuoppi", 0.5f, R.drawable.ic_size_pint_large,
             ++order);
-        DrinkSize sizeEuro = createSize(sizes, "Eurotuoppi", 0.4f, R.drawable.size_pint_euro,
+        DrinkSize sizeEuro = createSize(sizes, "Eurotuoppi", 0.4f, R.drawable.ic_size_pint_euro,
             ++order);
         DrinkSize sizeHalfPint = createSize(sizes, "Puolikas tuoppi", 0.25f,
-            R.drawable.size_pint_half, ++order);
+            R.drawable.ic_size_pint_half, ++order);
         DrinkSize sizeBottle = createSize(sizes, "Pullo", 0.33f, R.drawable.ic_size_beer_bottle,
             ++order);
         DrinkSize sizeShot = createSize(sizes, "Shotti", 0.04f, R.drawable.size_shot, ++order);
@@ -35,17 +35,17 @@ public class FinnishDrinkLibrary extends AbstractDrinkLibrary {
         DrinkSize sizeGlassSmall = createSize(sizes, "Pieni lasi", 0.15f,
             R.drawable.size_glass_small, ++order);
         DrinkSize sizeWineDessert = createSize(sizes, "Jälkiruokaviinilasi", 0.08f,
-            R.drawable.size_wine_small, ++order);
+            R.drawable.ic_size_wine_small, ++order);
         DrinkSize sizeWineSmall = createSize(sizes, "Pieni viinilasi", 0.12f,
-            R.drawable.size_wine_small, ++order);
+            R.drawable.ic_size_wine_small, ++order);
         DrinkSize sizeWineMedium = createSize(sizes, "Viinilasi", 0.16f,
-            R.drawable.size_wine_medium, ++order);
+            R.drawable.ic_size_wine_medium, ++order);
         DrinkSize sizeWineLarge = createSize(sizes, "Iso viinilasi", 0.24f,
-            R.drawable.size_wine_large, ++order);
+            R.drawable.ic_size_wine_large, ++order);
         DrinkSize sizeWineBottle = createSize(sizes, "Viinipullo", 0.75f,
-            R.drawable.size_wine_bottle, ++order);
+            R.drawable.ic_size_wine_bottle, ++order);
         DrinkSize sizeWineChampagne = createSize(sizes, "Samppanjalasi", 0.12f,
-            R.drawable.size_champagne, ++order);
+            R.drawable.ic_size_champagne, ++order);
 
         // Kaljat
         {

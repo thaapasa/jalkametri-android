@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="379.971dp"
-    android:height="379.971dp"
+    android:width="@dimen/icon_width"
+    android:height="@dimen/icon_height"
     android:viewportWidth="379.971"
     android:viewportHeight="379.971">
 

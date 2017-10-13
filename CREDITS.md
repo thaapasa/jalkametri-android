@@ -36,15 +36,22 @@ Icons made by [Vectors Market](https://www.flaticon.com/authors/vectors-market) 
 
 ## Drink size icons
 
-Icons made by [Papedesign](https://www.flaticon.com/authors/papedesign) from
-[Flaticon](https://www.flaticon.com/) is licensed by 
-[Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-- All size icons taken from 
-  [this collection](https://www.flaticon.com/packs/glasses-and-bottles-2) 
-  except for icons that are listed below
-
 Icons made by [Freepik](http://www.freepik.com) from 
 [Flaticon](https://www.flaticon.com/) is licensed by 
 [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-- Beer can icon
+- Beer can
+- Beer bottle
+- Beer glass, large
+- Beer glass, small
+- Beer glass, half (glass of water)
+- Cocktail glass
+- Wine bottle
+- Wine glasses from [this collection](https://www.flaticon.com/packs/wine)
+
+Icons made by [Papedesign](https://www.flaticon.com/authors/papedesign) from
+[Flaticon](https://www.flaticon.com/) is licensed by 
+[Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+- Beer glass, pint
+- Champagne glass
+- Icons are from [this collection](https://www.flaticon.com/packs/glasses-and-bottles-2) 
 

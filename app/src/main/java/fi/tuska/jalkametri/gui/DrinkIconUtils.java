@@ -62,17 +62,17 @@ public class DrinkIconUtils {
 
         // Sizes
         addIcon("size_beer_bottle", R.drawable.ic_size_beer_bottle);
-        addIcon("size_beer_can", R.drawable.size_beer_can);
-        addIcon("size_pint_euro", R.drawable.size_pint_euro);
-        addIcon("size_pint_half", R.drawable.size_pint_half);
-        addIcon("size_pint_large", R.drawable.size_pint_large);
-        addIcon("size_pint_pint", R.drawable.size_pint_pint);
-        addIcon("size_wine_large", R.drawable.size_wine_large);
-        addIcon("size_wine_medium", R.drawable.size_wine_medium);
-        addIcon("size_wine_small", R.drawable.size_wine_small);
-        addIcon("size_wine_bottle", R.drawable.size_wine_bottle);
-        addIcon("size_champagne", R.drawable.size_champagne);
-        addIcon("size_cocktail", R.drawable.size_cocktail);
+        addIcon("size_beer_can", R.drawable.ic_size_beer_can);
+        addIcon("size_pint_euro", R.drawable.ic_size_pint_euro);
+        addIcon("size_pint_half", R.drawable.ic_size_pint_half);
+        addIcon("size_pint_large", R.drawable.ic_size_pint_large);
+        addIcon("size_pint_pint", R.drawable.ic_size_pint_pint);
+        addIcon("size_wine_large", R.drawable.ic_size_wine_large);
+        addIcon("size_wine_medium", R.drawable.ic_size_wine_medium);
+        addIcon("size_wine_small", R.drawable.ic_size_wine_small);
+        addIcon("size_wine_bottle", R.drawable.ic_size_wine_bottle);
+        addIcon("size_champagne", R.drawable.ic_size_champagne);
+        addIcon("size_cocktail", R.drawable.ic_size_cocktail);
         addIcon("size_glass", R.drawable.size_glass);
         addIcon("size_glass_small", R.drawable.size_glass_small);
         addIcon("size_shot", R.drawable.size_shot);
