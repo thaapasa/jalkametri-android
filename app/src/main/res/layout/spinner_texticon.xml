@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/horizontal_fill_vwrap"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_margin="@dimen/padding"
     android:weightSum="1">
 
     <TextView
@@ -13,15 +12,23 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <fi.tuska.jalkametri.gui.IconView
-        style="@style/table_icon"
-        android:src="@drawable/ic_drink_generic"
-        android:id="@+id/icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="end"
-        android:gravity="end"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true" />
+    <LinearLayout
+        android:layout_width="@dimen/size_icon_size_max"
+        android:layout_height="@dimen/size_icon_size_max"
+        android:layout_gravity="end|center_vertical"
+        android:gravity="center">
+
+        <fi.tuska.jalkametri.gui.IconView
+            style="@style/table_icon"
+            android:src="@drawable/ic_size_cocktail"
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true" />
+
+    </LinearLayout>
 
 </LinearLayout>

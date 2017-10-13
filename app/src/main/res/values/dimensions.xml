@@ -9,11 +9,13 @@
     <dimen name="icon_area_size">80dp</dimen>
 
     <dimen name="cat_icon_size">60dp</dimen>
-    <dimen name="size_icon_size">40dp</dimen>
-    <dimen name="size_icon_size_l">45dp</dimen>
+    <dimen name="drink_icon_size">55dp</dimen>
+
+    <dimen name="size_icon_size_max">50dp</dimen>
     <dimen name="size_icon_size_xl">50dp</dimen>
+    <dimen name="size_icon_size_l">45dp</dimen>
+    <dimen name="size_icon_size">40dp</dimen>
     <dimen name="size_icon_size_s">30dp</dimen>
     <dimen name="size_icon_size_xs">25dp</dimen>
-    <dimen name="drink_icon_size">55dp</dimen>
 
 </resources>
