@@ -10,12 +10,12 @@ import java.util.Locale
  * Locale helper code copied from
  * https://gunhansancar.com/change-language-programmatically-in-android/
  */
-class LocaleHelper {
+object LocaleHelper {
 
     private val SELECTED_LANGUAGE_KEY = "Locale.Helper.Selected.Language"
 
     fun onAttach(context: Context): Context {
-        val lang = getPersistedData(context, Locale.getDefault().getLanguage())
+        val lang = getPersistedData(context, Locale.getDefault().language)
         return setLocale(context, lang)
     }
 
@@ -25,7 +25,7 @@ class LocaleHelper {
     }
 
     fun getLanguage(context: Context): String {
-        return getPersistedData(context, Locale.getDefault().getLanguage())
+        return getPersistedData(context, Locale.getDefault().language)
     }
 
     fun setLocale(context: Context, language: String): Context {
@@ -55,7 +55,7 @@ class LocaleHelper {
         val locale = Locale(language)
         Locale.setDefault(locale)
 
-        val configuration = context.getResources().getConfiguration()
+        val configuration = context.resources.configuration
         configuration.setLocale(locale)
         configuration.setLayoutDirection(locale)
 
@@ -66,15 +66,15 @@ class LocaleHelper {
         val locale = Locale(language)
         Locale.setDefault(locale)
 
-        val resources = context.getResources()
+        val resources = context.resources
 
-        val configuration = resources.getConfiguration()
+        val configuration = resources.configuration
         configuration.locale = locale
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             configuration.setLayoutDirection(locale)
         }
 
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics())
+        resources.updateConfiguration(configuration, resources.displayMetrics)
 
         return context
     }

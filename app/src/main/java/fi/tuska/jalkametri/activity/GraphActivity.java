@@ -16,7 +16,6 @@ import fi.tuska.jalkametri.gui.GraphView;
 import fi.tuska.jalkametri.gui.GraphView.Graph;
 import org.joda.time.LocalDate;
 
-import java.util.Date;
 import java.util.List;
 
 /**

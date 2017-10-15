@@ -1,12 +1,14 @@
 package fi.tuska.jalkametri
 
 import android.app.Application
+import android.content.Context
 import android.content.res.Configuration
 import fi.tuska.jalkametri.dao.Preferences
 import fi.tuska.jalkametri.data.PreferencesImpl
-import fi.tuska.jalkametri.util.LocalizationUtil
+import fi.tuska.jalkametri.util.LocaleHelper
 import fi.tuska.jalkametri.util.TimeUtil
 import net.danlew.android.joda.JodaTimeAndroid
+import java.util.Locale
 
 /**
  * The jAlkaMetri main application class. Locale-changing code copied from
@@ -35,10 +37,14 @@ class JalkametriApplication : Application() {
     private fun reset() {
         val p = PreferencesImpl(this)
         val locale = p.locale
-        LocalizationUtil.setLocale(locale, baseContext)
+        LocaleHelper.setLocale(baseContext, locale.language)
 
         timeUtil = TimeUtil(resources, locale)
         prefs = p
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(LocaleHelper.onAttach(base, Locale.getDefault().language))
     }
 
 }

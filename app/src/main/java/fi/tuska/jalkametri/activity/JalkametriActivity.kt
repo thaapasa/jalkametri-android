@@ -15,7 +15,9 @@ import fi.tuska.jalkametri.CommonActivities
 import fi.tuska.jalkametri.JalkametriApplication
 import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.Preferences
+import fi.tuska.jalkametri.util.LocaleHelper
 import fi.tuska.jalkametri.util.TimeUtil
+import java.util.Locale
 
 /**
  * Abstract base class for jAlkaMetri activities; contains common
@@ -51,6 +53,10 @@ abstract class JalkametriActivity(private val titleResourceId: Int, private val 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
         this.mainView = findViewById(R.id.main_view)
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase))
     }
 
     protected fun invalidateView() {
