@@ -4,242 +4,199 @@
     android:fillViewport="true"
     style="@style/fill_parent">
 
-    <TableLayout
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding">
 
         <!-- PART: General settings -->
         <TextView
             android:text="@string/prefs_part_general"
             style="@style/subtitle_text" />
 
-        <!-- Select language -->
-        <TableRow>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0"
+            android:paddingStart="@dimen/padding"
+            android:paddingEnd="@dimen/padding">
+
+            <!-- Select language -->
+            <TableRow android:layout_marginTop="@dimen/padding">
+
+                <TextView
+                    android:text="@string/prefs_language"
+                    style="@style/table_text" />
+
+                <Spinner
+                    android:id="@+id/language_edit"
+                    style="@style/table_spinner" />
+            </TableRow>
 
             <TextView
-                android:text="@string/prefs_language"
-                style="@style/table_text" />
+                style="@style/info_text"
+                android:text="@string/prefs_language_info" />
 
-            <Spinner
-                android:id="@+id/language_edit"
-                style="@style/table_spinner" />
-        </TableRow>
+            <!-- Enter your weight -->
+            <TableRow android:layout_marginTop="@dimen/padding">
 
-        <TextView
-            android:text="@string/prefs_language_info"
-            style="@style/info_text" />
+                <TextView
+                    style="@style/table_text"
+                    android:text="@string/prefs_weight" />
 
-        <!-- Enter your weight -->
-        <TableRow>
-
-            <TextView
-                android:text="@string/prefs_weight"
-                style="@style/table_text" />
-
-            <EditText
-                android:id="@+id/weight_edit"
-                android:text=""
-                style="@style/table_edit"
-                android:inputType="numberDecimal"
-                android:maxLength="6" />
-        </TableRow>
-
-        <TextView
-            android:text="@string/prefs_weight_info"
-            style="@style/info_text" />
-
-
-        <!-- Enter your gender -->
-        <TableRow>
+                <EditText
+                    style="@style/table_edit"
+                    android:id="@+id/weight_edit"
+                    android:text=""
+                    android:inputType="numberDecimal"
+                    android:maxLength="6" />
+            </TableRow>
 
             <TextView
-                android:text="@string/prefs_gender"
-                style="@style/table_text" />
+                style="@style/info_text"
+                android:text="@string/prefs_weight_info" />
 
-            <Spinner
-                android:id="@+id/gender_edit"
-                style="@style/table_spinner" />
-        </TableRow>
+            <!-- Enter your gender -->
+            <TableRow android:layout_marginTop="@dimen/padding">
 
-        <TextView
-            android:text="@string/prefs_gender_info"
-            style="@style/info_text" />
+                <TextView
+                    android:text="@string/prefs_gender"
+                    style="@style/table_text" />
 
-        <!-- Enter alcohol limit for driving -->
-        <TableRow>
-
-            <TextView
-                android:text="@string/prefs_driving_alcohol_limit"
-                style="@style/table_text" />
-
-            <EditText
-                android:id="@+id/driving_limit_edit"
-                android:text=""
-                style="@style/table_edit"
-                android:inputType="numberDecimal"
-                android:maxLength="6" />
-        </TableRow>
-
-        <TextView
-            android:text="@string/prefs_driving_alcohol_limit_info"
-            style="@style/info_text" />
-
-        <!--
-        25.4.2011: Max alcohol level on gauge is now constant
-        <TableRow>
-          <TextView android:text="@string/prefs_max_alcohol_level"
-            style="@style/table_text" />
-          <EditText android:id="@+id/max_level_edit" android:text="1.0"
-            style="@style/table_edit" android:inputType="numberDecimal"
-            android:maxLength="6" />
-        </TableRow>
-        <TableRow>
-          <TextView android:text="@string/prefs_max_alcohol_level_info"
-            style="@style/info_text" android:layout_span="2" />
-        </TableRow>
-        -->
-
-        <!-- Starting day for week -->
-        <TableRow>
+                <Spinner
+                    android:id="@+id/gender_edit"
+                    style="@style/table_spinner" />
+            </TableRow>
 
             <TextView
-                android:text="@string/prefs_week_start"
-                style="@style/table_text" />
+                style="@style/info_text"
+                android:text="@string/prefs_gender_info" />
 
-            <Spinner
-                android:id="@+id/week_start_edit"
-                style="@style/table_spinner" />
-        </TableRow>
+            <!-- Enter alcohol limit for driving -->
+            <TableRow>
 
-        <TextView
-            android:text="@string/prefs_week_start_info"
-            style="@style/info_text" />
+                <TextView
+                    android:text="@string/prefs_driving_alcohol_limit"
+                    style="@style/table_text" />
 
-        <!-- Time when day changes -->
-        <TableRow>
+                <EditText
+                    android:id="@+id/driving_limit_edit"
+                    android:text=""
+                    style="@style/table_edit"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6" />
+            </TableRow>
 
             <TextView
-                android:text="@string/prefs_day_change_time"
-                style="@style/table_text" />
+                style="@style/info_text"
+                android:text="@string/prefs_driving_alcohol_limit_info" />
 
-            <fi.tuska.jalkametri.gui.TimePicker24
-                android:id="@+id/day_change_edit"
-                style="@style/table_time_picker" />
-        </TableRow>
+            <!-- Starting day for week -->
+            <TableRow android:layout_marginTop="@dimen/padding">
 
-        <TextView
-            android:text="@string/prefs_day_change_time_info"
-            style="@style/info_text" />
+                <TextView
+                    android:text="@string/prefs_week_start"
+                    style="@style/table_text" />
+
+                <Spinner
+                    android:id="@+id/week_start_edit"
+                    style="@style/table_spinner" />
+            </TableRow>
+
+            <TextView
+                style="@style/info_text"
+                android:text="@string/prefs_week_start_info" />
+
+            <!-- Time when day changes -->
+            <TableRow>
+
+                <TextView
+                    android:text="@string/prefs_day_change_time"
+                    style="@style/table_text" />
+
+                <EditText
+                    style="@style/table_edit"
+                    android:id="@+id/day_change_edit"
+                    android:clickable="true"
+                    android:focusable="false" />
+
+            </TableRow>
+
+            <TextView
+                style="@style/info_text"
+                android:text="@string/prefs_day_change_time_info" />
+
+        </TableLayout>
+
 
         <!-- PART: Standard drink alcohol weight -->
         <TextView
             android:text="@string/prefs_part_alc_weight"
             style="@style/subtitle_text" />
 
-        <!-- Standard drink based on country -->
-        <TextView
-            android:text="@string/prefs_standard_drink"
-            style="@style/table_text" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0"
+            android:paddingStart="@dimen/padding"
+            android:paddingEnd="@dimen/padding">
 
-        <Spinner
-            android:id="@+id/standard_drink"
-            style="@style/table_spinner" />
+            <!-- Standard drink based on country -->
+            <TextView
+                style="@style/table_text"
+                android:text="@string/prefs_standard_drink"
+                android:layout_marginTop="@dimen/padding" />
 
-        <TextView
-            android:text="@string/prefs_standard_drink_info"
-            style="@style/info_text" />
-
-
-        <!-- PART: Ads -->
-        <TextView
-            android:text="@string/prefs_part_ads"
-            style="@style/subtitle_text" />
-
-        <!-- Show ads -->
-        <TableRow>
+            <Spinner
+                style="@style/table_spinner"
+                android:id="@+id/standard_drink" />
 
             <TextView
-                android:text="@string/prefs_ads"
-                style="@style/table_text" />
+                style="@style/info_text"
+                android:text="@string/prefs_standard_drink_info" />
 
-            <CheckBox
-                android:id="@+id/ads"
-                android:text="@string/prefs_on"
-                android:layout_gravity="right|center_vertical"
-                android:checked="true"
-                android:enabled="false" />
-        </TableRow>
-        <!-- Link to buy license -->
-        <TextView
-            android:text="@string/prefs_ads_info_free"
-            android:id="@+id/ads_info"
-            style="@style/info_text" />
-
-        <Button
-            android:text="@string/prefs_buy_license"
-            android:id="@+id/buy_license"
-            style="@style/button_wrap"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:onClick="showAbout" />
-
+        </TableLayout>
 
         <!-- PART: Data backup -->
         <TextView
             android:text="@string/prefs_part_backup_data"
             style="@style/subtitle_text" />
 
-        <!-- Data backup -->
-        <TextView
-            android:text="@string/prefs_backup_info"
-            style="@style/info_text" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0"
+            android:paddingStart="@dimen/padding"
+            android:paddingEnd="@dimen/padding">
 
-        <LinearLayout
-            style="@style/horizontal_fill_vwrap"
-            android:weightSum="10">
+            <!-- Data backup -->
+            <TextView
+                style="@style/info_text"
+                android:text="@string/prefs_backup_info"
+                android:layout_marginTop="@dimen/padding" />
 
-            <Button
-                android:text="@string/prefs_backup_data"
-                android:id="@+id/backup_data"
-                style="@style/button_wrap"
-                android:paddingLeft="10dp"
-                android:layout_weight="5"
-                android:paddingRight="10dp"
-                android:onClick="backupData" />
+            <LinearLayout
+                style="@style/horizontal_fill_vwrap"
+                android:weightSum="2">
 
-            <Button
-                android:text="@string/prefs_restore_data"
-                android:id="@+id/restore_data"
-                style="@style/button_wrap"
-                android:layout_weight="5"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:onClick="restoreData" />
-        </LinearLayout>
+                <Button
+                    style="@style/button_wrap"
+                    android:id="@+id/backup_data"
+                    android:text="@string/prefs_backup_data"
+                    android:layout_weight="1"
+                    android:onClick="backupData" />
 
-        <!--
-          25.4.2011: Disabling sounds for now
-            <TableRow>
-              <TextView android:text="@string/prefs_sounds" style="@style/table_text" />
-              <CheckBox android:id="@+id/sounds" android:text="@string/prefs_on"
-                android:layout_gravity="right|center_vertical" />
-            </TableRow>
-            <TextView android:text="@string/prefs_sounds_info" style="@style/info_text" />
-        -->
-        <!--
-          25.4.2011: Disabling debug mode for deployment version
-            <TableRow>
-              <TextView android:text="@string/prefs_debug_mode" style="@style/table_text" />
-              <CheckBox android:id="@+id/debug_mode" android:text="@string/prefs_on"
-                android:layout_gravity="right|center_vertical" />
-            </TableRow>
-            <TextView android:text="@string/prefs_debug_mode_info" style="@style/info_text" />
-        -->
+                <Button
+                    style="@style/button_wrap"
+                    android:id="@+id/restore_data"
+                    android:text="@string/prefs_restore_data"
+                    android:layout_weight="1"
+                    android:onClick="restoreData" />
+            </LinearLayout>
 
-        <!-- Spacer -->
-        <View
-            android:layout_height="10dip"
-            android:layout_width="fill_parent" />
-    </TableLayout>
+        </TableLayout>
+
+    </LinearLayout>
+
 </ScrollView>
