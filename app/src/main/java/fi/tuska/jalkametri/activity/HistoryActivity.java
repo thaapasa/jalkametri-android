@@ -36,6 +36,7 @@ import fi.tuska.jalkametri.gui.DrinkDetailsDialog;
 import fi.tuska.jalkametri.gui.NamedIconAdapter;
 import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.Converter;
+import fi.tuska.jalkametri.util.LocaleHelper;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.StringUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
@@ -106,6 +107,11 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
      * Standard activity functions
      * --------------------------------------------
      */
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.INSTANCE.onAttach(newBase));
+    }
 
     /**
      * Called when the activity is first created.

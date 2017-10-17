@@ -1,11 +1,13 @@
 package fi.tuska.jalkametri.activity;
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.activity.StatisticsDailyActivity.Type;
+import fi.tuska.jalkametri.util.LocaleHelper;
 
 /**
  * Shows statistics about your drinking habits. The truth is often harsh;
@@ -16,6 +18,11 @@ import fi.tuska.jalkametri.activity.StatisticsDailyActivity.Type;
 public class StatisticsActivity extends TabActivity {
 
     public static final String TAG = "StatisticsActivity";
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.INSTANCE.onAttach(newBase));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,8 +36,8 @@ public class StatisticsActivity extends TabActivity {
 
         // Initialize a TabSpec for each tab and add it to the TabHost
         TabHost.TabSpec spec = tabHost.newTabSpec("summary")
-            .setIndicator(getResources().getString(R.string.stats_tab_summary))
-            .setContent(intent);
+                .setIndicator(getResources().getString(R.string.stats_tab_summary))
+                .setContent(intent);
         tabHost.addTab(spec);
 
         // Do the same for the other tabs
@@ -42,12 +49,12 @@ public class StatisticsActivity extends TabActivity {
     }
 
     private void addDailyStatisticsTab(TabHost tabHost, StatisticsDailyActivity.Type type,
-        int titleResId) {
+                                       int titleResId) {
 
         Intent intent = new Intent().setClass(this, StatisticsDailyActivity.class);
         intent.putExtra(StatisticsDailyActivity.TYPE, type);
         TabHost.TabSpec spec = tabHost.newTabSpec(type.toString())
-            .setIndicator(getResources().getString(titleResId)).setContent(intent);
+                .setIndicator(getResources().getString(titleResId)).setContent(intent);
 
         tabHost.addTab(spec);
     }

@@ -9,11 +9,8 @@ import fi.tuska.jalkametri.dao.GeneralStatistics;
 import fi.tuska.jalkametri.dao.Statistics;
 import fi.tuska.jalkametri.db.StatisticsDB;
 import fi.tuska.jalkametri.util.NumberUtil;
-import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
-
-import java.util.Date;
 
 public abstract class AbstractStatisticsActivity extends JalkametriDBActivity {
 
