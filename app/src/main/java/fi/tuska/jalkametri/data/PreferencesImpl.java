@@ -142,16 +142,6 @@ public class PreferencesImpl implements Preferences {
     }
 
     @Override
-    public boolean isDebugMode() {
-        return prefs.getBoolean(PREF_DEBUG_MODE, DEFAULT_DEBUG_MODE);
-    }
-
-    @Override
-    public void setDebugMode(Editor editor, boolean state) {
-        editor.putBoolean(PREF_DEBUG_MODE, state);
-    }
-
-    @Override
     public boolean isWeekStartMonday() {
         return prefs.getBoolean(PREF_WEEK_START_MONDAY, DEFAULT_WEEK_START_MONDAY);
     }
@@ -190,16 +180,6 @@ public class PreferencesImpl implements Preferences {
     @Override
     public void setLicensePurchased(Editor editor, boolean state) {
         editor.putBoolean(PREF_LICENSE_PURCHASED, state);
-    }
-
-    @Override
-    public boolean isAdsEnabled() {
-        return prefs.getBoolean(PREF_ADS_ENABLED, DEFAULT_ADS_ENABLED);
-    }
-
-    @Override
-    public void setAdsEnabled(Editor editor, boolean state) {
-        editor.putBoolean(PREF_ADS_ENABLED, state);
     }
 
     @Override

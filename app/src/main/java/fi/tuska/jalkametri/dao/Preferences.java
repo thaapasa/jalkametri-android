@@ -18,12 +18,10 @@ public interface Preferences {
     String PREF_DRIVING_ALCOHOL_LIMIT = "pref_driving_alcohol_limit";
     String PREF_MAX_ALCOHOL_LEVEL = "pref_max_alcohol_level";
     String PREF_DRINK_LIB_INIT = "pref_drink_lib_init";
-    String PREF_DEBUG_MODE = "pref_debug_mode";
     String PREF_WEEK_START_MONDAY = "pref_week_start_monday";
     String PREF_DISCLAIMER_READ = "pref_disclaimer_read";
     String PREF_LOCALE = "pref_locale";
     String PREF_LICENSE_PURCHASED = "license_purchased";
-    String PREF_ADS_ENABLED = "ads_enabled";
     String PREF_STANDARD_DRINK_COUNTRY = "standard_drink_country";
 
     double DEFAULT_WEIGHT = 70f;
@@ -33,12 +31,9 @@ public interface Preferences {
     int DEFAULT_DAY_CHANGE_HOUR = 6;
     int DEFAULT_DAY_CHANGE_MINUTE = 0;
     double DEFAULT_MAX_ALHOCOL_LEVEL = 2.0f;
-    boolean DEFAULT_DEBUG_MODE = false;
-    boolean DEFAULT_SOUNDS = true;
     boolean DEFAULT_WEEK_START_MONDAY = true;
     boolean DEFAULT_DISCLAIMER_READ = false;
     boolean DEFAULT_LICENSE_PURCHASED = false;
-    boolean DEFAULT_ADS_ENABLED = true;
     String DEFAULT_STANDARD_DRINK_COUNTRY = "fi";
 
     /**
@@ -55,16 +50,10 @@ public interface Preferences {
 
     void setMaxAlcoholLevel(Editor editor, double level);
 
-    /**
-     * @return the user's weight.
-     */
     double getWeight();
 
     void setWeight(Editor editor, double weight);
 
-    /**
-     * @return the user's gender.
-     */
     Gender getGender();
 
     void setGender(Editor editor, Gender gender);
@@ -83,10 +72,6 @@ public interface Preferences {
 
     void setDrinkLibraryInitialized(Editor editor, boolean state);
 
-    boolean isDebugMode();
-
-    void setDebugMode(Editor editor, boolean state);
-
     boolean isWeekStartMonday();
 
     void setWeekStartMonday(Editor editor, boolean state);
@@ -98,10 +83,6 @@ public interface Preferences {
     boolean isLicensePurchased();
 
     void setLicensePurchased(Editor editor, boolean state);
-
-    boolean isAdsEnabled();
-
-    void setAdsEnabled(Editor editor, boolean state);
 
     Locale getLocale();
 
