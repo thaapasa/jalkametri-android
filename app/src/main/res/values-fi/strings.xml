@@ -188,6 +188,7 @@
 
   <string name="day_showday_format">EE d.M.</string>
   <string name="day_full_format">EE d.M.yyyy HH:mm</string>
+  <string name="day_format">EE d.M.yyyy</string>
   <string name="time_format">HH:mm</string>
   <string name="date_format">EE d.M.yyyy</string>
 
@@ -302,7 +303,7 @@
   <string name="stats_avg_portions_all_weeks">Kaikille viikoille</string>
 
   <string name="stats_yearly_title_pattern">\'Vuosi\' yyyy</string>
-  <string name="stats_monthly_title_pattern">MMM\'kuu\' yyyy</string>
+  <string name="stats_monthly_title_pattern">MMM yyyy</string>
   <string name="stats_weekly_title_pattern">\'Viikko\' w/yyyy</string>
 
   <!-- Standard drink alcohol weights in different countries -->

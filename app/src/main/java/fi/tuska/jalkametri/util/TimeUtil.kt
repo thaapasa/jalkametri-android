@@ -46,8 +46,8 @@ class TimeUtil(val res: Resources, val locale: Locale) {
     fun getStartOfDrinkDay(day: LocalDate, prefs: Preferences): Instant =
             day.toDateTime(prefs.dayChangeTime, timeZone).toInstant()
 
-    fun getStartOfWeek(day: LocalDate, prefs: Preferences): LocalDate {
-        var cur = day
+    fun getStartOfWeek(day: LocalDate?, prefs: Preferences): LocalDate {
+        var cur = day ?: LocalDate.now()
         val firstDayOfWeek = if (prefs.isWeekStartMonday) DateTimeConstants.MONDAY else DateTimeConstants.SUNDAY
         while (cur.dayOfWeek != firstDayOfWeek) {
             cur = cur.minusDays(1)
@@ -61,14 +61,14 @@ class TimeUtil(val res: Resources, val locale: Locale) {
 
     fun fromSQLDate(dateString: String): Instant? = try {
         Instant.parse(dateString, sqlDateFormat)
-    } catch (e: ParseException) {
+    } catch (e: Exception) {
         LogUtil.w(TAG, "Invalid SQL date string: %s", dateString)
         null
     }
 
     fun getTimeAfterHours(hours: Double): Instant = Instant.now().plus(Duration.millis((hours * HOUR_MS).toLong()))
 
-    val sqlDateFormat: DateTimeFormatter
+    private val sqlDateFormat: DateTimeFormatter
         get() = timeFormatter("yyyy-MM-dd")
 
     val dateFormatWDay: DateTimeFormatter
@@ -76,6 +76,9 @@ class TimeUtil(val res: Resources, val locale: Locale) {
 
     val timeFormat: DateTimeFormatter
         get() = timeFormatter(res.getString(R.string.time_format))
+
+    val dateFormat: DateTimeFormatter
+        get() = timeFormatter(res.getString(R.string.day_format))
 
     val dateFormatFull: DateTimeFormatter
         get() = timeFormatter(res.getString(R.string.day_full_format))
@@ -95,50 +98,6 @@ class TimeUtil(val res: Resources, val locale: Locale) {
 
     fun isLeapYear(year: Int): Boolean {
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
-    }
-
-    fun getMonthCorrectedDateFormat(pattern: String): DateTimeFormatter {
-        return DateTimeFormat.forPattern(pattern).withLocale(locale).withZone(timeZone)
-        /*object : DateFormat() {
-
-            private val formatter: DateFormat = SimpleDateFormat(pattern, locale)
-            private val formatters: List<DateFormat> = (0..11).map {
-                val pat = pattern.replace("MMMM?'".toRegex(), "'" + getMonthName(it))
-                        .replace("'MMMM?".toRegex(), getMonthName(it) + "'")
-                        .replace("'MMMM".toRegex(), "'" + getMonthName(it) + "'")
-                SimpleDateFormat(pat, locale)
-            }
-
-            private fun getMonthName(month: Int): String {
-                return when (month) {
-                    Calendar.JANUARY -> res.getString(R.string.month_january)
-                    Calendar.FEBRUARY -> res.getString(R.string.month_february)
-                    Calendar.MARCH -> res.getString(R.string.month_march)
-                    Calendar.APRIL -> res.getString(R.string.month_april)
-                    Calendar.MAY -> res.getString(R.string.month_may)
-                    Calendar.JUNE -> res.getString(R.string.month_june)
-                    Calendar.JULY -> res.getString(R.string.month_july)
-                    Calendar.AUGUST -> res.getString(R.string.month_august)
-                    Calendar.SEPTEMBER -> res.getString(R.string.month_september)
-                    Calendar.OCTOBER -> res.getString(R.string.month_october)
-                    Calendar.NOVEMBER -> res.getString(R.string.month_november)
-                    Calendar.DECEMBER -> res.getString(R.string.month_december)
-                    else -> "".apply {
-                        LogUtil.w(TAG, "Unknown month: %d", month)
-                    }
-                }
-            }
-
-            override fun format(date: Date, buffer: StringBuffer, field: FieldPosition): StringBuffer {
-                val cal = this@TimeUtil.getCalendar(date)
-                return formatters[cal.get(Calendar.MONTH)].format(date, buffer, field)
-            }
-
-            override fun parse(string: String, position: ParsePosition): Date {
-                return formatter.parse(string, position)
-            }
-
-        }*/
     }
 
     companion object {

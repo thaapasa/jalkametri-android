@@ -8,7 +8,8 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
+        android:stretchColumns="*"
+        android:paddingBottom="@dimen/doublePadding">
 
         <!-- Drink amount stats -->
         <TextView
@@ -20,10 +21,12 @@
 
             <TextView
                 android:text="@string/stats_total_drinks"
+                android:paddingStart="@dimen/padding"
                 style="@style/table_text_tight" />
 
             <TextView
                 android:id="@+id/total_drinks"
+                android:paddingEnd="@dimen/padding"
                 style="@style/simple_text_right"
                 android:text="1520" />
         </TableRow>
@@ -32,10 +35,12 @@
 
             <TextView
                 android:text="@string/stats_total_portions"
+                android:paddingStart="@dimen/padding"
                 style="@style/table_text_tight" />
 
             <TextView
                 android:id="@+id/total_portions"
+                android:paddingEnd="@dimen/padding"
                 style="@style/simple_text_right"
                 android:text="1893,44" />
         </TableRow>
@@ -44,10 +49,12 @@
 
             <TextView
                 android:text="@string/stats_total_alcohol"
+                android:paddingStart="@dimen/padding"
                 style="@style/table_text_tight" />
 
             <TextView
                 android:id="@+id/total_alcohol"
+                android:paddingEnd="@dimen/padding"
                 style="@style/simple_text_right"
                 android:text="1893,44 l" />
         </TableRow>
@@ -61,10 +68,12 @@
         <!-- First recorded drinking day: first_day -->
         <TextView
             android:text="@string/stats_first_day"
+            android:paddingStart="@dimen/padding"
             style="@style/table_text_tight" />
 
         <TextView
             android:id="@+id/first_day"
+            android:paddingEnd="@dimen/padding"
             style="@style/simple_text_right"
             android:text="Saturday 1/1/1970 10:54"
             android:layout_width="fill_parent" />
@@ -72,11 +81,13 @@
         <TableRow>
 
             <TextView
+                android:paddingStart="@dimen/padding"
                 android:text="@string/stats_all_days"
                 style="@style/table_text_tight" />
 
             <TextView
                 android:id="@+id/all_days"
+                android:paddingEnd="@dimen/padding"
                 style="@style/simple_text_right"
                 android:text="1452" />
         </TableRow>
@@ -84,11 +95,13 @@
         <TableRow>
 
             <TextView
+                android:paddingStart="@dimen/padding"
                 android:text="@string/stats_sober_days"
                 style="@style/table_text_tight" />
 
             <TextView
                 android:id="@+id/sober_days"
+                android:paddingEnd="@dimen/padding"
                 style="@style/simple_text_right"
                 android:text="842 (60,42 %)" />
         </TableRow>
@@ -97,10 +110,12 @@
 
             <TextView
                 android:text="@string/stats_drunk_days"
+                android:paddingStart="@dimen/padding"
                 style="@style/table_text_tight" />
 
             <TextView
                 android:id="@+id/drunk_days"
+                android:paddingEnd="@dimen/padding"
                 style="@style/simple_text_right"
                 android:text="530 (35,23 %)" />
         </TableRow>
@@ -114,10 +129,12 @@
 
             <TextView
                 android:text="@string/stats_avg_portions_all_weeks"
+                android:paddingStart="@dimen/padding"
                 style="@style/table_text_tight" />
 
             <TextView
                 android:id="@+id/avg_weekly_portions"
+                android:paddingEnd="@dimen/padding"
                 style="@style/simple_text_right"
                 android:text="15.6" />
         </TableRow>
@@ -132,10 +149,12 @@
 
             <TextView
                 android:text="@string/stats_avg_portions_all_days"
+                android:paddingStart="@dimen/padding"
                 style="@style/table_text_tight" />
 
             <TextView
                 android:id="@+id/avg_portions_all_days"
+                android:paddingEnd="@dimen/padding"
                 style="@style/simple_text_right"
                 android:text="0.7" />
         </TableRow>
@@ -144,10 +163,12 @@
 
             <TextView
                 android:text="@string/stats_avg_portions_drunk_days"
+                android:paddingStart="@dimen/padding"
                 style="@style/table_text_tight" />
 
             <TextView
                 android:id="@+id/avg_portions_drunk_days"
+                android:paddingEnd="@dimen/padding"
                 style="@style/simple_text_right"
                 android:text="3.4" />
         </TableRow>

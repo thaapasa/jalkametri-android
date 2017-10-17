@@ -218,6 +218,7 @@
     <string name="day_Sunday">Sunday</string>
 
     <string name="day_showday_format">EE M/d</string>
+    <string name="day_format">EE M/d/y</string>
     <string name="day_full_format">EE M/d/y HH:mm</string>
     <string name="time_format">HH:mm</string>
     <string name="date_format">EE M/d/y</string>

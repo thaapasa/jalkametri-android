@@ -57,7 +57,7 @@ public abstract class AbstractStatisticsActivity extends JalkametriDBActivity {
 
         this.statistics = new StatisticsDB(getDBAdapter(), getPrefs(), this);
         this.generalStats = null;
-        this.dateFormat = getTimeUtil().getDateFormatFull();
+        this.dateFormat = getTimeUtil().getDateFormat();
     }
 
     @Override

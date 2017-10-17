@@ -21,12 +21,6 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
 
-/**
- * Shows statistics about your drinking habits. The truth is often harsh;
- * ignorance bliss.
- *
- * @author Tuukka Haapasalo
- */
 public class StatisticsDailyActivity extends AbstractStatisticsActivity {
 
     public static final String TAG = "StatisticsDailyActivity";
@@ -79,7 +73,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
         dateSubtitle = (TextView) findViewById(R.id.browser_subtitle);
         dateSubtitle.setVisibility(View.GONE);
 
-        dateTitleFormat = getTimeUtil().getMonthCorrectedDateFormat(getDateTitlePattern(this, type));
+        dateTitleFormat = getTimeUtil().timeFormatter(getDateTitlePattern(this, type));
 
         loadDay(new LocalDate(getTimeUtil().getTimeZone()));
     }
@@ -99,7 +93,7 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
     }
 
     protected static String getTitle(Context context, Type type, LocalDate date) {
-        DateTimeFormatter f = new TimeUtil(context).getMonthCorrectedDateFormat(getDateTitlePattern(
+        DateTimeFormatter f = new TimeUtil(context).timeFormatter(getDateTitlePattern(
                 context, type));
         return StringUtil.INSTANCE.uppercaseFirstLetter(f.print(date));
     }
@@ -117,11 +111,6 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
         LogUtil.INSTANCE.w(TAG, "Unknown type: %s", type);
         return "???";
     }
-
-    /*
-     * Custom actions
-     * ----------------------------------------------------------
-     */
 
     @Override
     public void updateUI() {
