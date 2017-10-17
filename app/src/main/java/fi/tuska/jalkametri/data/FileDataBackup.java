@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -30,7 +31,7 @@ public class FileDataBackup implements DataBackup {
         Set<String> backups = getBackups();
         int tryNum = 1;
         while (true) {
-            String name = String.format("jAlcoMeter-backup.%1$tY-%1$tm-%1$td.%2$d.db",
+            String name = String.format(Locale.ENGLISH, "jAlcoMeter-backup.%1$tY-%1$tm-%1$td.%2$d.db",
                 new Date(), tryNum);
             if (!backups.contains(name))
                 return name;
