@@ -337,25 +337,6 @@
     <string name="calc_default_volume">0.2</string>
     <string name="calc_zero">0.0</string>
 
-    <!-- Reminder pages -->
-    <string name="title_reminder">jAlcoMeter is free!</string>
-    <string name="reminder_text">… but if wish to support its development, consider purchasing a license for only 1.43
-        €. You can do so in the About page.
-        \n\nBenefits of purchasing the license include, but are not limited to:
-    </string>
-    <string name="reminder_benefits">- Getting rid of naggy messages like this
-        \n- A feeling of euphoria
-        \n (limited availability)
-        \n- The right to brag to your friends
-        \n- And much more
-    </string>
-    <string name="reminder_buy">Buy it!</string>
-    <string name="reminder_discard">Not now</string>
-    <string name="reminder_repetition_info">You may safely disregard this message. However, unless you buy the license,
-        jAlcoMeter may show this message to you again, sometime in the future, when you least expect it. We apologize
-        for the inconvenience.
-    </string>
-
     <!-- Statistics -->
     <string name="stats_tab_summary">Summary</string>
     <string name="stats_tab_yearly">Yearly</string>

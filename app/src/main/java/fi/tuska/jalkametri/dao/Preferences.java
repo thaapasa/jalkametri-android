@@ -24,7 +24,6 @@ public interface Preferences {
     String PREF_LOCALE = "pref_locale";
     String PREF_LICENSE_PURCHASED = "license_purchased";
     String PREF_ADS_ENABLED = "ads_enabled";
-    String PREF_SHOW_REMINDER_AFTER = "show_reminder_after";
     String PREF_STANDARD_DRINK_COUNTRY = "standard_drink_country";
 
     double DEFAULT_WEIGHT = 70f;

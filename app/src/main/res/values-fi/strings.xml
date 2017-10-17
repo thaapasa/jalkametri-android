@@ -262,19 +262,6 @@
     <string name="calc_ok">OK</string>
     <string name="calc_clear">Tyhjennä</string>
 
-    <!-- Reminder pages -->
-    <string name="title_reminder">jAlkaMetri on ilmainen!</string>
-    <string name="reminder_text">… mutta jos haluat tukea sen kehitystä, osta lisenssi! Lisenssin voit ostaa sovelluksen Tiedot -sivulta, ja se maksaa vain 1,43 €.
-\n\nLisenssin ostamisesta saat mm. seuraavat merkittävät hyödyt:</string>
-    <string name="reminder_benefits">- Ei enää häiritseviä lisenssinostomuistutuksia
-\n- Yltiömäinen hyvänolontunne
-\n      (rajoitettu saatavuus)
-\n- Oikeus kehuskella kavereillesi ikiomasta lisenssistä
-\n- Ynnä paljon muuta</string>
-    <string name="reminder_buy">Ostamaan!</string>
-    <string name="reminder_discard">No ei nyt</string>
-    <string name="reminder_repetition_info">Voit huoletta jättää tämän viestin huomiotta. Jos kuitenkin jätät lisenssin ostamatta, jAlkaMetri voi näyttää tämän viestin sinulle uudestaan joskus tulevaisuudessa, kun sitä vähiten odotat. Pahoittelemme tästä aiheutuvaa häiriötä.</string>
-
     <!-- Statistics -->
     <string name="stats_tab_summary">Yhteenveto</string>
     <string name="stats_tab_yearly">Vuosi</string>
