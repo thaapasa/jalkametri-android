@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">jAlcoMeter</string>
-    <string name="app_description">jAlcoMeter is a tool for monitoring your drinking habits. If you drink, use
-        jAlcoMeter!
+    <string name="app_description">jAlcoMeter is a tool for monitoring your drinking habits.
+        If you drink, use jAlcoMeter!
     </string>
 
     <string name="menu_drink">Drink!</string>
@@ -49,11 +49,11 @@
     after the use of this application. I do not make any guarantees for the preservation of the data collected by
     jAlcoMeter; after all, software bugs have been known to occur.
     \n\nI do guarantee, however, that all the data collected by jAlcoMeter stays in your phone - it is never
-    transmitted anywhere. The permissions required by the application are only used for showing the ads, and
-    for purchasing the license.
+    transmitted anywhere. The permissions required by the application are only used for storing the data backups
+    on your phone storage.
     \n\nPlease remember that the blood alcohol level shown by this application is based on calculated approximations
     that in turn are based on the values given by you, the user; and therefore may or may not be close to the actual
-    reality. I in no event guarantee that you are capable of driving a car, even if the application says that this
+    reality. In no event do I guarantee that you are capable of driving a car, even if the application says that this
     might be the case.]]></string>
     <string name="disclaimer_ok">I understand</string>
     <string name="disclaimer_what">I do not understand</string>
@@ -67,18 +67,20 @@
     <string name="about_version_licensed">
         <![CDATA[You have previously purchased a license for jAlcoMeter. Thank you for your support!]]></string>
     <string name="about_stuff">
-        <![CDATA[The icons used in jAlcoMeter have been taken from the Open Clip Art library
-        (http://openclipart.org/) and Open Icon Library (http://openiconlibrary.sourceforge.net/), and the alcohol
-        meter image was made by Anu Haapasalo. Many thanks to the authors!]]></string>
+        <![CDATA[The image icons used in jAlcoMeter have been taken from the
+        Flaticon icon library (http://www.flaticon.com/), and the alcohol meter image was made by Anu Haapasalo.
+        UI icons are standard icons from Google\'s Material Design icon set.
+        The Flaticon icons are licensed under the Creative Commons BY 3.0 license, and have been made by these authors:
+        Freepik (http://www.freepik.com),
+        Roundicons (https://www.flaticon.com/authors/roundicons),
+        Vectors Market (https://www.flaticon.com/authors/vectors-market), and
+        Papedesign (https://www.flaticon.com/authors/papedesign).
+        Many thanks to the authors! For more info on licenses and credits, check the source code.]]></string>
     <string name="about_sourcecode"><![CDATA[jAlcoMeter is hosted in GitHub at
     https://github.com/thaapasa/jalkametri-android and the source codes can be freely
     downloaded from there. The project is licensed under the MIT license.
-    \n\nBy installing jAlcoMeter from the Android Market you can get it to your phone more conveniently and by
-    purchasing the license (from this page) you also support its development. If you wish to develop a similar
-    application, feel free to use the sources.]]></string>
+    \n\nIf you wish to develop a similar application, feel free to use the sources.]]></string>
     <string name="about_ok">OK!</string>
-    <string name="about_check_license">Check license</string>
-    <string name="about_buy_license">Buy license</string>
 
     <string name="version_free">Free version</string>
     <string name="version_licensed">Licensed</string>
@@ -109,10 +111,8 @@
     <string name="confirm_default_drinks">Are you sure you want to reset the drink library to the defaults?</string>
     <string name="confirm_clear_day">Are you sure you want to delete all drinks from this day?</string>
     <string name="confirm_delete_category">Are you sure you want to delete this drink category (including all its
-        drinks)?
-    </string>
-    <string name="confirm_delete_drink">Are you sure you wish to delete this drink, alongside with all its sizes?
-    </string>
+        drinks)?</string>
+    <string name="confirm_delete_drink">Are you sure you wish to delete this drink, alongside with all its sizes?</string>
 
     <string name="unit_percent">%</string>
     <string name="unit_liter">l</string>
@@ -126,8 +126,7 @@
     <string name="drive_status_ok">You are probably able to drive.</string>
     <string name="drive_status_maybe">You may be able to drive. You may be sober after %1$s (at %2$s).</string>
     <string name="drive_status_no">You are definitely not in any condition to drive a car! You may be able to drive
-        after %1$s (at %2$s), and you may be sober after %3$s (at %4$s).
-    </string>
+        after %1$s (at %2$s), and you may be sober after %3$s (at %4$s).</string>
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -195,14 +194,6 @@
         values used in several countries. One standard drink is regarded as one portion in jAlcoMeter.
     </string>
     <string name="prefs_recalculating_portions">Recalculating portions in the history database, please wait…</string>
-
-    <string name="prefs_part_ads">Ads</string>
-    <string name="prefs_ads">Show ads</string>
-    <string name="prefs_ads_info_free">You can disable ads once you have purchased the jAlcoMeter license. The license
-        price is 1.43 €.
-    </string>
-    <string name="prefs_ads_info_licensed">You can select whether to show ads from here.</string>
-    <string name="prefs_buy_license">Buy the license</string>
 
     <string name="prefs_part_backup_data">Data backup</string>
     <string name="prefs_backup_info">You can backup jAlcoMeter data, and restore them later on. You can, for example,
