@@ -7,12 +7,6 @@ import android.view.View
 import android.widget.TextView
 import fi.tuska.jalkametri.R
 
-/**
- * Activity for showing an about screen. The screen shows information about the
- * software.
- *
- * @author Tuukka Haapasalo
- */
 class AboutActivity : JalkametriActivity(R.string.title_about, R.string.help_about), GUIActivity {
 
     var viewModel: ViewModel? = null
