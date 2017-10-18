@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import fi.tuska.jalkametri.Common
 import fi.tuska.jalkametri.CommonActivities
+import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.Preferences.Gender
 import fi.tuska.jalkametri.data.DrinkActions
 import fi.tuska.jalkametri.gui.DataBackupHandler

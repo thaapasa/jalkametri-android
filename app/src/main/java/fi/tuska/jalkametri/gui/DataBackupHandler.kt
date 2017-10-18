@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.widget.Toast
 import fi.tuska.jalkametri.Common.PERMISSIONS_FOR_CREATE_BACKUP
 import fi.tuska.jalkametri.Common.PERMISSIONS_FOR_RESTORE_BACKUP
+import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.DataBackup
 import fi.tuska.jalkametri.data.FileDataBackup
 import fi.tuska.jalkametri.db.DBAdapter
