@@ -7,10 +7,12 @@ import fi.tuska.jalkametri.dao.Preferences
 import org.joda.time.DateTimeConstants
 import org.joda.time.DateTimeZone
 import org.joda.time.Duration
+import org.joda.time.Hours
 import org.joda.time.Instant
 import org.joda.time.LocalDate
 import org.joda.time.LocalTime
 import org.joda.time.Period
+import org.joda.time.Seconds
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 import java.text.NumberFormat
@@ -40,8 +42,7 @@ class TimeUtil(val res: Resources, val locale: Locale) {
         }
     }
 
-    fun getHourDifference(from: Instant, to: Instant): Double =
-            Period(to, from).millis.toDouble() / HOUR_MS
+    fun getHourDifference(from: Instant, to: Instant): Double = (to.millis - from.millis).toDouble() / HOUR_MS
 
     fun getStartOfDrinkDay(day: LocalDate, prefs: Preferences): Instant =
             day.toDateTime(prefs.dayChangeTime, timeZone).toInstant()
