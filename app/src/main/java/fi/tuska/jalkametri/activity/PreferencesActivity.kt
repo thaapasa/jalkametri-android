@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.Spinner
 import fi.tuska.jalkametri.Common
 import fi.tuska.jalkametri.CommonActivities
-import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.Preferences.Gender
 import fi.tuska.jalkametri.data.DrinkActions
 import fi.tuska.jalkametri.gui.DataBackupHandler
@@ -78,10 +77,16 @@ class PreferencesActivity : JalkametriDBActivity(R.string.title_preferences, R.s
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?) {
         when (requestCode) {
-            Common.PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE -> {
+            Common.PERMISSIONS_FOR_CREATE_BACKUP -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults != null && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     DataBackupHandler.backupData(this)
+                }
+            }
+            Common.PERMISSIONS_FOR_RESTORE_BACKUP -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults != null && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    DataBackupHandler.restoreData(this)
                 }
             }
         }

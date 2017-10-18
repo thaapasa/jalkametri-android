@@ -8,8 +8,8 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.support.v4.app.ActivityCompat.requestPermissions
 import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.widget.Toast
-import fi.tuska.jalkametri.Common.PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE
-import fi.tuska.jalkametri.R
+import fi.tuska.jalkametri.Common.PERMISSIONS_FOR_CREATE_BACKUP
+import fi.tuska.jalkametri.Common.PERMISSIONS_FOR_RESTORE_BACKUP
 import fi.tuska.jalkametri.dao.DataBackup
 import fi.tuska.jalkametri.data.FileDataBackup
 import fi.tuska.jalkametri.db.DBAdapter
@@ -24,7 +24,7 @@ object DataBackupHandler {
 
         if (checkSelfPermission(activity, WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
             requestPermissions(activity, arrayOf(WRITE_EXTERNAL_STORAGE),
-                    PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE)
+                    PERMISSIONS_FOR_CREATE_BACKUP)
             return
         }
 
@@ -68,14 +68,22 @@ object DataBackupHandler {
         }
     }
 
-    fun restoreData(context: Context) {
+    fun restoreData(activity: Activity) {
+
+        if (checkSelfPermission(activity, WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
+            requestPermissions(activity, arrayOf(WRITE_EXTERNAL_STORAGE),
+                    PERMISSIONS_FOR_RESTORE_BACKUP)
+            return
+        }
+
+
         // Initiate data restore
-        val adapter = DBAdapter(context)
+        val adapter = DBAdapter(activity)
         val backup = FileDataBackup(adapter)
         LogUtil.d(TAG, "Initiating data restore")
         if (!backup.isBackupServiceAvailable) {
-            Toast.makeText(context,
-                    context.resources.getString(R.string.backup_service_not_available),
+            Toast.makeText(activity,
+                    activity.resources.getString(R.string.backup_service_not_available),
                     Toast.LENGTH_LONG).show()
             return
         }
@@ -83,20 +91,20 @@ object DataBackupHandler {
         // Get backups
         val backups = backup.backups
         if (backups.isEmpty()) {
-            Toast.makeText(context, R.string.backup_no_backups, Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, R.string.backup_no_backups, Toast.LENGTH_LONG).show()
             return
         }
 
         // Show a dialog for selecting the backup to restore
         val items = backups.toTypedArray()
 
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(context.resources.getString(R.string.backup_select_backup))
+        val builder = AlertDialog.Builder(activity)
+        builder.setTitle(activity.resources.getString(R.string.backup_select_backup))
         builder.setItems(items) { dialog, item ->
             val fromBackup = items[item]
             dialog.dismiss()
-            Confirmation.showConfirmation(context, R.string.backup_confirm_restore,
-                    DataRestoreRunnable(fromBackup, context, backup))
+            Confirmation.showConfirmation(activity, R.string.backup_confirm_restore,
+                    DataRestoreRunnable(fromBackup, activity, backup))
         }
         val alert = builder.create()
         alert.setCancelable(true)
