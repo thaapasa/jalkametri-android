@@ -5,10 +5,8 @@ import fi.tuska.jalkametri.Common;
 import fi.tuska.jalkametri.dao.GeneralStatistics;
 import fi.tuska.jalkametri.dao.Preferences;
 import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
-import org.joda.time.Period;
-
-import java.util.Date;
 
 public class GeneralStatisticsImpl implements GeneralStatistics {
 
@@ -31,7 +29,7 @@ public class GeneralStatisticsImpl implements GeneralStatistics {
         if (lastDay.isAfter(cur))
             lastDay = cur;
 
-        allDays = new Period(firstDay, lastDay).getDays() + 1;
+        allDays = Days.daysBetween(firstDay, lastDay).getDays() + 1;
     }
 
     public void setTotalDrinks(long count) {
