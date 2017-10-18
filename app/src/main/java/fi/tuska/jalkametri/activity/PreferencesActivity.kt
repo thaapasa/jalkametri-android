@@ -3,11 +3,13 @@ package fi.tuska.jalkametri.activity
 import android.app.Activity
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import fi.tuska.jalkametri.Common
 import fi.tuska.jalkametri.CommonActivities
 import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.dao.Preferences.Gender
@@ -16,6 +18,7 @@ import fi.tuska.jalkametri.gui.DataBackupHandler
 import fi.tuska.jalkametri.util.LocalizationUtil
 import fi.tuska.jalkametri.util.NumberUtil
 import org.joda.time.LocalTime
+
 
 /**
  * An activity for editing your preferences.
@@ -71,6 +74,17 @@ class PreferencesActivity : JalkametriDBActivity(R.string.title_preferences, R.s
 
     fun backupData(v: View) {
         DataBackupHandler.backupData(this)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?) {
+        when (requestCode) {
+            Common.PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults != null && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    DataBackupHandler.backupData(this)
+                }
+            }
+        }
     }
 
     fun restoreData(v: View) {

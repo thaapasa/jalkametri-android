@@ -44,6 +44,8 @@ object Common {
     const val ACTIVITY_CODE_ADD_FAVOURITE = 0x00AC0001
     const val ACTIVITY_CODE_MODIFY_FAVOURITE = 0x00AC0002
 
+    const val PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE = 0x0B0A0001
+
     /* Default values */
     const val DEFAULT_ICON_NAME = "drink_generic"
     const val DEFAULT_SIZE_ICON_NAME = "drink_beer_pint"
