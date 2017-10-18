@@ -9,4 +9,4 @@ PrivateData.*
 .gradle
 /build
 /gradle
-/app
+*.apk
