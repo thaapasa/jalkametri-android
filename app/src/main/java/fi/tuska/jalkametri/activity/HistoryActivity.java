@@ -251,9 +251,9 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                loadDay(new LocalDate(year, monthOfYear, dayOfMonth));
+                loadDay(new LocalDate(year, monthOfYear + 1, dayOfMonth));
             }
-        }, day.getYear(), day.getMonthOfYear(), day.getDayOfMonth()).show();
+        }, day.getYear(), day.getMonthOfYear() - 1, day.getDayOfMonth()).show();
     }
 
     @Override
