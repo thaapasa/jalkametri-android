@@ -1,6 +1,5 @@
 package fi.tuska.jalkametri.activity;
 
-import android.app.DatePickerDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 import fi.tuska.jalkametri.Common;
@@ -40,6 +38,8 @@ import fi.tuska.jalkametri.util.LocaleHelper;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.StringUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -248,12 +248,13 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
         // Select day to show
         LogUtil.INSTANCE.d(TAG, "Showing date selection dialog");
         // Show a date picker dialog
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        timeUtil.pickDate(this, day, new Function1<LocalDate, Unit>() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                loadDay(new LocalDate(year, monthOfYear + 1, dayOfMonth));
+            public Unit invoke(LocalDate localDate) {
+                loadDay(localDate);
+                return Unit.INSTANCE;
             }
-        }, day.getYear(), day.getMonthOfYear() - 1, day.getDayOfMonth()).show();
+        });
     }
 
     @Override

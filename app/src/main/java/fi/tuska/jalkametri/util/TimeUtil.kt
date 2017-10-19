@@ -1,5 +1,7 @@
 package fi.tuska.jalkametri.util
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.res.Resources
 import fi.tuska.jalkametri.R
@@ -7,16 +9,12 @@ import fi.tuska.jalkametri.dao.Preferences
 import org.joda.time.DateTimeConstants
 import org.joda.time.DateTimeZone
 import org.joda.time.Duration
-import org.joda.time.Hours
 import org.joda.time.Instant
 import org.joda.time.LocalDate
 import org.joda.time.LocalTime
-import org.joda.time.Period
-import org.joda.time.Seconds
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 import java.text.NumberFormat
-import java.text.ParseException
 import java.util.Locale
 
 class TimeUtil(val res: Resources, val locale: Locale) {
@@ -99,6 +97,18 @@ class TimeUtil(val res: Resources, val locale: Locale) {
 
     fun isLeapYear(year: Int): Boolean {
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
+    }
+
+    fun pickDate(context: Context, startDate: LocalDate, callback: (LocalDate) -> Unit) {
+        DatePickerDialog(context,
+                DatePickerDialog.OnDateSetListener { _, y, m, d -> callback(LocalDate(y, m + 1, d)) },
+                startDate.year, startDate.monthOfYear - 1, startDate.dayOfMonth).show()
+    }
+
+    fun pickTime(context: Context, startTime: LocalTime, callback: (LocalTime) -> Unit) {
+        TimePickerDialog(context,
+                TimePickerDialog.OnTimeSetListener { _, h, m -> callback(LocalTime(h, m)) },
+                startTime.hourOfDay, startTime.minuteOfHour, true).show()
     }
 
     companion object {

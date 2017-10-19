@@ -1,15 +1,10 @@
 package fi.tuska.jalkametri.activity
 
 import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
-import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -132,31 +127,22 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
             private set
         val originalID: Long = extras.getLong(KEY_ORIGINAL)
 
+        private var selectedDate: LocalDate = LocalDate.now(timeUtil.timeZone)
+        private var selectedTime: LocalTime = LocalTime.now(timeUtil.timeZone)
+
         private val dateEditFormatter: DateTimeFormatter = DateTimeFormat.forPattern(resources.getString(R.string.date_format)).withZone(timeUtil.timeZone).withLocale(prefs.locale)
         private val timeFormatter: DateTimeFormatter = DateTimeFormat.forPattern(resources.getString(R.string.time_format)).withZone(timeUtil.timeZone).withLocale(prefs.locale)
-        private val dateClickListener = OnClickListener {
-            DatePickerDialog(activity,
-                    OnDateSetListener { _, y, m, d -> setSelectedDate(LocalDate(y, m + 1, d)) },
-                    selectedDate.year, selectedDate.monthOfYear - 1, selectedDate.dayOfMonth).show()
-        }
-        private val timeClickListener = OnClickListener {
-            TimePickerDialog(activity,
-                    OnTimeSetListener { view, h, m -> setSelectedTime(LocalTime(h, m)) },
-                    selectedTime.hourOfDay, selectedTime.minuteOfHour, true).show()
-        }
         private val nameEdit: EditText = activity.findViewById(R.id.name_edit) as EditText
         private val strengthEdit: EditText = activity.findViewById(R.id.strength_edit) as EditText
         private val commentEdit: EditText = activity.findViewById(R.id.comment_edit) as EditText
         private val iconView: IconView = activity.findViewById(R.id.icon) as IconView
         private val dateEdit: EditText = (activity.findViewById(R.id.date_edit) as EditText).apply {
-            setOnClickListener(dateClickListener)
+            setOnClickListener { _ -> timeUtil.pickDate(activity, selectedDate, { setSelectedDate(it) }) }
         }
         private val timeEdit: EditText = (activity.findViewById(R.id.time_edit) as EditText).apply {
-            setOnClickListener(timeClickListener)
+            setOnClickListener { _ -> timeUtil.pickTime(activity, selectedTime, { setSelectedTime(it) }) }
         }
         private val showTimeSelection = true
-        private var selectedDate: LocalDate = LocalDate.now(timeUtil.timeZone)
-        private var selectedTime: LocalTime = LocalTime.now(timeUtil.timeZone)
         val drinkSizeSelector: DrinkSizeSelector = DrinkSizeSelector(activity, activity.adapter, true,
                 true).apply {
             initializeComponents(selection.size)

@@ -1,7 +1,6 @@
 package fi.tuska.jalkametri.activity
 
 import android.app.Activity
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -135,8 +134,7 @@ class PreferencesActivity : JalkametriDBActivity(R.string.title_preferences, R.s
         init {
             populateSpinners()
             dayChangeEdit.setOnClickListener {
-                TimePickerDialog(activity, { v, h, m -> setDayChangeTime(LocalTime(h, m)) },
-                        dayChangeTime.hourOfDay, dayChangeTime.minuteOfHour, true).show()
+                activity.timeUtil.pickTime(activity, dayChangeTime, { setDayChangeTime(it) })
             }
         }
 

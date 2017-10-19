@@ -1,13 +1,10 @@
 package fi.tuska.jalkametri.activity;
 
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.dao.DailyDrinkStatistics;
@@ -16,6 +13,8 @@ import fi.tuska.jalkametri.gui.GraphView;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.StringUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -156,12 +155,13 @@ public class StatisticsDailyActivity extends AbstractStatisticsActivity {
         // Select day to show
         LogUtil.INSTANCE.d(TAG, "Showing date selection dialog");
         // Show a date picker dialog
-        new DatePickerDialog(this, new OnDateSetListener() {
+        getTimeUtil().pickDate(this, day, new Function1<LocalDate, Unit>() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                loadDay(new LocalDate(year, monthOfYear, dayOfMonth));
+            public Unit invoke(LocalDate localDate) {
+                loadDay(localDate);
+                return Unit.INSTANCE;
             }
-        }, day.getYear(), day.getMonthOfYear(), day.getDayOfMonth()).show();
+        });
     }
 
     private void loadDay(LocalDate date) {
