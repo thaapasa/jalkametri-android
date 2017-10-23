@@ -23,7 +23,9 @@ public class DrinkIconUtils {
         // Beers
         addIcon("cat_beers", R.drawable.ic_cat_beers);
         addIcon("drink_beer_bottle", R.drawable.ic_drink_beer_bottle_brown);
+        addIcon("drink_beer_bottle2", R.drawable.ic_drink_beer_bottle_brown2);
         addIcon("drink_beer_can", R.drawable.ic_drink_beer_can);
+        addIcon("drink_beer_can_blue", R.drawable.ic_drink_beer_can_blue);
         addIcon("drink_beer_pint", R.drawable.ic_drink_beer_pint);
         addIcon("drink_beer_glass", R.drawable.ic_drink_beer_glass);
         addIcon("drink_gin_bottle", R.drawable.ic_drink_beer_bottle_blue);
@@ -53,7 +55,10 @@ public class DrinkIconUtils {
         addIcon("drink_shot", R.drawable.ic_drink_tequila);
         addIcon("drink_whisky", R.drawable.ic_drink_whisky);
         addIcon("drink_whisky_bottle", R.drawable.ic_drink_whisky_bottle);
+        addIcon("drink_whisky_bottle2", R.drawable.ic_drink_whisky_bottle2);
+        addIcon("drink_rum", R.drawable.ic_drink_rum);
         addIcon("drink_vodka", R.drawable.ic_drink_vodka);
+        addIcon("drink_vodka2", R.drawable.ic_drink_vodka2);
         addIcon("drink_gin", R.drawable.ic_drink_gin);
 
         // Punches
