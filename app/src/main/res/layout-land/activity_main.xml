@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_view"
     style="@style/vertical_fill"
+    android:paddingStart="@dimen/padding"
+    android:paddingEnd="@dimen/padding"
     android:weightSum="1">
 
     <LinearLayout
