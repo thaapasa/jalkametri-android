@@ -40,4 +40,9 @@
 
     <color name="icon_color">#FF4AB1A7</color>
 
+    <color name="salmon_pink">#FF91A4</color>
+    <color name="petrol_blue">#18515E</color>
+    <color name="petrol_blue_light">#2d7f83</color>
+    <color name="petrol_blue_lighter">#7da4a7</color>
+
 </resources>
