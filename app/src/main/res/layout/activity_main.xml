@@ -6,8 +6,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:paddingEnd="@dimen/padding"
-    android:paddingStart="@dimen/padding"
+    android:paddingEnd="@dimen/label_padding"
+    android:paddingStart="@dimen/label_padding"
     android:orientation="vertical"
     android:weightSum="1">
 
