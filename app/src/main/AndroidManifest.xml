@@ -70,8 +70,7 @@
             android:label="@string/title_statistics" />
         <activity
             android:name=".activity.GraphActivity"
-            android:label="@string/title_statistics"
-            android:screenOrientation="landscape" />
+            android:label="@string/title_statistics" />
         <activity
             android:name=".activity.HistoryActivity"
             android:label="@string/title_history" />

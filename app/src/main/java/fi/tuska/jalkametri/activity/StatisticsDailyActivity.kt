@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import com.androidplot.xy.XYPlot
 import fi.tuska.jalkametri.R
 import fi.tuska.jalkametri.activity.StatisticsDailyActivity.Type.Monthly
 import fi.tuska.jalkametri.activity.StatisticsDailyActivity.Type.Weekly
@@ -15,6 +16,19 @@ import fi.tuska.jalkametri.util.LogUtil
 import fi.tuska.jalkametri.util.StringUtil
 import fi.tuska.jalkametri.util.TimeUtil
 import org.joda.time.LocalDate
+import com.androidplot.xy.XYGraphWidget
+import fi.tuska.jalkametri.data.DailyStatisticsGraph.getGraph
+import com.androidplot.xy.CatmullRomInterpolator
+import com.androidplot.util.PixelUtils.dpToPix
+import android.graphics.DashPathEffect
+import com.androidplot.util.PixelUtils
+import com.androidplot.xy.LineAndPointFormatter
+import com.androidplot.xy.SimpleXYSeries
+import com.androidplot.xy.XYSeries
+import java.text.FieldPosition
+import java.text.Format
+import java.text.ParsePosition
+
 
 class StatisticsDailyActivity : AbstractStatisticsActivity<StatisticsDailyActivity.ViewModel>() {
 
@@ -71,16 +85,17 @@ class StatisticsDailyActivity : AbstractStatisticsActivity<StatisticsDailyActivi
     override fun createViewModel() = ViewModel(this, type)
 
     class ViewModel(val statisticsActivity: StatisticsDailyActivity, val type: Type) : AbstractStatisticsActivity.ViewModel(statisticsActivity) {
-        private val graphView = activity.findViewById(R.id.graph) as GraphView
+        private val graphView = activity.findViewById(R.id.graph) as XYPlot
         private val dateTitle = activity.findViewById(R.id.browser_title) as TextView
-        private val dateSubtitle = (activity.findViewById(R.id.browser_subtitle) as TextView).apply {
-            visibility = View.GONE
-        }
         private val dateTitleFormat = timeUtil.timeFormatter(getDateTitlePattern(activity, type))
 
         lateinit var day: LocalDate
         lateinit var start: LocalDate
         lateinit var end: LocalDate
+
+        init {
+            (activity.findViewById(R.id.browser_subtitle) as TextView).visibility = View.GONE
+        }
 
         override fun updateUI(generalStats: GeneralStatistics) {
             super.updateUI(generalStats)
@@ -101,9 +116,49 @@ class StatisticsDailyActivity : AbstractStatisticsActivity<StatisticsDailyActivi
             val dailyStats = statisticsActivity.statisticsDB.getDailyDrinkAmounts(start, end)
 
             graphView.clear()
-            graphView.addGraph(DailyStatisticsGraph.getGraph(type, dailyStats, prefs, activity))
+            //graphView.addGraph(DailyStatisticsGraph.getGraph(type, dailyStats, prefs, activity))
 
             updateThisUI()
+        }
+
+        fun plot(plot: XYPlot) {
+            // create a couple arrays of y-values to plot:
+            val domainLabels = listOf(1, 2, 3, 6, 7, 8, 9, 10, 13, 14)
+            val series1Numbers = listOf(1, 4, 2, 8, 4, 16, 8, 32, 16, 64)
+            val series2Numbers = listOf(5, 2, 10, 5, 20, 10, 40, 20, 80, 40)
+
+            // turn the above arrays into XYSeries':
+            // (Y_VALS_ONLY means use the element index as the x value)
+            val series1 = SimpleXYSeries(series1Numbers, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series1")
+            val series2 = SimpleXYSeries(series2Numbers, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series2")
+
+            // create formatters to use for drawing a series using LineAndPointRenderer
+            // and configure them from xml:
+            val series1Format = LineAndPointFormatter(activity, R.xml.line_point_formatter_with_labels)
+
+            val series2Format = LineAndPointFormatter(activity, R.xml.line_point_formatter_with_labels2)
+
+            // add an "dash" effect to the series2 line:
+            series2Format.linePaint.pathEffect = DashPathEffect(floatArrayOf(
+                    // always use DP when specifying pixel sizes, to keep things consistent across devices:
+                    PixelUtils.dpToPix(20f), PixelUtils.dpToPix(15f)), 0f)
+
+            // just for fun, add some smoothing to the lines:
+            // see: http://androidplot.com/smooth-curves-and-androidplot/
+            series1Format.interpolationParams = CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Centripetal)
+            series2Format.interpolationParams = CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Centripetal)
+
+            // add a new series' to the xyplot:
+            plot.addSeries(series1, series1Format)
+            plot.addSeries(series2, series2Format)
+
+            plot.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = object : Format() {
+                override fun format(obj: Any, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer {
+                    val i = Math.round((obj as Number).toFloat())
+                    return toAppendTo.append(domainLabels[i])
+                }
+                override fun parseObject(source: String, pos: ParsePosition) = null
+            }
         }
 
         fun gotoNextOrPrevious(multiplier: Int) {

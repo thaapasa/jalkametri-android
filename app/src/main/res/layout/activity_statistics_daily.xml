@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ap="http://schemas.android.com/apk/res-auto"
     style="@style/linearlayout_vertical">
 
     <include layout="@layout/date_browser" />
@@ -65,12 +66,13 @@
             </TableRow>
 
             <!-- Statistics image -->
-            <fi.tuska.jalkametri.gui.GraphView
+            <com.androidplot.xy.XYPlot
+                style="@style/APDefacto"
                 android:id="@+id/graph"
                 android:layout_width="fill_parent"
-                android:layout_height="130dip"
-                android:onClick="showGraph" />
-
+                android:layout_height="200dp"
+                ap:lineLabels="left|bottom"
+                android:onClick="showGraph"/>
 
             <!-- Average portions per week -->
             <TextView
