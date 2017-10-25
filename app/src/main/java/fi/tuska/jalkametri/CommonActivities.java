@@ -35,10 +35,10 @@ public final class CommonActivities {
     }
 
     /**
-     * Shows the drinking statistics screen.
+     * Shows the drinking statisticsDB screen.
      */
     public static void showStatistics(JalkametriActivity parent) {
-        LogUtil.INSTANCE.i(TAG, "Showing statistics");
+        LogUtil.INSTANCE.i(TAG, "Showing statisticsDB");
         Intent i = new Intent(parent, StatisticsActivity.class);
         parent.startActivity(i);
     }

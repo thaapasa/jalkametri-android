@@ -67,7 +67,7 @@ public class GraphActivity extends JalkametriDBActivity {
 
 
         title = (TextView) findViewById(R.id.title);
-        title.setText(StatisticsDailyActivity.getTitle(this, type, start));
+        title.setText(StatisticsDailyActivity.Companion.getTitle(this, type, start));
         graphView = (GraphView) findViewById(R.id.graph);
         graphView.setOnClickListener(new OnClickListener() {
             @Override

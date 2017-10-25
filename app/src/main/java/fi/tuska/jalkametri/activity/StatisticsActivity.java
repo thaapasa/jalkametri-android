@@ -10,7 +10,7 @@ import fi.tuska.jalkametri.activity.StatisticsDailyActivity.Type;
 import fi.tuska.jalkametri.util.LocaleHelper;
 
 /**
- * Shows statistics about your drinking habits. The truth is often harsh;
+ * Shows statisticsDB about your drinking habits. The truth is often harsh;
  * ignorance bliss.
  *
  * @author Tuukka Haapasalo
@@ -52,7 +52,7 @@ public class StatisticsActivity extends TabActivity {
                                        int titleResId) {
 
         Intent intent = new Intent().setClass(this, StatisticsDailyActivity.class);
-        intent.putExtra(StatisticsDailyActivity.TYPE, type);
+        intent.putExtra(StatisticsDailyActivity.Companion.getTYPE(), type);
         TabHost.TabSpec spec = tabHost.newTabSpec(type.toString())
                 .setIndicator(getResources().getString(titleResId)).setContent(intent);
 
