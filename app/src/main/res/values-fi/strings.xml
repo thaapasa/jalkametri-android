@@ -263,7 +263,7 @@
     <string name="calc_clear">Tyhjennä</string>
 
     <!-- Statistics -->
-    <string name="stats_tab_summary">Yhteenveto</string>
+    <string name="stats_tab_summary">Tiedot</string>
     <string name="stats_tab_yearly">Vuosi</string>
     <string name="stats_tab_monthly">Kuukausi</string>
     <string name="stats_tab_weekly">Viikko</string>
