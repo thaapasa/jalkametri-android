@@ -25,7 +25,7 @@ public class DailyDrinkStatisticsImpl implements DailyDrinkStatistics, Point {
 
     public DailyDrinkStatisticsImpl(String dateSQLString, double portions, int nDrinks, Context context) {
         this.timeUtil = new TimeUtil(context);
-        this.day = timeUtil.fromSQLDate(dateSQLString).toDateTime(timeUtil.getTimeZone()).toLocalDate();
+        this.day = timeUtil.fromSQLDate(dateSQLString);
         this.portions = portions;
         this.nDrinks = nDrinks;
     }

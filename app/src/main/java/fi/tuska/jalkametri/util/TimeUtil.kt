@@ -58,8 +58,8 @@ class TimeUtil(val res: Resources, val locale: Locale) {
         LogUtil.d(TAG, "Sql date is %s; parsed from %s", this, date)
     }
 
-    fun fromSQLDate(dateString: String): Instant? = try {
-        Instant.parse(dateString, sqlDateFormat)
+    fun fromSQLDate(dateString: String): LocalDate? = try {
+        LocalDate.parse(dateString, sqlDateFormat)
     } catch (e: Exception) {
         LogUtil.w(TAG, "Invalid SQL date string: %s", dateString)
         null
