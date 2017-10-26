@@ -1,8 +1,5 @@
 package fi.tuska.jalkametri.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -10,6 +7,12 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import fi.tuska.jalkametri.R;
 import fi.tuska.jalkametri.util.LogUtil;
+import fi.tuska.jalkametri.util.TimeUtil;
+import org.joda.time.Instant;
+import org.joda.time.LocalDate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Draws a customizable graph.
@@ -24,7 +27,9 @@ public final class GraphView extends BufferedImageView {
         double getPosition();
 
         double getValue();
-    };
+    }
+
+    ;
 
     public interface Label {
         double getPosition();
@@ -52,7 +57,9 @@ public final class GraphView extends BufferedImageView {
         double getBarWidth();
 
         int getPointColor(double position, double value);
-    };
+    }
+
+    ;
 
     private Paint bgPaint;
     private Paint gridPaint;
@@ -115,13 +122,28 @@ public final class GraphView extends BufferedImageView {
         invalidateBuffer();
     }
 
+    private static long DATE_OFFSET = Instant.now().toDate().getTime();
+
+    public static final double dateToPosition(LocalDate date) {
+        // Used timezone and time values do not matter as long as each date is processed similarly
+        // Subtract a "relatively close-by offset" (determined at application startup)
+        // to make double values closer to zero
+        return date.toDate().getTime() - DATE_OFFSET;
+    }
+
+    public static double dateToPositionAtStart(LocalDate date) {
+        return dateToPosition(date) - HALF_DAY;
+    }
+
+    public static final long HALF_DAY = TimeUtil.Companion.getDAY_MS() / 2;
+
     @Override
     protected void createImage(Canvas canvas) {
         // Draw background
         canvas.drawRect(0, 0, getWidth(), getHeight(), bgPaint);
 
         LogUtil.INSTANCE.d(TAG, "Graph drawer dimensions are %d x %d = %d x %d", getWidth(), getHeight(),
-            canvas.getWidth(), canvas.getHeight());
+                canvas.getWidth(), canvas.getHeight());
 
         int labelHeight = (int) (labelPaint.getTextSize() + 6);
 
@@ -132,13 +154,13 @@ public final class GraphView extends BufferedImageView {
 
         for (Graph g : graphs) {
             drawGraph(canvas, g, graphPadLeft + 1, graphPadTop + 1, canvas.getWidth()
-                - (graphPadLeft + graphPadRight + 2), canvas.getHeight()
-                - (graphPadTop + graphPadBottom + 2));
+                    - (graphPadLeft + graphPadRight + 2), canvas.getHeight()
+                    - (graphPadTop + graphPadBottom + 2));
         }
 
         // Draw borders
         canvas.drawRect(graphPadLeft, graphPadTop, canvas.getWidth() - graphPadRight - 1,
-            canvas.getHeight() - graphPadBottom - 1, borderPaint);
+                canvas.getHeight() - graphPadBottom - 1, borderPaint);
 
     }
 
@@ -154,7 +176,7 @@ public final class GraphView extends BufferedImageView {
         }
 
         LogUtil.INSTANCE.d(TAG, "Graph area dimensions are %d x %d, padding %d x %d", width, height, padX,
-            padY);
+                padY);
 
         Point last = null;
         for (Point p : graph.getPoints()) {
@@ -165,7 +187,7 @@ public final class GraphView extends BufferedImageView {
     }
 
     protected void drawGraphPositionLabel(Canvas canvas, Label l, GraphInfo info, int padX,
-        int padY) {
+                                          int padY) {
         float gx = info.getBarX1(l.getPosition()) + padX;
         float gy = canvas.getHeight() - labelPaint.descent();
         canvas.drawLine(gx, padY, gx, canvas.getHeight(), gridPaint);
@@ -186,7 +208,7 @@ public final class GraphView extends BufferedImageView {
     }
 
     protected void drawGraphPoint(Canvas canvas, Graph graph, Point cur, Point last,
-        GraphInfo info, int padX, int padY) {
+                                  GraphInfo info, int padX, int padY) {
 
         double pos = cur.getPosition();
         double val = cur.getValue();
@@ -231,7 +253,7 @@ public final class GraphView extends BufferedImageView {
             }
             maxValue = graph.validateMaxValue(maxValue);
             LogUtil.INSTANCE
-                .d(TAG, "Graph pos range after point scan %.2f-%.2f", minPosition, maxPosition);
+                    .d(TAG, "Graph pos range after point scan %.2f-%.2f", minPosition, maxPosition);
         }
 
         public float getX(double position) {

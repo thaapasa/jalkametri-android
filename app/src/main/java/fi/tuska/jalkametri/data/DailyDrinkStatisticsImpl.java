@@ -5,7 +5,9 @@ import fi.tuska.jalkametri.dao.DailyDrinkStatistics;
 import fi.tuska.jalkametri.gui.GraphView.Point;
 import fi.tuska.jalkametri.util.TimeUtil;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
+
+import static fi.tuska.jalkametri.gui.GraphView.dateToPosition;
+import static java.util.Locale.ENGLISH;
 
 public class DailyDrinkStatisticsImpl implements DailyDrinkStatistics, Point {
 
@@ -13,7 +15,6 @@ public class DailyDrinkStatisticsImpl implements DailyDrinkStatistics, Point {
     private double portions;
     private int nDrinks;
     private final TimeUtil timeUtil;
-    private static final LocalTime positionTime = new LocalTime(12, 0, 0);
 
     public DailyDrinkStatisticsImpl(LocalDate day, double portions, int nDrinks, Context context) {
         this.day = day;
@@ -46,12 +47,12 @@ public class DailyDrinkStatisticsImpl implements DailyDrinkStatistics, Point {
 
     @Override
     public String toString() {
-        return String.format("%s: %.2f (%d)", day, portions, nDrinks);
+        return String.format(ENGLISH, "%s: %.2f (%d)", day, portions, nDrinks);
     }
 
     @Override
     public double getPosition() {
-        return day.toDateTime(positionTime, timeUtil.getTimeZone()).getMillis();
+        return dateToPosition(day);
     }
 
     @Override

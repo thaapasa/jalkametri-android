@@ -18,9 +18,10 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class DailyStatisticsGraph implements Graph {
+import static fi.tuska.jalkametri.gui.GraphView.dateToPosition;
+import static fi.tuska.jalkametri.gui.GraphView.dateToPositionAtStart;
 
-    private static final long serialVersionUID = 7189644235567515657L;
+public abstract class DailyStatisticsGraph implements Graph {
 
     private static final String TAG = "DailyStatisticsGraph";
 
@@ -56,11 +57,6 @@ public abstract class DailyStatisticsGraph implements Graph {
         return slider;
     }
 
-    protected static double dateToPosition(LocalDate date) {
-        // Used timezone and time values do not matter as long as each date is processed similarly
-        return date.toDate().getTime();
-    }
-
     @Override
     public List<Point> getPoints() {
         return new ArrayList<Point>(points);
@@ -79,13 +75,13 @@ public abstract class DailyStatisticsGraph implements Graph {
 
     @Override
     public Double getPreferredMinValue() {
-        return Double.valueOf(0);
+        return 0d;
 
     }
 
     @Override
     public Double getPreferredMaxValue() {
-        return Double.valueOf(Preferences.Gender.Male.equals(prefs.getGender()) ? 8 : 6);
+        return (double) (Preferences.Gender.Male.equals(prefs.getGender()) ? 8 : 6);
     }
 
     @Override
@@ -161,14 +157,14 @@ public abstract class DailyStatisticsGraph implements Graph {
         public Double getPreferredMinPosition() {
             LocalDate date = new LocalDate(year, 1, 1);
             LogUtil.INSTANCE.d(TAG, "Preferred yearly min: %s", date);
-            return dateToPosition(date);
+            return dateToPositionAtStart(date);
         }
 
         @Override
         public Double getPreferredMaxPosition() {
             LocalDate date = new LocalDate(year, 12, 31).plusDays(1);
             LogUtil.INSTANCE.d(TAG, "Preferred yearly max: %s", date);
-            return dateToPosition(date) - 1;
+            return dateToPositionAtStart(date);
         }
 
     }
@@ -204,14 +200,14 @@ public abstract class DailyStatisticsGraph implements Graph {
         public Double getPreferredMinPosition() {
             LocalDate date = new LocalDate(year, month, 1);
             LogUtil.INSTANCE.d(TAG, "Preferred monthly min: %s", date);
-            return dateToPosition(date);
+            return dateToPositionAtStart(date);
         }
 
         @Override
         public Double getPreferredMaxPosition() {
             LocalDate date = new LocalDate(year, month, timeUtil.getDaysInMonth(month, year)).plusDays(1);
             LogUtil.INSTANCE.d(TAG, "Preferred monthly max: %s", date);
-            return dateToPosition(date) - 1;
+            return dateToPositionAtStart(date);
         }
     }
 
@@ -244,7 +240,7 @@ public abstract class DailyStatisticsGraph implements Graph {
         public Double getPreferredMinPosition() {
             LocalDate date = getStartOfWeek();
             LogUtil.INSTANCE.d(TAG, "Preferred weekly min: %s", date);
-            return dateToPosition(date);
+            return dateToPositionAtStart(date);
         }
 
         @Override
@@ -252,8 +248,7 @@ public abstract class DailyStatisticsGraph implements Graph {
             LocalDate cal = getStartOfWeek();
             LocalDate max = cal.plusDays(7);
             LogUtil.INSTANCE.d(TAG, "Preferred weekly max: %s", max);
-            // Subtract one so that this week max < second week min
-            return dateToPosition(max) - 1;
+            return dateToPositionAtStart(max);
         }
     }
 
