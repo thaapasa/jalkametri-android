@@ -270,15 +270,8 @@
         \n\nYou can also add favorites that can be quickly accessed from the main screen via the options menu.
         \n\nThere is also a jAlcoMeter widget that you can add to your home screen. The widget shows your current BAC
         and the first three of your favorite drinks for instant access from the home screen.
-        \n\nIf you like the application, consider buying the license from the about page (accessed via the options
-        menu)!
     </string>
-    <string name="help_about">This page shows information about the jAlcoMeter software. You can also purchase the
-        jAlcoMeter license from this page.
-        \n\nIf you have already purchased the license, but jAlcoMeter seems to be unlicensed (for example, because you
-        cleared the application data), just click the fetch license button. You can only buy the license once, so you do
-        not need to worry about that.
-    </string>
+    <string name="help_about">This page shows information about the jAlcoMeter software.</string>
     <string name="help_calculator">This is a drink strength calculator, perfect for checking how strong your own
         concoctions (such as punches) are.
         \n\nTo use the calculator, just enter the ingredients one by one; the calculator will show the strength and

@@ -233,10 +233,8 @@
   \n\nPäävalikosta voit merkata juoman juoduksi, voit selata juomahistoriaasi ja löydät tilastotiedot. Muista tarkistaa asetuksesi (puhelimen valikkonappulan takana) - sukupuolesi ja painosi vaikuttaa humalatilaasi.
   \n\nKlikkaa auton kuvaa nähdäksesi ajokuntosi, ja saadaksesi arvion alkoholin palamisajasta.
   \n\nVoit myös lisätä suosikkijuomia valikkonappulasta. Suosikkijuomat näkyvät suoraan pääsivulla.
-  \n\nOhjelmassa on mukana myös jAlkaMetri-sovelma jonka voit lisätä suoraan puhelimesi kotinäytölle. Sovelma näyttää humalatilasi ja pikakuvakkeet kolmeen suosikkijuomaasi.
-  \n\nJos pidät ohjelmasta, harkitse sen lisenssin ostamista! Lisenssin voit ostaa tiedot-sivulta (pääsy puhelimen valikkonapista).</string>
-    <string name="help_about">Tällä sivulla näet tietoja jAlkaMetri-ohjelmasta. Voit myös ostaa jAlkaMetrin lisenssin täältä.
-  \n\nJos olet jo ostanut lisenssin, mutta jAlkaMetri ei tajua tätä (jos olet esim. tyhjentänyt ohjelman datan), klikkaa hae lisenssi -nappulaa. Voit ostaa lisenssin vain kerran, joten et voi joutua maksamaan lisenssistä useampaan otteeseen.</string>
+  \n\nOhjelmassa on mukana myös jAlkaMetri-sovelma jonka voit lisätä suoraan puhelimesi kotinäytölle. Sovelma näyttää humalatilasi ja pikakuvakkeet kolmeen suosikkijuomaasi.</string>
+    <string name="help_about">Tällä sivulla näet tietoja jAlkaMetri-ohjelmasta.</string>
     <string name="help_calculator">Tällä laskurilla voit laskea näppärästi omien sekoitusjuomiesi (esim. boolit) vahvuuden.
   \n\nKäytä laskuria syöttämällä sekoittamasi juomat yksitellen; laskuri näyttää tuloksena syntyvät sekoituksen vahvuuden.
   \n\nVoit myös käyttää laskuria täyttääksesi muokkaamasi juoman vahvuuden; tämä tosin asettaa vain juoman vahvuus -kentän joten muista tarkistaa että juomalle on myös lisätty sopiva koko.</string>
