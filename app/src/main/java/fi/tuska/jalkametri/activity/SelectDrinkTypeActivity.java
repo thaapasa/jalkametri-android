@@ -90,7 +90,7 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
         Bundle extras = getIntent().getExtras();
         catID = (Long) extras.get(KEY_SELECTED_CATEGORY_ID);
 
-        DrinkLibrary library = new DrinkLibraryDB(getAdapter());
+        DrinkLibrary library = new DrinkLibraryDB(getDb());
         category = library.getCategory(catID);
 
         this.list = (GridView) findViewById(R.id.list);
@@ -276,7 +276,7 @@ public class SelectDrinkTypeActivity extends JalkametriDBActivity implements GUI
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_drink:
-                DrinkLibrary library = new DrinkLibraryDB(getAdapter());
+                DrinkLibrary library = new DrinkLibraryDB(getDb());
                 DrinkActivities.startCreateDrink(this, library.getDrinkSizes());
                 return true;
         }

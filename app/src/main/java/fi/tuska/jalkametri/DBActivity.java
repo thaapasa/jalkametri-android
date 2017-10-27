@@ -4,6 +4,6 @@ import fi.tuska.jalkametri.db.DBAdapter;
 
 public interface DBActivity {
 
-    DBAdapter getDBAdapter();
+    DBAdapter getDB();
 
 }

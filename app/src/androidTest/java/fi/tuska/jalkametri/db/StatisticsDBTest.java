@@ -20,8 +20,8 @@ public class StatisticsDBTest extends JalkametriDBTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        history = new HistoryDB(adapter, getContext());
-        statistics = new StatisticsDB(adapter, getPrefs(), getContext());
+        history = new HistoryDB(db, getContext());
+        statistics = new StatisticsDB(db, getPrefs(), getContext());
         setDayChangeTime(6, 0);
     }
 
@@ -34,7 +34,7 @@ public class StatisticsDBTest extends JalkametriDBTestCase {
     public void testTimeGroupColumnSpec() {
         // Create an overridden instance of StatisticsDB so that we are able
         // to access its protected methods
-        new StatisticsDB(adapter, getPrefs(), getContext()) {
+        new StatisticsDB(db, getPrefs(), getContext()) {
             public void checkFormat() {
                 setDayChangeTime(5, 8);
                 assertEquals("DISTINCT(TRIM(SUBSTR(DATETIME(time, '-05:08'), 0, 11))) AS thedate",
@@ -50,7 +50,7 @@ public class StatisticsDBTest extends JalkametriDBTestCase {
     }
 
     public void testGetDailyDrinkAmounts() {
-        HistoryDB history = new HistoryDB(adapter, getContext());
+        HistoryDB history = new HistoryDB(db, getContext());
 
         history.clearAll();
         createSomeDrinks();

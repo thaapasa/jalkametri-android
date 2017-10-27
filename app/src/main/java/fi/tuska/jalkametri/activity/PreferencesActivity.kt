@@ -288,7 +288,7 @@ class PreferencesActivity : JalkametriDBActivity(R.string.title_preferences, R.s
         private fun recalculateHistoryPortions() {
             allowLeave = false
             // Recalculate the portions in history database
-            DrinkActions.recalculateHistoryPortions(activity.adapter, activity) {
+            DrinkActions.recalculateHistoryPortions(activity.db, activity) {
                 allowLeave = true
                 if (backRequested) {
                     activity.onBackPressed()

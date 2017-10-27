@@ -58,7 +58,7 @@ public class FavouritesDB extends AbstractDB implements Favourites {
         DrinkSelectionHelper.createCommonValues(values, fav);
         values.put(KEY_ORDER, maxOrder + 1);
 
-        long id = adapter.getDatabase().insert(TABLE_NAME, null, values);
+        long id = db.getDatabase().insert(TABLE_NAME, null, values);
         AssertionUtils.INSTANCE.expect(id >= 0);
     }
 
@@ -66,7 +66,7 @@ public class FavouritesDB extends AbstractDB implements Favourites {
     public boolean deleteFavourite(long index) {
         DBDataObject.enforceBackedObject(index);
 
-        int deleted = adapter.getDatabase().delete(TABLE_NAME, getIndexClause(index), null);
+        int deleted = db.getDatabase().delete(TABLE_NAME, getIndexClause(index), null);
         return deleted > 0;
     }
 
@@ -79,7 +79,7 @@ public class FavouritesDB extends AbstractDB implements Favourites {
     public List<DrinkEvent> getFavourites(int limit) {
         LogUtil.INSTANCE.d(TAG, "Querying for favourites");
 
-        Cursor cursor = adapter.getDatabase().query(false, TABLE_NAME, FAVOURITE_QUERY_COLUMNS,
+        Cursor cursor = db.getDatabase().query(false, TABLE_NAME, FAVOURITE_QUERY_COLUMNS,
                 null, null, null, null, KEY_ORDER, limit > 0 ? String.valueOf(limit) : null);
         int count = cursor.getCount();
         List<DrinkEvent> drinks = new ArrayList<DrinkEvent>(count);
@@ -111,7 +111,7 @@ public class FavouritesDB extends AbstractDB implements Favourites {
 
         ContentValues newValues = new ContentValues();
         DrinkSelectionHelper.createCommonValues(newValues, fav);
-        int updated = adapter.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index),
+        int updated = db.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index),
                 null);
         return updated > 0;
     }
@@ -121,7 +121,7 @@ public class FavouritesDB extends AbstractDB implements Favourites {
         DBDataObject.enforceBackedObject(index);
         LogUtil.INSTANCE.d(TAG, "Querying for favourite %d", index);
 
-        Cursor cursor = adapter.getDatabase().query(true, TABLE_NAME, FAVOURITE_QUERY_COLUMNS,
+        Cursor cursor = db.getDatabase().query(true, TABLE_NAME, FAVOURITE_QUERY_COLUMNS,
                 getIndexClause(index), null, null, null, null, null);
         DrinkEvent event = null;
         if (cursor.moveToFirst()) {

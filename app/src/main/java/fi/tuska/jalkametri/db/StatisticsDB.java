@@ -10,7 +10,6 @@ import fi.tuska.jalkametri.data.DailyDrinkStatisticsImpl;
 import fi.tuska.jalkametri.data.GeneralStatisticsImpl;
 import fi.tuska.jalkametri.util.LogUtil;
 import fi.tuska.jalkametri.util.TimeUtil;
-import org.joda.time.Duration;
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -64,7 +63,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
         Instant end = endDay != null ? timeUtil.getStartOfDrinkDay(endDay, prefs) : null;
 
         // Wrap all the queries in a single transaction
-        adapter.beginTransaction();
+        db.beginTransaction();
         try {
             // First day
             GeneralStatisticsImpl stats = new GeneralStatisticsImpl(startDay, endDay,
@@ -72,10 +71,10 @@ public class StatisticsDB extends AbstractDB implements Statistics {
             stats.setTotalDrinks(getNumberOfDrinkEvents(start, end));
             stats.setTotalPortions(getNumberOfPortions(start, end));
             stats.setDrunkDays(getNumberOfDrunkDays(start, end));
-            adapter.setTransactionSuccessful();
+            db.setTransactionSuccessful();
             return stats;
         } finally {
-            adapter.endTransaction();
+            db.endTransaction();
         }
     }
 
@@ -86,7 +85,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
         String colSpec = getTheDateGroupColumnSpec();
         LogUtil.INSTANCE.d(TAG, "Querying for daily drink amounts between %s and %s; colSpec is %s",
             start, end, colSpec);
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
             new String[] { colSpec, "SUM(portions)", "COUNT(*)" },
             getDateSelection(KEY_THEDATE, start, end), getDateSelectionArgs(start, end),
             KEY_THEDATE, null, KEY_THEDATE + " ASC");
@@ -115,7 +114,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
      */
     @Override
     public Instant getFirstDrinkEventTime() {
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME, new String[] { KEY_TIME }, null,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME, new String[] { KEY_TIME }, null,
             null, null, null, KEY_TIME + " ASC", "1");
         String date = getSingleString(cursor, null);
         try {
@@ -127,7 +126,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
     }
 
     private long getNumberOfDrinkEvents(Instant start, Instant end) {
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
             new String[] { COL_COUNT, getTheDateGroupColumnSpec() },
             getDateSelection(KEY_THEDATE, start, end), getDateSelectionArgs(start, end), null,
             null, null);
@@ -135,7 +134,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
     }
 
     private double getNumberOfPortions(Instant start, Instant end) {
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
             new String[] { COL_PORTIONS, getTheDateGroupColumnSpec() },
             getDateSelection(KEY_THEDATE, start, end), getDateSelectionArgs(start, end), null,
             null, null);
@@ -144,7 +143,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
 
     private int getNumberOfDrunkDays(Instant start, Instant end) {
         String colSpec = getTimeGroupColumnSpec();
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME, new String[] { colSpec },
+        Cursor cursor = db.getDatabase().query(TABLE_NAME, new String[] { colSpec },
             getDateSelection(KEY_THEDATE, start, end), getDateSelectionArgs(start, end), null,
             null, null);
         int res = cursor.getCount();

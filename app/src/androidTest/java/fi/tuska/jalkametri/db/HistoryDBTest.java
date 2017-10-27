@@ -19,7 +19,7 @@ public class HistoryDBTest extends JalkametriDBTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        history = new HistoryDB(adapter, getContext());
+        history = new HistoryDB(db, getContext());
         setDayChangeTime(6, 0);
     }
 

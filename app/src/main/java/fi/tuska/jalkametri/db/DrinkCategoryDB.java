@@ -101,7 +101,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
         newValues.put(KEY_STRENGTH, strength);
         newValues.put(KEY_ICON, icon);
         newValues.put(KEY_ORDER, order);
-        long id = adapter.getDatabase().insert(TABLE_NAME, null, newValues);
+        long id = db.getDatabase().insert(TABLE_NAME, null, newValues);
         if (id < 0)
             return null;
 
@@ -119,7 +119,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
         ContentValues newValues = new ContentValues();
         DrinkSelectionHelper.createCommonValues(newValues, drinkInfo);
 
-        int updated = adapter.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index),
+        int updated = db.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index),
                 null);
         AssertionUtils.INSTANCE.expect(updated <= 1);
         return updated > 0;
@@ -131,9 +131,9 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
         DBDataObject.enforceBackedObject(index);
 
         Drink drink = getDrink(index);
-        DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(adapter);
+        DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(db);
         connDB.deleteConnectionsForDrink(drink);
-        int modified = adapter.getDatabase().delete(TABLE_NAME, DBAdapter.ID_WHERE_CLAUSE,
+        int modified = db.getDatabase().delete(TABLE_NAME, DBAdapter.ID_WHERE_CLAUSE,
                 new String[]{String.valueOf(index)});
 
         AssertionUtils.INSTANCE.expect(modified <= 1);
@@ -145,7 +145,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
         // Check that the given index is a valid ID
         DBDataObject.enforceBackedObject(index);
 
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
                 new String[]{KEY_NAME, KEY_STRENGTH, KEY_ICON, KEY_COMMENT, KEY_ORDER},
                 KEY_ID + " = " + index + " AND " + KEY_CATEGORY_ID + " = " + getIndex(), null, null,
                 null, KEY_ORDER);
@@ -162,7 +162,7 @@ public class DrinkCategoryDB extends AbstractDB implements DrinkCategory {
 
     @Override
     public List<Drink> getDrinks() {
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
                 new String[]{KEY_ID, KEY_NAME, KEY_STRENGTH, KEY_ICON, KEY_COMMENT, KEY_ORDER},
                 KEY_CATEGORY_ID + " = " + getIndex(), null, null, null, KEY_ORDER);
         int count = cursor.getCount();

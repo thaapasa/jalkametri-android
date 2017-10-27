@@ -11,7 +11,6 @@ import fi.tuska.jalkametri.dao.DrinkSizes;
 import fi.tuska.jalkametri.data.Drink;
 import fi.tuska.jalkametri.data.DrinkSize;
 import fi.tuska.jalkametri.util.AssertionUtils;
-import fi.tuska.jalkametri.util.TimeUtil;
 
 public class DrinkSizeConnectionDB extends AbstractDB {
 
@@ -39,7 +38,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
         DBDataObject.enforceBackedObject(drink);
         if (!size.isBacked()) {
             // Try to find a matching size from DB
-            DrinkSizeDB sizeDB = new DrinkSizeDB(adapter);
+            DrinkSizeDB sizeDB = new DrinkSizeDB(db);
             DrinkSize foundSize = sizeDB.findSize(size);
             if (foundSize != null) {
                 size = foundSize;
@@ -60,7 +59,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
         newValues.put(KEY_SIZE_ID, size.getIndex());
         newValues.put(KEY_ORDER, newOrder);
 
-        long id = adapter.getDatabase().insert(TABLE_NAME, null, newValues);
+        long id = db.getDatabase().insert(TABLE_NAME, null, newValues);
         return id >= 0;
     }
 
@@ -77,7 +76,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
         DBDataObject.enforceBackedObject(drink);
         DBDataObject.enforceBackedObject(size);
 
-        int deleted = adapter.getDatabase().delete(TABLE_NAME, REMOVE_QUERY_WHERE,
+        int deleted = db.getDatabase().delete(TABLE_NAME, REMOVE_QUERY_WHERE,
             new String[] { String.valueOf(drink.getIndex()), String.valueOf(size.getIndex()) });
         AssertionUtils.INSTANCE.expect(deleted <= 1);
 
@@ -86,7 +85,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
             int count = getNumberOfUses(size);
             if (count == 0) {
                 // This drink size is not used anymore
-                DrinkSizes sizeDB = new DrinkSizeDB(adapter);
+                DrinkSizes sizeDB = new DrinkSizeDB(db);
                 boolean res = sizeDB.deleteSize(size.getIndex());
                 AssertionUtils.INSTANCE.expect(res);
             }
@@ -96,7 +95,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
     }
 
     private int getNumberOfUses(DrinkSize size) {
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME, new String[] { "COUNT(*)" },
+        Cursor cursor = db.getDatabase().query(TABLE_NAME, new String[] { "COUNT(*)" },
             KEY_SIZE_ID + " = " + size.getIndex(), null, null, null, null);
 
         int count = 0;
@@ -110,7 +109,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
     public boolean deleteConnectionsForDrink(Drink drink) {
         DBDataObject.enforceBackedObject(drink);
 
-        adapter.getDatabase().delete(TABLE_NAME, DRINK_ID_WHERE_CLAUSE,
+        db.getDatabase().delete(TABLE_NAME, DRINK_ID_WHERE_CLAUSE,
             new String[] { String.valueOf(drink.getIndex()) });
         return true;
     }
@@ -126,7 +125,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
 
         List<DrinkSize> sizes = new ArrayList<DrinkSize>();
 
-        Cursor cursor = adapter.getDatabase().query(tableName, new String[] { KEY_SIZE_ID },
+        Cursor cursor = db.getDatabase().query(tableName, new String[] { KEY_SIZE_ID },
             KEY_DRINK_ID + " = " + drinkID, null, null, null, KEY_ORDER);
 
         if (cursor.moveToFirst()) {
@@ -149,7 +148,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
         DBDataObject.enforceBackedObject(drink);
         DBDataObject.enforceBackedObject(size);
 
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME, new String[] { "COUNT(*)" },
+        Cursor cursor = db.getDatabase().query(TABLE_NAME, new String[] { "COUNT(*)" },
             FIND_DRINK_SIZE_CONNECTION_SELECTION, getIndexValues(drink, size), null, null, null);
         int count = getSingleInt(cursor, 0);
         AssertionUtils.INSTANCE.expect(count <= 1);
@@ -159,7 +158,7 @@ public class DrinkSizeConnectionDB extends AbstractDB {
     protected int getLargestOrderNumber(Drink drink) {
         DBDataObject.enforceBackedObject(drink);
 
-        Cursor cursor = adapter.getDatabase().query(tableName, new String[] { KEY_ORDER },
+        Cursor cursor = db.getDatabase().query(tableName, new String[] { KEY_ORDER },
             KEY_DRINK_ID + " = " + drink.getIndex(), null, null, null, KEY_ORDER);
         return getSingleInt(cursor, 0);
     }

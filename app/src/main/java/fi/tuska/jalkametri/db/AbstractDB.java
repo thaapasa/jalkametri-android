@@ -18,16 +18,16 @@ public abstract class AbstractDB {
     private final DateTimeZone DB_ZONE = DateTimeZone.UTC;
     final DateTimeFormatter sqlDateFormat = DateTimeFormat.forPattern(Common.SQL_DATE_FORMAT_STR).withLocale(DB_LOCALE).withZone(DB_ZONE);
 
-    protected final DBAdapter adapter;
+    protected final DBAdapter db;
     final String tableName;
 
     AbstractDB(DBAdapter adapter, String tableName) {
-        this.adapter = adapter;
+        this.db = adapter;
         this.tableName = tableName;
     }
 
     int getLargestOrderNumber() {
-        Cursor cursor = adapter.getDatabase().query(tableName, new String[]{KEY_ORDER}, null,
+        Cursor cursor = db.getDatabase().query(tableName, new String[]{KEY_ORDER}, null,
                 null, null, null, KEY_ORDER + " DESC");
         return getSingleInt(cursor, 0);
     }

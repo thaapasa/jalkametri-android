@@ -24,14 +24,14 @@ public class DrinkLibraryDB extends AbstractDB implements DrinkLibrary {
 
     private DrinkSizes sizes;
 
-    public DrinkLibraryDB(DBAdapter adapter) {
-        super(adapter, TABLE_NAME);
-        sizes = new DrinkSizeDB(adapter);
+    public DrinkLibraryDB(DBAdapter db) {
+        super(db, TABLE_NAME);
+        sizes = new DrinkSizeDB(db);
     }
 
     @Override
     public List<DrinkCategory> getCategories() {
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
                 new String[]{KEY_ID, KEY_NAME, KEY_ICON, KEY_ORDER}, null, null, null, null,
                 KEY_ORDER);
         int count = cursor.getCount();
@@ -51,7 +51,7 @@ public class DrinkLibraryDB extends AbstractDB implements DrinkLibrary {
         // Check that the given index is a valid ID
         DBDataObject.enforceBackedObject(index);
 
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
                 new String[]{KEY_NAME, KEY_ICON, KEY_ORDER}, getIndexClause(index), null, null,
                 null, KEY_ORDER);
 
@@ -64,7 +64,7 @@ public class DrinkLibraryDB extends AbstractDB implements DrinkLibrary {
     }
 
     private DrinkCategoryDB createCategory(long index, String name, String icon) {
-        return new DrinkCategoryDB(adapter, sizes, index, name, icon);
+        return new DrinkCategoryDB(db, sizes, index, name, icon);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class DrinkLibraryDB extends AbstractDB implements DrinkLibrary {
         newValues.put(KEY_NAME, name);
         newValues.put(KEY_ICON, icon);
         newValues.put(KEY_ORDER, newOrder);
-        long id = adapter.getDatabase().insert(TABLE_NAME, null, newValues);
+        long id = db.getDatabase().insert(TABLE_NAME, null, newValues);
         return id >= 0 ? getCategory(id) : null;
     }
 
@@ -90,10 +90,10 @@ public class DrinkLibraryDB extends AbstractDB implements DrinkLibrary {
 
     @Override
     public void clearDrinksSizesCategories() {
-        adapter.getDatabase().delete(DrinkSizeConnectionDB.TABLE_NAME, null, null);
-        adapter.getDatabase().delete(DrinkSizeDB.TABLE_NAME, null, null);
-        adapter.getDatabase().delete(DrinkCategoryDB.TABLE_NAME, null, null);
-        adapter.getDatabase().delete(TABLE_NAME, null, null);
+        db.getDatabase().delete(DrinkSizeConnectionDB.TABLE_NAME, null, null);
+        db.getDatabase().delete(DrinkSizeDB.TABLE_NAME, null, null);
+        db.getDatabase().delete(DrinkCategoryDB.TABLE_NAME, null, null);
+        db.getDatabase().delete(TABLE_NAME, null, null);
         sizes.invalidate();
     }
 
@@ -105,7 +105,7 @@ public class DrinkLibraryDB extends AbstractDB implements DrinkLibrary {
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_NAME, category.getName());
         newValues.put(KEY_ICON, category.getIcon());
-        int affected = adapter.getDatabase().update(TABLE_NAME, newValues, getIndexClause(id),
+        int affected = db.getDatabase().update(TABLE_NAME, newValues, getIndexClause(id),
                 null);
         AssertionUtils.INSTANCE.expect(affected <= 1);
         return affected > 0;
@@ -116,7 +116,7 @@ public class DrinkLibraryDB extends AbstractDB implements DrinkLibrary {
         // Check that the given index is a valid ID
         DBDataObject.enforceBackedObject(id);
 
-        int affected = adapter.getDatabase().delete(TABLE_NAME, getIndexClause(id), null);
+        int affected = db.getDatabase().delete(TABLE_NAME, getIndexClause(id), null);
         AssertionUtils.INSTANCE.expect(affected <= 1);
         return affected > 0;
     }

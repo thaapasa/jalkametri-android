@@ -91,7 +91,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
         }
 
         // Force widget update, in case widget updating thread is dead
-        JalkametriWidget.triggerRecalculate(this, adapter)
+        JalkametriWidget.triggerRecalculate(this, db)
     }
 
     override fun updateUI() {
@@ -266,11 +266,11 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
 
     private class ViewModel(val activity: MainActivity) {
         val timeUtil = activity.timeUtil
-        val adapter = activity.adapter
+        val db = activity.db
 
-        val history: History = HistoryDB(adapter, activity)
+        val history: History = HistoryDB(db, activity)
         val meter: AlcoholLevelMeter = AlcoholLevelMeter(history, activity)
-        val favourites: Favourites = FavouritesDB(activity.adapter, activity)
+        val favourites: Favourites = FavouritesDB(activity.db, activity)
 
         val addFavouritesPrompt = activity.findViewById(R.id.add_favourites_prompt) as TextView
         val currentStatus = activity.fragmentManager.findFragmentById(R.id.current_status) as CurrentStatusFragment
@@ -298,7 +298,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
             LogUtil.d(TAG, "Showing %d favourites", favs.size)
             favouritesAdapter = NamedIconAdapter(activity, favs, DEFAULT_ICON_RES)
             favouritesList.adapter = favouritesAdapter
-            JalkametriWidget.triggerRecalculate(activity, adapter)
+            JalkametriWidget.triggerRecalculate(activity, db)
             LogUtil.d(TAG, "Recalculated widget")
 
             // If favourites list is empty, show the prompt; otherwise, hide it.
@@ -383,7 +383,7 @@ open class MainActivity : JalkametriDBActivity(R.string.app_name, R.string.help_
             val orgState = currentStatus.drivingState
             // Add drink
             history.createDrink(selection)
-            JalkametriWidget.triggerRecalculate(activity, adapter)
+            JalkametriWidget.triggerRecalculate(activity, db)
             // Make toast
             DrinkActivities.makeDrinkToast(activity, orgLevel, true)
             updateUI()

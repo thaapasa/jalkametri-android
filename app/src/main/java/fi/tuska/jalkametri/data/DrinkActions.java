@@ -43,18 +43,18 @@ public final class DrinkActions {
         TaskExecutor.execute(parent, R.string.drink_library_reset, new Runnable() {
             @Override
             public void run() {
-                DefaultDrinkDatabase.createDefaultDatabase(parent, parent.getDBAdapter(), true);
+                DefaultDrinkDatabase.createDefaultDatabase(parent, parent.getDB(), true);
             }
         }, onCompletion);
     }
 
-    public static void recalculateHistoryPortions(final DBAdapter adapter, final Context context,
+    public static void recalculateHistoryPortions(final DBAdapter db, final Context context,
                                                   final Runnable onCompletion) {
         TaskExecutor.execute(context, R.string.prefs_recalculating_portions, new Runnable() {
             @Override
             public void run() {
                 LogUtil.INSTANCE.i(TAG, "Recalculating portions in history database");
-                HistoryDB history = new HistoryDB(adapter, context);
+                HistoryDB history = new HistoryDB(db, context);
                 history.recalculatePortions();
             }
         }, onCompletion);
@@ -156,7 +156,7 @@ public final class DrinkActions {
     public static <T extends GUIActivity & DBActivity> void addSizeToDrink(Drink drink, DrinkSize size, T parent) {
         LogUtil.INSTANCE.d(TAG, "Adding size %s to drink %s", size, drink);
 
-        DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(parent.getDBAdapter());
+        DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(parent.getDB());
         boolean res = connDB.addSize(drink, size);
         AssertionUtils.INSTANCE.expect(res);
 
@@ -169,7 +169,7 @@ public final class DrinkActions {
     public static <T extends GUIActivity & DBActivity> void removeSizeFromDrink(Drink drink, DrinkSize size, T parent) {
         LogUtil.INSTANCE.d(TAG, "Removing size %s from drink %s", size, drink);
 
-        DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(parent.getDBAdapter());
+        DrinkSizeConnectionDB connDB = new DrinkSizeConnectionDB(parent.getDB());
         boolean res = connDB.removeConnectionFromDrink(drink, size);
         AssertionUtils.INSTANCE.expect(res);
 
@@ -182,7 +182,7 @@ public final class DrinkActions {
     public static <T extends GUIActivity & DBActivity> void updateDrinkSize(long originalID, DrinkSize size, T parent) {
         LogUtil.INSTANCE.d(TAG, "Updating size %s with id %d", size, originalID);
 
-        DrinkSizes sizeLib = new DrinkLibraryDB(parent.getDBAdapter()).getDrinkSizes();
+        DrinkSizes sizeLib = new DrinkLibraryDB(parent.getDB()).getDrinkSizes();
         boolean res = sizeLib.updateSize(originalID, size);
         AssertionUtils.INSTANCE.expect(res);
 
@@ -205,7 +205,7 @@ public final class DrinkActions {
         history.updateEvent(originalID, event);
 
         if (parent != null) {
-            JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDBAdapter());
+            JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDB());
             parent.updateUI();
         }
     }
@@ -217,7 +217,7 @@ public final class DrinkActions {
         history.deleteEvent(event.getIndex());
 
         if (parent != null) {
-            JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDBAdapter());
+            JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDB());
             parent.updateUI();
         }
     }
@@ -230,7 +230,7 @@ public final class DrinkActions {
         history.clearDay(day);
 
         if (parent != null) {
-            JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDBAdapter());
+            JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDB());
             parent.updateUI();
         }
     }
@@ -256,7 +256,7 @@ public final class DrinkActions {
         drink.setTime(sel);
         history.createDrink(drink);
 
-        JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDBAdapter());
+        JalkametriWidget.triggerRecalculate(parent.getContext(), parent.getDB());
         parent.updateUI();
     }
 

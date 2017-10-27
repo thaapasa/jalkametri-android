@@ -85,7 +85,7 @@ public class HistoryDB extends AbstractDB implements History {
     public void createDrink(DrinkSelection selection) {
         ContentValues newValues = new ContentValues();
         createValues(newValues, selection);
-        long id = adapter.getDatabase().insert(TABLE_NAME, null, newValues);
+        long id = db.getDatabase().insert(TABLE_NAME, null, newValues);
         AssertionUtils.INSTANCE.expect(id >= 0);
     }
 
@@ -95,7 +95,7 @@ public class HistoryDB extends AbstractDB implements History {
 
         ContentValues newValues = new ContentValues();
         createValues(newValues, event);
-        adapter.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index), null);
+        db.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index), null);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class HistoryDB extends AbstractDB implements History {
     public List<DrinkEvent> getDrinks(Instant fromTime, Instant toTime, boolean ascending) {
         LogUtil.INSTANCE.d(TAG, "Querying for drinks between %s and %s", fromTime, toTime);
 
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME, DRINK_QUERY_COLUMNS,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME, DRINK_QUERY_COLUMNS,
                 TIME_QUERY_WHERE,
                 new String[]{sqlDateFormat.print(fromTime), sqlDateFormat.print(toTime)}, null,
                 null, KEY_TIME + (ascending ? " ASC" : " DESC"));
@@ -141,7 +141,7 @@ public class HistoryDB extends AbstractDB implements History {
     public List<DrinkEvent> getPreviousDrinks(int limit) {
         LogUtil.INSTANCE.d(TAG, "Querying for previous drinks");
 
-        Cursor cursor = adapter.getDatabase().query(false, TABLE_NAME, PREVIOUS_QUERY_COLUMNS,
+        Cursor cursor = db.getDatabase().query(false, TABLE_NAME, PREVIOUS_QUERY_COLUMNS,
                 null, null, KEY_GROUP_NAME, null, KEY_TIME + " DESC", String.valueOf(limit));
 
         int count = cursor.getCount();
@@ -164,7 +164,7 @@ public class HistoryDB extends AbstractDB implements History {
         DBDataObject.enforceBackedObject(index);
         LogUtil.INSTANCE.d(TAG, "Querying for drink %d", index);
 
-        Cursor cursor = adapter.getDatabase().query(true, TABLE_NAME, DRINK_QUERY_COLUMNS,
+        Cursor cursor = db.getDatabase().query(true, TABLE_NAME, DRINK_QUERY_COLUMNS,
                 getIndexClause(index), null, null, null, null, null);
         DrinkEvent event = null;
         if (cursor.moveToFirst()) {
@@ -204,7 +204,7 @@ public class HistoryDB extends AbstractDB implements History {
     @Override
     public void clearDrinks(Instant fromTime, Instant toTime) {
         LogUtil.INSTANCE.i(TAG, "Deleting drinks between %s and %s", fromTime, toTime);
-        adapter.getDatabase().delete(TABLE_NAME, TIME_QUERY_WHERE,
+        db.getDatabase().delete(TABLE_NAME, TIME_QUERY_WHERE,
                 new String[]{sqlDateFormat.print(fromTime), sqlDateFormat.print(toTime)});
     }
 
@@ -212,7 +212,7 @@ public class HistoryDB extends AbstractDB implements History {
     public boolean deleteEvent(long index) {
         DBDataObject.enforceBackedObject(index);
 
-        int deleted = adapter.getDatabase().delete(TABLE_NAME, getIndexClause(index), null);
+        int deleted = db.getDatabase().delete(TABLE_NAME, getIndexClause(index), null);
         return deleted > 0;
     }
 
@@ -220,7 +220,7 @@ public class HistoryDB extends AbstractDB implements History {
     public double countPortions(Instant fromTime, Instant toTime) {
         LogUtil.INSTANCE.d(TAG, "Querying for portions between %s and %s", fromTime, toTime);
 
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
                 new String[]{"SUM(" + KEY_PORTIONS + ")"}, TIME_QUERY_WHERE,
                 new String[]{sqlDateFormat.print(fromTime), sqlDateFormat.print(toTime)}, null,
                 null, null);
@@ -231,7 +231,7 @@ public class HistoryDB extends AbstractDB implements History {
     public double countTotalPortions() {
         LogUtil.INSTANCE.d(TAG, "Querying for total portions");
 
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
                 new String[]{"SUM(" + KEY_PORTIONS + ")"}, null, null, null, null, null);
         return getSingleDouble(cursor, 0);
     }
@@ -239,7 +239,7 @@ public class HistoryDB extends AbstractDB implements History {
     @Override
     public void clearAll() {
         LogUtil.INSTANCE.i(TAG, "Clearing entire history database!");
-        adapter.getDatabase().delete(TABLE_NAME, null, null);
+        db.getDatabase().delete(TABLE_NAME, null, null);
     }
 
     @Override
@@ -249,7 +249,7 @@ public class HistoryDB extends AbstractDB implements History {
         String updateS = "UPDATE " + tableName + " SET " + KEY_PORTIONS + " = ((((" + KEY_VOLUME + " * " + KEY_STRENGTH
                 + ") / 100) * " + Common.ALCOHOL_LITER_WEIGHT + ") / " + stdAlcWeight + ")";
         LogUtil.INSTANCE.d(DBAdapter.TAG, "Running upgrade SQL: \"%s\"", updateS);
-        adapter.getDatabase().execSQL(updateS);
+        db.getDatabase().execSQL(updateS);
     }
 
 }

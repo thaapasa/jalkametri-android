@@ -21,12 +21,12 @@ import java.util.Locale
 
 class DrinkSizeSelector(
         private val parent: JalkametriActivity,
-        adapter: DBAdapter,
+        db: DBAdapter,
         private val selectorShown: Boolean,
         private val sizeIconEditorShown: Boolean) {
 
     private val locale: Locale = parent.prefs.locale
-    private val sizeLib: DrinkSizes = DrinkLibraryDB(adapter).drinkSizes
+    private val sizeLib: DrinkSizes = DrinkLibraryDB(db).drinkSizes
 
     private var sizeEdit: EditText? = null
     private var sizeNameEdit: EditText? = null
@@ -173,7 +173,7 @@ class DrinkSizeSelector(
         this.selectedDrinkSize = size
 
         if (sizeSelectionAdapter == null) {
-            // No size selection adapter, so just set the custom edit forms.
+            // No size selection db, so just set the custom edit forms.
             populateCustomEditors(size)
             return
         }

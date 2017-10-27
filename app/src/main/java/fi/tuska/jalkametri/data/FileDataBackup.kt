@@ -12,14 +12,14 @@ import java.util.Date
 import java.util.Locale
 import java.util.TreeSet
 
-class FileDataBackup(private val adapter: DBAdapter) : DataBackup {
+class FileDataBackup(private val db: DBAdapter) : DataBackup {
 
     private val databaseFile: File
         @Throws(IOException::class)
         get() {
             LogUtil.d(TAG, "Data dir is " + Environment.getDataDirectory())
             val dbFile = File(Environment.getDataDirectory().toString()
-                    + "/data/fi.tuska.jalkametri/databases/" + adapter.databaseFilename)
+                    + "/data/fi.tuska.jalkametri/databases/" + db.databaseFilename)
             if (!dbFile.exists()) {
                 LogUtil.w(TAG, "Database file %s does not exist", dbFile)
                 throw IOException("Database file does not exist")
@@ -68,7 +68,7 @@ class FileDataBackup(private val adapter: DBAdapter) : DataBackup {
             return false
 
         try {
-            adapter.lockDatabase()
+            db.lockDatabase()
             val backupFile = File(backupDirectory, targetName)
             val dbFile = databaseFile
             FileUtil.copyFile(dbFile, backupFile)
@@ -77,7 +77,7 @@ class FileDataBackup(private val adapter: DBAdapter) : DataBackup {
             LogUtil.w(TAG, "Error when restoring backup file: %s (%s)", e.message ?: "", e)
             return false
         } finally {
-            adapter.unlockDatabase()
+            db.unlockDatabase()
         }
     }
 
@@ -106,7 +106,7 @@ class FileDataBackup(private val adapter: DBAdapter) : DataBackup {
             return false
 
         try {
-            adapter.lockDatabase()
+            db.lockDatabase()
             val backupFile = File(backupDirectory, backupName)
             if (!backupFile.exists() || !backupFile.isFile) {
                 LogUtil.w(TAG, "Backup file %s does not exist or is not a file", backupFile)
@@ -119,7 +119,7 @@ class FileDataBackup(private val adapter: DBAdapter) : DataBackup {
             LogUtil.w(TAG, "Error when restoring backup file: %s (%s)", e.message ?: "", e)
             return false
         } finally {
-            adapter.unlockDatabase()
+            db.unlockDatabase()
         }
     }
 

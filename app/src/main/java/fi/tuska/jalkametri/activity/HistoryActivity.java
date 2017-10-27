@@ -263,7 +263,7 @@ public class HistoryActivity extends ListActivity implements GUIActivity, DBActi
     }
 
     @Override
-    public DBAdapter getDBAdapter() {
+    public DBAdapter getDB() {
         return adapter;
     }
 

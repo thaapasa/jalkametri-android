@@ -20,7 +20,7 @@ abstract class AbstractStatisticsActivity<T : AbstractStatisticsActivity.ViewMod
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.statisticsDB = StatisticsDB(adapter, prefs, this)
+        this.statisticsDB = StatisticsDB(db, prefs, this)
     }
 
     override fun setContentView(layoutResID: Int) {

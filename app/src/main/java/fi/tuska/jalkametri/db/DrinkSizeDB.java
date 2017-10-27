@@ -54,7 +54,7 @@ public class DrinkSizeDB extends AbstractDB implements DrinkSizes {
         newValues.put(KEY_VOLUME, volume);
         newValues.put(KEY_ICON, icon);
         newValues.put(KEY_ORDER, order);
-        long id = adapter.getDatabase().insert(TABLE_NAME, null, newValues);
+        long id = db.getDatabase().insert(TABLE_NAME, null, newValues);
         if (id < 0) {
             return null;
         }
@@ -100,7 +100,7 @@ public class DrinkSizeDB extends AbstractDB implements DrinkSizes {
         newValues.put(KEY_VOLUME, size.getVolume());
         newValues.put(KEY_ICON, size.getIcon());
 
-        int updated = adapter.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index),
+        int updated = db.getDatabase().update(TABLE_NAME, newValues, getIndexClause(index),
             null);
         AssertionUtils.INSTANCE.expect(updated <= 1);
         return updated > 0;
@@ -113,13 +113,13 @@ public class DrinkSizeDB extends AbstractDB implements DrinkSizes {
     public boolean deleteSize(long index) {
         DBDataObject.enforceBackedObject(index);
 
-        int deleted = adapter.getDatabase().delete(TABLE_NAME, getIndexClause(index), null);
+        int deleted = db.getDatabase().delete(TABLE_NAME, getIndexClause(index), null);
         AssertionUtils.INSTANCE.expect(deleted <= 1);
         return deleted > 0;
     }
 
     private void loadSizes() {
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
             new String[] { KEY_ID, KEY_NAME, KEY_VOLUME, KEY_ICON, KEY_ORDER }, null, null, null,
             null, KEY_VOLUME);
         int count = cursor.getCount();
@@ -137,7 +137,7 @@ public class DrinkSizeDB extends AbstractDB implements DrinkSizes {
     }
 
     private DrinkSize loadSize(long id) {
-        Cursor cursor = adapter.getDatabase().query(TABLE_NAME,
+        Cursor cursor = db.getDatabase().query(TABLE_NAME,
             new String[] { KEY_ID, KEY_NAME, KEY_VOLUME, KEY_ICON, KEY_ORDER },
             getIndexClause(id), null, null, null, KEY_VOLUME);
 
@@ -200,7 +200,7 @@ public class DrinkSizeDB extends AbstractDB implements DrinkSizes {
     @Override
     public List<DrinkSize> getSizes(Drink drink) {
         DBDataObject.enforceBackedObject(drink);
-        DrinkSizeConnectionDB conn = new DrinkSizeConnectionDB(adapter);
+        DrinkSizeConnectionDB conn = new DrinkSizeConnectionDB(db);
         return conn.getDrinkSizes(drink, this);
     }
 

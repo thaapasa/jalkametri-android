@@ -143,7 +143,7 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
             setOnClickListener { _ -> timeUtil.pickTime(activity, selectedTime, { setSelectedTime(it) }) }
         }
         private val showTimeSelection = true
-        val drinkSizeSelector: DrinkSizeSelector = DrinkSizeSelector(activity, activity.adapter, true,
+        val drinkSizeSelector: DrinkSizeSelector = DrinkSizeSelector(activity, activity.db, true,
                 true).apply {
             initializeComponents(selection.size)
         }

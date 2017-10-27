@@ -11,12 +11,12 @@ public abstract class JalkametriDBTestCase extends JalkametriTestCase {
     /**
      * Will be initialized during setUp(). Do not reference from constructors!
      */
-    protected DBAdapter adapter;
+    protected DBAdapter db;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        this.adapter = new UnitTestDBAdapter(getContext());
+        this.db = new UnitTestDBAdapter(getContext());
     }
 
     protected final DBGUIActivity dummyParentActivity = new DBGUIActivity();
@@ -34,8 +34,8 @@ public abstract class JalkametriDBTestCase extends JalkametriTestCase {
         }
 
         @Override
-        public DBAdapter getDBAdapter() {
-            return adapter;
+        public DBAdapter getDB() {
+            return db;
         }
 
     }
