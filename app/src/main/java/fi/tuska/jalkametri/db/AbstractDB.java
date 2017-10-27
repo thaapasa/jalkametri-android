@@ -15,7 +15,9 @@ import static fi.tuska.jalkametri.db.DBAdapter.KEY_ORDER;
 public abstract class AbstractDB {
 
     private final Locale DB_LOCALE = Locale.ENGLISH;
-    private final DateTimeZone DB_ZONE = DateTimeZone.UTC;
+    // Database time is stored in Helsinki time for historical reasons
+    // TODO: Change the date format to proper SQL dates (it is now text...), and store the dates in UTC
+    private final DateTimeZone DB_ZONE = DateTimeZone.forID("Europe/Helsinki");
     final DateTimeFormatter sqlDateFormat = DateTimeFormat.forPattern(Common.SQL_DATE_FORMAT_STR).withLocale(DB_LOCALE).withZone(DB_ZONE);
 
     protected final DBAdapter db;
