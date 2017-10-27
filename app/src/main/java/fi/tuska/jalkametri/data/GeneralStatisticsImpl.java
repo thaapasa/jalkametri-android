@@ -104,7 +104,7 @@ public class GeneralStatisticsImpl implements GeneralStatistics {
 
     @Override
     public double getAvgWeeklyPortions() {
-        double weeks = allDays / 7d;
+        double weeks = (double) allDays / 7.0d;
         return totalPortions / weeks;
     }
 

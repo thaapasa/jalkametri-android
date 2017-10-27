@@ -52,6 +52,11 @@ abstract class AbstractStatisticsActivity<T : AbstractStatisticsActivity.ViewMod
         private val avgPortionsDrunkDays = activity.findViewById(R.id.avg_portions_drunk_days) as TextView
         private val avgWeeklyPortions = activity.findViewById(R.id.avg_weekly_portions) as TextView
 
+        // Day statistics
+        private val allDays = activity.findViewById(R.id.all_days) as TextView
+        private val soberDays = activity.findViewById(R.id.sober_days) as TextView
+        private val drunkDays = activity.findViewById(R.id.drunk_days) as TextView
+
         open fun updateUI(generalStats: GeneralStatistics) {
             totalDrinks.text = NumberUtil.toString(generalStats.totalDrinks.toDouble(), res)
             totalPortions.text = NumberUtil.toString(generalStats.totalPortions, res)
@@ -63,6 +68,15 @@ abstract class AbstractStatisticsActivity<T : AbstractStatisticsActivity.ViewMod
             avgPortionsAllDays.text = NumberUtil.toString(generalStats.avgPortionsAllDays, res)
             avgPortionsDrunkDays.text = NumberUtil.toString(generalStats.avgPortionsDrunkDays, res)
             avgWeeklyPortions.text = NumberUtil.toString(generalStats.avgWeeklyPortions, res)
+
+            allDays.text = NumberUtil.toString(generalStats.numberOfRecordedDays.toDouble(), res)
+
+            soberDays.text = String.format("%s (%s %%)",
+                    NumberUtil.toString(generalStats.numberOfSoberDays.toDouble(), res),
+                    NumberUtil.toString(generalStats.soberDayPercentage, res))
+            drunkDays.text = String.format("%s (%s %%)",
+                    NumberUtil.toString(generalStats.numberOfDrunkDays.toDouble(), res),
+                    NumberUtil.toString(generalStats.drunkDayPercentage, res))
         }
 
     }

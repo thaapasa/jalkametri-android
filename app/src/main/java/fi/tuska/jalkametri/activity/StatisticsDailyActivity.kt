@@ -73,21 +73,22 @@ class StatisticsDailyActivity : AbstractStatisticsActivity<StatisticsDailyActivi
     class ViewModel(val statisticsActivity: StatisticsDailyActivity, val type: Type) : AbstractStatisticsActivity.ViewModel(statisticsActivity) {
         private val graphView = activity.findViewById(R.id.graph) as GraphView
         private val dateTitle = activity.findViewById(R.id.browser_title) as TextView
-        private val dateSubtitle = (activity.findViewById(R.id.browser_subtitle) as TextView).apply {
-            visibility = View.GONE
-        }
         private val dateTitleFormat = timeUtil.timeFormatter(getDateTitlePattern(activity, type))
 
         lateinit var day: LocalDate
         lateinit var start: LocalDate
         lateinit var end: LocalDate
 
+        init {
+            (activity.findViewById(R.id.browser_subtitle) as TextView).visibility = View.GONE
+        }
+
         override fun updateUI(generalStats: GeneralStatistics) {
             super.updateUI(generalStats)
             updateThisUI()
         }
 
-        fun updateThisUI() {
+        private fun updateThisUI() {
             dateTitle.text = StringUtil.uppercaseFirstLetter(dateTitleFormat.print(day))
         }
 

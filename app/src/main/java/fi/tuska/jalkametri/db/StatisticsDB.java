@@ -61,7 +61,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
     public GeneralStatistics getGeneralStatistics(LocalDate startDay, LocalDate endDay) {
 
         Instant start = startDay != null ? timeUtil.getStartOfDrinkDay(startDay, prefs) : null;
-        Instant end = endDay != null ? timeUtil.getStartOfDrinkDay(endDay, prefs).plus(Duration.standardDays(1)) : null;
+        Instant end = endDay != null ? timeUtil.getStartOfDrinkDay(endDay, prefs) : null;
 
         // Wrap all the queries in a single transaction
         adapter.beginTransaction();
