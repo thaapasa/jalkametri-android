@@ -69,6 +69,7 @@ abstract class AbstractStatisticsActivity<T : AbstractStatisticsActivity.ViewMod
 
     fun setStatistics(stats: GeneralStatistics) {
         this.generalStats = stats
+        updateUI()
     }
 
     override fun updateUI() {
