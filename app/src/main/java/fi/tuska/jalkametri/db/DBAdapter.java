@@ -17,6 +17,9 @@ import fi.tuska.jalkametri.db.upgrade.RunMultipleCommands;
 import fi.tuska.jalkametri.db.upgrade.RunUpgradeCommand;
 import fi.tuska.jalkametri.util.AssertionUtils;
 import fi.tuska.jalkametri.util.LogUtil;
+import org.joda.time.LocalTime;
+
+import static java.util.Locale.ENGLISH;
 
 public class DBAdapter {
 
@@ -235,8 +238,11 @@ public class DBAdapter {
 
     }
 
+    public static final String formatAsSQLTime(LocalTime time) {
+        return String.format(ENGLISH, "%02d:%02d", time.getHourOfDay(), time.getMinuteOfHour());
+    }
     public static final String formatAsSQLTime(int hours, int minutes) {
-        return String.format("%02d:%02d", hours, minutes);
+        return String.format(ENGLISH, "%02d:%02d", hours, minutes);
     }
 
 }

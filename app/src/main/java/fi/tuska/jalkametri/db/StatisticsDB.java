@@ -13,9 +13,11 @@ import fi.tuska.jalkametri.util.TimeUtil;
 import org.joda.time.Duration;
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static fi.tuska.jalkametri.db.DBAdapter.KEY_PORTIONS;
 import static fi.tuska.jalkametri.db.DBAdapter.KEY_TIME;
@@ -80,7 +82,7 @@ public class StatisticsDB extends AbstractDB implements Statistics {
     @Override
     public List<DailyDrinkStatistics> getDailyDrinkAmounts(LocalDate startDay, LocalDate endDay) {
         Instant start = timeUtil.getStartOfDrinkDay(startDay, prefs);
-        Instant end = timeUtil.getStartOfDrinkDay(endDay, prefs).plus(Duration.standardDays(1));
+        Instant end = timeUtil.getStartOfDrinkDay(endDay, prefs);
         String colSpec = getTheDateGroupColumnSpec();
         LogUtil.INSTANCE.d(TAG, "Querying for daily drink amounts between %s and %s; colSpec is %s",
             start, end, colSpec);
@@ -150,14 +152,18 @@ public class StatisticsDB extends AbstractDB implements Statistics {
         return res;
     }
 
+    protected LocalTime getDBTimeOffset() {
+        return prefs.getDayChangeTime();
+    }
+
     protected String getTimeGroupColumnSpec() {
-        return String.format(COL_DRUNKDAYS,
-            DBAdapter.formatAsSQLTime(prefs.getDayChangeHour(), prefs.getDayChangeMinute()));
+        return String.format(Locale.ENGLISH, COL_DRUNKDAYS,
+            DBAdapter.formatAsSQLTime(getDBTimeOffset()));
     }
 
     protected String getTheDateGroupColumnSpec() {
-        return String.format(COL_THEDATE,
-            DBAdapter.formatAsSQLTime(prefs.getDayChangeHour(), prefs.getDayChangeMinute()));
+        return String.format(Locale.ENGLISH, COL_THEDATE,
+            DBAdapter.formatAsSQLTime(getDBTimeOffset()));
     }
 
     protected String getDateSelection(String timeCol, Instant start, Instant end) {

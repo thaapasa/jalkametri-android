@@ -67,8 +67,7 @@ class TimeUtil(val res: Resources, val locale: Locale) {
 
     fun getTimeAfterHours(hours: Double): Instant = Instant.now().plus(Duration.millis((hours * HOUR_MS).toLong()))
 
-    private val sqlDateFormat: DateTimeFormatter
-        get() = timeFormatter("yyyy-MM-dd")
+    private val sqlDateFormat: DateTimeFormatter = timeFormatter("yyyy-MM-dd")
 
     val dateFormatWDay: DateTimeFormatter
         get() = timeFormatter(res.getString(R.string.day_showday_format))
