@@ -26,7 +26,7 @@ public class DBAdapter {
     // Wait for two minutes at maximum
     private static final int MAX_DB_WAIT_TIME_MILLIS = 1000 * 60 * 2;
 
-    private static final String DATABASE_NAME = "jalkametri.sqlite";
+    private static final String DATABASE_NAME = "jalkametri.db";
     public static final int DATABASE_VERSION = 36;
 
     public static final String KEY_ID = "id";
