@@ -26,7 +26,7 @@ public class DBAdapter {
     // Wait for two minutes at maximum
     private static final int MAX_DB_WAIT_TIME_MILLIS = 1000 * 60 * 2;
 
-    private static final String DATABASE_NAME = "jalkametri.db";
+    private static final String DATABASE_NAME = "jalkametri.sqlite";
     public static final int DATABASE_VERSION = 36;
 
     public static final String KEY_ID = "id";
@@ -46,7 +46,7 @@ public class DBAdapter {
 
     public static final String ID_WHERE_CLAUSE = KEY_ID + " = ?";
 
-    private SQLiteDatabase db;
+    private SQLiteDatabase sqlite;
     private final Context context;
     private DBHelper helper;
 
@@ -58,7 +58,7 @@ public class DBAdapter {
 
     private static boolean databaseLocked = false;
     /** The object on which the database synchronization lock is taken. */
-    private static Object databaseLock = new Object();
+    private static final Object databaseLock = new Object();
 
     static {
         // When updating from version [0 -> 31] to [X], run DropAndCreate when
@@ -111,10 +111,10 @@ public class DBAdapter {
     }
 
     public void open() {
-        if (db != null) {
+        if (sqlite != null) {
             return;
         }
-        db = helper.getWritableDatabase();
+        sqlite = helper.getWritableDatabase();
     }
 
     public void lockDatabase() {
@@ -135,32 +135,32 @@ public class DBAdapter {
     }
 
     public void close() {
-        if (db != null) {
-            db.close();
-            db = null;
+        if (sqlite != null) {
+            sqlite.close();
+            sqlite = null;
         }
     }
 
     protected SQLiteDatabase getDatabase() {
-        if (db == null)
+        if (sqlite == null)
             open();
-        AssertionUtils.INSTANCE.expect(db != null);
-        return db;
+        AssertionUtils.INSTANCE.expect(sqlite != null);
+        return sqlite;
     }
 
     public void beginTransaction() {
         getDatabase();
-        db.beginTransaction();
+        sqlite.beginTransaction();
     }
 
     public void setTransactionSuccessful() {
         getDatabase();
-        db.setTransactionSuccessful();
+        sqlite.setTransactionSuccessful();
     }
 
     public void endTransaction() {
-        if (db != null) {
-            db.endTransaction();
+        if (sqlite != null) {
+            sqlite.endTransaction();
         }
     }
 
