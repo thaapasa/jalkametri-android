@@ -58,8 +58,7 @@ public class EditDrinkSizeActivity extends JalkametriDBActivity {
         initializeComponents();
 
         // Initialize the drink size selector
-        drinkSizeSelector = new DrinkSizeSelector(this, getDb(), true, true);
-        drinkSizeSelector.initializeComponents(selectedSize);
+        drinkSizeSelector = new DrinkSizeSelector(this, getDb(), true, true, selectedSize);
     }
 
     @Override

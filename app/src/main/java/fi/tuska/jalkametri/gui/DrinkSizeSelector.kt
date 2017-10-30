@@ -23,16 +23,19 @@ class DrinkSizeSelector(
         private val parent: JalkametriActivity,
         db: DBAdapter,
         private val selectorShown: Boolean,
-        private val sizeIconEditorShown: Boolean) {
+        private val sizeIconEditorShown: Boolean,
+        initialSelection: DrinkSize?) {
 
     private val locale: Locale = parent.prefs.locale
     private val sizeLib: DrinkSizes = DrinkLibraryDB(db).drinkSizes
+    private val initial = initialSelection ?: sizeLib.defaultSize
 
-    private var sizeEdit: EditText? = null
-    private var sizeNameEdit: EditText? = null
+    private var sizeEdit = parent.findViewById(R.id.size_edit) as EditText
+    private var sizeNameEdit = parent.findViewById(R.id.size_name_edit) as EditText
     private var sizeIcon: IconView? = null
     private var spinnerSelection: DrinkSize? = null
     private var selectedDrinkSize: DrinkSize? = null
+
 
     /**
      * Selection spinner for pre-existing size entries. This can be missing
@@ -40,7 +43,7 @@ class DrinkSizeSelector(
      * handle that. In this case the pre-selection functionality is not
      * enabled.
      */
-    private var sizeSelectionSpinner: Spinner? = null
+    private var sizeSelectionSpinner: Spinner? = parent.findViewById(R.id.size_selector) as Spinner?
     /**
      * Adapter for the spinner; this will be null if the spinner is null, see
      * the comments for the spinner.
@@ -53,53 +56,14 @@ class DrinkSizeSelector(
      * missing from the edit form. In this case, custom editing is always
      * enabled.
      */
-    private var modifySizeCheckbox: CheckBox? = null
+    private var modifySizeCheckbox: CheckBox? = parent.findViewById(R.id.modify_size) as CheckBox?
 
 
     private val modifyCheckBoxSelectListener = OnClickListener {
-        if (modifySizeCheckbox != null) {
-            modifySizeCheckbox!!.isChecked = true
-        }
+        modifySizeCheckbox?.isChecked = true
     }
 
-    // Custom size selected
-    // Create a new size based on the entered data
-    // Return the selected drink
-    val drinkSize: DrinkSize?
-        get() {
-            if (isCustomSizeEditingEnabled) {
-                val name = sizeNameEdit!!.text.toString()
-                val volume = NumberUtil.readDouble(sizeEdit!!.text.toString(), locale)
-                return DrinkSize(name, volume, currentlySelectedIcon)
-            } else {
-                return selectedDrinkSize
-            }
-        }
-
-    // If there is no modification button on the form, then it is assumed
-    // that the size editing is enabled
-    private val isCustomSizeEditingEnabled: Boolean
-        get() = modifySizeCheckbox == null || modifySizeCheckbox!!.isChecked
-
-    private val currentlySelectedIcon: String
-        get() = if (sizeIconEditorShown && sizeIcon != null)
-            sizeIcon!!.icon.icon
-        else
-            Common.DEFAULT_ICON_NAME
-
-    /**
-     * @param initialSelection initially selected size; may be null (in this
-     * case, selected the default size)
-     */
-    fun initializeComponents(initialSelection: DrinkSize?) {
-
-        val initial = initialSelection ?: sizeLib.defaultSize
-
-        sizeEdit = parent.findViewById(R.id.size_edit) as EditText?
-        sizeNameEdit = parent.findViewById(R.id.size_name_edit) as EditText?
-        modifySizeCheckbox = parent.findViewById(R.id.modify_size) as CheckBox?
-        sizeSelectionSpinner = parent.findViewById(R.id.size_selector) as Spinner?
-
+    init {
         if (!selectorShown) {
             // Hide the entire size selector
             LogUtil.e(TAG, "Hiding size selector -- TODO: REMOVE THIS!")
@@ -128,13 +92,11 @@ class DrinkSizeSelector(
             }
         }
         // Modify size
-        if (modifySizeCheckbox != null) {
-            modifySizeCheckbox!!.isChecked = false
-        }
+        modifySizeCheckbox?.isChecked = false
         updateSizeEditorEnabling()
 
-        if (selectorShown && modifySizeCheckbox != null) {
-            modifySizeCheckbox!!.setOnCheckedChangeListener { buttonView, isChecked -> updateSizeEditorEnabling() }
+        if (selectorShown) {
+            modifySizeCheckbox?.setOnCheckedChangeListener { _, _ -> updateSizeEditorEnabling() }
         }
 
         // Size selection spinner
@@ -144,20 +106,23 @@ class DrinkSizeSelector(
 
         // Set size name/size edit clicking to toggle modification
         // checkbox
-        sizeNameEdit!!.setOnClickListener(modifyCheckBoxSelectListener)
-        sizeEdit!!.setOnClickListener(modifyCheckBoxSelectListener)
+        sizeNameEdit.setOnClickListener(modifyCheckBoxSelectListener)
+        sizeEdit.setOnClickListener(modifyCheckBoxSelectListener)
 
         setDrinkSize(initial, true)
 
-        if (selectorShown && sizeSelectionSpinner != null) {
-            sizeSelectionSpinner!!.onItemSelectedListener = object : OnItemSelectedListener {
-                override fun onItemSelected(adapter: AdapterView<*>, view: View, position: Int,
+        if (selectorShown) {
+            sizeSelectionSpinner?.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(adapter: AdapterView<*>, view: View?, position: Int,
                                             id: Long) {
-                    val size = sizeSelectionAdapter!!.getItem(position)
-                    if (spinnerSelection == null || spinnerSelection != size) {
-                        LogUtil.d(TAG, "DrinkSize item %s selected", size)
-                        spinnerSelection = size
-                        setSizeSelected(size)
+                    sizeSelectionAdapter?.getItem(position)?.let { size ->
+                        spinnerSelection.let {
+                            if (it == null || it != size) {
+                                LogUtil.d(TAG, "DrinkSize item %s selected", size)
+                                spinnerSelection = size
+                                setSizeSelected(size)
+                            }
+                        }
                     }
                 }
 
@@ -165,6 +130,33 @@ class DrinkSizeSelector(
             }
         }
     }
+
+
+    // Custom size selected
+    // Create a new size based on the entered data
+    // Return the selected drink
+    val drinkSize: DrinkSize?
+        get() {
+            return if (isCustomSizeEditingEnabled) {
+                val name = sizeNameEdit.text.toString()
+                val volume = NumberUtil.readDouble(sizeEdit.text.toString(), locale)
+                DrinkSize(name, volume, currentlySelectedIcon)
+            } else {
+                selectedDrinkSize
+            }
+        }
+
+    // If there is no modification button on the form, then it is assumed
+    // that the size editing is enabled
+    private val isCustomSizeEditingEnabled: Boolean
+        get() = modifySizeCheckbox?.isChecked ?: true
+
+    private val currentlySelectedIcon: String
+        get() = if (sizeIconEditorShown)
+            sizeIcon?.icon?.icon ?: Common.DEFAULT_ICON_NAME
+        else
+            Common.DEFAULT_ICON_NAME
+
 
     /**
      * Sets the given size.
@@ -182,58 +174,53 @@ class DrinkSizeSelector(
         val pos = sizeSelectionAdapter!!.findItem(size)
         if (pos != -1) {
             // Size was found from the size list
-            sizeSelectionSpinner!!.setSelection(pos)
+            sizeSelectionSpinner?.setSelection(pos)
             // Not a custom item, set the text to the text editors
-            if (modifySizeCheckbox != null) {
-                modifySizeCheckbox!!.isChecked = false
-            }
+            modifySizeCheckbox?.isChecked = false
             spinnerSelection = size
         } else {
             // Size was not found, so this is a custom size
             // Select first element from the spinner
-            if (sizeSelectionAdapter!!.itemCount > 0) {
-                sizeSelectionSpinner!!.setSelection(0)
-                spinnerSelection = sizeSelectionAdapter!!.getItem(0)
+            if (sizeSelectionAdapter?.itemCount ?: 0 > 0) {
+                sizeSelectionSpinner?.setSelection(0)
+                spinnerSelection = sizeSelectionAdapter?.getItem(0)
             } else {
                 spinnerSelection = null
             }
-            if (modifySizeCheckbox != null) {
-                modifySizeCheckbox!!.isChecked = true
-            }
+            modifySizeCheckbox?.isChecked = true
         }
         // Update the text editors
-        sizeNameEdit!!.setText(size.name)
-        sizeEdit!!.setText(NumberUtil.toString(size.volume, parent.resources))
-        if (sizeIconEditorShown && sizeIcon != null)
-            sizeIcon!!.setIcon(size.icon)
+        sizeNameEdit.setText(size.name)
+        sizeEdit.setText(NumberUtil.toString(size.volume, parent.resources))
+        if (sizeIconEditorShown)
+            sizeIcon?.setIcon(size.icon)
     }
 
     private fun populateCustomEditors(size: DrinkSize) {
-        sizeNameEdit!!.setText(size.name)
-        sizeEdit!!.setText(NumberUtil.toString(size.volume, parent.resources))
+        sizeNameEdit.setText(size.name)
+        sizeEdit.setText(NumberUtil.toString(size.volume, parent.resources))
         if (sizeIconEditorShown)
-            sizeIcon!!.setIcon(size.icon)
+            sizeIcon?.setIcon(size.icon)
     }
 
     private fun setSizeSelected(size: DrinkSize) {
         selectedDrinkSize = size
-        sizeEdit!!.setText(NumberUtil.toString(size.volume, parent.resources))
-        sizeNameEdit!!.setText(size.name)
-        if (modifySizeCheckbox != null) {
-            modifySizeCheckbox!!.isChecked = false
+        sizeEdit.setText(NumberUtil.toString(size.volume, parent.resources))
+        sizeNameEdit.setText(size.name)
+        modifySizeCheckbox?.isChecked = false
+        if (sizeIconEditorShown) {
+            sizeIcon?.setIcon(size.icon)
         }
-        if (sizeIconEditorShown && sizeIcon != null)
-            sizeIcon!!.setIcon(size.icon)
         updateSizeEditorEnabling()
     }
 
     private fun updateSizeEditorEnabling() {
         val controlsEnabled = isCustomSizeEditingEnabled
 
-        sizeNameEdit!!.isEnabled = controlsEnabled
-        sizeEdit!!.isEnabled = controlsEnabled
-        if (sizeIconEditorShown && sizeIcon != null) {
-            sizeIcon!!.isEnabled = controlsEnabled
+        sizeNameEdit.isEnabled = controlsEnabled
+        sizeEdit.isEnabled = controlsEnabled
+        if (sizeIconEditorShown) {
+            sizeIcon?.isEnabled = controlsEnabled
         }
     }
 
@@ -244,12 +231,11 @@ class DrinkSizeSelector(
         val sizes = sizeLib.allSizes
 
         sizeSelectionAdapter = TextIconSpinnerAdapter(parent, sizes,
-                Converter { item -> item.getIconText(parent.resources) }, Converter { item -> item.icon })
-        sizeSelectionSpinner!!.adapter = sizeSelectionAdapter
+                Converter { it.getIconText(parent.resources) }, Converter { it.icon })
+        sizeSelectionSpinner?.adapter = sizeSelectionAdapter
     }
 
     companion object {
-
         private val TAG = "DrinkSizeSelector"
     }
 

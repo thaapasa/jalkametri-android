@@ -144,15 +144,14 @@ class EditDrinkDetailsActivity : JalkametriDBActivity(R.string.title_edit_drink_
         }
         private val showTimeSelection = true
         val drinkSizeSelector: DrinkSizeSelector = DrinkSizeSelector(activity, activity.db, true,
-                true).apply {
-            initializeComponents(selection.size)
-        }
+                true, selection.size)
 
         init {
             val okButton = activity.findViewById(R.id.drink_button) as Button
-            val okTitle = extras.getString(KEY_OK_BUTTON_TITLE)
-            if (okTitle != null) {
-                okButton.text = okTitle
+            val okButton2 = activity.findViewById(R.id.drink_button_bottom) as Button
+            extras.getString(KEY_OK_BUTTON_TITLE)?.let {
+                okButton.text = it
+                okButton2.text = it
             }
             activity.invalidateView()
         }
