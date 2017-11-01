@@ -93,6 +93,8 @@ public class CalculatorActivity extends JalkametriActivity {
                 this.volumeEdit.setText(NumberUtil.toString(drink.getSize().getVolume(), res));
             }
         }
+
+        hideSoftKeyboard();
     }
 
     @Override
