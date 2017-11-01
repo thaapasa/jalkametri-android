@@ -5,6 +5,7 @@
     <dimen name="doublePadding">20dp</dimen>
     <dimen name="text_spacing">4dp</dimen>
     <dimen name="label_padding">7dp</dimen>
+    <dimen name="adjust_padding">4dp</dimen>
 
     <dimen name="icon_area_size">80dp</dimen>
 

@@ -6,19 +6,20 @@
     style="@style/fill_parent"
     android:id="@+id/main_view">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <!-- OK button -->
         <Button
             style="@style/btn_drink"
             android:id="@+id/drink_button"
             android:onClick="onOKPressed"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <!-- Drink type selection -->
         <TextView
@@ -29,195 +30,218 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:padding="@dimen/label_padding"/>
 
-        <!-- Drink name -->
-        <EditText
-            style="@style/table_edit"
-            android:gravity="start|center_vertical"
-            android:id="@+id/name_edit"
-            android:text="@string/drink_name_def"
-            android:inputType="text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/drink_title"
-            android:layout_marginTop="@dimen/padding"
-            android:paddingStart="@dimen/label_padding"
-            android:paddingEnd="@dimen/label_padding"/>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!-- Strength -->
-        <Button
-            style="@style/btn_material_design"
-            android:drawableEnd="@drawable/ic_note_plus"
-            android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="showDrinkCalculator"
-            app:layout_constraintLeft_toRightOf="@id/name_edit"
-            app:layout_constraintRight_toLeftOf="@id/strength_edit"
-            app:layout_constraintBottom_toBottomOf="@id/strength_edit"/>
+            <!-- Drink name -->
+            <EditText
+                style="@style/table_edit"
+                android:gravity="start|center_vertical"
+                android:id="@+id/name_edit"
+                android:text="@string/drink_name_def"
+                android:inputType="text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"/>
 
-        <EditText
-            style="@style/table_edit_small"
-            android:id="@+id/strength_edit"
-            android:text="@string/drink_strength_def"
-            android:inputType="numberDecimal"
-            android:maxLength="6"
-            app:layout_constraintTop_toTopOf="@id/name_edit"
-            app:layout_constraintRight_toLeftOf="@+id/unit_text" />
+            <!-- Strength -->
+            <Button
+                style="@style/btn_material_design"
+                android:drawableEnd="@drawable/ic_note_plus"
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="showDrinkCalculator"
+                app:layout_constraintLeft_toRightOf="@+id/name_edit"
+                app:layout_constraintRight_toLeftOf="@+id/strength_edit"
+                app:layout_constraintBottom_toBottomOf="@id/strength_edit"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="-3dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"/>
 
-        <TextView
-            style="@style/unit_text"
-            android:id="@+id/unit_text"
-            android:text="@string/unit_percent"
-            app:layout_constraintBottom_toBottomOf="@+id/strength_edit"
-            app:layout_constraintRight_toRightOf="parent"
-            android:padding="@dimen/label_padding"
-            android:layout_marginBottom="@dimen/text_spacing" />
+            <EditText
+                style="@style/table_edit_small"
+                android:id="@+id/strength_edit"
+                android:text="@string/drink_strength_def"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/unit_text"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"/>
 
-        <!-- Size selection -->
-        <Spinner
-            style="@style/table_widespinner"
-            android:id="@+id/size_selector"
-            app:layout_constraintTop_toBottomOf="@id/strength_edit"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="@dimen/text_spacing"
-            android:layout_marginTop="@dimen/padding" />
+            <TextView
+                style="@style/unit_text"
+                android:id="@+id/unit_text"
+                android:text="@string/unit_percent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/strength_edit"
+                app:layout_constraintBottom_toBottomOf="@+id/strength_edit"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
 
-        <TextView
-            style="@style/table_text"
-            android:id="@+id/size_label"
-            android:text="@string/drink_detail_size"
-            app:layout_constraintBottom_toBottomOf="@id/size_selector"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/padding"
-            android:padding="@dimen/label_padding"/>
+            <!-- Size selection -->
+            <Spinner
+                style="@style/table_widespinner"
+                android:id="@+id/size_selector"
+                app:layout_constraintTop_toBottomOf="@+id/strength_edit"
+                app:layout_constraintRight_toRightOf="parent"
+                android:minHeight="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+            />
 
-        <!-- Size name -->
-        <EditText
-            style="@style/table_edit"
-            android:id="@+id/size_name_edit"
-            android:text="@string/drink_size_name_def"
-            android:gravity="start|center_vertical"
-            android:inputType="text"
-            android:paddingStart="@dimen/label_padding"
-            android:paddingEnd="@dimen/label_padding"
-            app:layout_constraintTop_toBottomOf="@id/size_label"
-            android:layout_marginTop="@dimen/padding"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            <TextView
+                style="@style/table_text"
+                android:id="@+id/size_label"
+                android:text="@string/drink_detail_size"
+                android:paddingStart="@dimen/adjust_padding"
+                android:paddingEnd="@dimen/adjust_padding"
+                app:layout_constraintTop_toBottomOf="@+id/name_edit"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"/>
 
-        <EditText
-            style="@style/table_edit_small"
-            android:id="@+id/size_edit"
-            android:text="@string/drink_size_def"
-            android:inputType="numberDecimal"
-            android:maxLength="6"
-            app:layout_constraintRight_toLeftOf="@+id/unit_liter"
-            app:layout_constraintTop_toBottomOf="@id/size_label"
-            android:layout_marginTop="@dimen/padding"/>
+            <!-- Size name -->
+            <EditText
+                style="@style/table_edit"
+                android:id="@+id/size_name_edit"
+                android:text="@string/drink_size_name_def"
+                android:gravity="start|center_vertical"
+                android:inputType="text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/size_label"/>
 
-        <TextView
-            style="@style/unit_text"
-            android:id="@+id/unit_liter"
-            android:text="@string/unit_liter"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/size_edit"
-            android:layout_marginBottom="@dimen/text_spacing"
-            android:padding="@dimen/label_padding" />
+            <EditText
+                style="@style/table_edit_small"
+                android:id="@+id/size_edit"
+                android:text="@string/drink_size_def"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
+                app:layout_constraintTop_toBottomOf="@+id/size_selector"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintRight_toLeftOf="@+id/unit_liter"
+                android:layout_marginRight="8dp"/>
+
+            <TextView
+                style="@style/unit_text"
+                android:id="@+id/unit_liter"
+                android:text="@string/unit_liter"
+                android:layout_marginRight="16dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/size_edit"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/size_edit"
+                android:layout_marginBottom="8dp"/>
+
+        </android.support.constraint.ConstraintLayout>
 
         <!-- Drinking time -->
         <TextView
             style="@style/subtitle_text"
             android:id="@+id/time_title"
             android:text="@string/drink_detail_time"
-            app:layout_constraintTop_toBottomOf="@+id/size_name_edit"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="match_parent"
             android:layout_marginTop="@dimen/padding"
-            android:padding="@dimen/label_padding"/>
+        />
 
-        <!-- Date -->
-        <EditText
-            android:id="@+id/date_edit"
-            android:text="@string/drink_date_def"
-            android:inputType="date"
-            android:hint="@string/drink_detail_date"
-            android:clickable="true"
-            android:focusable="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/label_padding"
-            android:paddingEnd="@dimen/label_padding"
-            app:layout_constraintTop_toBottomOf="@id/time_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/padding"/>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!-- Time -->
-        <EditText
-            android:id="@+id/time_edit"
-            android:text="@string/drink_time_def"
-            android:hint="@string/drink_detail_time"
-            android:inputType="time"
-            android:clickable="true"
-            android:focusable="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/label_padding"
-            android:paddingEnd="@dimen/label_padding"
-            android:gravity="end|center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/time_title"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/padding"/>
+            <!-- Date -->
+            <EditText
+                android:id="@+id/date_edit"
+                android:text="@string/drink_date_def"
+                android:inputType="date"
+                android:hint="@string/drink_detail_date"
+                android:clickable="true"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp" android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <!-- Comment -->
-        <EditText
-            style="@style/table_edit"
-            android:id="@+id/comment_edit"
-            android:hint="@string/drink_detail_comment_hint"
-            android:paddingStart="@dimen/label_padding"
-            android:paddingEnd="@dimen/label_padding"
-            app:layout_constraintTop_toBottomOf="@id/date_edit"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/padding"/>
+            <!-- Time -->
+            <EditText
+                android:id="@+id/time_edit"
+                android:text="@string/drink_time_def"
+                android:hint="@string/drink_detail_time"
+                android:inputType="time"
+                android:clickable="true"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end|center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp" android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            style="@style/table_text"
-            android:text="@string/drink_detail_comment"
-            android:labelFor="@id/comment_edit"
-            app:layout_constraintBottom_toBottomOf="@id/comment_edit"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:padding="@dimen/label_padding"
-            android:layout_marginBottom="@dimen/text_spacing"/>
+            <!-- Comment -->
+            <EditText
+                style="@style/table_edit"
+                android:id="@+id/comment_edit"
+                android:hint="@string/drink_detail_comment_hint"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/time_edit"/>
 
-        <!-- Icon -->
-        <TextView
-            style="@style/table_text"
-            android:text="@string/drink_detail_icon"
-            app:layout_constraintBottom_toBottomOf="@id/icon"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:padding="@dimen/label_padding"/>
+            <TextView
+                style="@style/table_text"
+                android:text="@string/drink_detail_comment"
+                android:labelFor="@id/comment_edit"
+                android:paddingStart="@dimen/adjust_padding"
+                android:paddingEnd="@dimen/adjust_padding"
+                app:layout_constraintTop_toTopOf="@+id/comment_edit" android:layout_marginTop="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/comment_edit" android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp" app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <fi.tuska.jalkametri.gui.IconView
-            style="@style/table_icon"
-            android:id="@+id/icon"
-            android:src="@drawable/ic_drink_generic"
-            android:clickable="true"
-            android:onClick="onClickIcon"
-            app:layout_constraintTop_toBottomOf="@id/comment_edit"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/padding"
-            android:layout_marginEnd="@dimen/padding"/>
+            <!-- Icon -->
+            <TextView
+                style="@style/table_text"
+                android:text="@string/drink_detail_icon"
+                android:layout_marginLeft="8dp"
+                android:paddingStart="@dimen/adjust_padding"
+                android:paddingEnd="@dimen/adjust_padding"
+                app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintTop_toTopOf="@+id/icon"
+                android:layout_marginTop="8dp" app:layout_constraintBottom_toBottomOf="@+id/icon"
+                android:layout_marginBottom="8dp"/>
 
-        <!-- OK button -->
-        <Button
-            style="@style/btn_drink"
-            android:id="@+id/drink_button_bottom"
-            android:onClick="onOKPressed"
-            android:layout_width="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/padding"
-            android:layout_marginBottom="@dimen/padding"/>
+            <fi.tuska.jalkametri.gui.IconView
+                style="@style/table_icon"
+                android:id="@+id/icon"
+                android:src="@drawable/ic_drink_generic"
+                android:clickable="true"
+                android:onClick="onClickIcon"
+                android:layout_marginRight="16dp" app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/comment_edit"/>
 
-    </android.support.constraint.ConstraintLayout>
+            <!-- OK button -->
+            <Button
+                style="@style/btn_drink"
+                android:id="@+id/drink_button_bottom"
+                android:onClick="onOKPressed"
+                android:layout_width="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/icon"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/padding"
+                android:layout_marginBottom="@dimen/padding"/>
 
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>
