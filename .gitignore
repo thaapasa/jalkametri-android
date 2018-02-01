@@ -10,3 +10,4 @@ PrivateData.*
 /build
 /gradle
 *.apk
+/local.properties
